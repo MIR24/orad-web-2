@@ -1,0 +1,1128 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"em",
+				"empty"
+			],
+			[
+				"mo",
+				"mobile"
+			],
+			[
+				"bui",
+				"buildPath"
+			],
+			[
+				"for",
+				"foreach\tforeach …"
+			],
+			[
+				"ca",
+				"cache"
+			],
+			[
+				"su",
+				"superTag"
+			],
+			[
+				"const",
+				"constants"
+			],
+			[
+				"ret",
+				"return"
+			],
+			[
+				"is_a",
+				"is_array"
+			],
+			[
+				"re",
+				"requests"
+			],
+			[
+				"R",
+				"Route"
+			],
+			[
+				"fun",
+				"fun\tfunction …"
+			],
+			[
+				"s",
+				"schema"
+			],
+			[
+				"ur",
+				"urlSlug"
+			],
+			[
+				"con",
+				"config"
+			],
+			[
+				"pa",
+				"pageNum"
+			],
+			[
+				"c",
+				"config"
+			],
+			[
+				"getTa",
+				"getTagsService"
+			],
+			[
+				"meta",
+				"metaUrl"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"calc",
+				"calcPercent"
+			],
+			[
+				"get_class",
+				"get_class_methods"
+			],
+			[
+				"end",
+				"endif"
+			],
+			[
+				"qu",
+				"query"
+			],
+			[
+				"a",
+				"author"
+			],
+			[
+				"preg_re",
+				"preg_replace_callback"
+			],
+			[
+				"cre",
+				"created_at"
+			],
+			[
+				"get_cla",
+				"get_class_vars"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"im",
+				"important"
+			],
+			[
+				"font-s",
+				"font-size"
+			],
+			[
+				"sitema",
+				"sitemap"
+			],
+			[
+				"article",
+				"article"
+			],
+			[
+				"get_def",
+				"get_defined_vars"
+			],
+			[
+				"ta",
+				"tableMap"
+			],
+			[
+				"d",
+				"div\tTag"
+			],
+			[
+				"tot",
+				"totalVotes"
+			],
+			[
+				"coo",
+				"cookieValue"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"onc",
+				"onclick\tAttr"
+			],
+			[
+				"pu",
+				"public"
+			],
+			[
+				"Poll",
+				"getPollById"
+			],
+			[
+				"arr",
+				"array_merge"
+			],
+			[
+				"ma",
+				"margin"
+			],
+			[
+				"ifr",
+				"iframes"
+			],
+			[
+				"va",
+				"value"
+			],
+			[
+				"f",
+				"foreach\tforeach …"
+			],
+			[
+				"get_cl",
+				"get_class_methods"
+			],
+			[
+				"cropa",
+				"cropable_type"
+			],
+			[
+				"w",
+				"where"
+			],
+			[
+				"getA",
+				"getAuthor"
+			],
+			[
+				"footer",
+				"footer_top"
+			],
+			[
+				"la",
+				"layout"
+			],
+			[
+				"text-a",
+				"text-align"
+			],
+			[
+				"js",
+				"json_encode"
+			],
+			[
+				"e",
+				"else"
+			],
+			[
+				"th",
+				"this"
+			],
+			[
+				"r",
+				"r"
+			],
+			[
+				"Sph",
+				"SphinxSearch"
+			],
+			[
+				"where",
+				"whereNull"
+			],
+			[
+				"g",
+				"grid"
+			],
+			[
+				"v",
+				"value"
+			],
+			[
+				"var",
+				"var_dump"
+			],
+			[
+				"Ca",
+				"Carbon"
+			],
+			[
+				"Cache",
+				"cache_lists"
+			],
+			[
+				"as",
+				"asidePartialName"
+			],
+			[
+				"if",
+				"if\tif …"
+			],
+			[
+				"P",
+				"Presenter"
+			],
+			[
+				"it",
+				"itemFirst"
+			],
+			[
+				"fi",
+				"first"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"Pla",
+				"Playlist"
+			],
+			[
+				"is_",
+				"is_numeric"
+			],
+			[
+				"play",
+				"playlist"
+			],
+			[
+				"upl",
+				"uploadFile"
+			],
+			[
+				"tmp",
+				"tmpCrop"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"get",
+				"get_class"
+			],
+			[
+				"margi",
+				"margin-top"
+			],
+			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"fon",
+				"font-weight"
+			],
+			[
+				"u",
+				"ul\tTag"
+			],
+			[
+				"inl",
+				"inline"
+			],
+			[
+				"inli",
+				"inline-block"
+			],
+			[
+				"get_c",
+				"get_class_vars"
+			],
+			[
+				"wh",
+				"whitespace"
+			],
+			[
+				"publi",
+				"published_at"
+			],
+			[
+				"is",
+				"is_null"
+			],
+			[
+				"whe",
+				"where"
+			],
+			[
+				"fo",
+				"foreach\tforeach …"
+			],
+			[
+				"or",
+				"orderBy"
+			],
+			[
+				"array_p",
+				"array_push"
+			],
+			[
+				"tag",
+				"tagMass"
+			],
+			[
+				"en",
+				"entity_type"
+			],
+			[
+				"A",
+				"Author"
+			],
+			[
+				"in",
+				"inter"
+			],
+			[
+				"CR",
+				"CREATEDB"
+			],
+			[
+				"b",
+				"bg"
+			],
+			[
+				"La",
+				"LayoutMain"
+			],
+			[
+				"Co",
+				"Contribution"
+			],
+			[
+				"mode",
+				"model"
+			],
+			[
+				"M",
+				"contribution_moderation"
+			],
+			[
+				"da",
+				"data"
+			],
+			[
+				"З",
+				"Заявитель"
+			],
+			[
+				"to",
+				"toDoList"
+			],
+			[
+				"find",
+				"findFirst"
+			],
+			[
+				"t",
+				"table"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"ar",
+				"array"
+			],
+			[
+				"br",
+				"br"
+			],
+			[
+				"sq",
+				"sqlRows"
+			],
+			[
+				"div",
+				"div\tTag"
+			],
+			[
+				"mi",
+				"minAge"
+			],
+			[
+				"co",
+				"cookies"
+			],
+			[
+				"vot",
+				"votedAt"
+			],
+			[
+				"els",
+				"else"
+			],
+			[
+				"setco",
+				"setcookie"
+			],
+			[
+				"pro",
+				"props\tReact: this.props."
+			],
+			[
+				"n",
+				"nextProps"
+			],
+			[
+				"new",
+				"newValue"
+			],
+			[
+				"on",
+				"onClick"
+			],
+			[
+				"ha",
+				"handleBlur"
+			],
+			[
+				"han",
+				"handleChange"
+			],
+			[
+				"button",
+				"button"
+			],
+			[
+				"arch",
+				"archive"
+			],
+			[
+				"st",
+				"status"
+			],
+			[
+				"ech",
+				"echo"
+			],
+			[
+				"order",
+				"order1"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/home/akonshin/www/<V>",
+			"settings":
+			{
+				"buffer_size": 5888,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 281.0,
+		"last_filter": "PHP Code Sniffer: ",
+		"selected_items":
+		[
+			[
+				"PHP Code Sniffer: ",
+				"PHP Code Sniffer: Switch coding standard"
+			],
+			[
+				"Package Control: re",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"menu",
+				"View: Toggle Menu"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 583.0
+	},
+	"console":
+	{
+		"height": 925.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/akonshin/www/orad-web-2"
+	],
+	"file_history":
+	[
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/layouts/mainLayoutGreen.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Helpers/Helper.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/social_share/social_share.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Http/routes.php",
+		"/home/akonshin/www/<V>",
+		"/home/akonshin/www/mir24-base-frontend-server/.env.example",
+		"/home/akonshin/www/orad-web-2/blog/.gitignore",
+		"/home/akonshin/www/orad-web-2/.gitignore",
+		"/home/akonshin/www/orad-web-2/blog/composer.json",
+		"/home/akonshin/www/orad-web-2/blog/package.json",
+		"/home/akonshin/Documents/not_passwords.txt",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/news/newsPage.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Http/Middleware/CachePage.php",
+		"/home/akonshin/www/mir24-base-frontend-server/config/importanttags.php",
+		"/home/akonshin/www/mir24-base-frontend-server/config/constants.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Tag.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Grid.php",
+		"/home/akonshin/www/docs/front/mobile.rst",
+		"/home/akonshin/www/docs/front/lists.rst",
+		"/home/akonshin/www/docs/index.rst",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/layouts_partials/footer.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/config/app.php",
+		"/home/akonshin/www/backend-client/backend-update.sh",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/columns/teleshowColumnPage.blade.php",
+		"/home/akonshin/www/backend-client/src/app/utils/UserApi.js",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Http/Controllers/TeleshowController.php",
+		"/home/akonshin/www/backend-client/webpack-production.config.js",
+		"/home/akonshin/.bashrc",
+		"/home/akonshin/www/mir24-base-frontend-server/config/sphinxsearch.php",
+		"/home/akonshin/www/mir24-base-frontend-server/public/js/article.js",
+		"/home/akonshin/www/docs/prog_attach/index.rst",
+		"/home/akonshin/www/docs/README.rst",
+		"/home/akonshin/www/docs/airing.rst",
+		"/home/akonshin/www/docs/README.md",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Http/Controllers/NewsController.php",
+		"/home/akonshin/www/mir24-base-frontend-server/flush.sh",
+		"/home/akonshin/www/mir24-base-frontend-server/.env",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/mobile/newsPage.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/layouts/detailLayoutWhite.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/vendor/laravel/framework/src/Illuminate/View/View.php",
+		"/home/akonshin/www/mir24-base-frontend-server/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php",
+		"/home/akonshin/www/mir24-base-frontend-server/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php",
+		"/home/akonshin/www/mir24-base-frontend-server/database/migrations/2018_08_09_150516_add_channel_tag.php",
+		"/home/akonshin/www/mir24-base-frontend-server/config/customization.php",
+		"/home/akonshin/www/mir24-base-frontend-server/package.json",
+		"/home/akonshin/www/mir24-base-frontend-server/composer.json",
+		"/home/akonshin/Downloads/wifirss.xml",
+		"/home/akonshin/www/mir24-base-frontend-server/database/migrations/2018_05_24_172532_remove_programs.php",
+		"/home/akonshin/www/mir24-base-frontend-server/config/excel.php",
+		"/home/akonshin/www/mir24-base-frontend-server/.gitignore",
+		"/home/akonshin/www/mir24-base-backend-server/public/index.html",
+		"/home/akonshin/www/backend-client/src/www/main.css",
+		"/home/akonshin/www/backend-client/src/templates/index.template",
+		"/home/akonshin/www/backend-client/backend-update.sh.example",
+		"/home/akonshin/www/mir24-base-backend-server/public/5f0917f2425be0d78677bac1f45a5289fe00ea19.bundle.min.css",
+		"/home/akonshin/www/backend-client/webpack-dev-server.config.js",
+		"/home/akonshin/www/backend-client/src/www/_preview.css",
+		"/home/akonshin/www/backend-client/src/www/detail.css",
+		"/home/akonshin/www/backend-client/package.json",
+		"/home/akonshin/www/mir24-base-frontend-server/config/push.php",
+		"/home/akonshin/www/mir24-base-frontend-server/public/service-worker.js",
+		"/home/akonshin/www/mir24-base-frontend-server/public/js/push.js",
+		"/home/akonshin/www/mir24-base-frontend-server/config/organization.php",
+		"/home/akonshin/www/mir24-base-frontend-server/public/OneSignalSDKUpdaterWorker.js",
+		"/home/akonshin/www/mir24-base-frontend-server/public/OneSignalSDKWorker.js",
+		"/home/akonshin/www/mir24-base-frontend-server/public/manifest.json",
+		"/home/akonshin/www/mir24-base-frontend-server/config/email.php",
+		"/home/akonshin/www/mir24-base-frontend-server/config/mail.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Http/Controllers/FormController.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Console/Commands/WarmCache.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/News.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/AMP/layout.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/gulpfile.js",
+		"/home/akonshin/www/mir24-base-frontend-server/config/cache.php",
+		"/home/akonshin/www/mir24-base-frontend-server/comp.txt",
+		"/home/akonshin/www/mir24-base-backend-server/app/News.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/mobile/newsPageMore.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/news/newsPageMore.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/public/css/header.css",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/rss-yandex.blade.php",
+		"/home/akonshin/www/mir24-base-backend-server/app/Helpers/Helper.php",
+		"/home/akonshin/log.txt",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Http/Controllers/RssController.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/rss/anews.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Http/Controllers/ColumnController.php",
+		"/home/akonshin/www/mir24-base-backend-server/app/Console/Commands/ImageConsume.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/news/newsListByShowTag.blade.php",
+		"/home/akonshin/www/MIP/.env",
+		"/home/akonshin/www/mir24-base-frontend-server/vendor/roumen/feed/src/Roumen/Feed/Feed.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/rss/msn.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/public/js/core.js",
+		"/home/akonshin/www/mir24-base-frontend-server/public/js/nav.js",
+		"/home/akonshin/www/mir24-base-frontend-server/vendor/laravel/framework/src/Illuminate/Mail/MailServiceProvider.php",
+		"/home/akonshin/www/mir24-base-frontend-server/vendor/laravel/framework/src/Illuminate/Mail/TransportManager.php",
+		"/home/akonshin/www/mir24-base-frontend-server/public/css/style.css",
+		"/home/akonshin/www/mir24-base-frontend-server/app/SchemaInstance.php",
+		"/home/akonshin/www/mir24-base-frontend-server/storage/framework/views/f02960487a6a0717c9dc615863542051dcbd507c.php",
+		"/home/akonshin/www/mir24-base-backend-server/app/Console/Commands/TranscoderCheck.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Http/Controllers/YandexVideoController.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/rss/yandex-video-sitemap.blade.php",
+		"/home/akonshin/Downloads/default/tools/gulpfile.js",
+		"/home/akonshin/Downloads/default/tools/conf/default.json",
+		"/home/akonshin/www/MIP/webpack.mix.js",
+		"/etc/apache2/sites-available/local-stack.conf",
+		"/home/akonshin/www/MIP/MIP/.gitignore",
+		"/home/akonshin/www/MIP/.gitignore",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/columns/columnPage.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/columns/adjectiveColumnPage.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/news/newsList.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/news/newsListByAuthor.blade.php",
+		"/home/akonshin/www/FVOTE/config/filesystems.php",
+		"/home/akonshin/www/FVOTE/config/tinker.php",
+		"/home/akonshin/www/FVOTE/.env",
+		"/etc/apache2/sites-enabled/local-stack.conf",
+		"/home/akonshin/www/mir24-base-frontend-server/database/migrations/2018_04_19_154612_add_ingrid_spot.php",
+		"/home/akonshin/www/mir24-base-frontend-server/database/migrations/2018_04_12_222117_initiate_ads.php",
+		"/home/akonshin/www/mir24-base-frontend-server/database/migrations/2018_04_12_115658_remove_unused_tables.php",
+		"/home/akonshin/www/mir24-base-frontend-server/config/amp-ads.php",
+		"/home/akonshin/www/mir24-base-backend-server/app/Console/Commands/NewsAuthorAdd.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/CacheStatus.php",
+		"/home/akonshin/www/mir24-base-backend-server/app/Console/Kernel.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/CacheType.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/CacheList.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/indexes/index.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/topics/topicDetail.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/resources/views/news/newsListByTag.blade.php",
+		"/home/akonshin/www/mir24-base-frontend-server/app/Video.php",
+		"/home/akonshin/www/mir24-base-backend-server/config/constants.php"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 214.0,
+		"where_history":
+		[
+			"/home/akonshin/www/mir24-base-frontend-server/resources/views",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"yarn-error",
+			"vagrant",
+			"vscode",
+			"idea",
+			"node_modules",
+			"/public/hot",
+			"node_modules",
+			"nextArticle",
+			"fr",
+			"FR",
+			"nextArticle",
+			"$layout",
+			"array(1)",
+			"renderContents",
+			"first(",
+			"Tag::getChannelTagByTranslateTitle($origin);",
+			">>>",
+			"getRecent",
+			"exports",
+			"find",
+			"TransferWebpackPlugin",
+			"HtmlWebpackPlugin",
+			"../",
+			"rules",
+			"ExtractTextPlugin",
+			"css",
+			"%>\">",
+			"admin@mip.news",
+			"getRecent",
+			"Helper",
+			"Helper::",
+			"OneS",
+			"push.js",
+			"mirtv\n",
+			"mirtv",
+			"phpoffice/phpexcel",
+			"dd",
+			"$view",
+			"viewStoreTypes",
+			"$promises",
+			"$this->client",
+			"NEED_WARM",
+			"$request",
+			"$view",
+			"cache",
+			"mirtv\n",
+			"mirtv",
+			"' '",
+			"MIRSCR",
+			"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'http://mir24.tv/sport/super/list/filter/all' for key 'cache_lists_cache_key_unique'",
+			"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'http://mir24.tv/topic/4529740' for key 'cache_lists_cache_key_unique'",
+			"reloadMediator",
+			" +",
+			"keyw",
+			"auth",
+			"postcontent",
+			"isScrolledIntoView",
+			"canonical",
+			"author",
+			"autho",
+			"news",
+			">id",
+			"id",
+			";",
+			"{",
+			"pubDate",
+			"$superTags",
+			"Swift_Mailer",
+			"others",
+			"social-l",
+			"mirtv\n",
+			"mirtv",
+			"dev",
+			"-cus",
+			">>>>>>>",
+			"getTagsSuper",
+			"superTags",
+			"public",
+			"\n",
+			"\npublic",
+			"\n",
+			"/uploaded",
+			"1015737",
+			"$imageAuthor",
+			"getTagsSuper",
+			"modified",
+			"mirtv",
+			"nt get Platformcraft transcoder resp",
+			"pubdate",
+			"rss-",
+			"rss-yandex-video-sitemap-index",
+			"rss-yandex-video-single-xml-feed",
+			"'rss-google-newsstand'",
+			"'rss-google-feed'",
+			"'rss-rambler'",
+			"'rss-gismeteo'",
+			"'rss-flipboard'",
+			"'rss-yandex-turbo'",
+			"'rss-yandex-dzen'",
+			"'rss-yandex'",
+			"rss-yandex",
+			"link",
+			"rssLink",
+			"lang",
+			"names",
+			"$schemaModels)",
+			"column",
+			"columnByAdjectives",
+			"column(",
+			"column",
+			"columnByAdjectives",
+			"$cur_adjective",
+			"page",
+			"newsList",
+			"newsListByShowTag",
+			"show-more",
+			"nofo",
+			"releases",
+			"'buttonId' =>",
+			"newsList",
+			"pagin",
+			"list",
+			"columnByAdjectives",
+			"mirtv",
+			"metaTitle",
+			"layoutName",
+			"column",
+			"\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"' => '",
+			"https://mir24tv.atlassian.net/browse/MIRSCR",
+			"",
+			"\n{",
+			"{\n",
+			"",
+			" ",
+			" public",
+			" ",
+			"public/uploaded",
+			"\n\n",
+			", ",
+			" ",
+			", ",
+			" ",
+			"",
+			"),\n(",
+			"\nhttps://mir24.tv/news/",
+			"'",
+			"",
+			"view",
+			", ",
+			"https://mir24tv.atlassian.net/browse/MIR24",
+			"https://mir24tv.atlassian.net/browse/MIRSCR",
+			", ",
+			"mir24.tv",
+			"abc.com",
+			"mir24.tv",
+			",\n",
+			"",
+			"\"active\"",
+			", 4459785, 'active', (select published_at from news where id =))",
+			"), (",
+			", ",
+			"mir24.tv",
+			",",
+			"),(",
+			",",
+			",\n",
+			"\n",
+			"",
+			"abc.com",
+			"run-app.php",
+			"poll",
+			"pagination",
+			"mysite.com",
+			"mysite",
+			"cdnApiId",
+			"mir24_back_article",
+			"mir24_back_photo",
+			"mir24_back_all",
+			"mir24_back_news",
+			"mir24_front_all",
+			"\n[",
+			"[\n",
+			"\n}",
+			"{\n",
+			"Paginator",
+			",\n(",
+			"\n[",
+			"list_crop",
+			"a.ru",
+			"azaza.ru",
+			"",
+			"$filePathMeta",
+			"filePath)",
+			"filePath ",
+			"><",
+			".",
+			": URL::asset('demo-files/shape-10.jpg')",
+			"Three",
+			"items",
+			"\n",
+			"column",
+			"postBlock25",
+			"postBlock",
+			"$news",
+			"News",
+			" && ",
+			"зарегистрировать",
+			"and",
+			"findFirst",
+			"put",
+			"(post) add",
+			"(put) update",
+			"(post) update",
+			"(get) getList",
+			"getList",
+			"(get) get",
+			"`root`@`localhost`",
+			"root`@`localhost",
+			"root",
+			"konkurs.mir24.tv",
+			"$",
+			"Archieve",
+			"http://dev-fotobank.mirtv.ru",
+			"dir\"]",
+			"order[\"dir1\"]",
+			"order[\"order1\"]",
+			"order[\"order\"]",
+			"order[\"way\"]",
+			"order[\"order\"]",
+			"order[\"dir1\"]",
+			"order[\"order1\"]",
+			"$urlFragments",
+			"$sortQuery",
+			"[",
+			"dir",
+			"",
+			"[",
+			"$this->request->getQuery()",
+			"$this->view->order_ar"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/home/akonshin/www/<V>",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5888,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								235,
+								235
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "ORAD-WEB-2.sublime-project",
+	"replace":
+	{
+		"height": 58.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/www/MIP/MIP.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 290.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
