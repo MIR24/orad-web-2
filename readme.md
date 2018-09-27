@@ -36,5 +36,5 @@ http://127.0.0.1:8000/
 
 Для последующих сборок можно использовать команду:
 ```bash
-$ git pull && composer update && php artisan migrate && npm install && gulp
+git pull && composer update && php artisan migrate && npm install && gulp
 ```
