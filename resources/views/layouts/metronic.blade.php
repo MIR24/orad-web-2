@@ -12,14 +12,15 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
 License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
 -->
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
     <!-- begin::Head -->
     <head>
         <meta charset="utf-8" />
-        <title>Metronic | Dashboard</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
         <meta name="description" content="Latest updates and statistic charts">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!--begin::Web font -->
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
@@ -37,28 +38,28 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--end::Web font -->
 
         <!--begin::Page Vendors Styles -->
-        <link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+        <!--<link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />-->
 
         <!--RTL version:<link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
         <!--end::Page Vendors Styles -->
 
         <!--begin::Base Styles -->
-        <link href="assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
 
         <!--RTL version:<link href="assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
-        <link href="assets/demo/demo8/base/style.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/demo/demo8/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 
         <!--RTL version:<link href="assets/demo/demo8/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
         <!--end::Base Styles -->
-        <link rel="shortcut icon" href="assets/demo8/demo/media/img/logo/favicon.ico" />
+        <link rel="shortcut icon" href="{{ asset('assets/demo8/demo/media/img/logo/favicon.ico') }}" />
     </head>
 
     <!-- end::Head -->
 
     <!-- begin::Body -->
-    <body style="background-image: url(assets/app/media/img/bg/bg-7.jpg)" class="m-page--fluid m-page--loading-enabled m-page--loading m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default">
+    <body style="background-image: url({{ asset('assets/app/media/img/bg/bg-7.jpg') }})" class="m-page--fluid m-page--loading-enabled m-page--loading m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default">
 
         <!-- begin::Page loader -->
         <div class="m-page-loader m-page-loader--base">
@@ -86,8 +87,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
                                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
                                         <a href="index.html" class="m-brand__logo-wrapper">
-                                            <img alt="" src="assets/demo/demo8/media/img/logo/logo.png" class="m-brand__logo-default" />
-                                            <img alt="" src="assets/demo/demo8/media/img/logo/logo_inverse.png" class="m-brand__logo-inverse" />
+                                            <img alt="{{ config('app.name', 'Laravel') }}" src="{{ asset('assets/demo/demo8/media/img/logo/logo.png') }}" class="m-brand__logo-default" />
+                                            <img alt="{{ config('app.name', 'Laravel') }}" src="{{ asset('assets/demo/demo8/media/img/logo/logo_inverse.png') }}" class="m-brand__logo-inverse" />
                                         </a>
                                     </div>
                                     <div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -112,98 +113,19 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!-- end::Brand -->
 
                             <!-- begin::Topbar -->
+
                             <div class="m-stack__item m-stack__item--right m-header-head" id="m_header_nav">
                                 <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
                                     <div class="m-stack__item m-topbar__nav-wrapper">
                                         <ul class="m-topbar__nav m-nav m-nav--inline">
-                                            <li class="m-nav__item m-topbar__user-profile  m-dropdown m-dropdown--medium m-dropdown--arrow  m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
-                                                <a href="#" class="m-nav__link m-dropdown__toggle">
-                                                    <span class="m-topbar__userpic">
-                                                        <img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless m--img-centered" alt="" />
-                                                    </span>
-                                                    <span class="m-nav__link-icon m-topbar__usericon  m--hide">
-                                                        <span class="m-nav__link-icon-wrapper">
-                                                            <i class="flaticon-user-ok"></i>
-                                                        </span>
-                                                    </span>
-                                                    <span class="m-topbar__username m--hide">Nick</span>
-                                                </a>
-                                                <div class="m-dropdown__wrapper">
-                                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-                                                    <div class="m-dropdown__inner">
-                                                        <div class="m-dropdown__header m--align-center">
-                                                            <div class="m-card-user m-card-user--skin-light">
-                                                                <div class="m-card-user__pic">
-                                                                    <img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="" />
-                                                                </div>
-                                                                <div class="m-card-user__details">
-                                                                    <span class="m-card-user__name m--font-weight-500">Mark Andre</span>
-                                                                    <a href="" class="m-card-user__email m--font-weight-300 m-link">mark.andre@gmail.com</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="m-dropdown__body">
-                                                            <div class="m-dropdown__content">
-                                                                <ul class="m-nav m-nav--skin-light">
-                                                                    <li class="m-nav__section m--hide">
-                                                                        <span class="m-nav__section-text">Section</span>
-                                                                    </li>
-                                                                    <li class="m-nav__item">
-                                                                        <a href="profile.html" class="m-nav__link">
-                                                                            <i class="m-nav__link-icon flaticon-profile-1"></i>
-                                                                            <span class="m-nav__link-title">
-                                                                                <span class="m-nav__link-wrap">
-                                                                                    <span class="m-nav__link-text">My Profile</span>
-                                                                                    <span class="m-nav__link-badge">
-                                                                                        <span class="m-badge m-badge--success">2</span>
-                                                                                    </span>
-                                                                                </span>
-                                                                            </span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="m-nav__item">
-                                                                        <a href="profile.html" class="m-nav__link">
-                                                                            <i class="m-nav__link-icon flaticon-share"></i>
-                                                                            <span class="m-nav__link-text">Activity</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="m-nav__item">
-                                                                        <a href="profile.html" class="m-nav__link">
-                                                                            <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                            <span class="m-nav__link-text">Messages</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="m-nav__separator m-nav__separator--fit">
-                                                                    </li>
-                                                                    <li class="m-nav__item">
-                                                                        <a href="profile.html" class="m-nav__link">
-                                                                            <i class="m-nav__link-icon flaticon-info"></i>
-                                                                            <span class="m-nav__link-text">FAQ</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="m-nav__item">
-                                                                        <a href="profile.html" class="m-nav__link">
-                                                                            <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                                                                            <span class="m-nav__link-text">Support</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="m-nav__separator m-nav__separator--fit">
-                                                                    </li>
-                                                                    <li class="m-nav__item">
-                                                                        <a href="snippets/pages/user/login-1.html" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            @include('layouts.partials.user-profile')
                                         </ul>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- end::Topbar -->
+
                         </div>
                     </div>
                 </div>
@@ -1091,7 +1013,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="m-messenger__wrapper">
                                     <div class="m-messenger__message m-messenger__message--in">
                                         <div class="m-messenger__message-pic">
-                                            <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                            <img src="{{ asset('assets/app/media/img//users/user3.jpg') }}" alt="" />
                                         </div>
                                         <div class="m-messenger__message-body">
                                             <div class="m-messenger__message-arrow"></div>
@@ -1121,7 +1043,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="m-messenger__wrapper">
                                     <div class="m-messenger__message m-messenger__message--in">
                                         <div class="m-messenger__message-pic">
-                                            <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                            <img src="{{ asset('assets/app/media/img//users/user3.jpg') }}" alt="" />
                                         </div>
                                         <div class="m-messenger__message-body">
                                             <div class="m-messenger__message-arrow"></div>
@@ -1152,7 +1074,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="m-messenger__wrapper">
                                     <div class="m-messenger__message m-messenger__message--in">
                                         <div class="m-messenger__message-pic">
-                                            <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                            <img src="{{ asset('assets/app/media/img//users/user3.jpg') }}" alt="" />
                                         </div>
                                         <div class="m-messenger__message-body">
                                             <div class="m-messenger__message-arrow"></div>
@@ -1225,7 +1147,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="m-messenger__wrapper">
                                     <div class="m-messenger__message m-messenger__message--in">
                                         <div class="m-messenger__message-pic">
-                                            <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                            <img src="{{ asset('assets/app/media/img//users/user3.jpg') }}" alt="" />
                                         </div>
                                         <div class="m-messenger__message-body">
                                             <div class="m-messenger__message-arrow"></div>
@@ -1543,18 +1465,18 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- end::Scroll Top -->
 
         <!--begin::Base Scripts -->
-        <script src="assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
-        <script src="assets/demo/demo8/base/scripts.bundle.js" type="text/javascript"></script>
+        <script src="{{ asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/demo/demo8/base/scripts.bundle.js') }}" type="text/javascript"></script>
 
         <!--end::Base Scripts -->
 
         <!--begin::Page Vendors Scripts -->
-        <script src="assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
+        <!--<script src="assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>-->
 
         <!--end::Page Vendors Scripts -->
 
         <!--begin::Page Snippets -->
-        <script src="assets/app/js/dashboard.js" type="text/javascript"></script>
+        <script src="{{ asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
 
         <!--end::Page Snippets -->
 
