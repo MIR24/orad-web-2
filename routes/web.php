@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('dummy'); // return view('welcome');
 });
+
+Auth::routes();
