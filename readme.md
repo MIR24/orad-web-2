@@ -20,9 +20,7 @@ git clone git@github.com:MIR24/orad-web-2.git
 cd orad-web-2/
 git checkout develop
 cp .env.example .env
-```
-Внести настройки в конфигурационный файл .env
-```bash
+#Внести настройки в конфигурационный файл .env
 composer update
 php artisan migrate
 php artisan key:generate
