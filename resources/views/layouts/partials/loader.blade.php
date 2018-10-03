@@ -2,7 +2,7 @@
     <div class="m-blockui">
         <span>Please wait...</span>
         <span>
-                    <div class="m-loader m-loader--brand"></div>
-                </span>
+            <div class="m-loader m-loader--brand"></div>
+        </span>
     </div>
 </div>
