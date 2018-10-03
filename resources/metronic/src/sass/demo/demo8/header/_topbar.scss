@@ -170,15 +170,6 @@
 
     //== Mobile & tablet mode
     @include tablet-and-mobile {
-        .m-header-head {
-            display: none !important;
-
-            .m-topbar--on & {
-                display: block !important;   
-                z-index: 3;
-            } 
-        }
-
         .m-topbar {
             transition: array-get($layout, toggle, transition);            
             display: none !important;
