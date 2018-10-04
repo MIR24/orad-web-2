@@ -9,10 +9,4 @@
         <a href="#">Справка</a>
         @include('layouts.partials.user-profile')
     </nav>
-    <nav id="mobile" class="mobile_nav">
-        <a href="#">Управление</a>
-        <a href="#">Настройки</a>
-        <a href="#">Справка</a>
-    </nav>
-
 </header>

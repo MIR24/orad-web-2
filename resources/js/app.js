@@ -16,6 +16,9 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('app', require('./components/app'));
+Vue.component('sections', require('./components/Sections.vue'));
+Vue.component('mobile-sections', require('./components/MobileSections.vue'));
 
 const app = new Vue({
     el: '#app'

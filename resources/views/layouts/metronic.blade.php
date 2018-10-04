@@ -63,20 +63,15 @@ License: You must have a valid license purchased only from themeforest(the above
     <body style="background-image: url({{ asset('assets/app/media/img/bg/bg-7.jpg') }})" class="m-page--fluid m-page--loading-enabled m-page--loading m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default">
 
         @include('layouts.partials.loader')
-
         <!-- begin:: Page -->
-        <div class="m-grid m-grid--hor m-grid--root m-page">
-            @include('layouts.partials.header')
-            @include('layouts.partials.sections')
-            <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop m-page__container m-body">
-                <div class="m-grid__item m-grid__item--fluid m-wrapper">
-                    @yield('content')
-                </div>
+        <div id="app">
+            <div class="m-grid m-grid--hor m-grid--root m-page">
+                @include('layouts.partials.header')
+                <app></app>
+                @include('layouts.partials.footer')
             </div>
-            @include('layouts.partials.footer')
-
-            <!-- end::Footer -->
         </div>
+
         <!-- end:: Page -->
 
         <!-- begin::Scroll Top -->
@@ -99,7 +94,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <!--begin::Page Snippets -->
         <script src="{{ asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/app/js/app.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 
         <!--end::Page Snippets -->
 
