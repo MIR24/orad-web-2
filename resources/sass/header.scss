@@ -6,14 +6,24 @@ header {
 }
 #menu_btn {
   position: absolute;
-  width: 65px;
-  height: 100%;
+  width: 40px;
+  top: 19px;
+  left: 35px;
+  height: 35px;
   text-align: center;
   font-size: 35px;
-  line-height: 73px;
+  line-height: 8px;
   color: #fff;
   display: none;
   cursor: pointer;
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+}
+#menu_btn > span {
+  width: 100%;
+  height: 5px;
+  background-color: #fff;
+  display: inline-block;
 }
 a.logo {
   height: 80%;

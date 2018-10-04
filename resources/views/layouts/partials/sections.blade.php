@@ -6,4 +6,5 @@
         <li>Бегущая строка</li>
         <li>Хуербень</li>
     </ul>
+    <div class="bottom"></div>
 </div>

@@ -1,8 +1,7 @@
 <header>
-    <div id="menu_btn">☰</div>
-    <a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
+    <div id="menu_btn">
         <span></span>
-    </a>
+    </div>
     <a href="#" class="logo"></a>
     <nav>
         <a href="#">Управление</a>
