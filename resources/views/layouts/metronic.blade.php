@@ -66,35 +66,18 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page">
-
-            <!-- begin::Header -->
             @include('layouts.partials.header')
-
-            <!-- end::Header -->
-
-            <!-- begin::Body -->
+            @include('layouts.partials.sections')
             <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop m-page__container m-body">
                 <div class="m-grid__item m-grid__item--fluid m-wrapper">
-
                     @yield('content')
-
                 </div>
             </div>
-
-            <!-- end::Body -->
-
-            <!-- begin::Footer -->
             @include('layouts.partials.footer')
 
             <!-- end::Footer -->
         </div>
-
         <!-- end:: Page -->
-
-
-        <!-- begin::Quick Sidebar -->
-        @include('layouts.partials.quick-sidebar')
-        <!-- end::Quick Sidebar -->
 
         <!-- begin::Scroll Top -->
         <div id="m_scroll_top" class="m-scroll-top">
