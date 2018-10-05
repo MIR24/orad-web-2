@@ -64,12 +64,10 @@ License: You must have a valid license purchased only from themeforest(the above
 
         @include('layouts.partials.loader')
         <!-- begin:: Page -->
-        <div id="app">
-            <div class="m-grid m-grid--hor m-grid--root m-page">
-                @include('layouts.partials.header')
-                <app></app>
-                @include('layouts.partials.footer')
-            </div>
+        <div id="app" class="m-grid m-grid--hor m-grid--root m-page">
+            @include('layouts.partials.header')
+            <app></app>
+            @include('layouts.partials.footer')
         </div>
 
         <!-- end:: Page -->
