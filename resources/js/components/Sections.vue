@@ -1,12 +1,24 @@
 <template>
     <div class="sections-bar">
         <ul>
-            <li class="current">Панель 1</li>
-            <li>Панель 2</li>
-            <li>Панель 3</li>
-            <li>Панель 4</li>
-            <li>Панель 5</li>
+            <li v-on:click="setTab(index)" :class="section.id === current.id ? 'current' : ''" v-for="(section, index) in sections">
+                {{ section.title }}
+            </li>
         </ul>
     <div class="bottom"></div>
     </div>
 </template>
+
+<script>
+    export default {
+        props: ['sections', 'current', 'lal'],
+        methods: {
+            setTab(index) {
+                this.$emit('tabSelected', index);
+            },
+        },
+        mounted() {
+            console.log('Sections component mounted.')
+        }
+    }
+</script>
