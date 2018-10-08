@@ -48,8 +48,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="{{ auto_asset('assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
 
         <!--RTL version:<link href="assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
-        <link href="{{ asset('assets/demo/demo8/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ auto_asset('assets/demo/demo8/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ auto_asset('css/app.css') }}" rel="stylesheet" type="text/css" />
 
         <!--RTL version:<link href="assets/demo/demo8/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
@@ -89,8 +89,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--end::Page Vendors Scripts -->
 
         <!--begin::Page Snippets -->
-        <script src="{{ asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+        <script src="{{ auto_asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
+        <script src="{{ auto_asset('js/app.js') }}" type="text/javascript"></script>
 
         <!--end::Page Snippets -->
 
