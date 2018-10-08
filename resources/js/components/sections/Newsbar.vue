@@ -6,7 +6,7 @@
     export default {
         data() {
             return {
-                str: 'Раздел newsbar'
+                str: 'Содердимое раздела "newsbar"'
             };
         },
     }

@@ -6,7 +6,7 @@
     export default {
         data() {
             return {
-                str: 'Раздел промо'
+                str: 'Содержимое раздела "промо"'
             };
         },
     }

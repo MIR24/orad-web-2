@@ -6,7 +6,7 @@
     export default {
         data() {
             return {
-                str: 'Раздел фото'
+                str: 'Содержимое раздела "фото"'
             };
         },
     }
