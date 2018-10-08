@@ -1,0 +1,48 @@
+.m-page--fluid .m-page .m-page__container {
+  min-height: calc(100vh - 200px);
+}
+
+.content {
+
+  position: relative;
+
+  .entity-block {
+    padding: 30px 0;
+    background-color: #eff0f3;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    position: relative;
+
+    > span {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+  }
+  .btn {
+    text-transform: uppercase;
+    font-size: 17px;
+  }
+  .m-form .m-form__actions {
+    padding: 30px 0;
+  }
+  .m-loader:before {
+    width: 6rem;
+    height: 6rem;
+    margin-top: -0.7rem;
+    margin-left: -0.7rem;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    top: 22vh;
+  }
+  .content-loader {
+    text-align: center;
+  }
+  .btn.btn-submit {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}
