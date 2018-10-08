@@ -45,7 +45,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--end::Page Vendors Styles -->
 
         <!--begin::Base Styles -->
-        <link href="{{ asset('assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ auto_asset('assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
 
         <!--RTL version:<link href="assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
         <link href="{{ asset('assets/demo/demo8/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -54,13 +54,13 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--RTL version:<link href="assets/demo/demo8/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
         <!--end::Base Styles -->
-        <link rel="shortcut icon" href="{{ asset('assets/demo8/demo/media/img/logo/favicon.ico') }}" />
+        <link rel="shortcut icon" href="{{ auto_asset('assets/demo8/demo/media/img/logo/favicon.ico') }}" />
     </head>
 
     <!-- end::Head -->
 
     <!-- begin::Body -->
-    <body style="background-image: url({{ asset('assets/app/media/img/bg/bg-7.jpg') }})" class="m-page--fluid m-page--loading-enabled m-page--loading m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default">
+    <body style="background-image: url({{ auto_asset('assets/app/media/img/bg/bg-7.jpg') }})" class="m-page--fluid m-page--loading-enabled m-page--loading m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default">
 
         @include('layouts.partials.loader')
         <!-- begin:: Page -->
@@ -69,9 +69,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <app></app>
             @include('layouts.partials.footer')
         </div>
-
         <!-- end:: Page -->
-
         <!-- begin::Scroll Top -->
         <div id="m_scroll_top" class="m-scroll-top">
             <i class="la la-arrow-up"></i>
@@ -80,8 +78,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- end::Scroll Top -->
 
         <!--begin::Base Scripts -->
-        <script src="{{ asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/demo/demo8/base/scripts.bundle.js') }}" type="text/javascript"></script>
+        <script src="{{ auto_asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
+        <script src="{{ auto_asset('assets/demo/demo8/base/scripts.bundle.js') }}" type="text/javascript"></script>
 
         <!--end::Base Scripts -->
 
