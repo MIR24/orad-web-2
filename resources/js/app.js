@@ -18,7 +18,7 @@ window.Vue = require('vue');
 Vue.component('app', require('./components/App'));
 Vue.component('sections', require('./components/Sections'));
 Vue.component('mobile-sections', require('./components/MobileSections'));
-Vue.component('Tops', require('./components/sections/Tops.'));
+Vue.component('Tops', require('./components/sections/Tops'));
 Vue.component('Newsbar', require('./components/sections/Newsbar'));
 Vue.component('Auth', require('./components/sections/Auth'));
 Vue.component('Currency', require('./components/sections/Currency'));
