@@ -5,28 +5,33 @@
         </div>
         <div v-else class="m-form m-form--fit m-form--label-align-right">
             <div class="m-portlet__body">
-                <div class="entity-block">
+                <div class="entity-block" v-for="(record) in records">
+                    <span>{{record.id ? 'id: '+record.id : 'Новый'}}</span>
                     <div class="form-group m-form__group">
                         <label for="exampleInputEmail1">Заголовок</label>
-                        <input type="text" class="form-control m-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Заголовок">
+                        <input type="text" v-model="record.title" class="form-control m-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Заголовок">
                     </div>
                     <div class="form-group m-form__group">
                         <label for="exampleTextarea">Текст</label>
-                        <textarea placeholder="Текст" class="form-control m-input" id="exampleTextarea" rows="3"></textarea>
+                        <textarea v-model="record.text"  placeholder="Текст" class="form-control m-input" id="exampleTextarea" rows="3"></textarea>
                     </div>
                 </div>
             </div>
-            <div class="m-portlet__foot m-portlet__foot--fit">
-                <div class="m-form__actions">
-                    <button v-on:click="shout(7)" class="btn btn-primary">+ Добавить топ</button>
-                </div>
-            </div>
+            <button v-on:click="addRecord" class="btn btn-primary">+ Добавить топ</button>
+            <button v-on:click="submit" class="btn btn-success btn-submit">Сохранить</button>
         </div>
+
     </div>
 
 </template>
 
 <script>
+    const records = [
+        {id:1, title:'lorem ipsum 1', text:'Dolor sit amet sdlgflsjdg safjdlaskdf aslkdfj;askj;al sdk adf askdjf ;alskdfj a;lsdkf '},
+        {id:2, title:'lorem ipsum 2', text:'Dolor sit amet sdlgflsjdg safjdlaskdf aslkdfj;askj;al sdk adf askdjf ;alskdfj a;lsdkf '},
+        {id:3, title:'lorem ipsum 3', text:'Dolor sit amet sdlgflsjdg safjdlaskdf aslkdfj;askj;al sdk adf askdjf ;alskdfj a;lsdkf '},
+        {id:4, title:'lorem ipsum 4', text:'Dolor sit amet sdlgflsjdg safjdlaskdf aslkdfj;askj;al sdk adf askdjf ;alskdfj a;lsdkf '},
+    ];
     export default {
         data() {
             return {
@@ -40,13 +45,17 @@
 
         methods: {
             loadData() {
-                setTimeout(()=>{
+                setTimeout(() => {
+                    this.records = records.slice();
                     this.loading = false;
-                }, 2000);
+                }, 500);
             },
-            shout(num) {
-                alert(num);
+            addRecord() {
+                this.records.push({title:'', text:''});
             },
+            submit() {
+                console.log(this.records);
+            }
         }
     }
 </script>

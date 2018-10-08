@@ -3,12 +3,25 @@
 }
 
 .content {
+
+  position: relative;
+
   .entity-block {
     padding: 30px 0;
     background-color: #eff0f3;
     border-radius: 6px;
+    margin-bottom: 25px;
+    position: relative;
+
+    > span {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-weight: bold;
+      font-size: 15px;
+    }
   }
-  .btn.btn-primary {
+  .btn {
     text-transform: uppercase;
     font-size: 17px;
   }
@@ -26,5 +39,10 @@
   }
   .content-loader {
     text-align: center;
+  }
+  .btn.btn-submit {
+    position: absolute;
+    right: 0;
+    bottom: 0;
   }
 }
