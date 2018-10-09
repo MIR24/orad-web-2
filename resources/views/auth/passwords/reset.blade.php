@@ -23,7 +23,7 @@
                                 <input type="hidden" name="token" value="{{ $token }}">
 
                                 <div class="form-group m-form__group">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <input id="email" type="email" class="form-control m-input{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="{{ __('E-Mail Address') }}" value="{{ $email ?? old('email') }}" required autofocus>
 
                                         @if ($errors->has('email'))
@@ -35,7 +35,7 @@
                                 </div>
 
                                 <div class="form-group m-form__group">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <input id="password" type="password" class="form-control m-input{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" name="password" required>
 
                                         @if ($errors->has('password'))
@@ -47,7 +47,7 @@
                                 </div>
 
                                 <div class="form-group m-form__group">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <input id="password-confirm" type="password" class="form-control m-input" placeholder="{{ __('Confirm Password') }}" name="password_confirmation" required>
                                     </div>
                                 </div>
@@ -62,18 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1  m-login__content m-grid-item--center" style="background-image: url({{ auto_asset('assets/app/media/img//bg/bg-4.jpg') }})">
-            <div class="m-grid__item">
-                <h3 class="m-login__welcome">{{ config('app.name', 'Laravel') }}</h3>
-                <p class="m-login__msg">
-                    Веб-приложение для редактирования:
-                    <br>эфирных топов
-                    <br>бегущих строк
-                    <br>фото, используемых в эфире
-                    <br>курса валют
-                </p>
-            </div>
-        </div>
+        @include('layouts.partials.introduction')
     </div>
 </div>
 <!-- end:: Page -->
