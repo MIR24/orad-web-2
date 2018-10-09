@@ -1,9 +1,18 @@
+.container {
+  height: 100%;
+}
+
 .m-page--fluid .m-page .m-page__container {
   min-height: calc(100vh - 200px);
 }
 
 .content {
+  
+  &.n-bar {
+    padding-bottom: 30px;
+  }
 
+  height:100%;
   position: relative;
 
   .entity-block {
@@ -12,6 +21,16 @@
     border-radius: 6px;
     margin-bottom: 25px;
     position: relative;
+
+    &.orbits {
+
+        padding: 30px;
+        padding-bottom: 15px;
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+    }
 
     > span {
       position: absolute;
@@ -44,5 +63,25 @@
     position: absolute;
     right: 0;
     bottom: 0;
+  }
+  .btn.delete-block {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    font-size: 11px;
+    font-weight: bold;
+  }
+  div.no-records {
+    text-align: center;
+    font-size: 18px;
+    color: #bbb;
+    padding-top: 15px;
+  }
+  div.newsbar {
+    padding-top: 15px;
+  }
+  .newsbar label {
+    font-size: 25px;
   }
 }
