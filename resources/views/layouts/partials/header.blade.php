@@ -1,6 +1,6 @@
 <header>
     <div id="menu_btn">
-        <span></span>
+        Меню
     </div>
     <a href="#" class="logo" style="background-image: url({{auto_asset('assets/demo/demo8/media/img/logo/logo.png')}})"></a>
     <nav>

@@ -1,3 +1,7 @@
+body {
+    background-color: #404658 !important;
+    font-family: 'PT Sans', 'Helvetica', sans-serif !important;
+}
 .container {
   height: 100%;
 }
@@ -7,13 +11,17 @@
 }
 
 .content {
-  
-  &.n-bar {
     padding-bottom: 30px;
-  }
 
-  height:100%;
-  position: relative;
+    height:100%;
+    position: relative;
+
+   label {
+        font-size: 20px;
+   }
+   input[type=text], textarea {
+        font-size: 16px;
+   }
 
   .entity-block {
     padding: 30px 0;
@@ -29,8 +37,25 @@
 
         .input-group {
             margin-bottom: 15px;
+
+            input[type=text] {
+                padding: 20px 10px;
+            }
+            .input-group-text {
+                font-size: 18px;
+                font-weight: bold;
+                border-color: #404658;
+                background-color: #404658;
+                color: #fff !important;
+            }
         }
     }
+      &.currencies {
+          max-width: 800px;
+          margin: auto;
+          padding: 0;
+          background: none;
+      }
 
     > span {
       position: absolute;
@@ -84,4 +109,66 @@
   .newsbar label {
     font-size: 25px;
   }
+    a.nav-link.m-tabs__link {
+        width: 100px;
+        cursor: pointer;
+        font-size: 25px;
+        border: none;
+    }
+    .nav-item .m-tabs__item {
+        margin-right: 0;
+    }
+    .alert.m-alert--default {
+        background: #fff9d9;
+        color: #000000;
+        font-size: 14px;
+    }
+    .m-tabs-line .m-tabs__item {
+        margin-left: 0 !important;
+        margin-right: 0;
+    }
+    .input-group-append.search {
+        cursor: pointer;
+    }
+    .dropdown {
+        button.btn {
+            width: 200px;
+            border: none;
+            height: 100%;
+            background-color: #6f7482 !important;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 0;
+            &.promo {
+                width: 300px;
+            }
+        }
+    }
+    .currency-wrap {
+        background-color: #eff0f3;
+        border-radius: 6px;
+        padding: 30px 0;
+        margin-bottom: 20px;
+    }
+    .entity-block .dropdown-menu {
+        display: block;
+        width: 100%;
+        font-size: 18px;
+    }
+    span.trend {
+        cursor: pointer;
+        user-select: none;
+    }
+    span.input-group-text.trend.asc {
+        border-color: #68ab64 !important;
+        background-color: #68ab64 !important;
+    }
+    span.input-group-text.trend.stab {
+        border-color: #929292 !important;
+        background-color: #929292 !important;
+    }
+    span.input-group-text.trend.desc {
+        border-color: #e07676 !important;
+        background-color: #e07676 !important;
+    }
 }

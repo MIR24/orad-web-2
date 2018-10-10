@@ -60,7 +60,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- end::Head -->
 
     <!-- begin::Body -->
-    <body style="background-image: url({{ auto_asset('assets/app/media/img/bg/bg-7.jpg') }})" class="m-page--fluid m-page--loading-enabled m-page--loading m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default">
+    <body class="m-page--fluid m-page--loading-enabled m-page--loading m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default">
 
         @include('layouts.partials.loader')
         <!-- begin:: Page -->

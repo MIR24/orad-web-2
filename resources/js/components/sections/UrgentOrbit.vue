@@ -7,7 +7,7 @@
             <div v-if="records.length > 0" class="m-portlet__body">
                 <div class="entity-block orbits">
                     <div class="input-group" :key="index" v-for="(record, index) in records">
-                        <input type="text" class="form-control m-input" v-model="record.title" placeholder="Введите текст">
+                        <input type="text" class="form-control m-input" v-model="record.text" placeholder="Введите текст">
                         <div class="input-group-append"><span class="input-group-text">{{record.title}}</span></div>
                     </div>
                 </div>

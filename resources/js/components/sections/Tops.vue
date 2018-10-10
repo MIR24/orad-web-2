@@ -24,7 +24,6 @@
             <button v-on:click="addRecord" class="btn btn-primary">+ Добавить топ</button>
             <button v-on:click="submit" class="btn btn-success btn-submit">Сохранить</button>
         </div>
-
     </div>
 </template>
 
