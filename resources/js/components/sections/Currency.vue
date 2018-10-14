@@ -5,8 +5,8 @@
         </div>
         <div v-else class="m-form m-form--fit m-form--label-align-right">
             <div class="m-portlet__body">
-                <div class="currency-wrap">
-                    <div class="entity-block currencies orbits" :key="l_index" v-for="(left, l_index) in currencies">
+                <div class="inner-wrap">
+                    <div class="entity-block no-back orbits" :key="l_index" v-for="(left, l_index) in currencies">
                         <div class="input-group" :key="index" v-for="(right, index) in left">
                             <div class="input-group-append"><span class="input-group-text">{{l_index}}</span></div>
                             <div class="input-group-append" v-model="types[right.status]" @click="nextStat(right)"><span :class="'input-group-text trend '+right.status">{{types[right.status]}}</span></div>

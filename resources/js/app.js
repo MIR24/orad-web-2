@@ -15,18 +15,19 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('app', require('./components/App'));
-Vue.component('sections', require('./components/Sections'));
-Vue.component('mobile-sections', require('./components/MobileSections'));
-Vue.component('Tops', require('./components/sections/Tops'));
-Vue.component('Newsbar', require('./components/sections/Newsbar'));
-Vue.component('Auth', require('./components/sections/Auth'));
-Vue.component('Currency', require('./components/sections/Currency'));
-Vue.component('Photo', require('./components/sections/Photo'));
-Vue.component('Promo', require('./components/sections/Promo'));
-Vue.component('Ticker', require('./components/sections/Ticker'));
-Vue.component('Urgent', require('./components/sections/Urgent'));
-Vue.component('UrgentOrbit', require('./components/sections/UrgentOrbit'));
+// Vue.component('app', require('./components/App'));
+// Vue.component('sections', require('./components/Sections'));
+// Vue.component('mobile-sections', require('./components/MobileSections'));
+// Vue.component('Tops', require('./components/sections/Tops'));
+// Vue.component('Newsbar', require('./components/sections/Newsbar'));
+// Vue.component('Auth', require('./components/sections/Auth'));
+// Vue.component('Currency', require('./components/sections/Currency'));
+// Vue.component('Photo', require('./components/sections/Photo'));
+// Vue.component('Promo', require('./components/sections/Promo'));
+// Vue.component('Ticker', require('./components/sections/Ticker'));
+// Vue.component('Urgent', require('./components/sections/Urgent'));
+// Vue.component('UrgentOrbit', require('./components/sections/UrgentOrbit'));
+// Vue.component('Weather', require('./components/sections/Weather'));
 
 const app = new Vue({
     el: '#app'

@@ -24,6 +24,10 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <!--begin::Web font -->
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+        <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
         <script>
             WebFont.load({
                 google: {
@@ -66,7 +70,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- begin:: Page -->
         <div id="app" class="m-grid m-grid--hor m-grid--root m-page">
             @include('layouts.partials.header')
-            <app></app>
+            @include('sections.wrap')
             @include('layouts.partials.footer')
         </div>
         <!-- end:: Page -->
@@ -90,7 +94,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <!--begin::Page Snippets -->
         <script src="{{ auto_asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
-        <script src="{{ auto_asset('js/app.js') }}" type="text/javascript"></script>
 
         <!--end::Page Snippets -->
 

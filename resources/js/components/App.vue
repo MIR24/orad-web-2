@@ -24,6 +24,7 @@
                 {id:6, title:'Фото', component: 'Photo'},
                 {id:7, title:'Промо', component: 'Promo'},
                 {id:8, title:'Курс валют', component: 'Currency'},
+                // {id:9, title:'Погода', component: 'Weather'},
             ];
             this.current = this.sections[0];
 

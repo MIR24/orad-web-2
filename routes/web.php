@@ -11,8 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dummy'); // return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('dummy'); // return view('welcome');
+//});
+
+Route::get('/', 'HomeController@dashboard');
+Route::get('/section/{name}', 'SectionsController@getSection');
+Route::get('/mock/tops', 'MockController@getTops');
 
 Auth::routes();
