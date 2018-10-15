@@ -5,7 +5,9 @@
             <div class="content-loader">
                 <div class="m-loader m-loader--brand" style="display: inline-block;"></div>
             </div>
-            <div id="tab-content"></div>
+            <div id="tab-content">
+                @include('sections.tops')
+            </div>
         </div>
     </div>
 </div>

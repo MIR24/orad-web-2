@@ -25,4 +25,12 @@ class MockController extends Controller
             ['id' => 4, 'title' => 'lorem ipsum 4', 'text' => 'Dolor sit amet sdlgflsjdg safjdlaskdf aslkdfj;askj;al sdk adf askdjf ;alskdfj a;lsdkf'],
         ]];
     }
+
+    public function getNewsbar()
+    {
+        return [
+            'tops' => "sdfgjklsdjfglkdjsgjsdkjfglg\nsdfjghjsdhfgkjsdhflkgsdhfgldjkshg\nsidfjgksdhfgkhjlsdhglkds\nsfjhgsjdkhgkjsdhlkjghsldkjhg",
+            'ticker' => "sdfgjklsdjfglkdjsgjsdkjfglg\nsdfjghjsdhfgkjsdhflkgsdhfgldjkshg\nsidfjgksdhfgkhjlsdhglkds\nsfjhgsjdkhgkjsdhlkjghsldkjhg",
+        ];
+    }
 }

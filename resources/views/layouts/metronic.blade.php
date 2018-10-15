@@ -94,6 +94,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <!--begin::Page Snippets -->
         <script src="{{ auto_asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
+        <script src="{{ auto_asset('/js/components/Tops.js') }}" type="text/javascript"></script>
+        <script src="{{ auto_asset('/js/components/tabs.js') }}" type="text/javascript"></script>
 
         <!--end::Page Snippets -->
 
