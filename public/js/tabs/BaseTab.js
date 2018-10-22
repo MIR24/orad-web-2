@@ -23,11 +23,43 @@ class BaseTab {
         });
     }
 
-    makeTemplate (response) {
+    makeTemplate (response) {}
+    
+    addListeners () {
+        for (var type in this.listeners) {
+            for (var key in this.listeners[type]) {
+                $('#' + key).bind(type, this.listeners[type][key]);
+                delete this.listeners[type][key];
+            }
+        }
     }
 
     renderTemplate () {
         tabContentContainer.html(this.template);
+    }
+
+    checkDisallowedCharacters (value) {
+        const regexNotAllowed = new RegExp(/[^a-zA-Zа-яА-Я0-9\.\,\!\?\:\;\`\'\"\+\-\/\*\=\%\^\№\~\#\&\(\)\[\]\<\>\s]/),
+         matches = regexNotAllowed.exec(value);
+        if (matches) {
+            var error = 'Chars not allowed: ' + matches[0];
+            alert(error);
+            return value.replace(regexNotAllowed, "");
+        }
+        return value;
+    }
+
+    textAreaSplitLines (value, inputType) {
+        const regex = new RegExp(`.{${this.textareaMaxCharsPerLine}}`, 'gm'),
+            curVal = value.toUpperCase().replace(/(\r\n\t|\n|\r\t)/gm,"");
+
+        if (inputType === "deleteContentBackward" || inputType === "deleteContentForward") {
+            return false;
+        }
+
+        return curVal.replace(regex, function (match) {
+            return match + '\n';
+        });
     }
 
     init () {
@@ -36,6 +68,7 @@ class BaseTab {
         .then((response) => {
             this.makeTemplate(response);
             this.renderTemplate();
+            this.addListeners();
         })
         .then(function () {
             bodyLoader.removeClass('m-page--loading');
