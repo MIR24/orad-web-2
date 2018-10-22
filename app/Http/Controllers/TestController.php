@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class TestController extends Controller
 {
     public function getTops()
-    {sleep(3);
+    {
         return [
             0 => [
                 'title' => 'title0', 
