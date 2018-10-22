@@ -31,5 +31,8 @@
     " Displaying {{start}} - {{end}} of {{total}} records ": " {{start}} - {{end}} из {{total}} записей ",
     "Create": "Создать",
     "Close": "Закрыть",
-    "Download": "Скачать"
+    "Download": "Скачать",
+    "Options":"Настройки",
+    "Controle":"Управление",
+    "Reference":"Справка"
 }
