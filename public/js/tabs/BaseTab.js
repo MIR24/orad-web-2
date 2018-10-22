@@ -50,14 +50,14 @@ class BaseTab {
     }
 
     textAreaSplitLines (value, inputType) {
-        const regex = new RegExp(`.{${this.textareaMaxCharsPerLine}}`, 'gm'),
+        const regexMaxChars = new RegExp(`.{${this.textareaMaxCharsPerLine}}`, 'gm'),
             curVal = value.toUpperCase().replace(/(\r\n\t|\n|\r\t)/gm,"");
 
         if (inputType === "deleteContentBackward" || inputType === "deleteContentForward") {
             return false;
         }
 
-        return curVal.replace(regex, function (match) {
+        return curVal.replace(regexMaxChars, function (match) {
             return match + '\n';
         });
     }
