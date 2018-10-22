@@ -132,7 +132,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                 </div>
-                <div class="m-header__bottom" style="height:60px">
+                <div class="m-header__bottom" style="height:56px">
                     <div class="m-container m-container--fluid m-container--full-height m-page__container">
                         <div class="m-stack m-stack--ver m-stack--desktop">
 
@@ -167,7 +167,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop m-page__container m-body">
                 <div class="m-grid__item m-grid__item--fluid m-wrapper">
                     <div class="container">
-                        <div id="content" class="row justify-content-center"></div>
+                        <div id="tab-content" class="row justify-content-center"></div>
                     </div>
                 </div>
             </div>
@@ -224,6 +224,9 @@ License: You must have a valid license purchased only from themeforest(the above
             });
         </script>
 
+<script src="/js/custom.js" type="text/javascript"></script>
+<script src="/js/tabs/BaseTab.js" type="text/javascript"></script>
+<script src="/js/tabs/Tops.js" type="text/javascript"></script>
         <!-- end::Page Loader -->
     </body>
 
