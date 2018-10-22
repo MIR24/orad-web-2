@@ -32,7 +32,15 @@
     "Create": "Создать",
     "Close": "Закрыть",
     "Download": "Скачать",
-    "Options":"Настройки",
-    "Controle":"Управление",
-    "Reference":"Справка"
+    "Options": "Настройки",
+    "Controle": "Управление",
+    "Reference": "Справка",
+    "Tops": "Топы",
+    "Newsbar": "Newsbar",
+    "Expedited": "Срочно",
+    "ExpeditedOrbit": "Срочно (орбиты)",
+    "RunningLine": "Бегущая строка",
+    "Foto": "Фото",
+    "Promo": "Промо",
+    "CurrencyValues": "Курс валют"
 }

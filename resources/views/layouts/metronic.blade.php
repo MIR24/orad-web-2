@@ -118,33 +118,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
                                     <div class="m-stack__item m-topbar__nav-wrapper">
                                         <ul class="m-topbar__nav m-nav m-nav--inline ">
-                                            <li class="m-nav__item m-topbar__quick-actions">
-                                                <a href="{{ route('login') }}" class="m-nav__link caption">
-                                                    <span class="m-nav__link-text">
-                                                        <span class="m-menu__link h3">
-                                                            {{ __('Controle') }}
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="m-nav__item m-topbar__quick-actions">
-                                                <a href="{{ route('login') }}" class="m-nav__link">
-                                                    <span class="m-nav__link-text">
-                                                        <span class="m-menu__link h3">
-                                                            {{ __('Options') }}
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="m-nav__item m-topbar__quick-actions">
-                                                <a href="{{ route('login') }}" class="m-nav__link">
-                                                    <span class="m-nav__link-text">
-                                                        <span class="m-menu__link h3">
-                                                            {{ __('Reference') }}
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
+                                            @include('layouts.partials.nav-link', ['name' => 'Controle', 'translation' => __('Controle')])
+                                            @include('layouts.partials.nav-link', ['name' => 'Options', 'translation' => __('Options')])
+                                            @include('layouts.partials.nav-link', ['name' => 'Reference', 'translation' => __('Reference')])
                                             @include('layouts.partials.user-profile')
                                         </ul>
                                     </div>
@@ -167,21 +143,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </button>
                                 <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light ">
                                     <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
-                                        <li class="m-menu__item  m-menu__item--active-tab  m-menu__item--submenu m-menu__item--tabs" m-menu-submenu-toggle="tab" aria-haspopup="true">
-                                            <a href="index.html" class="m-menu__link m-menu__toggle">
-                                                <span class="m-menu__link-text">Dashboard</span>
-                                            </a>
-                                        </li>
-                                        <li class="m-menu__item  m-menu__item--submenu m-menu__item--tabs" m-menu-submenu-toggle="tab" aria-haspopup="true">
-                                            <a href="index.html" class="m-menu__link m-menu__toggle">
-                                                <span class="m-menu__link-text">Dashboard</span>
-                                            </a>
-                                        </li>
-                                        <li class="m-menu__item  m-menu__item--submenu m-menu__item--tabs" m-menu-submenu-toggle="tab" aria-haspopup="true">
-                                            <a href="index.html" class="m-menu__link m-menu__toggle">
-                                                <span class="m-menu__link-text">Dashboard</span>
-                                            </a>
-                                        </li>
+                                        @include('layouts.partials.tab-active', ['name' => 'Tops', 'translation' => __('Tops')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'Newsbar', 'translation' => __('Newsbar')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'Expedited', 'translation' => __('Expedited')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'ExpeditedOrbit', 'translation' => __('ExpeditedOrbit')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'RunningLine', 'translation' => __('RunningLine')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'Foto', 'translation' => __('Foto')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'Promo', 'translation' => __('Promo')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'CurrencyValues', 'translation' => __('CurrencyValues')])
                                     </ul>
                                 </div>
                             </div>
