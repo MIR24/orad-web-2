@@ -15,4 +15,7 @@ Route::get('/', function () {
     return view('dummy'); // return view('welcome');
 });
 
+
+Route::get('/test/tops', 'TestController@getTops');
+
 Auth::routes();
