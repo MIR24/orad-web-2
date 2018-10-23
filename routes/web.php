@@ -17,5 +17,6 @@ Route::get('/', function () {
 
 
 Route::get('/test/tops', 'TestController@getTops');
+Route::get('/test/newsbar', 'TestController@getNewsbar');
 
 Auth::routes();
