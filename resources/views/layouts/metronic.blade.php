@@ -229,6 +229,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="/js/custom.js" type="text/javascript"></script>
 <script src="/js/tabs/BaseTab.js" type="text/javascript"></script>
 <script src="/js/tabs/Tops.js" type="text/javascript"></script>
+<script src="/js/components/Textarea.js" type="text/javascript"></script>
 <!-- TO DO -->
 
         <!-- end::Page Loader -->

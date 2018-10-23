@@ -25,10 +25,10 @@ class BaseTab {
 
     makeTemplate (response) {}
     
-    addListeners () {
+    initListeners () {
         for (var type in this.listeners) {
             for (var key in this.listeners[type]) {
-                $('#' + key).bind(type, this.listeners[type][key].bind(this));
+                $('#' + key).bind(type, this.listeners[type][key].function.bind(this.listeners[type][key].class));
                 delete this.listeners[type][key];
             }
         }
@@ -38,28 +38,9 @@ class BaseTab {
         tabContentContainer.html(this.template);
     }
 
-    checkDisallowedCharacters (value) {
-        const regexNotAllowed = new RegExp(/[^a-zA-Zа-яА-Я0-9\.\,\!\?\:\;\`\'\"\+\-\/\*\=\%\^\№\~\#\&\(\)\[\]\<\>\s]/),
-         matches = regexNotAllowed.exec(value);
-        if (matches) {
-            var error = 'Chars not allowed: ' + matches[0];
-            alert(error);
-            return value.replace(regexNotAllowed, "");
-        }
-        return value;
-    }
-
-    textAreaSplitLines (value, inputType) {
-        const regexMaxChars = new RegExp(`.{${this.textareaMaxCharsPerLine}}`, 'gm'),
-            curVal = value.toUpperCase().replace(/(\r\n\t|\n|\r\t)/gm,"");
-
-        if (inputType === "deleteContentBackward" || inputType === "deleteContentForward") {
-            return false;
-        }
-
-        return curVal.replace(regexMaxChars, function (match) {
-            return match + '\n';
-        });
+    setListeners (type, listenerObj) {
+        this.listeners[type] = Object.assign(this.listeners[type], listenerObj);
+        console.log(this.listeners.input);
     }
 
     getIdFromString (idString) {
@@ -72,7 +53,7 @@ class BaseTab {
         .then((response) => {
             this.makeTemplate(response);
             this.renderTemplate();
-            this.addListeners();
+            this.initListeners();
         })
         .then(function () {
             bodyLoader.removeClass('m-page--loading');

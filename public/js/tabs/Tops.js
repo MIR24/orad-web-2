@@ -21,17 +21,33 @@ class Tops extends BaseTab {
         .concat(this.makeAddEmptyBlockBtn());
     }
 
-    makeBlock (index, title, text) {console.log();
+    makeBlock (index, title, text) {
         var titleId = 'title-' + index,
             textareaId = 'textarea-' + index,
             saveBtnId = 'save-' + index,
             rmBtnId = 'remove-' + index,
-            textarea = new Textarea(textareaId, text);
+            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine);
 
-        this.listeners.input[titleId] = this.updateTitle;
-        this.listeners.input[textareaId] = this.updateText;
-        this.listeners.click[saveBtnId] = this.saveModel;
-        this.listeners.click[rmBtnId] = this.removeModel;
+        this.setListeners('input', {
+            [titleId]: {
+                'function': this.updateTitle,
+                'class': this
+            },
+            [textareaId]: {
+                'function': textarea.updateText,
+                'class': textarea
+            }
+        });
+        this.setListeners('click', {
+            [saveBtnId]: {
+                'function': this.saveModel,
+                'class': this
+            },
+            [rmBtnId]: {
+                'function': this.removeModel,
+                'class': this
+            }
+        });
 
         return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
@@ -42,8 +58,7 @@ class Tops extends BaseTab {
                 <div class="form-group m-form__group">
                     <label for="${titleId}">Заголовок</label>
                     <input value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
-                    <label for="${textareaId}">Текст</label>
-                    <textarea class="form-control m-input m-input--air" id="${textareaId}" rows="3" placeholder="Текст">${text}</textarea>
+                    ${textarea.init()}
                 </div>
             </form>
         </div>`
@@ -51,27 +66,18 @@ class Tops extends BaseTab {
     
     makeAddEmptyBlockBtn () {
         var buttonId = 'tops-add-block';
-        this.listeners.click[buttonId] = this.addEmptyBlock;
+        this.setListeners('click', {
+            [buttonId]: {
+                'function': this.addEmptyBlock,
+                'class': this
+            }
+        });
         return `<button id="${buttonId}" class="btn btn-primary">+ Добавить топ</button>`
     }
 
     addEmptyBlock (event) {
         $(event.target).before(this.makeBlock('new-' + Date.now(), '', ''));
-        this.addListeners();
-    }
-
-    updateText (event) {
-        var id = this.getIdFromString(event.target.id),
-            val = this.checkDisallowedCharacters(event.target.value),
-            newVal = this.textAreaSplitLines(val, event.originalEvent.inputType),
-            newSectionEnd = event.target.selectionEnd;
-
-        if (newVal !== false) {
-            val = newVal;
-        }
-
-        event.target.value = val;
-        event.target.selectionEnd = newSectionEnd;
+        this.initListeners();
     }
 
     updateTitle (event) {
