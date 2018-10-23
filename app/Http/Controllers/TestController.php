@@ -60,11 +60,11 @@ class TestController extends Controller
                 ],
                 'oribts' => [
                     0 => [
-                        'id': 0,
+                        'id' => 0,
                         'name' => 'orbit0'
                     ],
                     1 => [
-                        'id': 1,
+                        'id'=> 1,
                         'name' => 'orbit1'
                     ],
                 ]
