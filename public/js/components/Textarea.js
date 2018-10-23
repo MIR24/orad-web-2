@@ -7,8 +7,7 @@ class Textarea {
     }
 
     makeTemplate () {
-        this.template = `<label for="${this.id}">Текст</label>
-        <textarea class="form-control m-input m-input--air" id="${this.id}" rows="3" placeholder="Текст">${this.value}</textarea>`;
+        this.template = `<textarea class="form-control m-input m-input--air" id="${this.id}" rows="3" placeholder="Текст">${this.value}</textarea>`;
     }
 
     checkDisallowedCharacters (value) {
