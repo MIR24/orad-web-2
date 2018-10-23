@@ -59,7 +59,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- end::Head -->
 
     <!-- begin::Body -->
-    <body style="background-color: #404658" class="m-page--fluid m-page--loading-enabled m-page--loading m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default">
+    <body style="background-color: #404658" class="m-page--loading-enabled m-page--loading m-footer--push m-aside--offcanvas-default">
 
         <!-- begin::Page loader -->
         <div class="m-page-loader m-page-loader--base">
