@@ -40,7 +40,6 @@ class BaseTab {
 
     setListeners (type, listenerObj) {
         this.listeners[type] = Object.assign(this.listeners[type], listenerObj);
-        console.log(this.listeners.input);
     }
 
     getIdFromString (idString) {
