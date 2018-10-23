@@ -50,4 +50,34 @@ class TestController extends Controller
             ]
         ];
     }
+    public function getExpedited()
+    {
+        return [
+            0 => [
+                'title' => 'title0',
+                'releated' => [
+                    0 => ['text' => 'text0']
+                ],
+                'oribts' => [
+                    0 => [
+                        'id': 0,
+                        'name' => 'orbit0'
+                    ],
+                    1 => [
+                        'id': 1,
+                        'name' => 'orbit1'
+                    ],
+                ]
+            ],
+            1 => [
+                'title' => 'title1',
+                'releated' => [
+                    0 => ['text' => 'text10'],
+                    1 => ['text' => 'text11'],
+                    2 => ['text' => 'text12'],
+                ],
+                'oribts' => []
+            ]
+        ];
+    }
 }
