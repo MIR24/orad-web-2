@@ -21,15 +21,18 @@ class Tops extends BaseTab {
         .concat(this.makeAddEmptyBlockBtn());
     }
 
-    makeBlock (index, title, text) {
+    makeBlock (index, title, text) {console.log();
         var titleId = 'title-' + index,
             textareaId = 'textarea-' + index,
             saveBtnId = 'save-' + index,
-            rmBtnId = 'remove-' + index;
+            rmBtnId = 'remove-' + index,
+            textarea = new Textarea(textareaId, text);
+
         this.listeners.input[titleId] = this.updateTitle;
         this.listeners.input[textareaId] = this.updateText;
         this.listeners.click[saveBtnId] = this.saveModel;
         this.listeners.click[rmBtnId] = this.removeModel;
+
         return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
                 <button id="${saveBtnId}" class="btn btn-success">Сохранить</button>
@@ -52,36 +55,36 @@ class Tops extends BaseTab {
         return `<button id="${buttonId}" class="btn btn-primary">+ Добавить топ</button>`
     }
 
-    addEmptyBlock () {
-        $(this).before(currentTab.makeBlock('new-' + Date.now(), '', ''));
-        currentTab.addListeners();
+    addEmptyBlock (event) {
+        $(event.target).before(this.makeBlock('new-' + Date.now(), '', ''));
+        this.addListeners();
     }
 
-    updateText () {
-        var select = $(this),
-            id = currentTab.getIdFromString(select.attr('id')),
-            val = currentTab.checkDisallowedCharacters(select.val()),
-            newVal = currentTab.textAreaSplitLines(val, event.inputType);
+    updateText (event) {
+        var id = this.getIdFromString(event.target.id),
+            val = this.checkDisallowedCharacters(event.target.value),
+            newVal = this.textAreaSplitLines(val, event.originalEvent.inputType),
+            newSectionEnd = event.target.selectionEnd;
 
         if (newVal !== false) {
             val = newVal;
         }
 
-        select.val(val);
+        event.target.value = val;
+        event.target.selectionEnd = newSectionEnd;
     }
 
-    updateTitle () {
-        var select = $(this);
-        console.log(select.val());
+    updateTitle (event) {
+        console.log(event.target.value);
     }
 
-    saveModel () {
-        var modelId = currentTab.getIdFromString($(this).attr('id'));
-        console.log(currentTab.tops[modelId]);
+    saveModel (event) {
+        var modelId = this.getIdFromString(event.target.id);
+        console.log(modelId);
     }
 
-    removeModel () {
-        var modelId = currentTab.getIdFromString($(this).attr('id'));
+    removeModel (event) {
+        var modelId = this.getIdFromString(event.target.id);
         console.log(modelId);
     }
 }

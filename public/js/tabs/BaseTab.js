@@ -28,7 +28,7 @@ class BaseTab {
     addListeners () {
         for (var type in this.listeners) {
             for (var key in this.listeners[type]) {
-                $('#' + key).bind(type, this.listeners[type][key]);
+                $('#' + key).bind(type, this.listeners[type][key].bind(this));
                 delete this.listeners[type][key];
             }
         }
