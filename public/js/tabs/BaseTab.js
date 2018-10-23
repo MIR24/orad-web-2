@@ -62,6 +62,10 @@ class BaseTab {
         });
     }
 
+    getIdFromString (idString) {
+        return idString.split('-').pop();
+    }
+
     init () {
         bodyLoader.addClass('m-page--loading');
         this.getModels()

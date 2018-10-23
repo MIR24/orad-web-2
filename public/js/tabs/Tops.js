@@ -23,10 +23,18 @@ class Tops extends BaseTab {
 
     makeBlock (index, title, text) {
         var titleId = 'title-' + index,
-            textareaId = 'textarea-' + index;
+            textareaId = 'textarea-' + index,
+            saveBtnId = 'save-' + index,
+            rmBtnId = 'remove-' + index;
         this.listeners.input[titleId] = this.updateTitle;
         this.listeners.input[textareaId] = this.updateText;
+        this.listeners.click[saveBtnId] = this.saveModel;
+        this.listeners.click[rmBtnId] = this.removeModel;
         return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
+            <div class="text-right">
+                <button id="${saveBtnId}" class="btn btn-success">Сохранить</button>
+                <button id="${rmBtnId}" class="btn btn-danger">Удалить</button>
+            </div>
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
                     <label for="${titleId}">Заголовок</label>
@@ -45,13 +53,13 @@ class Tops extends BaseTab {
     }
 
     addEmptyBlock () {
-        $(this).before(currentTab.makeBlock(Math.random(), '', ''));
+        $(this).before(currentTab.makeBlock('new-' + Date.now(), '', ''));
         currentTab.addListeners();
     }
 
     updateText () {
         var select = $(this),
-            id = select.attr('id').split('-')[1],
+            id = currentTab.getIdFromString(select.attr('id')),
             val = currentTab.checkDisallowedCharacters(select.val()),
             newVal = currentTab.textAreaSplitLines(val, event.inputType);
 
@@ -64,6 +72,16 @@ class Tops extends BaseTab {
 
     updateTitle () {
         var select = $(this);
-        currentTab.tops[select.attr('id').split('-')[1]].title = select.val();
+        console.log(select.val());
+    }
+
+    saveModel () {
+        var modelId = currentTab.getIdFromString($(this).attr('id'));
+        console.log(currentTab.tops[modelId]);
+    }
+
+    removeModel () {
+        var modelId = currentTab.getIdFromString($(this).attr('id'));
+        console.log(modelId);
     }
 }
