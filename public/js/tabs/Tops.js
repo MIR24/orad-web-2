@@ -28,6 +28,8 @@ class Tops extends BaseTab {
             rmBtnId = 'remove-' + index,
             textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine);
 
+        textarea.init();
+
         this.setListeners('input', {
             [titleId]: {
                 'function': this.updateTitle,
@@ -59,7 +61,7 @@ class Tops extends BaseTab {
                     <label for="${titleId}">Заголовок</label>
                     <input value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
                     <label for="${textareaId}">Текст</label>
-                    ${textarea.init()}
+                    ${textarea.getTemplate()}
                 </div>
             </form>
         </div>`

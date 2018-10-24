@@ -30,6 +30,8 @@ class Newsbar extends BaseTab {
             saveBtnId = 'save-' + index,
             textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine);
 
+        textarea.init()
+
         this.setListeners('input', {
             [titleId]: {
                 'function': this.updateTitle,
@@ -54,7 +56,7 @@ class Newsbar extends BaseTab {
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
                     <label for="${textareaId}">${this.names[index]}</label>
-                    ${textarea.init()}
+                    ${textarea.getTemplate()}
                 </div>
             </form>
         </div>`

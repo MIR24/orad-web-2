@@ -47,8 +47,11 @@ class Textarea {
         event.target.selectionEnd = newSectionEnd;
     }
 
+    getTemplate () {
+        return this.template;
+    }
+
     init () {
         this.makeTemplate();
-        return this.template;
     }
 }

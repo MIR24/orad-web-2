@@ -25,21 +25,16 @@ class BaseTab {
 
     makeTemplate (response) {}
     
+    setListeners (type, listenerObj) {
+        Listeners.set(this, type, listenerObj);
+    }
+
     initListeners () {
-        for (var type in this.listeners) {
-            for (var key in this.listeners[type]) {
-                $('#' + key).bind(type, this.listeners[type][key].function.bind(this.listeners[type][key].class));
-                delete this.listeners[type][key];
-            }
-        }
+        Listeners.init(this);
     }
 
     renderTemplate () {
         tabContentContainer.html(this.template);
-    }
-
-    setListeners (type, listenerObj) {
-        this.listeners[type] = Object.assign(this.listeners[type], listenerObj);
     }
 
     getIdFromString (idString) {
