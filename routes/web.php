@@ -19,5 +19,6 @@ Route::get('/', function () {
 Route::get('/test/tops', 'TestController@getTops');
 Route::get('/test/newsbar', 'TestController@getNewsbar');
 Route::get('/test/expedited', 'TestController@getExpedited');
+Route::get('/test/expedited', 'TestController@getCurrency');
 
 Auth::routes();

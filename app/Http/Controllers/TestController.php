@@ -80,4 +80,30 @@ class TestController extends Controller
             ]
         ];
     }
+    public function getCurrency()
+    {
+        return [
+            0 => [
+                'id' => 0,
+                'val1' => 'rub',
+                'val2' => 'usd',
+                'dir' => 1,
+                'value' => 1.21
+            ],
+            1 => [
+                'id' => 0,
+                'val1' => 'rub',
+                'val2' => 'usd',
+                'dir' => 1,
+                'value' => 1.21
+            ],
+            2 => [
+                'id' => 0,
+                'val1' => 'rub',
+                'val2' => 'usd',
+                'dir' => 1,
+                'value' => 1.21
+            ],
+        ];
+    }
 }
