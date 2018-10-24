@@ -10,7 +10,7 @@ class Expedited extends BaseTab {
     }
 
     makeTemplate (response) {
-        this.model = response;
+        this.models = response;
         this.template = Object.keys(response).map(key => {
             var text = Object.keys(response[key].releated).map(keyInner => (
                 response[key].releated[keyInner].text
@@ -26,7 +26,7 @@ class Expedited extends BaseTab {
             saveBtnId = IdManipulation.getPreparedId('save', index),
             rmBtnId = IdManipulation.getPreparedId('remove', index),
             textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine),
-            checkboxes = new ExpeditedCheckbox(index ,this.model[index].oribts);
+            checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts);
 
         textarea.init()
         checkboxes.init();

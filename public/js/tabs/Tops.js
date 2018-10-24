@@ -10,7 +10,7 @@ class Tops extends BaseTab {
     }
 
     makeTemplate (response) {
-        this.tops = response;
+        this.models = response;
         this.template = Object.keys(response).map(key => {
             var text = Object.keys(response[key].releated).map(keyInner => (
                 response[key].releated[keyInner].text
