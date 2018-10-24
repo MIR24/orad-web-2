@@ -1,7 +1,7 @@
 class ExpeditedCheckbox {
     constructor (id, checkboxes) {
         this.template = '';
-        this.model = checkboxes ? checkboxes : {};
+        this.models = checkboxes ? checkboxes : {};
         this.id = id;
         this.listeners = {
             'click': {}
@@ -10,8 +10,8 @@ class ExpeditedCheckbox {
     }
 
     makeTemplate () {
-        var checkboxesTemplate = Object.keys(this.model).map(key => {
-            return this.makeCheckbox(false, this.model[key].name);
+        var checkboxesTemplate = Object.keys(this.models).map(key => {
+            return this.makeCheckbox(false, this.models[key].name);
         })
         .join('');
 
@@ -45,8 +45,8 @@ class ExpeditedCheckbox {
     }
 
     setListeners () {
-        for (var key in this.model) {
-            var id = IdManipulation.getPreparedId(this.model[key].name, this.id);
+        for (var key in this.models) {
+            var id = IdManipulation.getPreparedId(this.models[key].name, this.id);
             Listeners.set(this, 'click', {
                 [id]: {
                     'function': this.changeState,
