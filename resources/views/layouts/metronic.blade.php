@@ -235,6 +235,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="/js/components/ExpeditedCheckbox.js" type="text/javascript"></script>
 <script src="/js/utils/Listeners.js" type="text/javascript"></script>
 <script src="/js/utils/IdManipulation.js" type="text/javascript"></script>
+<script src="/js/tabs/CurrencyValues.js" type="text/javascript"></script>
 <!-- TO DO -->
 
         <!-- end::Page Loader -->

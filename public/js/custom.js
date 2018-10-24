@@ -6,6 +6,7 @@ function SwitchTab (tabName) {
           'Tops': Tops,
           'Newsbar': Newsbar,
           'Expedited': Expedited,
+          'CurrencyValues': CurrencyValues,
     }
     var currentTab = new formatters[tabName]();
     currentTab.init();console.log(currentTab);
