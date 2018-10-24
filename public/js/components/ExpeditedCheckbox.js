@@ -29,15 +29,11 @@ class ExpeditedCheckbox {
     
     makeCheckbox (disabled, name) {
         var disabled = disabled ? 'disabled': '',
-            id = this.getPreparedId(name);
+            id = IdManipulation.getPreparedId(name, this.id);
         return `<label class="m-checkbox">
             <input id="${id}" class="toggle" type="checkbox" ${disabled}> ${name}
             <span></span>
         </label>`;
-    }
-
-    getPreparedId (name) {
-        return name + '-' + this.id;
     }
 
     changeState (event) {
@@ -50,7 +46,7 @@ class ExpeditedCheckbox {
 
     setListeners () {
         for (var key in this.model) {
-            var id = this.getPreparedId(this.model[key].name);
+            var id = IdManipulation.getPreparedId(this.model[key].name, this.id);
             Listeners.set(this, 'click', {
                 [id]: {
                     'function': this.changeState,

@@ -25,9 +25,9 @@ class Newsbar extends BaseTab {
     }
 
     makeBlock (index, title, text) {
-        var titleId = 'title-' + index,
-            textareaId = 'textarea-' + index,
-            saveBtnId = 'save-' + index,
+        var titleId = IdManipulation.getPreparedId('title', index),
+            textareaId = IdManipulation.getPreparedId('textarea', index),
+            saveBtnId = IdManipulation.getPreparedId('save', index),
             textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine);
 
         textarea.init()
@@ -67,7 +67,7 @@ class Newsbar extends BaseTab {
     }
 
     saveModel (event) {
-        var modelId = this.getIdFromString(event.target.id);
+        var modelId = IdManipulation.getIdFromString(event.target.id);
         console.log(modelId);
     }
 }

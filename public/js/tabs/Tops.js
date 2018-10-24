@@ -22,10 +22,10 @@ class Tops extends BaseTab {
     }
 
     makeBlock (index, title, text) {
-        var titleId = 'title-' + index,
-            textareaId = 'textarea-' + index,
-            saveBtnId = 'save-' + index,
-            rmBtnId = 'remove-' + index,
+        var titleId = IdManipulation.getPreparedId('title', index),
+            textareaId = IdManipulation.getPreparedId('textarea', index),
+            saveBtnId = IdManipulation.getPreparedId('save', index),
+            rmBtnId = IdManipulation.getPreparedId('remove', index),
             textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine);
 
         textarea.init();
@@ -88,12 +88,12 @@ class Tops extends BaseTab {
     }
 
     saveModel (event) {
-        var modelId = this.getIdFromString(event.target.id);
+        var modelId = IdManipulation.getIdFromString(event.target.id);
         console.log(modelId);
     }
 
     removeModel (event) {
-        var modelId = this.getIdFromString(event.target.id);
+        var modelId = IdManipulation.getIdFromString(event.target.id);
         console.log(modelId);
     }
 }
