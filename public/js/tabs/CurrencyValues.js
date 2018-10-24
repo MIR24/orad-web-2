@@ -6,6 +6,21 @@ class CurrencyValues extends BaseTab {
             'click' : {},
             'input' : {},
         };
+        this.spinnerButtonOptions = {
+            'firstKey': 1,
+            1: {
+                'text': '↗',
+                'cssClass': 'btn-success',
+            },
+            2: {
+                'text': '↘',
+                'cssClass': 'btn-danger',
+            },
+            3: {
+                'text': '→',
+                'cssClass': 'btn-secondary',
+            }
+        }
     }
 
     makeTemplate (response) {
@@ -18,15 +33,30 @@ class CurrencyValues extends BaseTab {
         .join('');
     }
 
+    valueChange (event) {
+        console.log(event.target.value);
+    }
+
     makeBlock (index, leftValName, rightValName, inputValue, direction) {
         var inputId = IdManipulation.getPreparedId('input', index),
-            directionId = IdManipulation.getPreparedId('direction-input', index);
+            directionId = IdManipulation.getPreparedId('direction-input', index),
+            spinnerButton = new SpinnerButton(index, this.spinnerButtonOptions, direction);
+
+        spinnerButton.init();
+
+        Listeners.add(this, 'click', spinnerButton.getListeners());
+        this.setListeners('input', {
+            [inputId]: {
+                'function': this.valueChange,
+                'class': this
+            }
+        });
 
         return `<div class="col-6">
             <div class="row input-group bootstrap-touchspin mb-2">
                 <span class="input-group-addon">${leftValName}</span>
-                <button class="btn btn-secondary" type="button">-</button>
-                <input id="${inputId}" type="text" class="form-control" value="${inputValue}">
+                ${spinnerButton.getTemplate()}
+                <input type=number id="${inputId}" type="text" class="form-control" value="${inputValue}" >
                 <span class="input-group-addon bootstrap-touchspin-prefix">${rightValName}</span>
             </div>
         </div>`
