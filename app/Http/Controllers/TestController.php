@@ -94,14 +94,14 @@ class TestController extends Controller
                 'id' => 0,
                 'val1' => 'rub',
                 'val2' => 'usd',
-                'dir' => 1,
+                'dir' => 2,
                 'value' => 1.21
             ],
             2 => [
                 'id' => 0,
                 'val1' => 'rub',
                 'val2' => 'usd',
-                'dir' => 1,
+                'dir' => 3,
                 'value' => 1.21
             ],
         ];
