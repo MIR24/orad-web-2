@@ -10,6 +10,12 @@ class Tops extends BaseTab {
     }
 
     makeTemplate (response) {
+        var addEmptyBlock = new AddEmptyBlock(this.constructor.name, '+ Добавить топ', this, this.getEmptyBlock);
+
+        addEmptyBlock.init();
+
+        Listeners.add(this, 'click', addEmptyBlock.getListeners());
+
         this.models = response;
         this.template = Object.keys(response).map(key => {
             var text = Object.keys(response[key].releated).map(keyInner => (
@@ -18,7 +24,7 @@ class Tops extends BaseTab {
             return this.makeBlock(key, response[key].title, text);
         })
         .join('')
-        .concat(this.makeAddEmptyBlockBtn());
+        .concat(addEmptyBlock.getTemplate());
     }
 
     makeBlock (index, title, text) {
@@ -67,20 +73,8 @@ class Tops extends BaseTab {
         </div>`
     }
     
-    makeAddEmptyBlockBtn () {
-        var buttonId = 'tops-add-block';
-        this.setListeners('click', {
-            [buttonId]: {
-                'function': this.addEmptyBlock,
-                'class': this
-            }
-        });
-        return `<button id="${buttonId}" class="btn btn-primary">+ Добавить топ</button>`
-    }
-
-    addEmptyBlock (event) {
-        $(event.target).before(this.makeBlock('new-' + Date.now(), '', ''));
-        this.initListeners();
+    getEmptyBlock () {
+        return this.makeBlock('new-' + Date.now(), '', '');
     }
 
     updateTitle (event) {

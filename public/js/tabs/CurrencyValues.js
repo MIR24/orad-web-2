@@ -8,6 +8,10 @@ class CurrencyValues extends BaseTab {
         };
         this.spinnerButtonOptions = {
             'firstKey': 1,
+            0: {
+                'text': '-',
+                'cssClass': 'btn-dark',
+            },
             1: {
                 'text': '↗',
                 'cssClass': 'btn-success',
@@ -20,17 +24,22 @@ class CurrencyValues extends BaseTab {
                 'text': '→',
                 'cssClass': 'btn-secondary',
             }
-        }
+        };
     }
 
     makeTemplate (response) {
+        var addEmptyBlock = new AddEmptyBlock(this.constructor.name, null, this, this.getEmptyBlock);
+
+        addEmptyBlock.init();
+
+        Listeners.add(this, 'click', addEmptyBlock.getListeners());
+
         this.models = response;
         this.template = Object.keys(response).map(key => {
-            return `<div class="col-12 row justify-content-center">
-                ${this.makeBlock(key, response[key].val1, response[key].val2, response[key].value, response[key].dir)}
-            </div>`;
+            return this.makeBlock(key, response[key].val1, response[key].val2, response[key].value, response[key].dir);
         })
-        .join('');
+        .join('')
+        .concat(addEmptyBlock.getTemplate());
     }
 
     valueChange (event) {
@@ -52,13 +61,42 @@ class CurrencyValues extends BaseTab {
             }
         });
 
-        return `<div class="col-6">
-            <div class="row input-group bootstrap-touchspin mb-2">
-                <span class="input-group-addon">${leftValName}</span>
-                ${spinnerButton.getTemplate()}
-                <input type=number id="${inputId}" type="text" class="form-control" value="${inputValue}" >
-                <span class="input-group-addon bootstrap-touchspin-prefix">${rightValName}</span>
+        return `<div class="col-12 row justify-content-center">
+            <div class="col-6">
+                <div class="row input-group bootstrap-touchspin mb-2">
+                    <span class="input-group-addon">${leftValName}</span>
+                    ${spinnerButton.getTemplate()}
+                    <input type=number id="${inputId}" type="text" class="form-control" value="${inputValue}" >
+                    <span class="input-group-addon bootstrap-touchspin-prefix">${rightValName}</span>
+                </div>
             </div>
         </div>`
+    }
+
+    makeEmptyBlock () {
+        var firstValId = 'first-val-new',
+            secondValId = 'second-val-new',
+            valueId = 'value-new',
+            emptyCurrencyPlaceholder = 'Валюта',
+            spinnerButton = new SpinnerButton('new', this.spinnerButtonOptions, 0);
+
+        spinnerButton.init();
+
+        Listeners.add(this, 'click', spinnerButton.getListeners());;
+
+        return `<div class="col-12 row justify-content-center">
+            <div class="col-6">
+                <div class="row input-group bootstrap-touchspin mb-3">
+                    <input id="${firstValId}" type="text" class="form-control" placeholder="${emptyCurrencyPlaceholder}" >
+                    ${spinnerButton.getTemplate()}
+                    <input type=number id="${valueId}" type="text" class="form-control" placeholder="0.0" >
+                    <input id="${secondValId}" type="text" class="form-control" placeholder="${emptyCurrencyPlaceholder}" >
+                </div>
+            </div>
+        </div>`
+    }
+
+    getEmptyBlock (event) {
+        return this.makeEmptyBlock();
     }
 }
