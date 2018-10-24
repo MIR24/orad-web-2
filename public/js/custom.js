@@ -1,12 +1,12 @@
 const tabContentContainer = $('#tab-content'),
     bodyLoader = $('body');
 
-var currentTab
-
 function SwitchTab (tabName) {
     var formatters = {
           'Tops': Tops,
+          'Newsbar': Newsbar,
+          'Expedited': Expedited,
     }
-    currentTab = new formatters[tabName]();
+    var currentTab = new formatters[tabName]();
     currentTab.init();console.log(currentTab);
 }
