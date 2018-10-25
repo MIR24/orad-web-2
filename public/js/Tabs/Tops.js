@@ -111,13 +111,19 @@ class Tops extends BaseTab {
     }
 
     cancelRedacting (stringId) {
-        var modelId = IdManipulation.getIdFromString(stringId);
-        console.log(modelId);
+        this.redacting = {
+            'modelId': null,
+            'state': false,
+        }
+        this.rerender();
     }
 
     enterRedacting (stringId) {
-        var modelId = IdManipulation.getIdFromString(stringId);
-        console.log(modelId);
+        this.redacting = {
+            'modelId': IdManipulation.getIdFromString(stringId),
+            'state': true,
+        }
+        this.rerender();
     }
 }
 export default Tops
