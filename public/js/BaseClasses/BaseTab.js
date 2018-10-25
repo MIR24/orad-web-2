@@ -54,7 +54,6 @@ class BaseTab {
 
     init () {
         $('body').addClass('m-page--loading');
-        //bodyLoader.addClass('m-page--loading');
         this.getModels()
         .then((response) => {
             this.setData(response);
@@ -64,19 +63,18 @@ class BaseTab {
         })
         .then(function () {
             $('body').removeClass('m-page--loading');
-            //bodyLoader.removeClass('m-page--loading');
         });
     }
 
     rerender () {
-        bodyLoader.addClass('m-page--loading');
+        $('body').addClass('m-page--loading');
         new Promise((resolve) => {
             this.makeTemplate(this.models);
             this.renderTemplate();
             this.initListeners();
             resolve();
         }).then(function () {
-            bodyLoader.removeClass('m-page--loading');
+            $('body').removeClass('m-page--loading');
         });
     }
 }
