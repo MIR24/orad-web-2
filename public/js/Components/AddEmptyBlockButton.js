@@ -1,12 +1,14 @@
 import BaseButton from "../BaseClasses/BaseButton.js";
 
 class AddEmptyBlockButton extends BaseButton {
-    constructor (id, text, cssClass) {
-        super(id, text, cssClass);
-        this.handle = this.addEmptyBlock;
+    constructor (id, type) {
+        super (
+            id,
+            type ? type : 'add-empty-block'
+        );
     }
 
-    addEmptyBlock (initClass, event) {
+    handle (initClass, event) {
         $(event.target).before(initClass.getEmptyBlock());
         initClass.initListeners();
     }

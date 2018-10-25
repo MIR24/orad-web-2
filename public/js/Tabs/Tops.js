@@ -16,11 +16,11 @@ class Tops extends BaseTab {
     }
 
     makeTemplate () {
-        var addEmptyBlock = new AddEmptyBlockButton(this.constructor.name, '+ Добавить топ', 'btn-primary');
+        var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
 
-        addEmptyBlock.init();
+        addEmptyBlockButton.init();
 
-        Listeners.add(this, addEmptyBlock.getListeners());
+        Listeners.add(this, addEmptyBlockButton.getListeners());
 
         this.template = Object.keys(this.models).map(key => {
             var text = Object.keys(this.models[key].releated).map(keyInner => (
@@ -29,7 +29,7 @@ class Tops extends BaseTab {
             return this.makeBlock(key, this.models[key].title, text);
         })
         .join('')
-        .concat(addEmptyBlock.getTemplate());
+        .concat(addEmptyBlockButton.getTemplate());
     }
 
     makeBlock (index, title, text) {

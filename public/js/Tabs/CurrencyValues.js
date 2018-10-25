@@ -35,17 +35,17 @@ class CurrencyValues extends BaseTab {
     }
 
     makeTemplate () {
-        var addEmptyBlock = new AddEmptyBlockButton(this.constructor.name, null);
+        var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
 
-        addEmptyBlock.init();
+        addEmptyBlockButton.init();
 
-        Listeners.add(this, addEmptyBlock.getListeners());
+        Listeners.add(this, addEmptyBlockButton.getListeners());
 
         this.template = Object.keys(this.models).map(key => {
             return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir);
         })
         .join('')
-        .concat(addEmptyBlock.getTemplate());
+        .concat(addEmptyBlockButton.getTemplate());
     }
 
     valueChange (event) {
