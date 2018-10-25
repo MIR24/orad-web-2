@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TopString extends Model
+class CurrencyRate extends Model
 {
     use SoftDeletes;
 
@@ -21,13 +21,5 @@ class TopString extends Model
      *
      * @var string
      */
-    protected $table = 'Tops';
-
-    /**
-     * Get the category for the strings.
-     */
-    public function category()
-    {
-        return $this->belongsTo('App\TopCategory', 'category_id');
-    }
+    protected $table = 'CurrencyRates';
 }

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TopString extends Model
+class PhotoCategory extends Model
 {
     use SoftDeletes;
 
@@ -21,13 +21,13 @@ class TopString extends Model
      *
      * @var string
      */
-    protected $table = 'Tops';
+    protected $table = 'PhotosCategories';
 
     /**
-     * Get the category for the strings.
+     * Get the strings for the category.
      */
-    public function category()
+    public function strings()
     {
-        return $this->belongsTo('App\TopCategory', 'category_id');
+        return $this->hasMany('App\Photo', 'category_id');
     }
 }
