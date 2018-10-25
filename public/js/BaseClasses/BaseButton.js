@@ -1,15 +1,17 @@
 import IdManipulation from "../Utils/IdManipulation.js";
 import Listeners from "../Utils/Listeners.js";
+import ButtonsConfig from "../Config/ButtonsConfig.js";
 
 class BaseButton {
-    constructor (id, text, cssClass) {
+    constructor (id, type) {
         this.template = '';
         this.listeners = {
             'click': {}
         };
-        this.id = IdManipulation.getPreparedId('add-empty-block', id);
-        this.text = text ? text : '+ Добавить';
-        this.cssClass = cssClass;
+        this.id = IdManipulation.getPreparedId(type, id);
+        this.type = type;
+        this.text = ButtonsConfig[type].text;
+        this.cssClass = ButtonsConfig[type].cssClass;
     }
 
     makeTemplate () {
