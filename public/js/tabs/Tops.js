@@ -14,7 +14,7 @@ class Tops extends BaseTab {
 
         addEmptyBlock.init();
 
-        Listeners.add(this, 'click', addEmptyBlock.getListeners());
+        Listeners.add(this, addEmptyBlock.getListeners());
 
         this.models = response;
         this.template = Object.keys(response).map(key => {

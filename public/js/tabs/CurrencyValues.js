@@ -32,7 +32,7 @@ class CurrencyValues extends BaseTab {
 
         addEmptyBlock.init();
 
-        Listeners.add(this, 'click', addEmptyBlock.getListeners());
+        Listeners.add(this, addEmptyBlock.getListeners());
 
         this.models = response;
         this.template = Object.keys(response).map(key => {
@@ -53,7 +53,7 @@ class CurrencyValues extends BaseTab {
 
         spinnerButton.init();
 
-        Listeners.add(this, 'click', spinnerButton.getListeners());
+        Listeners.add(this, spinnerButton.getListeners());
         this.setListeners('input', {
             [inputId]: {
                 'function': this.valueChange,
@@ -82,7 +82,7 @@ class CurrencyValues extends BaseTab {
 
         spinnerButton.init();
 
-        Listeners.add(this, 'click', spinnerButton.getListeners());;
+        Listeners.add(this, spinnerButton.getListeners());;
 
         return `<div class="col-12 row justify-content-center">
             <div class="col-6">

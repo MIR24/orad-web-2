@@ -3,8 +3,14 @@ class Listeners {
         classVar.listeners[type] = Object.assign(classVar.listeners[type], listenerObj);
     }
 
-    static add (classVar, type, listenerObj) {
-        classVar.listeners[type] = Object.assign(classVar.listeners[type], listenerObj[type]);
+    static add (classVar, listenerObj) {
+        for (var type in listenerObj) {
+            if (classVar.listeners.hasOwnProperty(type)) {
+                classVar.listeners[type] = Object.assign(classVar.listeners[type], listenerObj[type]);
+            } else {
+                classVar.listeners[type] = listenerObj[type];
+            }
+        }
     }
 
     static init (classVar) {

@@ -31,7 +31,7 @@ class Expedited extends BaseTab {
         textarea.init()
         checkboxes.init();
 
-        Listeners.add(this, 'click', checkboxes.getListeners());
+        Listeners.add(this, checkboxes.getListeners());
         this.setListeners('input', {
             [titleId]: {
                 'function': this.updateTitle,
