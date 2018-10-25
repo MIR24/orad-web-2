@@ -39,6 +39,10 @@ class BaseTab {
         Listeners.set(this, type, listenerObj);
     }
 
+    addListeners (listenerObj) {
+        Listeners.add(this, listenerObj);
+    }
+
     initListeners () {
         Listeners.init(this);
     }

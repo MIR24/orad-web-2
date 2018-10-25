@@ -2,6 +2,7 @@ import BaseTab from "../BaseClasses/BaseTab.js";
 import Textarea from "../Components/Textarea.js";
 import SpinnerButton from "../Utils/IdManipulation.js";
 import IdManipulation from "../Utils/IdManipulation.js";
+import SaveButton from "../Components/SaveButton.js";
 
 class Newsbar extends BaseTab {
     constructor () {
@@ -31,11 +32,13 @@ class Newsbar extends BaseTab {
     makeBlock (index, title, text) {
         var titleId = IdManipulation.getPreparedId('title', index),
             textareaId = IdManipulation.getPreparedId('textarea', index),
-            saveBtnId = IdManipulation.getPreparedId('save', index),
-            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine);
+            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine),
+            saveBtn = new SaveButton(index);
 
-        textarea.init()
+        textarea.init();
+        saveBtn.init();
 
+        this.addListeners(saveBtn.getListeners());
         this.setListeners('input', {
             [titleId]: {
                 'function': this.updateTitle,
@@ -46,16 +49,10 @@ class Newsbar extends BaseTab {
                 'class': textarea
             },
         });
-        this.setListeners('click', {
-            [saveBtnId]: {
-                'function': this.saveModel,
-                'class': this
-            },
-        });
 
         return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
-                <button id="${saveBtnId}" class="btn btn-success">Сохранить</button>
+                ${saveBtn.getTemplate()}
             </div>
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
@@ -70,8 +67,8 @@ class Newsbar extends BaseTab {
         console.log(event.target.value);
     }
 
-    saveModel (event) {
-        var modelId = IdManipulation.getIdFromString(event.target.id);
+    saveModel (stringId) {
+        var modelId = IdManipulation.getIdFromString(stringId);
         console.log(modelId);
     }
 }

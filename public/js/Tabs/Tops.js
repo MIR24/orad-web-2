@@ -1,8 +1,8 @@
 import BaseTab from "../BaseClasses/BaseTab.js";
 import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
+import SaveButton from "../Components/SaveButton.js";
 import Textarea from "../Components/Textarea.js";
 import IdManipulation from "../Utils/IdManipulation.js";
-import Listeners from "../Utils/Listeners.js";
 
 class Tops extends BaseTab {
     constructor () {
@@ -20,7 +20,7 @@ class Tops extends BaseTab {
 
         addEmptyBlockButton.init();
 
-        Listeners.add(this, addEmptyBlockButton.getListeners());
+        this.addListeners(addEmptyBlockButton.getListeners());
 
         this.template = Object.keys(this.models).map(key => {
             var text = Object.keys(this.models[key].releated).map(keyInner => (
@@ -35,13 +35,15 @@ class Tops extends BaseTab {
     makeBlock (index, title, text) {
         var titleId = IdManipulation.getPreparedId('title', index),
             textareaId = IdManipulation.getPreparedId('textarea', index),
-            saveBtnId = IdManipulation.getPreparedId('save', index),
             rmBtnId = IdManipulation.getPreparedId('remove', index),
             disabled = this.redacting.modelId == index ? '' : 'disabled',
-            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine, disabled);
+            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine, disabled),
+            saveBtn = new SaveButton(index);
 
         textarea.init();
+        saveBtn.init();
 
+        this.addListeners(saveBtn.getListeners());
         this.setListeners('input', {
             [titleId]: {
                 'function': this.updateTitle,
@@ -53,10 +55,6 @@ class Tops extends BaseTab {
             }
         });
         this.setListeners('click', {
-            [saveBtnId]: {
-                'function': this.saveModel,
-                'class': this
-            },
             [rmBtnId]: {
                 'function': this.removeModel,
                 'class': this
@@ -65,7 +63,7 @@ class Tops extends BaseTab {
 
         return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
-                <button id="${saveBtnId}" class="btn btn-success">Сохранить</button>
+                ${saveBtn.getTemplate()}
                 <button id="${rmBtnId}" class="btn btn-danger">Удалить</button>
             </div>
             <form class="m-form m-form--fit m-form--label-align-right">
@@ -87,8 +85,8 @@ class Tops extends BaseTab {
         console.log(event.target.value);
     }
 
-    saveModel (event) {
-        var modelId = IdManipulation.getIdFromString(event.target.id);
+    saveModel (stringId) {
+        var modelId = IdManipulation.getIdFromString(stringId);
         console.log(modelId);
     }
 

@@ -1,7 +1,7 @@
 const ButtonsConfig = {
     "add-empty-block": {
         "text": "+ Добавить",
-        "cssClass": "btn-primary",
+        "cssClass": "btn-primary mr-1",
     },
     "save-model": {
         "text": "Сохранить",

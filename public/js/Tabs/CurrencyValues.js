@@ -1,9 +1,8 @@
 import BaseTab from "../BaseClasses/BaseTab.js";
 import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
+import SaveButton from "../Components/SaveButton.js";
 import SpinnerButton from "../Components/SpinnerButton.js";
 import IdManipulation from "../Utils/IdManipulation.js";
-import Listeners from "../Utils/Listeners.js";
-
 
 class CurrencyValues extends BaseTab {
     constructor () {
@@ -35,17 +34,21 @@ class CurrencyValues extends BaseTab {
     }
 
     makeTemplate () {
-        var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+        var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name),
+            saveBtn = new SaveButton(this.constructor.name);
 
         addEmptyBlockButton.init();
+        saveBtn.init();
 
-        Listeners.add(this, addEmptyBlockButton.getListeners());
+        this.addListeners(addEmptyBlockButton.getListeners());
+        this.addListeners(saveBtn.getListeners());
 
         this.template = Object.keys(this.models).map(key => {
             return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir);
         })
         .join('')
-        .concat(addEmptyBlockButton.getTemplate());
+        .concat(addEmptyBlockButton.getTemplate())
+        .concat(saveBtn.getTemplate());
     }
 
     valueChange (event) {
@@ -55,11 +58,12 @@ class CurrencyValues extends BaseTab {
     makeBlock (index, leftValName, rightValName, inputValue, direction) {
         var inputId = IdManipulation.getPreparedId('input', index),
             directionId = IdManipulation.getPreparedId('direction-input', index),
-            spinnerButton = new SpinnerButton(index, this.spinnerButtonOptions, direction);
+            spinnerButton = new SpinnerButton(index, this.spinnerButtonOptions, direction),
+            saveBtn = new SaveButton(index);
 
         spinnerButton.init();
 
-        Listeners.add(this, spinnerButton.getListeners());
+        this.addListeners(spinnerButton.getListeners());
         this.setListeners('input', {
             [inputId]: {
                 'function': this.valueChange,
@@ -88,7 +92,7 @@ class CurrencyValues extends BaseTab {
 
         spinnerButton.init();
 
-        Listeners.add(this, spinnerButton.getListeners());;
+        this.addListeners(spinnerButton.getListeners());;
 
         return `<div class="col-12 row justify-content-center">
             <div class="col-6">
@@ -104,6 +108,10 @@ class CurrencyValues extends BaseTab {
 
     getEmptyBlock (event) {
         return this.makeEmptyBlock();
+    }
+
+    saveModel (stringId) {
+        console.log(stringId);
     }
 }
 export default CurrencyValues

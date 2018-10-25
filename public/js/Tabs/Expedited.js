@@ -3,7 +3,7 @@ import ExpeditedCheckbox from "../Components/ExpeditedCheckbox.js";
 import Textarea from "../Components/Textarea.js";
 import SpinnerButton from "../Utils/IdManipulation.js";
 import IdManipulation from "../Utils/IdManipulation.js";
-import Listeners from "../Utils/Listeners.js";
+import SaveButton from "../Components/SaveButton.js";
 
 
 class Expedited extends BaseTab {
@@ -30,15 +30,17 @@ class Expedited extends BaseTab {
     makeBlock (index, title, text) {
         var titleId = IdManipulation.getPreparedId('title', index),
             textareaId = IdManipulation.getPreparedId('textarea', index),
-            saveBtnId = IdManipulation.getPreparedId('save', index),
             rmBtnId = IdManipulation.getPreparedId('remove', index),
             textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine),
-            checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts);
+            checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts),
+            saveBtn = new SaveButton(index);
 
         textarea.init()
         checkboxes.init();
+        saveBtn.init();
 
-        Listeners.add(this, checkboxes.getListeners());
+        this.addListeners(checkboxes.getListeners());
+        this.addListeners(saveBtn.getListeners());
         this.setListeners('input', {
             [titleId]: {
                 'function': this.updateTitle,
@@ -50,10 +52,6 @@ class Expedited extends BaseTab {
             }
         });
         this.setListeners('click', {
-            [saveBtnId]: {
-                'function': this.saveModel,
-                'class': this
-            },
             [rmBtnId]: {
                 'function': this.removeModel,
                 'class': this
@@ -62,7 +60,7 @@ class Expedited extends BaseTab {
 
         return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
-                <button id="${saveBtnId}" class="btn btn-success">Сохранить</button>
+                ${saveBtn.getTemplate()}
                 <button id="${rmBtnId}" class="btn btn-danger">Удалить</button>
             </div>
             <div class="row">
@@ -85,8 +83,8 @@ class Expedited extends BaseTab {
         console.log(event.target.value);
     }
 
-    saveModel (event) {
-        var modelId = IdManipulation.getIdFromString(event.target.id);
+    saveModel (stringId) {
+        var modelId = IdManipulation.getIdFromString(stringId);
         console.log(modelId);
     }
 
