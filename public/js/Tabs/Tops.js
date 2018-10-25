@@ -4,6 +4,8 @@ import SaveButton from "../Components/SaveButton.js";
 import DeleteButton from "../Components/DeleteButton.js";
 import Textarea from "../Components/Textarea.js";
 import IdManipulation from "../Utils/IdManipulation.js";
+import EnterRedactingButton from "../Components/EnterRedactingButton.js";
+import CancelRedactingButton from "../Components/CancelRedactingButton.js";
 
 class Tops extends BaseTab {
     constructor () {
@@ -38,30 +40,46 @@ class Tops extends BaseTab {
             textareaId = IdManipulation.getPreparedId('textarea', index),
             disabled = this.redacting.modelId == index ? '' : 'disabled',
             textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine, disabled),
-            saveBtn = new SaveButton(index),
-            rmBtn = new DeleteButton(index);
+            controlButtons = '';
+
+        if (disabled) {
+            var rmBtn = new DeleteButton(index),
+                enterRedactingBtn = new EnterRedactingButton(index);
+
+            rmBtn.init();
+            enterRedactingBtn.init();
+
+            this.addListeners(rmBtn.getListeners());
+            this.addListeners(enterRedactingBtn.getListeners());
+
+            controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
+        } else {
+            var saveBtn = new SaveButton(index),
+                cancelEditBtn = new CancelRedactingButton(index);
+
+            saveBtn.init();
+            cancelEditBtn.init();
+
+            this.addListeners(saveBtn.getListeners());
+            this.addListeners(cancelEditBtn.getListeners());
+            this.setListeners('input', {
+                [titleId]: {
+                    'function': this.updateTitle,
+                    'class': this
+                },
+                [textareaId]: {
+                    'function': textarea.updateText,
+                    'class': textarea
+                }
+            });
+            controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+        }
 
         textarea.init();
-        saveBtn.init();
-        rmBtn.init();
-
-        this.addListeners(saveBtn.getListeners());
-        this.addListeners(rmBtn.getListeners());
-        this.setListeners('input', {
-            [titleId]: {
-                'function': this.updateTitle,
-                'class': this
-            },
-            [textareaId]: {
-                'function': textarea.updateText,
-                'class': textarea
-            }
-        });
 
         return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
-                ${saveBtn.getTemplate()}
-                ${rmBtn.getTemplate()}
+                ${controlButtons}
             </div>
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
@@ -88,6 +106,16 @@ class Tops extends BaseTab {
     }
 
     removeModel (stringId) {
+        var modelId = IdManipulation.getIdFromString(stringId);
+        console.log(modelId);
+    }
+
+    cancelRedacting (stringId) {
+        var modelId = IdManipulation.getIdFromString(stringId);
+        console.log(modelId);
+    }
+
+    enterRedacting (stringId) {
         var modelId = IdManipulation.getIdFromString(stringId);
         console.log(modelId);
     }
