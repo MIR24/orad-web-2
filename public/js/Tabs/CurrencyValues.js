@@ -3,6 +3,7 @@ import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
 import SaveButton from "../Components/SaveButton.js";
 import SpinnerButton from "../Components/SpinnerButton.js";
 import IdManipulation from "../Utils/IdManipulation.js";
+import DeleteButton from "../Components/DeleteButton.js";
 
 class CurrencyValues extends BaseTab {
     constructor () {
@@ -59,11 +60,14 @@ class CurrencyValues extends BaseTab {
         var inputId = IdManipulation.getPreparedId('input', index),
             directionId = IdManipulation.getPreparedId('direction-input', index),
             spinnerButton = new SpinnerButton(index, this.spinnerButtonOptions, direction),
-            saveBtn = new SaveButton(index);
+            saveBtn = new SaveButton(index),
+            rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
 
         spinnerButton.init();
+        rmBtn.init();
 
         this.addListeners(spinnerButton.getListeners());
+        this.addListeners(rmBtn.getListeners());
         this.setListeners('input', {
             [inputId]: {
                 'function': this.valueChange,
@@ -78,6 +82,7 @@ class CurrencyValues extends BaseTab {
                     ${spinnerButton.getTemplate()}
                     <input type=number id="${inputId}" type="text" class="form-control" value="${inputValue}" >
                     <span class="input-group-addon bootstrap-touchspin-prefix">${rightValName}</span>
+                    ${rmBtn.getTemplate()}
                 </div>
             </div>
         </div>`
@@ -88,11 +93,14 @@ class CurrencyValues extends BaseTab {
             secondValId = 'second-val-new',
             valueId = 'value-new',
             emptyCurrencyPlaceholder = 'Валюта',
-            spinnerButton = new SpinnerButton('new', this.spinnerButtonOptions, 0);
+            spinnerButton = new SpinnerButton('new', this.spinnerButtonOptions, 0),
+            rmBtn = new DeleteButton('new', 'delete-button-CurrencyValues');
 
         spinnerButton.init();
+        rmBtn.init();
 
-        this.addListeners(spinnerButton.getListeners());;
+        this.addListeners(spinnerButton.getListeners());
+        this.addListeners(rmBtn.getListeners());
 
         return `<div class="col-12 row justify-content-center">
             <div class="col-6">
@@ -101,6 +109,7 @@ class CurrencyValues extends BaseTab {
                     ${spinnerButton.getTemplate()}
                     <input type=number id="${valueId}" type="text" class="form-control" placeholder="0.0" >
                     <input id="${secondValId}" type="text" class="form-control" placeholder="${emptyCurrencyPlaceholder}" >
+                    ${rmBtn.getTemplate()}
                 </div>
             </div>
         </div>`
@@ -112,6 +121,11 @@ class CurrencyValues extends BaseTab {
 
     saveModel (stringId) {
         console.log(stringId);
+    }
+
+    removeModel (stringId) {
+        var modelId = IdManipulation.getIdFromString(stringId);
+        console.log(modelId);
     }
 }
 export default CurrencyValues

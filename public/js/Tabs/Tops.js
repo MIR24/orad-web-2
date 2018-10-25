@@ -1,6 +1,7 @@
 import BaseTab from "../BaseClasses/BaseTab.js";
 import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
 import SaveButton from "../Components/SaveButton.js";
+import DeleteButton from "../Components/DeleteButton.js";
 import Textarea from "../Components/Textarea.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 
@@ -35,15 +36,17 @@ class Tops extends BaseTab {
     makeBlock (index, title, text) {
         var titleId = IdManipulation.getPreparedId('title', index),
             textareaId = IdManipulation.getPreparedId('textarea', index),
-            rmBtnId = IdManipulation.getPreparedId('remove', index),
             disabled = this.redacting.modelId == index ? '' : 'disabled',
             textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine, disabled),
-            saveBtn = new SaveButton(index);
+            saveBtn = new SaveButton(index),
+            rmBtn = new DeleteButton(index);
 
         textarea.init();
         saveBtn.init();
+        rmBtn.init();
 
         this.addListeners(saveBtn.getListeners());
+        this.addListeners(rmBtn.getListeners());
         this.setListeners('input', {
             [titleId]: {
                 'function': this.updateTitle,
@@ -54,17 +57,11 @@ class Tops extends BaseTab {
                 'class': textarea
             }
         });
-        this.setListeners('click', {
-            [rmBtnId]: {
-                'function': this.removeModel,
-                'class': this
-            }
-        });
 
         return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
                 ${saveBtn.getTemplate()}
-                <button id="${rmBtnId}" class="btn btn-danger">Удалить</button>
+                ${rmBtn.getTemplate()}
             </div>
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
@@ -90,8 +87,8 @@ class Tops extends BaseTab {
         console.log(modelId);
     }
 
-    removeModel (event) {
-        var modelId = IdManipulation.getIdFromString(event.target.id);
+    removeModel (stringId) {
+        var modelId = IdManipulation.getIdFromString(stringId);
         console.log(modelId);
     }
 }

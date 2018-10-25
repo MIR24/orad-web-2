@@ -4,6 +4,7 @@ import Textarea from "../Components/Textarea.js";
 import SpinnerButton from "../Utils/IdManipulation.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import SaveButton from "../Components/SaveButton.js";
+import DeleteButton from "../Components/DeleteButton.js";
 
 
 class Expedited extends BaseTab {
@@ -30,17 +31,19 @@ class Expedited extends BaseTab {
     makeBlock (index, title, text) {
         var titleId = IdManipulation.getPreparedId('title', index),
             textareaId = IdManipulation.getPreparedId('textarea', index),
-            rmBtnId = IdManipulation.getPreparedId('remove', index),
             textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine),
             checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts),
-            saveBtn = new SaveButton(index);
+            saveBtn = new SaveButton(index),
+            rmBtn = new DeleteButton(index);
 
         textarea.init()
         checkboxes.init();
         saveBtn.init();
+        rmBtn.init();
 
         this.addListeners(checkboxes.getListeners());
         this.addListeners(saveBtn.getListeners());
+        this.addListeners(rmBtn.getListeners());
         this.setListeners('input', {
             [titleId]: {
                 'function': this.updateTitle,
@@ -49,12 +52,6 @@ class Expedited extends BaseTab {
             [textareaId]: {
                 'function': textarea.updateText,
                 'class': textarea
-            }
-        });
-        this.setListeners('click', {
-            [rmBtnId]: {
-                'function': this.removeModel,
-                'class': this
             }
         });
 
@@ -88,8 +85,8 @@ class Expedited extends BaseTab {
         console.log(modelId);
     }
 
-    removeModel (event) {
-        var modelId = IdManipulation.getIdFromString(event.target.id);
+    removeModel (stringId) {
+        var modelId = IdManipulation.getIdFromString(stringId);
         console.log(modelId);
     }
 }

@@ -6,6 +6,14 @@ const ButtonsConfig = {
     "save-model": {
         "text": "Сохранить",
         "cssClass": "btn-success",
+    },
+    "remove-model": {
+        "text": "Удалить",
+        "cssClass": "btn-danger",
+    },
+    "delete-button-CurrencyValues": {
+        "text": "Удалить",
+        "cssClass": "btn-danger ml-2",
     }
 }
 export default ButtonsConfig
