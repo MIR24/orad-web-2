@@ -4,7 +4,7 @@ class BaseTab {
     constructor () {
         this.csrf = $('meta[name="csrf-token"]').attr('content');
         this.template = '';
-        this.redacting = {
+        this.edit = {
             'modelId': null,
             'state': false,
         };

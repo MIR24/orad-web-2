@@ -1,6 +1,6 @@
 import BaseButton from "../BaseClasses/BaseButton.js";
 
-class EnterRedactingButton extends BaseButton {
+class EnterEditingButton extends BaseButton {
     constructor (id, type) {
         super (
             id,
@@ -9,7 +9,7 @@ class EnterRedactingButton extends BaseButton {
     }
 
     handle (initClass, event) {
-        initClass.enterRedacting(event.target.id);
+        initClass.enterEditing(event.target.id);
     }
 }
-export default EnterRedactingButton
+export default EnterEditingButton

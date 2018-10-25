@@ -1,6 +1,6 @@
 import BaseButton from "../BaseClasses/BaseButton.js";
 
-class CancelRedactingButton extends BaseButton {
+class CancelEditingButton extends BaseButton {
     constructor (id, type) {
         super (
             id,
@@ -9,7 +9,7 @@ class CancelRedactingButton extends BaseButton {
     }
 
     handle (initClass, event) {
-        initClass.cancelRedacting(event.target.id);
+        initClass.cancelEditing(event.target.id);
     }
 }
-export default CancelRedactingButton
+export default CancelEditingButton

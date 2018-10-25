@@ -4,8 +4,8 @@ import SaveButton from "../Components/SaveButton.js";
 import DeleteButton from "../Components/DeleteButton.js";
 import Textarea from "../Components/Textarea.js";
 import IdManipulation from "../Utils/IdManipulation.js";
-import EnterRedactingButton from "../Components/EnterRedactingButton.js";
-import CancelRedactingButton from "../Components/CancelRedactingButton.js";
+import EnterEditingButton from "../Components/EnterEditingButton.js";
+import CancelEditingButton from "../Components/CancelEditingButton.js";
 
 class Tops extends BaseTab {
     constructor () {
@@ -19,43 +19,32 @@ class Tops extends BaseTab {
     }
 
     makeTemplate () {
-        var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
-
-        addEmptyBlockButton.init();
-
-        this.addListeners(addEmptyBlockButton.getListeners());
-
         this.template = Object.keys(this.models).map(key => {
             var text = Object.keys(this.models[key].releated).map(keyInner => (
                 this.models[key].releated[keyInner].text
             )).join('\n');
             return this.makeBlock(key, this.models[key].title, text);
         })
-        .join('')
-        .concat(addEmptyBlockButton.getTemplate());
+        .join('');
+
+        if (!this.edit.state) {
+            var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+            addEmptyBlockButton.init();
+            this.addListeners(addEmptyBlockButton.getListeners());
+            this.template = this.template.concat(addEmptyBlockButton.getTemplate());
+        }
     }
 
     makeBlock (index, title, text) {
         var titleId = IdManipulation.getPreparedId('title', index),
             textareaId = IdManipulation.getPreparedId('textarea', index),
-            disabled = this.redacting.modelId == index ? '' : 'disabled',
+            disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine, disabled),
             controlButtons = '';
 
-        if (disabled) {
-            var rmBtn = new DeleteButton(index),
-                enterRedactingBtn = new EnterRedactingButton(index);
-
-            rmBtn.init();
-            enterRedactingBtn.init();
-
-            this.addListeners(rmBtn.getListeners());
-            this.addListeners(enterRedactingBtn.getListeners());
-
-            controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
-        } else {
+        if (!disabled) {
             var saveBtn = new SaveButton(index),
-                cancelEditBtn = new CancelRedactingButton(index);
+                cancelEditBtn = new CancelEditingButton(index);
 
             saveBtn.init();
             cancelEditBtn.init();
@@ -73,11 +62,22 @@ class Tops extends BaseTab {
                 }
             });
             controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+        } else {
+            var rmBtn = new DeleteButton(index),
+                enterRedactingBtn = new EnterEditingButton(index);
+
+            rmBtn.init();
+            enterRedactingBtn.init();
+
+            this.addListeners(rmBtn.getListeners());
+            this.addListeners(enterRedactingBtn.getListeners());
+
+            controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
         }
 
         textarea.init();
 
-        return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
+        return `<div id="${index}" class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
                 ${controlButtons}
             </div>
@@ -93,33 +93,53 @@ class Tops extends BaseTab {
     }
     
     getEmptyBlock () {
-        return this.makeBlock('new-' + Date.now(), '', '');
+        this.eidting = {
+            'modelId': 'new',
+            'state': true,
+        }
+        return this.makeBlock('new', '', '');
     }
 
     updateTitle (event) {
-        console.log(event.target.value);
+        var modelId = IdManipulation.getIdFromString(event.target.attributes['id'].value);
+        if (this.edit.hasOwnProperty(modelId)) {
+            this.edit[modelId]['title'] = event.target.value;
+        } else {
+            this.edit[modelId] = {
+                'title': event.target.value
+            };
+        }
+        console.log(this.edit);
     }
 
     saveModel (stringId) {
         var modelId = IdManipulation.getIdFromString(stringId);
-        console.log(modelId);
-    }
-
-    removeModel (stringId) {
-        var modelId = IdManipulation.getIdFromString(stringId);
-        console.log(modelId);
-    }
-
-    cancelRedacting (stringId) {
-        this.redacting = {
+        console.log(this.edit[modelId]);
+        this.edit = {
             'modelId': null,
             'state': false,
         }
         this.rerender();
     }
 
-    enterRedacting (stringId) {
-        this.redacting = {
+    removeModel (stringId) {
+        var modelId = IdManipulation.getIdFromString(stringId);
+        $('#' + modelId).remove();
+        // TO DO
+        //this.rerender();
+        console.log(modelId);
+    }
+
+    cancelEditing (stringId) {
+        this.edit = {
+            'modelId': null,
+            'state': false,
+        }
+        this.rerender();
+    }
+
+    enterEditing (stringId) {
+        this.edit = {
             'modelId': IdManipulation.getIdFromString(stringId),
             'state': true,
         }
