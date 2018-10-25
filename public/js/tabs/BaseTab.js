@@ -2,6 +2,10 @@ class BaseTab {
     constructor () {
         this.csrf = $('meta[name="csrf-token"]').attr('content');
         this.template = '';
+        this.redacting = {
+            'modelId': null,
+            'state': false,
+        };
     }
 
     getModels () {
@@ -23,6 +27,10 @@ class BaseTab {
         });
     }
 
+    setData (response) {
+        this.models = response;
+    }
+
     makeTemplate (response) {}
     
     setListeners (type, listenerObj) {
@@ -41,11 +49,24 @@ class BaseTab {
         bodyLoader.addClass('m-page--loading');
         this.getModels()
         .then((response) => {
-            this.makeTemplate(response);
+            this.setData(response);
+            this.makeTemplate();
             this.renderTemplate();
             this.initListeners();
         })
         .then(function () {
+            bodyLoader.removeClass('m-page--loading');
+        });
+    }
+
+    rerender () {
+        bodyLoader.addClass('m-page--loading');
+        new Promise((resolve) => {
+            this.makeTemplate(this.models);
+            this.renderTemplate();
+            this.initListeners();
+            resolve();
+        }).then(function () {
             bodyLoader.removeClass('m-page--loading');
         });
     }

@@ -27,16 +27,15 @@ class CurrencyValues extends BaseTab {
         };
     }
 
-    makeTemplate (response) {
+    makeTemplate () {
         var addEmptyBlock = new AddEmptyBlock(this.constructor.name, null);
 
         addEmptyBlock.init();
 
         Listeners.add(this, addEmptyBlock.getListeners());
 
-        this.models = response;
-        this.template = Object.keys(response).map(key => {
-            return this.makeBlock(key, response[key].val1, response[key].val2, response[key].value, response[key].dir);
+        this.template = Object.keys(this.models).map(key => {
+            return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir);
         })
         .join('')
         .concat(addEmptyBlock.getTemplate());

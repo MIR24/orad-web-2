@@ -9,19 +9,18 @@ class Tops extends BaseTab {
         };
     }
 
-    makeTemplate (response) {
+    makeTemplate () {
         var addEmptyBlock = new AddEmptyBlock(this.constructor.name, '+ Добавить топ');
 
         addEmptyBlock.init();
 
         Listeners.add(this, addEmptyBlock.getListeners());
 
-        this.models = response;
-        this.template = Object.keys(response).map(key => {
-            var text = Object.keys(response[key].releated).map(keyInner => (
-                response[key].releated[keyInner].text
+        this.template = Object.keys(this.models).map(key => {
+            var text = Object.keys(this.models[key].releated).map(keyInner => (
+                this.models[key].releated[keyInner].text
             )).join('\n');
-            return this.makeBlock(key, response[key].title, text);
+            return this.makeBlock(key, this.models[key].title, text);
         })
         .join('')
         .concat(addEmptyBlock.getTemplate());
