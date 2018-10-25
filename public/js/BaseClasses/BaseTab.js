@@ -49,7 +49,6 @@ class BaseTab {
 
     renderTemplate () {
         $('#tab-content').html(this.template);
-        //tabContentContainer.html(this.template);
     }
 
     init () {
