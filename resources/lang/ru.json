@@ -38,9 +38,9 @@
     "Tops": "Топы",
     "Newsbar": "Newsbar",
     "Expedited": "Срочно",
-    "ExpeditedOrbit": "Срочно (орбиты)",
-    "RunningLine": "Бегущая строка",
-    "Foto": "Фото",
-    "Promo": "Промо",
-    "CurrencyValues": "Курс валют"
+    "CurrencyValues": "Курс валют",
+    "WeatherLive": "Погода для эфира",
+    "Time": "Время",
+    "TimeCounter": "Счетчик события",
+    "Promo": "Промо"
 }

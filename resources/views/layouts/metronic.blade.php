@@ -146,11 +146,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                         @include('layouts.partials.tab-active', ['name' => 'Tops', 'translation' => __('Tops')])
                                         @include('layouts.partials.tab-inactive', ['name' => 'Newsbar', 'translation' => __('Newsbar')])
                                         @include('layouts.partials.tab-inactive', ['name' => 'Expedited', 'translation' => __('Expedited')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'ExpeditedOrbit', 'translation' => __('ExpeditedOrbit')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'RunningLine', 'translation' => __('RunningLine')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'Foto', 'translation' => __('Foto')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'Promo', 'translation' => __('Promo')])
                                         @include('layouts.partials.tab-inactive', ['name' => 'CurrencyValues', 'translation' => __('CurrencyValues')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'WeatherLive', 'translation' => __('WeatherLive')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'Time', 'translation' => __('Time')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'TimeCounter', 'translation' => __('TimeCounter')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'Promo', 'translation' => __('Promo')])
                                     </ul>
                                 </div>
                             </div>
