@@ -1,8 +1,8 @@
-import BaseTab from "../tabs/BaseTab.js";
-import AddEmptyBlockButton from "../components/AddEmptyBlockButton.js";
-import SpinnerButton from "../components/SpinnerButton.js";
-import IdManipulation from "../utils/IdManipulation.js";
-import Listeners from "../utils/Listeners.js";
+import BaseTab from "../BaseClasses/BaseTab.js";
+import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
+import SpinnerButton from "../Components/SpinnerButton.js";
+import IdManipulation from "../Utils/IdManipulation.js";
+import Listeners from "../Utils/Listeners.js";
 
 
 class CurrencyValues extends BaseTab {

@@ -1,4 +1,4 @@
-import BaseButton from "../components/BaseButton.js";
+import BaseButton from "../BaseClasses/BaseButton.js";
 
 class AddEmptyBlockButton extends BaseButton {
     constructor (id, text, cssClass) {

@@ -1,14 +1,16 @@
-import BaseTab from "../tabs/BaseTab.js";
-import AddEmptyBlockButton from "../components/AddEmptyBlockButton.js";
-import Textarea from "../components/Textarea.js";
-import IdManipulation from "../utils/IdManipulation.js";
-import Listeners from "../utils/Listeners.js";
+import BaseTab from "../BaseClasses/BaseTab.js";
+import ExpeditedCheckbox from "../Components/ExpeditedCheckbox.js";
+import Textarea from "../Components/Textarea.js";
+import SpinnerButton from "../Utils/IdManipulation.js";
+import IdManipulation from "../Utils/IdManipulation.js";
+import Listeners from "../Utils/Listeners.js";
 
-class Tops extends BaseTab {
+
+class Expedited extends BaseTab {
     constructor () {
         super();
-        this.url = '/test/tops';
-        this.textareaMaxCharsPerLine = 5;
+        this.url = '/test/expedited';
+        this.textareaMaxCharsPerLine = 7;
         this.listeners = {
             'click' : {},
             'input' : {},
@@ -16,20 +18,13 @@ class Tops extends BaseTab {
     }
 
     makeTemplate () {
-        var addEmptyBlock = new AddEmptyBlockButton(this.constructor.name, '+ Добавить топ', 'btn-primary');
-
-        addEmptyBlock.init();
-
-        Listeners.add(this, addEmptyBlock.getListeners());
-
         this.template = Object.keys(this.models).map(key => {
             var text = Object.keys(this.models[key].releated).map(keyInner => (
                 this.models[key].releated[keyInner].text
             )).join('\n');
             return this.makeBlock(key, this.models[key].title, text);
         })
-        .join('')
-        .concat(addEmptyBlock.getTemplate());
+        .join('');
     }
 
     makeBlock (index, title, text) {
@@ -37,11 +32,13 @@ class Tops extends BaseTab {
             textareaId = IdManipulation.getPreparedId('textarea', index),
             saveBtnId = IdManipulation.getPreparedId('save', index),
             rmBtnId = IdManipulation.getPreparedId('remove', index),
-            disabled = this.redacting.modelId == index ? '' : 'disabled',
-            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine, disabled);
+            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine),
+            checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts);
 
-        textarea.init();
+        textarea.init()
+        checkboxes.init();
 
+        Listeners.add(this, checkboxes.getListeners());
         this.setListeners('input', {
             [titleId]: {
                 'function': this.updateTitle,
@@ -68,19 +65,20 @@ class Tops extends BaseTab {
                 <button id="${saveBtnId}" class="btn btn-success">Сохранить</button>
                 <button id="${rmBtnId}" class="btn btn-danger">Удалить</button>
             </div>
-            <form class="m-form m-form--fit m-form--label-align-right">
-                <div class="form-group m-form__group">
-                    <label for="${titleId}">Заголовок</label>
-                    <input ${disabled} value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
-                    <label for="${textareaId}">Текст</label>
-                    ${textarea.getTemplate()}
-                </div>
-            </form>
+            <div class="row">
+                <form class="col-md-10 m-form m-form--fit m-form--label-align-right">
+                    <div class="form-group m-form__group">
+                        <label for="${titleId}">Заголовок</label>
+                        <input value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
+                        <label for="${textareaId}">Текст</label>
+                        ${textarea.getTemplate()}
+                    </div>
+                </form>
+                <form class="col-md-2 pt-4 p-0 m-form m-form--fit m-form--label-align-right">
+                    ${checkboxes.getTemplate()}
+                </form>
+            </div>
         </div>`
-    }
-    
-    getEmptyBlock () {
-        return this.makeBlock('new-' + Date.now(), '', '');
     }
 
     updateTitle (event) {
@@ -97,4 +95,4 @@ class Tops extends BaseTab {
         console.log(modelId);
     }
 }
-export default Tops
+export default Expedited

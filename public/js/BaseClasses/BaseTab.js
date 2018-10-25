@@ -1,4 +1,4 @@
-import Listeners from "../utils/Listeners.js";
+import Listeners from "../Utils/Listeners.js";
 
 class BaseTab {
     constructor () {

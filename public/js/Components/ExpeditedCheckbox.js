@@ -1,6 +1,5 @@
-import SpinnerButton from "../utils/IdManipulation.js";
-import IdManipulation from "../utils/IdManipulation.js";
-import Listeners from "../utils/Listeners.js";
+import IdManipulation from "../Utils/IdManipulation.js";
+import Listeners from "../Utils/Listeners.js";
 
 class ExpeditedCheckbox {
     constructor (id, checkboxes) {

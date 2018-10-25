@@ -1,5 +1,5 @@
-import IdManipulation from "../utils/IdManipulation.js";
-import Listeners from "../utils/Listeners.js";
+import IdManipulation from "../Utils/IdManipulation.js";
+import Listeners from "../Utils/Listeners.js";
 
 class SpinnerButton {
     constructor (id, options, firstOption) {

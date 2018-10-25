@@ -1,7 +1,7 @@
-import Tops from "./tabs/Tops.js";
-import Newsbar from "./tabs/Newsbar.js";
-import Expedited from "./tabs/Expedited.js";
-import CurrencyValues from "./tabs/CurrencyValues.js";
+import Tops from "./Tabs/Tops.js";
+import Newsbar from "./Tabs/Newsbar.js";
+import Expedited from "./Tabs/Expedited.js";
+import CurrencyValues from "./Tabs/CurrencyValues.js";
 
 var currentTab = null;
 
