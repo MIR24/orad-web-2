@@ -10,7 +10,7 @@ class Tops extends BaseTab {
     }
 
     makeTemplate (response) {
-        var addEmptyBlock = new AddEmptyBlock(this.constructor.name, '+ Добавить топ', this, this.getEmptyBlock);
+        var addEmptyBlock = new AddEmptyBlock(this.constructor.name, '+ Добавить топ');
 
         addEmptyBlock.init();
 

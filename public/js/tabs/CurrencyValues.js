@@ -28,7 +28,7 @@ class CurrencyValues extends BaseTab {
     }
 
     makeTemplate (response) {
-        var addEmptyBlock = new AddEmptyBlock(this.constructor.name, null, this, this.getEmptyBlock);
+        var addEmptyBlock = new AddEmptyBlock(this.constructor.name, null);
 
         addEmptyBlock.init();
 

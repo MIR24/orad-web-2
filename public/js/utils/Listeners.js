@@ -10,7 +10,11 @@ class Listeners {
     static init (classVar) {
         for (var type in classVar.listeners) {
             for (var key in classVar.listeners[type]) {
-                $('#' + key).bind(type, classVar.listeners[type][key].function.bind(classVar.listeners[type][key].class));
+                if (classVar.listeners[type][key].addInitClass) {
+                    $('#' + key).bind(type, classVar.listeners[type][key].function.bind(classVar.listeners[type][key].class, classVar));
+                } else {
+                    $('#' + key).bind(type, classVar.listeners[type][key].function.bind(classVar.listeners[type][key].class));
+                }
                 delete classVar.listeners[type][key];
             }
         }
