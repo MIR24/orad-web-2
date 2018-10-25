@@ -1,3 +1,5 @@
+import Listeners from "../utils/Listeners.js";
+
 class BaseTab {
     constructor () {
         this.csrf = $('meta[name="csrf-token"]').attr('content');
@@ -42,11 +44,13 @@ class BaseTab {
     }
 
     renderTemplate () {
-        tabContentContainer.html(this.template);
+        $('#tab-content').html(this.template);
+        //tabContentContainer.html(this.template);
     }
 
     init () {
-        bodyLoader.addClass('m-page--loading');
+        $('body').addClass('m-page--loading');
+        //bodyLoader.addClass('m-page--loading');
         this.getModels()
         .then((response) => {
             this.setData(response);
@@ -55,7 +59,8 @@ class BaseTab {
             this.initListeners();
         })
         .then(function () {
-            bodyLoader.removeClass('m-page--loading');
+            $('body').removeClass('m-page--loading');
+            //bodyLoader.removeClass('m-page--loading');
         });
     }
 
@@ -71,3 +76,4 @@ class BaseTab {
         });
     }
 }
+export default BaseTab

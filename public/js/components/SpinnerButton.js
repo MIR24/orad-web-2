@@ -1,3 +1,6 @@
+import IdManipulation from "../utils/IdManipulation.js";
+import Listeners from "../utils/Listeners.js";
+
 class SpinnerButton {
     constructor (id, options, firstOption) {
         this.template = '';
@@ -52,3 +55,4 @@ class SpinnerButton {
         this.makeTemplate(this.firstOption);
     }
 }
+export default SpinnerButton

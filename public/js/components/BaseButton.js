@@ -1,3 +1,6 @@
+import IdManipulation from "../utils/IdManipulation.js";
+import Listeners from "../utils/Listeners.js";
+
 class BaseButton {
     constructor (id, text, cssClass) {
         this.template = '';
@@ -36,3 +39,4 @@ class BaseButton {
         this.makeTemplate();
     }
 }
+export default BaseButton

@@ -1,3 +1,11 @@
+import BaseTab from "../tabs/BaseTab.js";
+import ExpeditedCheckbox from "../components/ExpeditedCheckbox.js";
+import Textarea from "../components/Textarea.js";
+import SpinnerButton from "../utils/IdManipulation.js";
+import IdManipulation from "../utils/IdManipulation.js";
+import Listeners from "../utils/Listeners.js";
+
+
 class Expedited extends BaseTab {
     constructor () {
         super();
@@ -87,3 +95,4 @@ class Expedited extends BaseTab {
         console.log(modelId);
     }
 }
+export default Expedited

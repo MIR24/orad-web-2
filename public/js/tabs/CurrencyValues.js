@@ -1,3 +1,10 @@
+import BaseTab from "../tabs/BaseTab.js";
+import AddEmptyBlockButton from "../components/AddEmptyBlockButton.js";
+import SpinnerButton from "../components/SpinnerButton.js";
+import IdManipulation from "../utils/IdManipulation.js";
+import Listeners from "../utils/Listeners.js";
+
+
 class CurrencyValues extends BaseTab {
     constructor () {
         super();
@@ -28,7 +35,7 @@ class CurrencyValues extends BaseTab {
     }
 
     makeTemplate () {
-        var addEmptyBlock = new AddEmptyBlock(this.constructor.name, null);
+        var addEmptyBlock = new AddEmptyBlockButton(this.constructor.name, null);
 
         addEmptyBlock.init();
 
@@ -99,3 +106,4 @@ class CurrencyValues extends BaseTab {
         return this.makeEmptyBlock();
     }
 }
+export default CurrencyValues

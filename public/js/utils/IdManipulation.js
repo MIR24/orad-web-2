@@ -1,9 +1,10 @@
-class IdManipulation {
-    static getPreparedId (name, id) {
+const IdManipulation = {
+    getPreparedId (name, id) {
         return `${name}-${id}`;
-    }
+    },
 
-    static getIdFromString (string) {
+    getIdFromString (string) {
         return string.split('-').pop();
     }
 }
+export default IdManipulation

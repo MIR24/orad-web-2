@@ -1,9 +1,9 @@
-class Listeners {
-    static set (classVar, type, listenerObj) {
+const Listeners = {
+    set (classVar, type, listenerObj) {
         classVar.listeners[type] = Object.assign(classVar.listeners[type], listenerObj);
-    }
+    },
 
-    static add (classVar, listenerObj) {
+    add (classVar, listenerObj) {
         for (var type in listenerObj) {
             if (classVar.listeners.hasOwnProperty(type)) {
                 classVar.listeners[type] = Object.assign(classVar.listeners[type], listenerObj[type]);
@@ -11,9 +11,9 @@ class Listeners {
                 classVar.listeners[type] = listenerObj[type];
             }
         }
-    }
+    },
 
-    static init (classVar) {
+    init (classVar) {
         for (var type in classVar.listeners) {
             for (var key in classVar.listeners[type]) {
                 if (classVar.listeners[type][key].addInitClass) {
@@ -26,3 +26,4 @@ class Listeners {
         }
     }
 }
+export default Listeners

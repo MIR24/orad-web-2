@@ -1,3 +1,5 @@
+import BaseButton from "../components/BaseButton.js";
+
 class AddEmptyBlockButton extends BaseButton {
     constructor (id, text, cssClass) {
         super(id, text, cssClass);
@@ -9,3 +11,4 @@ class AddEmptyBlockButton extends BaseButton {
         initClass.initListeners();
     }
 }
+export default AddEmptyBlockButton

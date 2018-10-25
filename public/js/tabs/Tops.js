@@ -1,3 +1,9 @@
+import BaseTab from "../tabs/BaseTab.js";
+import AddEmptyBlockButton from "../components/AddEmptyBlockButton.js";
+import Textarea from "../components/Textarea.js";
+import IdManipulation from "../utils/IdManipulation.js";
+import Listeners from "../utils/Listeners.js";
+
 class Tops extends BaseTab {
     constructor () {
         super();
@@ -10,7 +16,7 @@ class Tops extends BaseTab {
     }
 
     makeTemplate () {
-        var addEmptyBlock = new AddEmptyBlock(this.constructor.name, '+ Добавить топ');
+        var addEmptyBlock = new AddEmptyBlockButton(this.constructor.name, '+ Добавить топ', 'btn-primary');
 
         addEmptyBlock.init();
 
@@ -31,7 +37,8 @@ class Tops extends BaseTab {
             textareaId = IdManipulation.getPreparedId('textarea', index),
             saveBtnId = IdManipulation.getPreparedId('save', index),
             rmBtnId = IdManipulation.getPreparedId('remove', index),
-            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine);
+            disabled = this.redacting.modelId == index ? '' : 'disabled',
+            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine, disabled);
 
         textarea.init();
 
@@ -64,7 +71,7 @@ class Tops extends BaseTab {
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
                     <label for="${titleId}">Заголовок</label>
-                    <input value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
+                    <input ${disabled} value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
                     <label for="${textareaId}">Текст</label>
                     ${textarea.getTemplate()}
                 </div>
@@ -90,3 +97,4 @@ class Tops extends BaseTab {
         console.log(modelId);
     }
 }
+export default Tops

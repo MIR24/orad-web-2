@@ -1,13 +1,14 @@
 class Textarea {
-    constructor (id, value, maxCharsPerLine) {
+    constructor (id, value, maxCharsPerLine, disabled) {
         this.template = '';
         this.id = id;
         this.value = value;
         this.maxCharsPerLine = maxCharsPerLine;
+        this.disabled = disabled;
     }
 
     makeTemplate () {
-        this.template = `<textarea class="form-control m-input m-input--air" id="${this.id}" rows="3" placeholder="Текст">${this.value}</textarea>`;
+        this.template = `<textarea ${this.disabled} class="form-control m-input m-input--air" id="${this.id}" rows="3" placeholder="Текст">${this.value}</textarea>`;
     }
 
     checkDisallowedCharacters (value) {
@@ -55,3 +56,4 @@ class Textarea {
         this.makeTemplate();
     }
 }
+export default Textarea

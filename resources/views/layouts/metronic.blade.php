@@ -220,24 +220,12 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- begin::Page Loader -->
         <script>
             $(window).on('load', function() {
-                SwitchTab('Tops');
                 $('body').removeClass('m-page--loading');
             });
         </script>
 
 <!-- TO DO -->
-<script src="/js/custom.js" type="text/javascript"></script>
-<script src="/js/tabs/BaseTab.js" type="text/javascript"></script>
-<script src="/js/tabs/Tops.js" type="text/javascript"></script>
-<script src="/js/components/Textarea.js" type="text/javascript"></script>
-<script src="/js/tabs/Newsbar.js" type="text/javascript"></script>
-<script src="/js/tabs/Expedited.js" type="text/javascript"></script>
-<script src="/js/components/ExpeditedCheckbox.js" type="text/javascript"></script>
-<script src="/js/utils/Listeners.js" type="text/javascript"></script>
-<script src="/js/utils/IdManipulation.js" type="text/javascript"></script>
-<script src="/js/tabs/CurrencyValues.js" type="text/javascript"></script>
-<script src="/js/components/SpinnerButton.js" type="text/javascript"></script>
-<script src="/js/components/AddEmptyBlock.js" type="text/javascript"></script>
+<script type="module" src="/js/custom.js"></script>
 <!-- TO DO -->
 
         <!-- end::Page Loader -->

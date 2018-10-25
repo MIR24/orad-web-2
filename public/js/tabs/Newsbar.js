@@ -1,3 +1,8 @@
+import BaseTab from "../tabs/BaseTab.js";
+import Textarea from "../components/Textarea.js";
+import SpinnerButton from "../utils/IdManipulation.js";
+import IdManipulation from "../utils/IdManipulation.js";
+
 class Newsbar extends BaseTab {
     constructor () {
         super();
@@ -70,3 +75,4 @@ class Newsbar extends BaseTab {
         console.log(modelId);
     }
 }
+export default Newsbar
