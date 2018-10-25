@@ -58,7 +58,7 @@ class Expedited extends BaseTab {
         return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
                 ${saveBtn.getTemplate()}
-                <button id="${rmBtnId}" class="btn btn-danger">Удалить</button>
+                ${rmBtn.getTemplate()}
             </div>
             <div class="row">
                 <form class="col-md-10 m-form m-form--fit m-form--label-align-right">
