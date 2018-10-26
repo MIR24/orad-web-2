@@ -1,7 +1,13 @@
+import Listeners from "../Utils/Listeners.js";
+import IdManipulation from "../Utils/IdManipulation.js";
+
 class Textarea {
     constructor (id, value, maxCharsPerLine, disabled) {
+        this.listeners = {
+            'input': {}
+        }
         this.template = '';
-        this.id = id;
+        this.id = IdManipulation.getPreparedId('textarea', id);
         this.value = value;
         this.maxCharsPerLine = maxCharsPerLine;
         this.disabled = disabled;
@@ -35,7 +41,11 @@ class Textarea {
         });
     }
 
-    updateText (event) {
+    splitIntoArray (string) {
+        return string.split("\n");
+    }
+
+    handle (initClass, event) {
         var val = this.checkDisallowedCharacters(event.target.value),
             newVal = this.textAreaSplitLines(val, event.originalEvent.inputType),
             newSectionEnd = event.target.selectionEnd;
@@ -46,6 +56,21 @@ class Textarea {
 
         event.target.value = val;
         event.target.selectionEnd = newSectionEnd;
+        initClass.updateText(this.id, this.splitIntoArray(val));
+    }
+
+    setListeners () {
+        Listeners.set(this, 'input', {
+            [this.id]: {
+                'function': this.handle,
+                'class': this,
+                'addInitClass': true,
+            }
+        });
+    }
+
+    getListeners () {
+        return this.listeners;
     }
 
     getTemplate () {
@@ -54,6 +79,7 @@ class Textarea {
 
     init () {
         this.makeTemplate();
+        this.setListeners();
     }
 }
 export default Textarea

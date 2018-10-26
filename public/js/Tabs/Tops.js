@@ -39,8 +39,11 @@ class Tops extends BaseTab {
         var titleId = IdManipulation.getPreparedId('title', index),
             textareaId = IdManipulation.getPreparedId('textarea', index),
             disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
-            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine, disabled),
+            textarea = new Textarea(index, text, this.textareaMaxCharsPerLine, disabled),
             controlButtons = '';
+
+        textarea.init();
+        this.addListeners(textarea.getListeners());
 
         if (!disabled) {
             var saveBtn = new SaveButton(index),
@@ -56,10 +59,6 @@ class Tops extends BaseTab {
                     'function': this.updateTitle,
                     'class': this
                 },
-                [textareaId]: {
-                    'function': textarea.updateText,
-                    'class': textarea
-                }
             });
             controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
         } else {
@@ -75,8 +74,6 @@ class Tops extends BaseTab {
             controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
         }
 
-        textarea.init();
-
         return `<div id="${index}" class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
                 ${controlButtons}
@@ -85,7 +82,7 @@ class Tops extends BaseTab {
                 <div class="form-group m-form__group">
                     <label for="${titleId}">Заголовок</label>
                     <input ${disabled} value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
-                    <label for="${textareaId}">Текст</label>
+                    <label>Текст</label>
                     ${textarea.getTemplate()}
                 </div>
             </form>
@@ -100,16 +97,24 @@ class Tops extends BaseTab {
         return this.makeBlock('new', '', '');
     }
 
-    updateTitle (event) {
-        var modelId = IdManipulation.getIdFromString(event.target.attributes['id'].value);
+    updateEditState (modelIdString, type, value) {
+        var modelId = IdManipulation.getIdFromString(modelIdString);
         if (this.edit.hasOwnProperty(modelId)) {
-            this.edit[modelId]['title'] = event.target.value;
+            this.edit[modelId][type] = value;
         } else {
             this.edit[modelId] = {
-                'title': event.target.value
+                [type]: value
             };
         }
         console.log(this.edit);
+    }
+
+    updateText (modelId, newVal) {
+        this.updateEditState(modelId, 'text', newVal);
+    }
+
+    updateTitle (event) {
+        this.updateEditState(event.target.attributes['id'].value, 'title', event.target.value);
     }
 
     saveModel (stringId) {
