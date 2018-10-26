@@ -3,6 +3,8 @@ import Textarea from "../Components/Textarea.js";
 import SpinnerButton from "../Utils/IdManipulation.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import SaveButton from "../Components/SaveButton.js";
+import EnterEditingButton from "../Components/EnterEditingButton.js";
+import CancelEditingButton from "../Components/CancelEditingButton.js";
 
 class Newsbar extends BaseTab {
     constructor () {
@@ -30,45 +32,67 @@ class Newsbar extends BaseTab {
     }
 
     makeBlock (index, title, text) {
-        var titleId = IdManipulation.getPreparedId('title', index),
-            textareaId = IdManipulation.getPreparedId('textarea', index),
-            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine),
-            saveBtn = new SaveButton(index);
+        var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
+            textarea = new Textarea(index, text, this.textareaMaxCharsPerLine, disabled),
+            controlButtons = '';
 
         textarea.init();
-        saveBtn.init();
 
-        this.addListeners(saveBtn.getListeners());
-        this.setListeners('input', {
-            [titleId]: {
-                'function': this.updateTitle,
-                'class': this
-            },
-            [textareaId]: {
-                'function': textarea.updateText,
-                'class': textarea
-            },
-        });
+        this.addListeners(textarea.getListeners());
+
+        if (!disabled) {
+            var saveBtn = new SaveButton(index),
+                cancelEditBtn = new CancelEditingButton(index);
+
+            saveBtn.init();
+            cancelEditBtn.init();
+
+            this.addListeners(saveBtn.getListeners());
+            this.addListeners(cancelEditBtn.getListeners());
+
+            controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+        } else {
+            var enterRedactingBtn = new EnterEditingButton(index);
+
+            enterRedactingBtn.init();
+
+            this.addListeners(enterRedactingBtn.getListeners());
+
+            controlButtons = `${enterRedactingBtn.getTemplate()}`;
+        }
 
         return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
-                ${saveBtn.getTemplate()}
+                ${controlButtons}
             </div>
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
-                    <label for="${textareaId}">${this.names[index]}</label>
+                    <label>${this.names[index]}</label>
                     ${textarea.getTemplate()}
                 </div>
             </form>
         </div>`
     }
 
-    updateTitle (event) {
-        console.log(event.target.value);
+    updateText (stringId, newVal) {
+        this.updateEditState(stringId, 'text', newVal);
     }
 
     saveModel (stringId) {
         var modelId = IdManipulation.getIdFromString(stringId);
+        console.log(this.edit[modelId]);
+        this.edit = {
+            'modelId': null,
+            'state': false,
+        }
+        this.rerender();
+    }
+
+    removeModel (stringId) {
+        var modelId = IdManipulation.getIdFromString(stringId);
+        $('#' + modelId).remove();
+        // TO DO
+        //this.rerender();
         console.log(modelId);
     }
 }
