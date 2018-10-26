@@ -1,9 +1,11 @@
+import BaseComponent from "../BaseClasses/BaseComponent.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import Listeners from "../Utils/Listeners.js";
 import ButtonsConfig from "../Config/ButtonsConfig.js";
 
-class BaseButton {
+class BaseButton extends BaseComponent {
     constructor (id, type) {
+        super();
         this.template = '';
         this.listeners = {
             'click': {}
@@ -26,19 +28,6 @@ class BaseButton {
                 'addInitClass': true,
             }
         });
-    }
-
-    getListeners () {
-        return this.listeners;
-    }
-    
-    getTemplate () {
-        return this.template;
-    }
-    
-    init () {
-        this.setListeners();
-        this.makeTemplate();
     }
 }
 export default BaseButton
