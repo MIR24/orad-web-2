@@ -133,6 +133,10 @@ class CurrencyValues extends BaseTab {
     saveModel (stringId) {console.log(stringId);
         var modelId = IdManipulation.getIdFromString(stringId);
         console.log(this.edit);
+        this.edit = {
+            'modelId': null,
+            'state': false,
+        }
         this.rerender();
     }
 
