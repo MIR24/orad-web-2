@@ -6,8 +6,12 @@ import IdManipulation from "../Utils/IdManipulation.js";
 import DeleteButton from "../Components/DeleteButton.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import CancelEditingButton from "../Components/CancelEditingButton.js";
+import Input from "../Components/Input.js";
 
-const isAdmin = true;
+// TO DO
+const isAdmin = true,
+    emptyCurrencyPlaceholder = 'Валюта',
+    emptyCurrencyValuePlaceholder = '0.0';
 
 class CurrencyValues extends BaseTab {
     constructor () {
@@ -54,13 +58,19 @@ class CurrencyValues extends BaseTab {
         .concat(controlButtons);
     }
 
-    valueChange (event) {
-        this.updateEditState(event.target.attributes['id'].value, 'value', event.target.value);
+    modelChange (modelId, valueName, newValue) {
+        //this.updateEditState(this.inputUpdate, event.target.attributes['id'].value, 'value', event.target.value);
+        console.log('vc',modelId, valueName, newValue);
+    }
+
+    newModelChange (modelId, valueName, newValue) {
+        //this.updateEditState(this.inputUpdate, event.target.attributes['id'].value, 'value', event.target.value);
+        console.log('mc',modelId, valueName, newValue);
     }
 
     makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
-        var inputId = IdManipulation.getPreparedId('input', index),
-            spinnerButton = new SpinnerButton(index, disabled, direction),
+        var spinnerButton = new SpinnerButton(index, disabled, direction),
+            valueInput = new Input(this.modelChange, index, 'value', inputValue, disabled, emptyCurrencyValuePlaceholder, 'number'),
             controlButtons = '';
 
         // TO DO
@@ -72,21 +82,17 @@ class CurrencyValues extends BaseTab {
         }
 
         spinnerButton.init();
+        valueInput.init();
 
         this.addListeners(spinnerButton.getListeners());
-        this.setListeners('input', {
-            [inputId]: {
-                'function': this.valueChange,
-                'class': this
-            }
-        });
+        this.addListeners(valueInput.getListeners());
 
         return `<div id="${index}" class="col-12 row justify-content-center">
             <div class="col-6">
                 <div class="row input-group bootstrap-touchspin mb-2">
                     <span class="input-group-addon">${leftValName}</span>
                     ${spinnerButton.getTemplate()}
-                    <input ${disabled} type=number id="${inputId}" type="text" class="form-control" value="${inputValue}" >
+                    ${valueInput.getTemplate()}
                     <span class="input-group-addon bootstrap-touchspin-prefix">${rightValName}</span>
                     ${controlButtons}
                 </div>
@@ -95,15 +101,20 @@ class CurrencyValues extends BaseTab {
     }
 
     makeEmptyBlock () {
-        var firstValId = 'first-val-new',
-            secondValId = 'second-val-new',
-            valueId = 'value-new',
-            emptyCurrencyPlaceholder = 'Валюта',
-            spinnerButton = new SpinnerButton('new'),
+        var spinnerButton = new SpinnerButton('new'),
+            leftValNameInput = new Input(this.newModelChange, 'new', 'val1', '', false, emptyCurrencyPlaceholder),
+            rightValNameInput = new Input(this.newModelChange, 'new', 'val2', '', false, emptyCurrencyPlaceholder),
+            valueInput = new Input(this.newModelChange, 'new', 'value', '', false, emptyCurrencyValuePlaceholder,'number'),
             controlButtons = '';
 
         spinnerButton.init();
+        leftValNameInput.init();
+        rightValNameInput.init();
+        valueInput.init();
         this.addListeners(spinnerButton.getListeners());
+        this.addListeners(leftValNameInput.getListeners());
+        this.addListeners(rightValNameInput.getListeners());
+        this.addListeners(valueInput.getListeners());
 
         // TO DO
         if (isAdmin) {
@@ -116,10 +127,10 @@ class CurrencyValues extends BaseTab {
         return `<div id="new" class="col-12 row justify-content-center">
             <div class="col-6">
                 <div class="row input-group bootstrap-touchspin mb-3">
-                    <input id="${firstValId}" type="text" class="form-control" placeholder="${emptyCurrencyPlaceholder}" >
+                    ${leftValNameInput.getTemplate()}
                     ${spinnerButton.getTemplate()}
-                    <input type=number id="${valueId}" type="text" class="form-control" placeholder="0.0" >
-                    <input id="${secondValId}" type="text" class="form-control" placeholder="${emptyCurrencyPlaceholder}" >
+                    ${valueInput.getTemplate()}
+                    ${rightValNameInput.getTemplate()}
                     ${controlButtons}
                 </div>
             </div>
