@@ -3,7 +3,7 @@ import IdManipulation from "../Utils/IdManipulation.js";
 import Listeners from "../Utils/Listeners.js";
 
 class ExpeditedCheckbox extends BaseComponent {
-    constructor (id, checkboxes) {
+    constructor (id, checkboxes, disabled) {
         super();
         this.models = checkboxes ? checkboxes : {};
         this.id = id;
@@ -11,11 +11,12 @@ class ExpeditedCheckbox extends BaseComponent {
             'click': {}
         };
         this.checkAllId = 'check-all-' + id;
+        this.disabled = disabled;
     }
 
     makeTemplate () {
         var checkboxesTemplate = Object.keys(this.models).map(key => {
-            return this.makeCheckbox(false, this.models[key].name);
+            return this.makeCheckbox(this.models[key].name);
         })
         .join('');
 
@@ -24,18 +25,16 @@ class ExpeditedCheckbox extends BaseComponent {
                 ${checkboxesTemplate}
                 <hr>
                 <label class="m-checkbox">
-                    <input id="${this.checkAllId}" type="checkbox" checked> Выбрать все
+                    <input ${this.disabled} id="${this.checkAllId}" type="checkbox" checked> Выбрать все
                     <span></span>
                 </label>
             </div>
         </div>`;
     }
     
-    makeCheckbox (disabled, name) {
-        var disabled = disabled ? 'disabled': '',
-            id = IdManipulation.getPreparedId(name, this.id);
+    makeCheckbox (name) {
         return `<label class="m-checkbox">
-            <input id="${id}" class="toggle" type="checkbox" ${disabled}> ${name}
+            <input id="${IdManipulation.getPreparedId(name, this.id)}" class="toggle" type="checkbox" ${this.disabled}> ${name}
             <span></span>
         </label>`;
     }
