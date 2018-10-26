@@ -4,6 +4,10 @@ import SaveButton from "../Components/SaveButton.js";
 import SpinnerButton from "../Components/SpinnerButton.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import DeleteButton from "../Components/DeleteButton.js";
+import EnterEditingButton from "../Components/EnterEditingButton.js";
+import CancelEditingButton from "../Components/CancelEditingButton.js";
+
+const isAdmin = true;
 
 class CurrencyValues extends BaseTab {
     constructor () {
@@ -16,39 +20,60 @@ class CurrencyValues extends BaseTab {
     }
 
     makeTemplate () {
-        var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name),
-            saveBtn = new SaveButton(this.constructor.name);
+        var disabled = this.edit.state == true ? '' : 'disabled',
+            controlButtons = '';
 
-        addEmptyBlockButton.init();
-        saveBtn.init();
+        if (!disabled) {
+            var saveBtn = new SaveButton('all');
 
-        this.addListeners(addEmptyBlockButton.getListeners());
-        this.addListeners(saveBtn.getListeners());
+            saveBtn.init();
+            this.addListeners(saveBtn.getListeners());
+
+            // TO DO
+            if (isAdmin) {
+                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+                addEmptyBlockButton.init();
+                this.addListeners(addEmptyBlockButton.getListeners());
+                controlButtons = addEmptyBlockButton.getTemplate();
+            }
+
+            controlButtons += saveBtn.getTemplate();
+        } else {
+            var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
+
+            enterRedactingBtn.init();
+            this.addListeners(enterRedactingBtn.getListeners());
+
+            controlButtons = enterRedactingBtn.getTemplate();
+        }
 
         this.template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir);
+            return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled);
         })
         .join('')
-        .concat(addEmptyBlockButton.getTemplate())
-        .concat(saveBtn.getTemplate());
+        .concat(controlButtons);
     }
 
     valueChange (event) {
-        console.log(event.target.value);
+        this.updateEditState(event.target.attributes['id'].value, 'value', event.target.value);
     }
 
-    makeBlock (index, leftValName, rightValName, inputValue, direction) {
+    makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
         var inputId = IdManipulation.getPreparedId('input', index),
-            directionId = IdManipulation.getPreparedId('direction-input', index),
             spinnerButton = new SpinnerButton(index, direction),
-            saveBtn = new SaveButton(index),
-            rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
+            controlButtons = '';
+
+        // TO DO
+        if (!disabled && isAdmin) {
+            var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
+            rmBtn.init();
+            this.addListeners(rmBtn.getListeners());
+            controlButtons = rmBtn.getTemplate();
+        }
 
         spinnerButton.init();
-        rmBtn.init();
 
         this.addListeners(spinnerButton.getListeners());
-        this.addListeners(rmBtn.getListeners());
         this.setListeners('input', {
             [inputId]: {
                 'function': this.valueChange,
@@ -56,14 +81,14 @@ class CurrencyValues extends BaseTab {
             }
         });
 
-        return `<div class="col-12 row justify-content-center">
+        return `<div id="${index}" class="col-12 row justify-content-center">
             <div class="col-6">
                 <div class="row input-group bootstrap-touchspin mb-2">
                     <span class="input-group-addon">${leftValName}</span>
                     ${spinnerButton.getTemplate()}
-                    <input type=number id="${inputId}" type="text" class="form-control" value="${inputValue}" >
+                    <input ${disabled} type=number id="${inputId}" type="text" class="form-control" value="${inputValue}" >
                     <span class="input-group-addon bootstrap-touchspin-prefix">${rightValName}</span>
-                    ${rmBtn.getTemplate()}
+                    ${controlButtons}
                 </div>
             </div>
         </div>`
@@ -75,22 +100,27 @@ class CurrencyValues extends BaseTab {
             valueId = 'value-new',
             emptyCurrencyPlaceholder = 'Валюта',
             spinnerButton = new SpinnerButton('new'),
-            rmBtn = new DeleteButton('new', 'delete-button-CurrencyValues');
+            controlButtons = '';
 
         spinnerButton.init();
-        rmBtn.init();
-
         this.addListeners(spinnerButton.getListeners());
-        this.addListeners(rmBtn.getListeners());
 
-        return `<div class="col-12 row justify-content-center">
+        // TO DO
+        if (isAdmin) {
+            var rmBtn = new DeleteButton('new', 'delete-button-CurrencyValues');
+            rmBtn.init();
+            this.addListeners(rmBtn.getListeners());
+            controlButtons = rmBtn.getTemplate();
+        }
+
+        return `<div id="new" class="col-12 row justify-content-center">
             <div class="col-6">
                 <div class="row input-group bootstrap-touchspin mb-3">
                     <input id="${firstValId}" type="text" class="form-control" placeholder="${emptyCurrencyPlaceholder}" >
                     ${spinnerButton.getTemplate()}
                     <input type=number id="${valueId}" type="text" class="form-control" placeholder="0.0" >
                     <input id="${secondValId}" type="text" class="form-control" placeholder="${emptyCurrencyPlaceholder}" >
-                    ${rmBtn.getTemplate()}
+                    ${controlButtons}
                 </div>
             </div>
         </div>`
@@ -100,12 +130,17 @@ class CurrencyValues extends BaseTab {
         return this.makeEmptyBlock();
     }
 
-    saveModel (stringId) {
-        console.log(stringId);
+    saveModel (stringId) {console.log(stringId);
+        var modelId = IdManipulation.getIdFromString(stringId);
+        console.log(this.edit);
+        this.rerender();
     }
 
     removeModel (stringId) {
         var modelId = IdManipulation.getIdFromString(stringId);
+        $('#' + modelId).remove();
+        // TO DO
+        //this.rerender();
         console.log(modelId);
     }
 }
