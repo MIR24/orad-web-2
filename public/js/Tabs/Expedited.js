@@ -5,6 +5,8 @@ import SpinnerButton from "../Utils/IdManipulation.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import SaveButton from "../Components/SaveButton.js";
 import DeleteButton from "../Components/DeleteButton.js";
+import EnterEditingButton from "../Components/EnterEditingButton.js";
+import CancelEditingButton from "../Components/CancelEditingButton.js";
 
 
 class Expedited extends BaseTab {
@@ -30,42 +32,56 @@ class Expedited extends BaseTab {
 
     makeBlock (index, title, text) {
         var titleId = IdManipulation.getPreparedId('title', index),
-            textareaId = IdManipulation.getPreparedId('textarea', index),
-            textarea = new Textarea(textareaId, text, this.textareaMaxCharsPerLine),
+            disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
+            textarea = new Textarea(index, text, this.textareaMaxCharsPerLine, disabled),
             checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts),
-            saveBtn = new SaveButton(index),
-            rmBtn = new DeleteButton(index);
+            controlButtons = '';
 
         textarea.init()
         checkboxes.init();
-        saveBtn.init();
-        rmBtn.init();
 
+        this.addListeners(textarea.getListeners());
         this.addListeners(checkboxes.getListeners());
-        this.addListeners(saveBtn.getListeners());
-        this.addListeners(rmBtn.getListeners());
-        this.setListeners('input', {
-            [titleId]: {
-                'function': this.updateTitle,
-                'class': this
-            },
-            [textareaId]: {
-                'function': textarea.updateText,
-                'class': textarea
-            }
-        });
 
-        return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
+        if (!disabled) {
+            var saveBtn = new SaveButton(index),
+                cancelEditBtn = new CancelEditingButton(index);
+
+            saveBtn.init();
+            cancelEditBtn.init();
+
+            this.addListeners(saveBtn.getListeners());
+            this.addListeners(cancelEditBtn.getListeners());
+            this.setListeners('input', {
+                [titleId]: {
+                    'function': this.updateTitle,
+                    'class': this
+                },
+            });
+            controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+        } else {
+            var rmBtn = new DeleteButton(index),
+                enterRedactingBtn = new EnterEditingButton(index);
+
+            rmBtn.init();
+            enterRedactingBtn.init();
+
+            this.addListeners(rmBtn.getListeners());
+            this.addListeners(enterRedactingBtn.getListeners());
+
+            controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
+        }
+
+        return `<div id="${index}" class="col-12 mb-5 p-5 bg-secondary rounded">
             <div class="text-right">
-                ${saveBtn.getTemplate()}
-                ${rmBtn.getTemplate()}
+                ${controlButtons}
             </div>
             <div class="row">
                 <form class="col-md-10 m-form m-form--fit m-form--label-align-right">
                     <div class="form-group m-form__group">
-                        <label for="${titleId}">Заголовок</label>
-                        <input value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
-                        <label for="${textareaId}">Текст</label>
+                        <label">Заголовок</label>
+                        <input ${disabled} value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
+                        <label">Текст</label>
                         ${textarea.getTemplate()}
                     </div>
                 </form>
@@ -76,17 +92,29 @@ class Expedited extends BaseTab {
         </div>`
     }
 
+    updateText (stringId, newVal) {
+        this.updateEditState(stringId, 'text', newVal);
+    }
+
     updateTitle (event) {
-        console.log(event.target.value);
+        this.updateEditState(event.target.attributes['id'].value, 'title', event.target.value);
     }
 
     saveModel (stringId) {
         var modelId = IdManipulation.getIdFromString(stringId);
-        console.log(modelId);
+        console.log(this.edit[modelId]);
+        this.edit = {
+            'modelId': null,
+            'state': false,
+        }
+        this.rerender();
     }
 
-    removeModel (stringId) {
+    removeModel (stringId) {console.log(stringId);
         var modelId = IdManipulation.getIdFromString(stringId);
+        $('#' + modelId).remove();
+        // TO DO
+        //this.rerender();
         console.log(modelId);
     }
 }
