@@ -79,7 +79,7 @@ class Tops extends BaseTab {
             </div>
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
-                    <label for="${titleId}">Заголовок</label>
+                    <label">Заголовок</label>
                     <input ${disabled} value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
                     <label>Текст</label>
                     ${textarea.getTemplate()}
