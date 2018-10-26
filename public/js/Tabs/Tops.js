@@ -96,8 +96,8 @@ class Tops extends BaseTab {
         return this.makeBlock('new', '', '');
     }
 
-    updateText (modelIdString, newVal) {
-        this.updateEditState(modelIdString, 'text', newVal);
+    updateText (stringId, newVal) {
+        this.updateEditState(stringId, 'text', newVal);
     }
 
     updateTitle (event) {

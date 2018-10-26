@@ -64,8 +64,8 @@ class BaseTab {
         Listeners.init(this);
     }
 
-    updateEditState (modelIdString, type, value) {
-        var modelId = IdManipulation.getIdFromString(modelIdString);
+    updateEditState (stringId, type, value) {
+        var modelId = IdManipulation.getIdFromString(stringId);
         if (this.edit.hasOwnProperty(modelId)) {
             this.edit[modelId][type] = value;
         } else {
