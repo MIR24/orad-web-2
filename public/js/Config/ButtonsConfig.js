@@ -23,5 +23,26 @@ const ButtonsConfig = {
         "text": "Редактировать",
         "cssClass": "btn-primary mr-2",
     },
+    "arrow-spinner": {
+        "options": {
+            "firstKey": 1,
+            0: {
+                "text": "-",
+                "cssClass": "btn-dark",
+            },
+            1: {
+                "text": "↗",
+                "cssClass": "btn-success",
+            },
+            2: {
+                "text": "↘",
+                "cssClass": "btn-danger",
+            },
+            3: {
+                "text": "→",
+                "cssClass": "btn-secondary",
+            }
+        },
+    }
 }
 export default ButtonsConfig

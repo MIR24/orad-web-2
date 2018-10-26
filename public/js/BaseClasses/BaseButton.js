@@ -14,6 +14,7 @@ class BaseButton extends BaseComponent {
         this.type = type;
         this.text = ButtonsConfig[type].text;
         this.cssClass = ButtonsConfig[type].cssClass;
+        this.options = ButtonsConfig[type].options ? ButtonsConfig[type].options : null;
     }
 
     makeTemplate () {

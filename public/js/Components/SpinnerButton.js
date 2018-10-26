@@ -1,22 +1,21 @@
+import BaseButton from "../BaseClasses/BaseButton.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import Listeners from "../Utils/Listeners.js";
 
-class SpinnerButton {
-    constructor (id, options, firstOption) {
-        this.template = '';
-        this.id = IdManipulation.getPreparedId('spinner-btn', id);
-        this.options = options;
-        this.firstOption = firstOption;
-        this.listeners = {
-            'click': {}
-        }
+class SpinnerButton extends BaseButton {
+    constructor (id, firstOption, type) {
+        super (
+            id,
+            type ? type : 'arrow-spinner'
+        );
+        this.firstOption = firstOption ? firstOption : 0;
     }
 
-    makeTemplate (option) {
-        this.template = `<button id=${this.id} class="btn ${this.options[option].cssClass}" data-option="${option}" type="button">${this.options[option].text}</button>`;
+    makeTemplate () {
+        this.template = `<button id=${this.id} class="btn ${this.options[this.firstOption].cssClass}" data-option="${this.firstOption}" type="button">${this.options[this.firstOption].text}</button>`;
     }
 
-    clicked (event) {
+    handle (initClass, event) {
         var select = $(event.target),
             option = parseInt(select.attr('data-option')),
             newOption = option + 1;
@@ -31,28 +30,6 @@ class SpinnerButton {
             .attr('data-option', newOption)
             .text(this.options[newOption].text);
         event.target.disabled = false;
-    }
-
-    setListeners () {
-        Listeners.set(this, 'click', {
-            [this.id]: {
-                'function': this.clicked,
-                'class': this
-            }
-        });
-    }
-
-    getListeners () {
-        return this.listeners;
-    }
-    
-    getTemplate () {
-        return this.template;
-    }
-    
-    init () {
-        this.setListeners();
-        this.makeTemplate(this.firstOption);
     }
 }
 export default SpinnerButton

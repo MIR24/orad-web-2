@@ -13,25 +13,6 @@ class CurrencyValues extends BaseTab {
             'click' : {},
             'input' : {},
         };
-        this.spinnerButtonOptions = {
-            'firstKey': 1,
-            0: {
-                'text': '-',
-                'cssClass': 'btn-dark',
-            },
-            1: {
-                'text': '↗',
-                'cssClass': 'btn-success',
-            },
-            2: {
-                'text': '↘',
-                'cssClass': 'btn-danger',
-            },
-            3: {
-                'text': '→',
-                'cssClass': 'btn-secondary',
-            }
-        };
     }
 
     makeTemplate () {
@@ -59,7 +40,7 @@ class CurrencyValues extends BaseTab {
     makeBlock (index, leftValName, rightValName, inputValue, direction) {
         var inputId = IdManipulation.getPreparedId('input', index),
             directionId = IdManipulation.getPreparedId('direction-input', index),
-            spinnerButton = new SpinnerButton(index, this.spinnerButtonOptions, direction),
+            spinnerButton = new SpinnerButton(index, direction),
             saveBtn = new SaveButton(index),
             rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
 
@@ -93,7 +74,7 @@ class CurrencyValues extends BaseTab {
             secondValId = 'second-val-new',
             valueId = 'value-new',
             emptyCurrencyPlaceholder = 'Валюта',
-            spinnerButton = new SpinnerButton('new', this.spinnerButtonOptions, 0),
+            spinnerButton = new SpinnerButton('new'),
             rmBtn = new DeleteButton('new', 'delete-button-CurrencyValues');
 
         spinnerButton.init();
