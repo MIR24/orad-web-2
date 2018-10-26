@@ -34,7 +34,7 @@ class Expedited extends BaseTab {
         var titleId = IdManipulation.getPreparedId('title', index),
             disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             textarea = new Textarea(index, text, this.textareaMaxCharsPerLine, disabled),
-            checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts),
+            checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts, disabled),
             controlButtons = '';
 
         textarea.init()
