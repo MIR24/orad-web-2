@@ -37,7 +37,6 @@ class Tops extends BaseTab {
 
     makeBlock (index, title, text) {
         var titleId = IdManipulation.getPreparedId('title', index),
-            textareaId = IdManipulation.getPreparedId('textarea', index),
             disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             textarea = new Textarea(index, text, this.textareaMaxCharsPerLine, disabled),
             controlButtons = '';
