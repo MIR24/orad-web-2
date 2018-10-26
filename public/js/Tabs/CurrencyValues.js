@@ -60,7 +60,7 @@ class CurrencyValues extends BaseTab {
 
     makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
         var inputId = IdManipulation.getPreparedId('input', index),
-            spinnerButton = new SpinnerButton(index, direction),
+            spinnerButton = new SpinnerButton(index, disabled, direction),
             controlButtons = '';
 
         // TO DO

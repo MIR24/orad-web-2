@@ -3,16 +3,17 @@ import IdManipulation from "../Utils/IdManipulation.js";
 import Listeners from "../Utils/Listeners.js";
 
 class SpinnerButton extends BaseButton {
-    constructor (id, firstOption, type) {
+    constructor (id, disabled, firstOption, type) {
         super (
             id,
             type ? type : 'arrow-spinner'
         );
         this.firstOption = firstOption ? firstOption : 0;
+        this.disabled = disabled ? disabled : '';
     }
 
     makeTemplate () {
-        this.template = `<button id=${this.id} class="btn ${this.config.options[this.firstOption].cssClass}" data-option="${this.firstOption}" type="button">${this.config.options[this.firstOption].text}</button>`;
+        this.template = `<button ${this.disabled} id=${this.id} class="btn ${this.config.options[this.firstOption].cssClass}" data-option="${this.firstOption}" type="button">${this.config.options[this.firstOption].text}</button>`;
     }
 
     handle (initClass, event) {
