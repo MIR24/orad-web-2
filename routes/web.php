@@ -20,5 +20,6 @@ Route::get('/test/tops', 'TestController@getTops');
 Route::get('/test/newsbar', 'TestController@getNewsbar');
 Route::get('/test/expedited', 'TestController@getExpedited');
 Route::get('/test/currency', 'TestController@getCurrency');
+Route::get('/test/weatherlive', 'TestController@getWeather');
 
 Auth::routes();

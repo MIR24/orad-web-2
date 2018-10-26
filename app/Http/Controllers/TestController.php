@@ -106,4 +106,42 @@ class TestController extends Controller
             ],
         ];
     }
+    public function getWeather()
+    {
+        return [
+            0 => [
+                'id' => 0,
+                'state' => 1,
+                'city' => 'city0',
+                'morning' => 2,
+                'evening' => 2,
+                'icon' => [
+                    'id' => 0,
+                    'loc' => 'string'
+                ]
+            ],
+            1 => [
+                'id' => 1,
+                'state' => 0,
+                'city' => 'city1',
+                'morning' => 20,
+                'evening' => 22,
+                'icon' => [
+                    'id' => 1,
+                    'loc' => 'string'
+                ]
+            ],
+            2 => [
+                'id' => 2,
+                'state' => 1,
+                'city' => 'city2',
+                'morning' => 2,
+                'evening' => 2,
+                'icon' => [
+                    'id' => 2,
+                    'loc' => 'string'
+                ]
+            ],
+        ];
+    }
 }
