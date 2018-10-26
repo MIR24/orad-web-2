@@ -9,7 +9,7 @@ class SaveButton extends BaseButton {
     }
 
     handle (initClass, event) {
-        initClass.saveModel(event.target.id);
+        initClass.saveModel(this.modelId);
     }
 }
 export default SaveButton

@@ -100,8 +100,7 @@ class Expedited extends BaseTab {
         this.updateEditState(event.target.attributes['id'].value, 'title', event.target.value);
     }
 
-    saveModel (stringId) {
-        var modelId = IdManipulation.getIdFromString(stringId);
+    saveModel (modelId) {
         console.log(this.edit[modelId]);
         this.edit = {
             'modelId': null,
@@ -110,8 +109,7 @@ class Expedited extends BaseTab {
         this.rerender();
     }
 
-    removeModel (stringId) {console.log(stringId);
-        var modelId = IdManipulation.getIdFromString(stringId);
+    removeModel (modelId) {
         $('#' + modelId).remove();
         // TO DO
         //this.rerender();

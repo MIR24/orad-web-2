@@ -9,7 +9,7 @@ class DeleteButton extends BaseButton {
     }
 
     handle (initClass, event) {
-        initClass.removeModel(event.target.id);
+        initClass.removeModel(this.modelId);
     }
 }
 export default DeleteButton

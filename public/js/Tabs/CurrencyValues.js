@@ -136,9 +136,8 @@ class CurrencyValues extends BaseTab {
         return this.makeEmptyBlock();
     }
 
-    saveModel (stringId) {console.log(stringId);
-        var modelId = IdManipulation.getIdFromString(stringId);
-        console.log(this.edit);
+    saveModel (modelId) {
+        console.log(modelId, this.edit);
         this.edit = {
             'modelId': null,
             'state': false,
@@ -146,8 +145,7 @@ class CurrencyValues extends BaseTab {
         this.rerender();
     }
 
-    removeModel (stringId) {
-        var modelId = IdManipulation.getIdFromString(stringId);
+    removeModel (modelId) {
         $('#' + modelId).remove();
         // TO DO
         //this.rerender();

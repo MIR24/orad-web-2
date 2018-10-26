@@ -78,8 +78,7 @@ class Newsbar extends BaseTab {
         this.updateEditState(stringId, 'text', newVal);
     }
 
-    saveModel (stringId) {
-        var modelId = IdManipulation.getIdFromString(stringId);
+    saveModel (modelId) {
         console.log(this.edit[modelId]);
         this.edit = {
             'modelId': null,
@@ -88,8 +87,7 @@ class Newsbar extends BaseTab {
         this.rerender();
     }
 
-    removeModel (stringId) {
-        var modelId = IdManipulation.getIdFromString(stringId);
+    removeModel (modelId) {
         $('#' + modelId).remove();
         // TO DO
         //this.rerender();
