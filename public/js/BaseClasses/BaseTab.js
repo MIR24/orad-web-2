@@ -38,9 +38,9 @@ class BaseTab {
         this.rerender();
     }
 
-    enterEditing (stringId) {
+    enterEditing (modelId) {
         this.edit = {
-            'modelId': IdManipulation.getIdFromString(stringId),
+            'modelId': modelId,
             'state': true,
         }
         this.rerender();

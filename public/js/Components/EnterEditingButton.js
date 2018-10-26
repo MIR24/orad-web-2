@@ -9,7 +9,7 @@ class EnterEditingButton extends BaseButton {
     }
 
     handle (initClass, event) {
-        initClass.enterEditing(event.target.id);
+        initClass.enterEditing(this.modelId);
     }
 }
 export default EnterEditingButton

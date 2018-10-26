@@ -9,7 +9,7 @@ class CancelEditingButton extends BaseButton {
     }
 
     handle (initClass, event) {
-        initClass.cancelEditing(event.target.id);
+        initClass.cancelEditing();
     }
 }
 export default CancelEditingButton
