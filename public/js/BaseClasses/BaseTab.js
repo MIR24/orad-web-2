@@ -1,4 +1,5 @@
 import Listeners from "../Utils/Listeners.js";
+import IdManipulation from "../Utils/IdManipulation.js";
 
 class BaseTab {
     constructor () {
@@ -45,6 +46,18 @@ class BaseTab {
 
     initListeners () {
         Listeners.init(this);
+    }
+
+    updateEditState (modelIdString, type, value) {
+        var modelId = IdManipulation.getIdFromString(modelIdString);
+        if (this.edit.hasOwnProperty(modelId)) {
+            this.edit[modelId][type] = value;
+        } else {
+            this.edit[modelId] = {
+                [type]: value
+            };
+        }
+        console.log(this.edit);
     }
 
     renderTemplate () {
