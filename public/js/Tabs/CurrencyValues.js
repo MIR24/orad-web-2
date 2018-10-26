@@ -70,7 +70,7 @@ class CurrencyValues extends BaseTab {
 
     makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
         var spinnerButton = new SpinnerButton(index, disabled, direction),
-            valueInput = new Input(this.modelChange, index, 'value', inputValue, disabled, emptyCurrencyValuePlaceholder, 'number'),
+            valueInput = new Input(index, 'value', inputValue, disabled, emptyCurrencyValuePlaceholder, 'number'),
             controlButtons = '';
 
         // TO DO
@@ -102,9 +102,9 @@ class CurrencyValues extends BaseTab {
 
     makeEmptyBlock () {
         var spinnerButton = new SpinnerButton('new'),
-            leftValNameInput = new Input(this.newModelChange, 'new', 'val1', '', false, emptyCurrencyPlaceholder),
-            rightValNameInput = new Input(this.newModelChange, 'new', 'val2', '', false, emptyCurrencyPlaceholder),
-            valueInput = new Input(this.newModelChange, 'new', 'value', '', false, emptyCurrencyValuePlaceholder,'number'),
+            leftValNameInput = new Input('new', 'val1', '', false, emptyCurrencyPlaceholder),
+            rightValNameInput = new Input('new', 'val2', '', false, emptyCurrencyPlaceholder),
+            valueInput = new Input('new', 'value', '', false, emptyCurrencyValuePlaceholder, 'number'),
             controlButtons = '';
 
         spinnerButton.init();

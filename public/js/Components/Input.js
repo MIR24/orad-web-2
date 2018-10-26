@@ -1,8 +1,8 @@
 import BaseComponent from "../BaseClasses/BaseComponent.js";
 
 class Input extends BaseComponent {
-    constructor (parentHandle, id, valueName, value, disabled, placeholder, type) {
-        super(parentHandle, id, valueName, 'input', disabled);
+    constructor (id, valueName, value, disabled, placeholder, type) {
+        super(id, valueName, 'input', disabled);
         this.value = value;
         this.placeholder = placeholder ? placeholder : '';
         this.type = type ? type : 'text';
@@ -17,6 +17,10 @@ class Input extends BaseComponent {
                 value="${this.value}" 
                 placeholder="${this.placeholder}"
             >`;
+    }
+
+    handle (initClass, event) {console.log(initClass, event,this);
+        initClass.modelChange(this.modelId, this.valueName, event.target.value);
     }
 }
 export default Input
