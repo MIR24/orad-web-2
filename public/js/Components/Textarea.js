@@ -1,12 +1,13 @@
+import BaseComponent from "../BaseClasses/BaseComponent.js";
 import Listeners from "../Utils/Listeners.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 
-class Textarea {
+class Textarea extends BaseComponent {
     constructor (id, value, maxCharsPerLine, disabled) {
+        super();
         this.listeners = {
             'input': {}
         }
-        this.template = '';
         this.id = IdManipulation.getPreparedId('textarea', id);
         this.value = value;
         this.maxCharsPerLine = maxCharsPerLine;
@@ -67,19 +68,6 @@ class Textarea {
                 'addInitClass': true,
             }
         });
-    }
-
-    getListeners () {
-        return this.listeners;
-    }
-
-    getTemplate () {
-        return this.template;
-    }
-
-    init () {
-        this.makeTemplate();
-        this.setListeners();
     }
 }
 export default Textarea
