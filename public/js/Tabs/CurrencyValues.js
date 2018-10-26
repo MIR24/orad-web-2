@@ -64,7 +64,7 @@ class CurrencyValues extends BaseTab {
     }
 
     makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
-        var spinnerButton = new SpinnerButton(index, disabled, direction),
+        var spinnerButton = new SpinnerButton(index, 'direction', disabled, direction),
             valueInput = new Input(index, 'value', inputValue, disabled, emptyCurrencyValuePlaceholder, 'number'),
             controlButtons = '';
 

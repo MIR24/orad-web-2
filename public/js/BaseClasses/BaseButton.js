@@ -4,14 +4,14 @@ import Listeners from "../Utils/Listeners.js";
 import ButtonsConfig from "../Config/ButtonsConfig.js";
 
 class BaseButton extends BaseComponent {
-    constructor (id, type) {
-        super();
-        this.template = '';
-        this.listeners = {
-            'click': {}
-        };
-        this.id = IdManipulation.getPreparedId(type, id);
-        this.type = type;
+    constructor (id, type, valueName, disabled) {
+        super (
+            id,
+            valueName,
+            'click',
+            disabled,
+            type,
+        );
         this.config = ButtonsConfig[type];
     }
 

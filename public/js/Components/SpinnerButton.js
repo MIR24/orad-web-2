@@ -3,13 +3,14 @@ import IdManipulation from "../Utils/IdManipulation.js";
 import Listeners from "../Utils/Listeners.js";
 
 class SpinnerButton extends BaseButton {
-    constructor (id, disabled, firstOption, type) {
+    constructor (id, valueName, disabled, firstOption, type) {
         super (
             id,
-            type ? type : 'arrow-spinner'
+            type ? type : 'arrow-spinner',
+            valueName ? valueName : 'new',
+            disabled,
         );
         this.firstOption = firstOption ? firstOption : 0;
-        this.disabled = disabled ? disabled : '';
     }
 
     makeTemplate () {
@@ -26,6 +27,7 @@ class SpinnerButton extends BaseButton {
         }
 
         event.target.disabled = true;
+        initClass.modelChange(this.modelId, this.valueName, this.config.options[newOption].newModelValue);
         select.removeClass(this.config.options[option].cssClass)
             .addClass(this.config.options[newOption].cssClass)
             .attr('data-option', newOption)

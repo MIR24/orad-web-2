@@ -33,18 +33,22 @@ const ButtonsConfig = {
             0: {
                 "text": "-",
                 "cssClass": "btn-dark",
+                "newModelValue": 0,
             },
             1: {
                 "text": "↗",
                 "cssClass": "btn-success",
+                "newModelValue": 1,
             },
             2: {
                 "text": "↘",
                 "cssClass": "btn-danger",
+                "newModelValue": 2,
             },
             3: {
                 "text": "→",
                 "cssClass": "btn-secondary",
+                "newModelValue": 3,
             }
         },
     }
