@@ -12,7 +12,7 @@ class SpinnerButton extends BaseButton {
     }
 
     makeTemplate () {
-        this.template = `<button id=${this.id} class="btn ${this.options[this.firstOption].cssClass}" data-option="${this.firstOption}" type="button">${this.options[this.firstOption].text}</button>`;
+        this.template = `<button id=${this.id} class="btn ${this.config.options[this.firstOption].cssClass}" data-option="${this.firstOption}" type="button">${this.config.options[this.firstOption].text}</button>`;
     }
 
     handle (initClass, event) {
@@ -20,15 +20,15 @@ class SpinnerButton extends BaseButton {
             option = parseInt(select.attr('data-option')),
             newOption = option + 1;
 
-        if (!this.options.hasOwnProperty(newOption)) {
-            newOption = this.options.firstKey;
+        if (!this.config.options.hasOwnProperty(newOption)) {
+            newOption = this.config.firstKey;
         }
 
         event.target.disabled = true;
-        select.removeClass(this.options[option].cssClass)
-            .addClass(this.options[newOption].cssClass)
+        select.removeClass(this.config.options[option].cssClass)
+            .addClass(this.config.options[newOption].cssClass)
             .attr('data-option', newOption)
-            .text(this.options[newOption].text);
+            .text(this.config.options[newOption].text);
         event.target.disabled = false;
     }
 }

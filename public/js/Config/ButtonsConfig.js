@@ -24,8 +24,8 @@ const ButtonsConfig = {
         "cssClass": "btn-primary mr-2",
     },
     "arrow-spinner": {
+        "firstKey": 1,
         "options": {
-            "firstKey": 1,
             0: {
                 "text": "-",
                 "cssClass": "btn-dark",

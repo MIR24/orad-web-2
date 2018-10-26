@@ -12,13 +12,11 @@ class BaseButton extends BaseComponent {
         };
         this.id = IdManipulation.getPreparedId(type, id);
         this.type = type;
-        this.text = ButtonsConfig[type].text;
-        this.cssClass = ButtonsConfig[type].cssClass;
-        this.options = ButtonsConfig[type].options ? ButtonsConfig[type].options : null;
+        this.config = ButtonsConfig[type];
     }
 
     makeTemplate () {
-        this.template = `<button id="${this.id}" class="btn ${this.cssClass}">${this.text}</button>`;
+        this.template = `<button id="${this.id}" class="btn ${this.config.cssClass}">${this.config.text}</button>`;
     }
 
     setListeners () {
