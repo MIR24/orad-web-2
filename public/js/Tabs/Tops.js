@@ -96,8 +96,8 @@ class Tops extends BaseTab {
         return this.makeBlock('new', '', '');
     }
 
-    updateText (modelId, newVal) {
-        this.updateEditState(modelId, 'text', newVal);
+    updateText (modelIdString, newVal) {
+        this.updateEditState(modelIdString, 'text', newVal);
     }
 
     updateTitle (event) {
@@ -120,22 +120,6 @@ class Tops extends BaseTab {
         // TO DO
         //this.rerender();
         console.log(modelId);
-    }
-
-    cancelEditing (stringId) {
-        this.edit = {
-            'modelId': null,
-            'state': false,
-        }
-        this.rerender();
-    }
-
-    enterEditing (stringId) {
-        this.edit = {
-            'modelId': IdManipulation.getIdFromString(stringId),
-            'state': true,
-        }
-        this.rerender();
     }
 }
 export default Tops

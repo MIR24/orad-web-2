@@ -30,6 +30,22 @@ class BaseTab {
         });
     }
 
+    cancelEditing () {
+        this.edit = {
+            'modelId': null,
+            'state': false,
+        }
+        this.rerender();
+    }
+
+    enterEditing (stringId) {
+        this.edit = {
+            'modelId': IdManipulation.getIdFromString(stringId),
+            'state': true,
+        }
+        this.rerender();
+    }
+
     setData (response) {
         this.models = response;
     }
