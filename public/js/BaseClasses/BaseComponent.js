@@ -4,17 +4,17 @@ class BaseComponent {
         this.listeners = {};
     }
 
-    makeTemplate () {}
-    setListeners() {}
+    makeTemplate () {};
+    setListeners() {};
 
     getListeners () {
         return this.listeners;
     }
-    
+
     getTemplate () {
         return this.template;
     }
-    
+
     init () {
         this.setListeners();
         this.makeTemplate();
