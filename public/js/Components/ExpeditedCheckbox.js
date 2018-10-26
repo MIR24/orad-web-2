@@ -1,9 +1,10 @@
+import BaseComponent from "../BaseClasses/BaseComponent.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import Listeners from "../Utils/Listeners.js";
 
-class ExpeditedCheckbox {
+class ExpeditedCheckbox extends BaseComponent {
     constructor (id, checkboxes) {
-        this.template = '';
+        super();
         this.models = checkboxes ? checkboxes : {};
         this.id = id;
         this.listeners = {
@@ -63,19 +64,6 @@ class ExpeditedCheckbox {
                 'class': this
             }
         });
-    }
-
-    getListeners () {
-        return this.listeners;
-    }
-
-    getTemplate () {
-        return this.template;
-    }
-
-    init () {
-        this.setListeners();
-        this.makeTemplate();
     }
 }
 export default ExpeditedCheckbox
