@@ -96,18 +96,6 @@ class Tops extends BaseTab {
         return this.makeBlock('new', '', '');
     }
 
-    updateEditState (modelIdString, type, value) {
-        var modelId = IdManipulation.getIdFromString(modelIdString);
-        if (this.edit.hasOwnProperty(modelId)) {
-            this.edit[modelId][type] = value;
-        } else {
-            this.edit[modelId] = {
-                [type]: value
-            };
-        }
-        console.log(this.edit);
-    }
-
     updateText (modelId, newVal) {
         this.updateEditState(modelId, 'text', newVal);
     }
