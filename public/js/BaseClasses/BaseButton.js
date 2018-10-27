@@ -18,15 +18,5 @@ class BaseButton extends BaseComponent {
     makeTemplate () {
         this.template = `<button id="${this.id}" class="btn ${this.config.cssClass}">${this.config.text}</button>`;
     }
-
-    setListeners () {
-        Listeners.set(this, 'click', {
-            [this.id]: {
-                'function': this.handle,
-                'class': this,
-                'addInitClass': true,
-            }
-        });
-    }
 }
 export default BaseButton
