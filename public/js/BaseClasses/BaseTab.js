@@ -9,6 +9,7 @@ class BaseTab {
             'modelId': null,
             'state': false,
         };
+        this.additionlClassesJQ = {};
     }
 
     getModels () {
@@ -76,6 +77,18 @@ class BaseTab {
         console.log(this.edit);
     }
 
+    addAdditionlClassesJQ (newObject) {
+        this.additionlClassesJQ = Object.assign(this.additionlClassesJQ, {
+            [newObject.selectString]: newObject
+        });
+    }
+
+    initAdditionlClassesJQ () {console.log(this.additionlClassesJQ);
+        for (var one in this.additionlClassesJQ) {
+            $(this.additionlClassesJQ[one].selectString)[this.additionlClassesJQ[one].function](this.additionlClassesJQ[one].options);
+        }
+    }
+
     renderTemplate () {
         $('#tab-content').html(this.template);
     }
@@ -88,6 +101,7 @@ class BaseTab {
             this.makeTemplate();
             this.renderTemplate();
             this.initListeners();
+            this.initAdditionlClassesJQ();
         })
         .then(function () {
             $('body').removeClass('m-page--loading');
@@ -100,6 +114,7 @@ class BaseTab {
             this.makeTemplate(this.models);
             this.renderTemplate();
             this.initListeners();
+            this.initAdditionlClassesJQ();
             resolve();
         }).then(function () {
             $('body').removeClass('m-page--loading');
