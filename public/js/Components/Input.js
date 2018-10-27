@@ -19,7 +19,7 @@ class Input extends BaseComponent {
             >`;
     }
 
-    handle (initClass, event) {console.log(initClass, event,this);
+    handle (initClass, event) {
         initClass.modelChange(this.modelId, this.valueName, event.target.value);
     }
 }
