@@ -6,7 +6,6 @@
             "rtl": {
                 "enabled": true,
                 "skip": [
-                    "select2",
                     "socicon",
                     "line-awesome",
                     "flaticon",
@@ -81,6 +80,14 @@
                         "wnumb": {
                             "scripts": [
                                 "{$config.path.node_modules}/wnumb/wNumb.js"
+                            ]
+                        },
+                        "select2": {
+                            "styles": [
+                                "{$config.path.node_modules}/select2/dist/css/select2.css"
+                            ],
+                            "scripts": [
+                                "{$config.path.node_modules}/select2/dist/js/select2.full.js"
                             ]
                         }
                     },
@@ -178,14 +185,6 @@
                             ],
                             "scripts": [
                                 "{$config.path.node_modules}/bootstrap-select/dist/js/bootstrap-select.js"
-                            ]
-                        },
-                        "select2": {
-                            "styles": [
-                                "{$config.path.node_modules}/select2/dist/css/select2.css"
-                            ],
-                            "scripts": [
-                                "{$config.path.node_modules}/select2/dist/js/select2.full.js"
                             ]
                         },
                         "typeahead.js": {
