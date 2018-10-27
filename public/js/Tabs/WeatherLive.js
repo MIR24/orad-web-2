@@ -98,6 +98,10 @@ class WeatherLive extends BaseTab {
         </div>`;
     }
 
+    getEmptyBlock () {
+        return this.makeBlock('new', '');
+    }
+
     modelChange (modelId, valueName, newValue) {
         console.log(modelId, valueName, newValue);
     }
