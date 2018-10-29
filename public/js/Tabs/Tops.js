@@ -6,6 +6,7 @@ import Textarea from "../Components/Textarea.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import CancelEditingButton from "../Components/CancelEditingButton.js";
+import Input from "../Components/Input.js";
 
 class Tops extends BaseTab {
     constructor () {
@@ -36,13 +37,16 @@ class Tops extends BaseTab {
     }
 
     makeBlock (index, title, text) {
-        var titleId = IdManipulation.getPreparedId('title', index),
-            disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
+        var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
+            title = new Input(index, 'title', title, disabled, 'Заголовок'),
             textarea = new Textarea(index, text, this.textareaMaxCharsPerLine, disabled),
             controlButtons = '';
 
+        title.init();
         textarea.init();
+
         this.addListeners(textarea.getListeners());
+        this.addListeners(title.getListeners());
 
         if (!disabled) {
             var saveBtn = new SaveButton(index),
@@ -53,12 +57,7 @@ class Tops extends BaseTab {
 
             this.addListeners(saveBtn.getListeners());
             this.addListeners(cancelEditBtn.getListeners());
-            this.setListeners('input', {
-                [titleId]: {
-                    'function': this.updateTitle,
-                    'class': this
-                },
-            });
+
             controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
         } else {
             var rmBtn = new DeleteButton(index),
@@ -80,7 +79,7 @@ class Tops extends BaseTab {
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
                     <label">Заголовок</label>
-                    <input ${disabled} value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
+                    ${title.getTemplate()}
                     <label>Текст</label>
                     ${textarea.getTemplate()}
                 </div>
@@ -100,8 +99,8 @@ class Tops extends BaseTab {
         this.updateEditState(stringId, 'text', newVal);
     }
 
-    updateTitle (event) {
-        this.updateEditState(event.target.attributes['id'].value, 'title', event.target.value);
+    modelChange (modelId, valueName, newValue) {
+        this.updateEditState(modelId, valueName, newValue);
     }
 
     saveModel (modelId) {

@@ -95,6 +95,10 @@ class Expedited extends BaseTab {
         this.updateEditState(stringId, 'text', newVal);
     }
 
+    modelChange (modelId, valueName, newValue) {
+        this.updateEditState(modelId, valueName, newValue);
+    }
+
     saveModel (modelId) {
         console.log(this.edit[modelId]);
         this.edit = {

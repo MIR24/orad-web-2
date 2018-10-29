@@ -85,7 +85,7 @@ class Countdown extends BaseTab {
     }
 
     modelChange (modelId, valueName, newValue) {
-        console.log(modelId, valueName, newValue);
+        this.updateEditState(modelId, valueName, newValue);
     }
 
     saveModel (modelId) {

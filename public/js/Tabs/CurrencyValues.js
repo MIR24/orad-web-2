@@ -59,8 +59,7 @@ class CurrencyValues extends BaseTab {
     }
 
     modelChange (modelId, valueName, newValue) {
-        //this.updateEditState(this.inputUpdate, event.target.attributes['id'].value, 'value', event.target.value);
-        console.log('vc',modelId, valueName, newValue);
+        this.updateEditState(modelId, valueName, newValue);
     }
 
     makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
