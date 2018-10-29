@@ -22,5 +22,6 @@ Route::get('/test/expedited', 'TestController@getExpedited');
 Route::get('/test/currency', 'TestController@getCurrency');
 Route::get('/test/weatherlive', 'TestController@getWeather');
 Route::get('/test/timeshift', 'TestController@getTimeShift');
+Route::get('/test/countdown', 'TestController@getCountdown');
 
 Auth::routes();

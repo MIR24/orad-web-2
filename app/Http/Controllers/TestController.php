@@ -169,4 +169,33 @@ class TestController extends Controller
             ],
         ];
     }
+    public function getCountdown()
+    {
+        return [
+            0 => [
+                'id' => 0,
+                'name' => 'name0',
+                'time' => '2018-12-05 10:10:38',
+                'timestamp' => 123456
+            ],
+            1 => [
+                'id' => 1,
+                'name' => 'name1',
+                'time' => '2018-12-05 11:10:38',
+                'timestamp' => 123456
+            ],
+            2 => [
+                'id' => 2,
+                'name' => 'name2',
+                'time' => '2018-12-07 12:10:38',
+                'timestamp' => 123456
+            ],
+            3 => [
+                'id' => 3,
+                'name' => 'name3',
+                'time' => '2018-12-06 13:10:38',
+                'timestamp' => 123456
+            ],
+        ];
+    }
 }
