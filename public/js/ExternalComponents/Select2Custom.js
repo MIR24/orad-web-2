@@ -34,9 +34,5 @@ class Select2Custom extends BaseExternalComponent {
             <option value="cc">cc</option>
         </select>`;
     }
-
-    getValue () {
-        return $(this.options.selectString).val();
-    }
 }
 export default Select2Custom
