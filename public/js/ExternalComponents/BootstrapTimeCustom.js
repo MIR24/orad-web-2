@@ -3,7 +3,7 @@ import BaseExternalComponent from "../BaseClasses/BaseExternalComponent.js";
 class BootstrapTimeCustom extends BaseExternalComponent {
     constructor (id, type, value, disabled) {
         super(id, type, disabled);
-        this.value = moment(value).format('HH:mm');
+        this.value = value ? moment(value).format('HH:mm') : '';
         this.options = {
             'selectString': '#' + this.id,
             'function': 'timepicker',
