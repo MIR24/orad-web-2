@@ -144,4 +144,29 @@ class TestController extends Controller
             ],
         ];
     }
+    public function getTimeShift()
+    {
+        return [
+            0 => [
+                'id' => 0,
+                'city' => 'city0',
+                'timeShift' => 0,
+            ],
+            1 => [
+                'id' => 1,
+                'city' => 'city1',
+                'timeShift' => 1,
+            ],
+            2 => [
+                'id' => 2,
+                'city' => 'city2',
+                'timeShift' => 2,
+            ],
+            3 => [
+                'id' => 3,
+                'city' => 'city3',
+                'timeShift' => 3,
+            ],
+        ];
+    }
 }

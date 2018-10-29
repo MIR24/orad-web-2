@@ -148,7 +148,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         @include('layouts.partials.tab-inactive', ['name' => 'Expedited', 'translation' => __('Expedited')])
                                         @include('layouts.partials.tab-inactive', ['name' => 'CurrencyValues', 'translation' => __('CurrencyValues')])
                                         @include('layouts.partials.tab-inactive', ['name' => 'WeatherLive', 'translation' => __('WeatherLive')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'Time', 'translation' => __('Time')])
+                                        @include('layouts.partials.tab-inactive', ['name' => 'TimeShift', 'translation' => __('TimeShift')])
                                         @include('layouts.partials.tab-inactive', ['name' => 'TimeCounter', 'translation' => __('TimeCounter')])
                                         @include('layouts.partials.tab-inactive', ['name' => 'Promo', 'translation' => __('Promo')])
                                     </ul>
