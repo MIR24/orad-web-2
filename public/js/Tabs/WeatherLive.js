@@ -26,10 +26,14 @@ class WeatherLive extends BaseTab {
             controlButtons = '';
 
         if (!disabled) {
-            var saveBtn = new SaveButton('all');
+            var saveBtn = new SaveButton('all'),
+                cancelEditBtn = new CancelEditingButton('all');
 
             saveBtn.init();
+            cancelEditBtn.init();
+
             this.addListeners(saveBtn.getListeners());
+            this.addListeners(cancelEditBtn.getListeners());
 
             // TO DO
             if (isAdmin) {
@@ -39,7 +43,7 @@ class WeatherLive extends BaseTab {
                 controlButtons = addEmptyBlockButton.getTemplate();
             }
 
-            controlButtons += saveBtn.getTemplate();
+            controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
         } else {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 

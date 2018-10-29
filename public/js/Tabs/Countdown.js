@@ -24,15 +24,18 @@ class Countdown extends BaseTab {
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
+                cancelEditBtn = new CancelEditingButton('all'),
                 addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
 
             saveBtn.init();
+            cancelEditBtn.init();
             addEmptyBlockButton.init();
 
             this.addListeners(saveBtn.getListeners());
+            this.addListeners(cancelEditBtn.getListeners());
             this.addListeners(addEmptyBlockButton.getListeners());
 
-            controlButtons = `${addEmptyBlockButton.getTemplate()}${saveBtn.getTemplate()}`;
+            controlButtons = `${addEmptyBlockButton.getTemplate()}${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
         } else {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
