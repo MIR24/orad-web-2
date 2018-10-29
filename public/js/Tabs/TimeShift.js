@@ -5,8 +5,6 @@ import DeleteButton from "../Components/DeleteButton.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import CancelEditingButton from "../Components/CancelEditingButton.js";
 import Input from "../Components/Input.js";
-import Checkbox from "../Components/Checkbox.js";
-import Select2Custom from "../ExternalComponents/Select2Custom.js";
 
 class TimeShift extends BaseTab {
     constructor () {
