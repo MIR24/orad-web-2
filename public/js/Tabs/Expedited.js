@@ -1,5 +1,6 @@
 import BaseTab from "../BaseClasses/BaseTab.js";
 import ExpeditedCheckbox from "../Components/ExpeditedCheckbox.js";
+import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
 import Textarea from "../Components/Textarea.js";
 import SpinnerButton from "../Utils/IdManipulation.js";
 import IdManipulation from "../Utils/IdManipulation.js";
@@ -29,6 +30,13 @@ class Expedited extends BaseTab {
             return this.makeBlock(key, this.models[key].title, text);
         })
         .join('');
+
+        if (!this.edit.state) {
+            var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+            addEmptyBlockButton.init();
+            this.addListeners(addEmptyBlockButton.getListeners());
+            this.template = this.template.concat(addEmptyBlockButton.getTemplate());
+        }
     }
 
     makeBlock (index, title, text) {
@@ -89,6 +97,14 @@ class Expedited extends BaseTab {
                 </form>
             </div>
         </div>`
+    }
+
+    getEmptyBlock () {
+        this.eidting = {
+            'modelId': 'new',
+            'state': true,
+        }
+        return this.makeBlock('new');
     }
 
     updateText (stringId, newVal) {
