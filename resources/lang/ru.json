@@ -40,7 +40,7 @@
     "Expedited": "Срочно",
     "CurrencyValues": "Курс валют",
     "WeatherLive": "Погода для эфира",
-    "Time": "Время",
-    "TimeCounter": "Счетчик события",
+    "TimeShift": "Время",
+    "Countdown": "Счетчик события",
     "Promo": "Промо"
 }
