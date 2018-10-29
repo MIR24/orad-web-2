@@ -7,6 +7,7 @@ import SaveButton from "../Components/SaveButton.js";
 import DeleteButton from "../Components/DeleteButton.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import CancelEditingButton from "../Components/CancelEditingButton.js";
+import Input from "../Components/Input.js";
 
 
 class Expedited extends BaseTab {
@@ -33,13 +34,16 @@ class Expedited extends BaseTab {
     makeBlock (index, title, text) {
         var titleId = IdManipulation.getPreparedId('title', index),
             disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
+            title = new Input(index, 'title', title, disabled, 'Заголовок'),
             textarea = new Textarea(index, text, this.textareaMaxCharsPerLine, disabled),
             checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts, disabled),
             controlButtons = '';
 
+        title.init();
         textarea.init()
         checkboxes.init();
 
+        this.addListeners(title.getListeners());
         this.addListeners(textarea.getListeners());
         this.addListeners(checkboxes.getListeners());
 
@@ -52,12 +56,7 @@ class Expedited extends BaseTab {
 
             this.addListeners(saveBtn.getListeners());
             this.addListeners(cancelEditBtn.getListeners());
-            this.setListeners('input', {
-                [titleId]: {
-                    'function': this.updateTitle,
-                    'class': this
-                },
-            });
+
             controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
         } else {
             var rmBtn = new DeleteButton(index),
@@ -80,7 +79,7 @@ class Expedited extends BaseTab {
                 <form class="col-md-10 m-form m-form--fit m-form--label-align-right">
                     <div class="form-group m-form__group">
                         <label">Заголовок</label>
-                        <input ${disabled} value="${title}" type="title" class="form-control m-input m-input--air" id="${titleId}" aria-describedby="emailHelp" placeholder="Заголовок">
+                        ${title.getTemplate()}
                         <label">Текст</label>
                         ${textarea.getTemplate()}
                     </div>
@@ -94,10 +93,6 @@ class Expedited extends BaseTab {
 
     updateText (stringId, newVal) {
         this.updateEditState(stringId, 'text', newVal);
-    }
-
-    updateTitle (event) {
-        this.updateEditState(event.target.attributes['id'].value, 'title', event.target.value);
     }
 
     saveModel (modelId) {
