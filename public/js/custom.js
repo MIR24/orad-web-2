@@ -21,6 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
                   'Expedited': Expedited,
                   'CurrencyValues': CurrencyValues,
                   'WeatherLive': WeatherLive,
+                  'TimeShift': TimeShift,
                   'Countdown': Countdown,
             }
             currentTab = new formatters[this.attributes['data-tab-name'].value]();
