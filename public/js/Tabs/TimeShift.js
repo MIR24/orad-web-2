@@ -8,9 +8,6 @@ import Input from "../Components/Input.js";
 import Checkbox from "../Components/Checkbox.js";
 import Select2Custom from "../ExternalComponents/Select2Custom.js";
 
-// TO DO
-const isAdmin = true;
-
 class TimeShift extends BaseTab {
     constructor () {
         super();
