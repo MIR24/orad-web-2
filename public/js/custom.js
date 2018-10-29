@@ -4,6 +4,7 @@ import Expedited from "./Tabs/Expedited.js";
 import CurrencyValues from "./Tabs/CurrencyValues.js";
 import WeatherLive from "./Tabs/WeatherLive.js";
 import TimeShift from "./Tabs/TimeShift.js";
+import Countdown from "./Tabs/Countdown.js";
 
 var currentTab = null;
 
@@ -20,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
                   'Expedited': Expedited,
                   'CurrencyValues': CurrencyValues,
                   'WeatherLive': WeatherLive,
-                  'TimeShift': TimeShift,
+                  'Countdown': Countdown,
             }
             currentTab = new formatters[this.attributes['data-tab-name'].value]();
             currentTab.init();console.log(2, currentTab);
