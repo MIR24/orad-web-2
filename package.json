@@ -39,6 +39,9 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "bootstrap-datepicker": "^1.8.0",
+        "bootstrap-datetimepicker-npm": "^4.17.37-npm",
+        "bootstrap-timepicker": "^0.5.2",
         "select2": "^4.0.6-rc.1"
     }
 }
