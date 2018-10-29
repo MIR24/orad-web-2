@@ -9,9 +9,7 @@ import CancelEditingButton from "../Components/CancelEditingButton.js";
 import Input from "../Components/Input.js";
 
 // TO DO
-const isAdmin = true,
-    emptyCurrencyPlaceholder = 'Валюта',
-    emptyCurrencyValuePlaceholder = '0.0';
+const isAdmin = true;
 
 class CurrencyValues extends BaseTab {
     constructor () {
@@ -68,7 +66,7 @@ class CurrencyValues extends BaseTab {
 
     makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
         var spinnerButton = new SpinnerButton(index, 'direction', disabled, direction),
-            valueInput = new Input(index, 'value', inputValue, disabled, emptyCurrencyValuePlaceholder, 'number'),
+            valueInput = new Input(index, 'value', inputValue, disabled, '0.0', 'number'),
             controlButtons = '';
 
         // TO DO
@@ -100,9 +98,9 @@ class CurrencyValues extends BaseTab {
 
     makeEmptyBlock () {
         var spinnerButton = new SpinnerButton('new'),
-            leftValNameInput = new Input('new', 'val1', '', false, emptyCurrencyPlaceholder),
-            rightValNameInput = new Input('new', 'val2', '', false, emptyCurrencyPlaceholder),
-            valueInput = new Input('new', 'value', '', false, emptyCurrencyValuePlaceholder, 'number'),
+            leftValNameInput = new Input('new', 'val1', '', false, 'Валюта'),
+            rightValNameInput = new Input('new', 'val2', '', false, 'Валюта'),
+            valueInput = new Input('new', 'value', '', false, '0.0', 'number'),
             controlButtons = '';
 
         spinnerButton.init();
