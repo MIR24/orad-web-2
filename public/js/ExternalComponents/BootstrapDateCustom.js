@@ -24,9 +24,5 @@ class BootstrapDateCustom extends BaseExternalComponent {
                             placeholder="Выберите дату"
                         />`;
     }
-
-    getValue () {
-        console.log($(this.options.selectString).val());
-    }
 }
 export default BootstrapDateCustom

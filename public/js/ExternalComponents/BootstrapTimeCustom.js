@@ -25,9 +25,5 @@ class BootstrapTimeCustom extends BaseExternalComponent {
                             placeholder="Выберите время"
                         />`;
     }
-
-    getValue () {
-        console.log(1);
-    }
 }
 export default BootstrapTimeCustom
