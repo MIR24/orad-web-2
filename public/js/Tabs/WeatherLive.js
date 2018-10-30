@@ -64,7 +64,7 @@ class WeatherLive extends BaseTab {
         var controlButtons = '',
             cityName = new Input(index, 'city', cityName, disabled, 'City'),
             tempMorning = new Input(index, 'morning', tempMorning, disabled, '+0', 'number'),
-            tempEvening = new Input(index, 'evening', tempMorning, disabled, '+0', 'number'),
+            tempEvening = new Input(index, 'evening', tempEvening, disabled, '+0', 'number'),
             state = new Checkbox(index, 'state', state, disabled, 'Send to...'),
             selectWeather = new Select2Custom (index, 'selectWeather', !this.edit.state);
 
