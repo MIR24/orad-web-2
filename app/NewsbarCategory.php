@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\CategoryWithStrings;
 
 class NewsbarCategory extends Model
 {
     use SoftDeletes;
+    use CategoryWithStrings;
 
     /**
      * The attributes that should be mutated to dates.
@@ -17,17 +19,23 @@ class NewsbarCategory extends Model
     protected $dates = ['deleted_at'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['text'];
+
+    /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'NewsbarsCategories';
 
-    /**
-     * Get the strings for the category.
+        /**
+     * String model name.
+     *
+     * @var string
      */
-    public function strings()
-    {
-        return $this->hasMany('App\NewsbarString', 'category_id');
-    }
+    protected $stringModel = 'App\NewsbarString';
 }

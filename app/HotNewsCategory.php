@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\CategoryWithStrings;
+use App\Contracts\CategoryWithStrings as CategoryWithStringsInterface;
 
-class HotNewsCategory extends Model
+class HotNewsCategory extends Model implements CategoryWithStringsInterface
 {
     use SoftDeletes;
+    use CategoryWithStrings;
 
     /**
      * The attributes that should be mutated to dates.
@@ -17,6 +20,13 @@ class HotNewsCategory extends Model
     protected $dates = ['deleted_at'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['text'];
+
+    /**
      * The table associated with the model.
      *
      * @var string
@@ -24,12 +34,11 @@ class HotNewsCategory extends Model
     protected $table = 'HotNewsCategories';
 
     /**
-     * Get the strings for the category.
+     * String model name.
+     *
+     * @var string
      */
-    public function strings()
-    {
-        return $this->hasMany('App\HotNewsString', 'category_id');
-    }
+    protected $stringModel = 'App\HotNewsString';
 
     /**
      * The Orbits that belong to the HotNewsCategoriy.
