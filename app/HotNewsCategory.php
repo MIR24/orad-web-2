@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TopCategory extends Model
+class HotNewsCategory extends Model
 {
     use SoftDeletes;
 
@@ -21,13 +21,21 @@ class TopCategory extends Model
      *
      * @var string
      */
-    protected $table = 'TopsCategories';
+    protected $table = 'HotNewsCategories';
 
     /**
      * Get the strings for the category.
      */
     public function strings()
     {
-        return $this->hasMany('App\TopString', 'category_id');
+        return $this->hasMany('App\HotNewsString', 'category_id');
+    }
+
+    /**
+     * The Orbits that belong to the HotNewsCategoriy.
+     */
+    public function orbits()
+    {
+        return $this->belongsToMany('App\Orbit', 'HotNews_Orbit', 'HotNewsCategoriy_id', 'Orbit_id');
     }
 }

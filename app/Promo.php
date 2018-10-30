@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TopString extends Model
+class Promo extends Model
 {
     use SoftDeletes;
 
@@ -21,13 +21,13 @@ class TopString extends Model
      *
      * @var string
      */
-    protected $table = 'Tops';
+    protected $table = 'Promos';
 
     /**
      * Get the category for the strings.
      */
     public function category()
     {
-        return $this->belongsTo('App\TopCategory', 'category_id');
+        return $this->belongsTo('App\PromoCategory', 'category_id');
     }
 }

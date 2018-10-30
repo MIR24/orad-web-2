@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TopString extends Model
+class EventCountdown extends Model
 {
     use SoftDeletes;
 
@@ -14,20 +14,12 @@ class TopString extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'happen_at'];
 
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'Tops';
-
-    /**
-     * Get the category for the strings.
-     */
-    public function category()
-    {
-        return $this->belongsTo('App\TopCategory', 'category_id');
-    }
+    protected $table = 'EventCountdowns';
 }

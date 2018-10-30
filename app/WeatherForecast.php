@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TopString extends Model
+class WeatherForecast extends Model
 {
     use SoftDeletes;
 
@@ -21,13 +21,13 @@ class TopString extends Model
      *
      * @var string
      */
-    protected $table = 'Tops';
+    protected $table = 'WeatherForecasts';
 
     /**
-     * Get the category for the strings.
+     * Get the weather type for the forecast.
      */
-    public function category()
+    public function weatherType()
     {
-        return $this->belongsTo('App\TopCategory', 'category_id');
+        return $this->belongsTo('App\WeatherType', 'weather_type_id');
     }
 }
