@@ -22,13 +22,14 @@ class Newsbar extends BaseTab {
     }
 
     makeTemplate () {
-        this.template = Object.keys(this.models).map(key => {
+        var template = Object.keys(this.models).map(key => {
             var text = Object.keys(this.models[key].releated).map(keyInner => (
                 this.models[key].releated[keyInner].text
             )).join('\n');
             return this.makeBlock(key, this.models[key].title, text);
         })
         .join('');
+        this.template = this.getBaseContainer(template);
     }
 
     makeBlock (index, title, text) {

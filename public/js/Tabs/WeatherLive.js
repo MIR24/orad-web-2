@@ -53,11 +53,12 @@ class WeatherLive extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
         
-        this.template = Object.keys(this.models).map(key => {
+        var template = Object.keys(this.models).map(key => {
             return this.makeBlock(key, this.models[key].city, this.models[key].morning, this.models[key].evening, this.models[key].state, this.models[key].icon, disabled);
         })
         .join('')
         .concat(controlButtons);
+        this.template = this.getBaseContainer(template);
     }
 
     makeBlock (index, cityName, tempMorning, tempEvening, state, icon, disabled) {

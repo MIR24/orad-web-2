@@ -43,15 +43,16 @@ class TimeShift extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
 
-        this.template = `<div class="row col-12 mb-2">
+        var template = `<div class="row col-12 mb-2">
             <lable class="col-6">Город</lable>
             <lable class="col-6">Отступ</lable>
         </div>`;
-        this.template += Object.keys(this.models).map(key => {
+        template += Object.keys(this.models).map(key => {
             return this.makeBlock(key, this.models[key].city, this.models[key].timeShift, disabled);
         })
         .join('')
         .concat(controlButtons);
+        this.template = this.getBaseContainer(template);
     }
 
     makeBlock (index, cityName, timeShift, disabled) {

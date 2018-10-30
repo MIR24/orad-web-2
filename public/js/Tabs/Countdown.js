@@ -45,11 +45,12 @@ class Countdown extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
 
-        this.template = Object.keys(this.models).map(key => {
+        var template = Object.keys(this.models).map(key => {
             return this.makeBlock(key, this.models[key].name, this.models[key].time, disabled);
         })
         .join('')
         .concat(controlButtons);
+        this.template = this.getBaseContainer(template);
     }
 
     makeBlock (index, eventName, eventDateTime, disabled) {

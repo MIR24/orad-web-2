@@ -165,11 +165,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
             <!-- begin::Body -->
             <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop m-page__container m-body">
-                <div class="m-grid__item m-grid__item--fluid m-wrapper">
-                    <div class="container">
-                        <div id="tab-content" class="row justify-content-center"></div>
-                    </div>
-                </div>
+                <div id="tab-content" class="m-grid__item m-grid__item--fluid m-wrapper"></div>
             </div>
 
             <!-- end::Body -->

@@ -52,7 +52,15 @@ class BaseTab {
     }
 
     makeTemplate (response) {}
-    
+
+    getBaseContainer (content) {
+        return `<div class="container">
+            <div  class="row justify-content-center">
+                ${content}
+            </div>
+        </div>`;
+    }
+
     setListeners (type, listenerObj) {
         Listeners.set(this, type, listenerObj);
     }

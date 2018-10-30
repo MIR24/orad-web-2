@@ -53,11 +53,12 @@ class CurrencyValues extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
 
-        this.template = Object.keys(this.models).map(key => {
+        var template = Object.keys(this.models).map(key => {
             return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled);
         })
         .join('')
         .concat(controlButtons);
+        this.template = this.getBaseContainer(template);
     }
 
     modelChange (modelId, valueName, newValue) {
