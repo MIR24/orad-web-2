@@ -52,12 +52,17 @@ class Textarea extends BaseComponent {
             newSectionEnd = event.target.selectionEnd;
 
         if (newVal !== false) {
-            val = newVal;
+            event.target.value = newVal;
+            if (newVal.charAt(newSectionEnd) == '\n') {
+                event.target.selectionEnd = newSectionEnd + 1;
+            } else {
+                event.target.selectionEnd = newSectionEnd;
+            }
+            initClass.updateText(this.id, this.splitIntoArray(newVal));
+        } else {
+            event.target.value = val;
+            initClass.updateText(this.id, this.splitIntoArray(val));
         }
-
-        event.target.value = val;
-        event.target.selectionEnd = newSectionEnd;
-        initClass.updateText(this.id, this.splitIntoArray(val));
     }
 
     setListeners () {
