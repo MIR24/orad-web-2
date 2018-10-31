@@ -1,4 +1,9 @@
 const ButtonsConfig = {
+    "base": {
+        "text": "",
+        "cssClass": "",
+        "additions": "",
+    },
     "add-empty-block": {
         "text": "+ Добавить",
         "cssClass": "btn-primary mr-1",
@@ -51,6 +56,26 @@ const ButtonsConfig = {
                 "newModelValue": 3,
             }
         },
-    }
+    },
+    'modal-enter-create': {
+        "text": "Создать",
+        "cssClass": "btn-primary",
+        "additions": 'data-toggle="modal"',
+    },
+    'modal-enter-edit': {
+        "text": "Редактировать",
+        "cssClass": "btn-primary",
+        "additions": 'data-toggle="modal"',
+    },
+    'modal-exit-edit': {
+        "text": "Отменить",
+        "cssClass": "btn-danger",
+        "additions": 'data-dismiss="modal"',
+    },
+    'modal-exit-edit-top': {
+        "text": '<span aria-hidden="true">×</span>',
+        "cssClass": "close",
+        "additions": 'data-dismiss="modal"',
+    },
 }
 export default ButtonsConfig
