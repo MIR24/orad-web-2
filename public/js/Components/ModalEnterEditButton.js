@@ -13,7 +13,7 @@ class ModalEnterEditButton extends BaseButton {
         this.template = `<button id="${this.id}" class="btn ${this.config.cssClass}" ${this.config.additions} data-target="#${this.modalId}">${this.config.text}</button>`;
     }
 
-    handle (initClass, event) {console.log('123');
+    handle (initClass, event) {
         initClass.enterEditingModel(this.modelId);
     }
 }
