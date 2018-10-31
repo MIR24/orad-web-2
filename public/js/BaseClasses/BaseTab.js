@@ -47,6 +47,13 @@ class BaseTab {
         this.rerender();
     }
 
+    enterEditingModel (modelId) {
+        this.edit = {
+            'modelId': modelId,
+            'state': true,
+        }
+    }
+
     setData (response) {
         this.models = response;
     }
