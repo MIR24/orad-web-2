@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\CategoryWithStrings;
 
 class TopCategory extends Model
 {
     use SoftDeletes;
+    use CategoryWithStrings;
 
     /**
      * The attributes that should be mutated to dates.
@@ -17,6 +19,13 @@ class TopCategory extends Model
     protected $dates = ['deleted_at'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['text'];
+
+    /**
      * The table associated with the model.
      *
      * @var string
@@ -24,10 +33,9 @@ class TopCategory extends Model
     protected $table = 'TopsCategories';
 
     /**
-     * Get the strings for the category.
+     * String model name.
+     *
+     * @var string
      */
-    public function strings()
-    {
-        return $this->hasMany('App\TopString', 'category_id');
-    }
+    protected $stringModel = 'App\TopString';
 }

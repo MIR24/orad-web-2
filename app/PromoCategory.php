@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\CommonModel;
 
 class PromoCategory extends Model
 {
     use SoftDeletes;
+    use CommonModel;
 
     /**
      * The attributes that should be mutated to dates.
@@ -15,6 +17,13 @@ class PromoCategory extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['text'];
 
     /**
      * The table associated with the model.
@@ -26,7 +35,7 @@ class PromoCategory extends Model
     /**
      * Get the strings for the category.
      */
-    public function strings()
+    public function promos()
     {
         return $this->hasMany('App\Promo', 'category_id');
     }

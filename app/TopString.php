@@ -17,6 +17,13 @@ class TopString extends Model
     protected $dates = ['deleted_at'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['text'];
+
+    /**
      * The table associated with the model.
      *
      * @var string

@@ -17,11 +17,18 @@ class NewsbarString extends Model
     protected $dates = ['deleted_at'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['text'];
+
+    /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'Newsbar';
+    protected $table = 'Newsbars';
 
     /**
      * Get the category for the strings.
