@@ -91,6 +91,16 @@ class BaseTab {
         console.log(this.edit);
     }
 
+    getMergedEditStateModels () {
+        var results = [];
+        for (var modelId in this.edit) {
+            if (this.models.hasOwnProperty(modelId)) {
+                results.push(Object.assign(this.models[modelId], this.edit[modelId]));
+            }
+        }
+        return results;
+    }
+
     addAdditionlClassesJQ (modaleId, newObject) {
         if (this.additionlClassesJQ.hasOwnProperty(modaleId)) {
             this.additionlClassesJQ[modaleId] = Object.assign(this.additionlClassesJQ[modaleId], {
