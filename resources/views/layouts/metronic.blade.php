@@ -222,7 +222,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- end::Page Loader -->
 
         <!-- start:Custom Script -->
-        <script type="module" src="{{ asset('assets/custom/custom.js') }}"></script>
+        <script src="{{ asset('assets/custom/custom.js') }}"></script>
         <!-- end:Custom Script -->
     </body>
 

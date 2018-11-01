@@ -9,7 +9,10 @@ var glob = require('glob');
 var fs = require('fs');
 var pretty = require('pretty');
 var sass = require('gulp-sass');
-const babel = require('gulp-babel');
+var babel = require('gulp-babel');
+var rollup = require('rollup-stream');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 
 // merge with default parameters
 var args = Object.assign({'prod': false, 'rtl': '', 'metronic': false, 'keen': false}, yargs.argv);
@@ -87,11 +90,14 @@ if ((/true/i).test(build.config.compile.rtl.enabled)) {
 
 // entry point
 gulp.task('default', tasks, function (cb) {
-	gulp.src('resources/js/custom/**/*.js')
-        .pipe(babel({
-            plugins: ['@babel/transform-runtime']
-        }))
-        .pipe(gulp.dest('public/assets/custom'));
+	rollup({
+		input: 'resources/js/custom/custom.js',
+		format: 'cjs'
+	})
+    .pipe(source('custom.js'))
+    .pipe(buffer())
+    .pipe(babel())
+    .pipe(gulp.dest('public/assets/custom'))
 
 	// clean first and then start bundling
 	return sequence(['build-bundle'], cb);
