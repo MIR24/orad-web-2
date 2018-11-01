@@ -9,6 +9,7 @@ var glob = require('glob');
 var fs = require('fs');
 var pretty = require('pretty');
 var sass = require('gulp-sass');
+const babel = require('gulp-babel');
 
 // merge with default parameters
 var args = Object.assign({'prod': false, 'rtl': '', 'metronic': false, 'keen': false}, yargs.argv);
@@ -86,6 +87,12 @@ if ((/true/i).test(build.config.compile.rtl.enabled)) {
 
 // entry point
 gulp.task('default', tasks, function (cb) {
+	gulp.src('resources/js/custom/**/*.js')
+        .pipe(babel({
+            plugins: ['@babel/transform-runtime']
+        }))
+        .pipe(gulp.dest('public/assets/custom'));
+
 	// clean first and then start bundling
 	return sequence(['build-bundle'], cb);
 });

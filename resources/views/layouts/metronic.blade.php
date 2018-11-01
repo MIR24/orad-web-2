@@ -219,12 +219,11 @@ License: You must have a valid license purchased only from themeforest(the above
                 $('body').removeClass('m-page--loading');
             });
         </script>
-
-<!-- TO DO -->
-<script type="module" src="/js/custom.js"></script>
-<!-- TO DO -->
-
         <!-- end::Page Loader -->
+
+        <!-- start:Custom Script -->
+        <script type="module" src="{{ asset('assets/custom/custom.js') }}"></script>
+        <!-- end:Custom Script -->
     </body>
 
     <!-- end::Body -->
