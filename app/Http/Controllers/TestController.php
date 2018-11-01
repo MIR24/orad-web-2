@@ -144,6 +144,31 @@ class TestController extends Controller
             ],
         ];
     }
+    public function getIcons()
+    {
+        return [
+            0 => [
+                'id' => 0,
+                'loc' => 'https://png.pngtree.com/svg/20170227/test_356816.png',
+                'text' => 'text0'
+            ],
+            1 => [
+                'id' => 1,
+                'loc' => 'https://png.pngtree.com/svg/20170227/test_356816.png',
+                'text' => 'text1'
+            ],
+            2 => [
+                'id' => 2,
+                'loc' => 'https://png.pngtree.com/svg/20170227/test_356816.png',
+                'text' => 'text2'
+            ],
+            3 => [
+                'id' => 3,
+                'loc' => 'https://png.pngtree.com/svg/20170227/test_356816.png',
+                'text' => 'text3'
+            ],
+        ];
+    }
     public function getTimeShift()
     {
         return [
