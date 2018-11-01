@@ -91,15 +91,23 @@ class BaseTab {
         console.log(this.edit);
     }
 
-    addAdditionlClassesJQ (newObject) {
-        this.additionlClassesJQ = Object.assign(this.additionlClassesJQ, {
-            [newObject.selectString]: newObject
-        });
+    addAdditionlClassesJQ (modaleId, newObject) {
+        if (this.additionlClassesJQ.hasOwnProperty(modaleId)) {
+            this.additionlClassesJQ[modaleId] = Object.assign(this.additionlClassesJQ[modaleId], {
+                [newObject.selectString]: newObject
+            });
+        } else {
+            this.additionlClassesJQ[modaleId] = {
+                [newObject.selectString]: newObject
+            };
+        }
     }
 
-    initAdditionlClassesJQ () {console.log(this.additionlClassesJQ);
-        for (var one in this.additionlClassesJQ) {
-            $(this.additionlClassesJQ[one].selectString)[this.additionlClassesJQ[one].function](this.additionlClassesJQ[one].options);
+    initAdditionlClassesJQ () {
+        for (var modelId in this.additionlClassesJQ) {
+            for (var elementId in this.additionlClassesJQ[modelId]) {
+                $(this.additionlClassesJQ[modelId][elementId].selectString)[this.additionlClassesJQ[modelId][elementId].function](this.additionlClassesJQ[modelId][elementId].options);
+            }
         }
     }
 

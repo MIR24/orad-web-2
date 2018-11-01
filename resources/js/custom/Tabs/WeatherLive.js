@@ -79,7 +79,7 @@ class WeatherLive extends BaseTab {
         this.addListeners(tempMorning.getListeners());
         this.addListeners(tempEvening.getListeners());
         this.addListeners(state.getListeners());
-        this.addAdditionlClassesJQ(selectWeather.getOptions());
+        this.addAdditionlClassesJQ(index, selectWeather.getOptions());
 
         // TO DO
         if (!disabled && isAdmin) {
