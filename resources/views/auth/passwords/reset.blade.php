@@ -1,65 +1,69 @@
-@extends('layouts.app')
+@extends('layouts.metronic-login')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page">
+    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-grid--tablet-and-mobile m-grid--hor-tablet-and-mobile m-login m-login--1 m-login--signin" id="m_login">
+        <div class="m-grid__item m-grid__item--order-tablet-and-mobile-2 m-login__aside">
+            <div class="m-stack m-stack--hor m-stack--desktop">
+                <div class="m-stack__item m-stack__item--fluid">
+                    <div class="m-login__wrapper">
+                        <div class="m-login__logo">
+                            <a href="#">
+                                <img src="{{ auto_asset('assets/app/media/img//logos/logo-2.png') }}">
+                            </a>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="m-login__signin">
+                            <div class="m-login__head">
+                                <h3 class="m-login__title">{{ __('Reset Password') }}</h3>
                             </div>
-                        </div>
+                            <form class="m-login__form m-form" method="POST" action="{{ route('password.update') }}">
+                                @csrf
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                                <input type="hidden" name="token" value="{{ $token }}">
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
+                                <div class="form-group m-form__group">
+                                    <div class="col-md-12">
+                                        <input id="email" type="email" class="form-control m-input{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="{{ __('E-Mail Address') }}" value="{{ $email ?? old('email') }}" required autofocus>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
+                                        @if ($errors->has('email'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-form__group">
+                                    <div class="col-md-12">
+                                        <input id="password" type="password" class="form-control m-input{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" name="password" required>
+
+                                        @if ($errors->has('password'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-form__group">
+                                    <div class="col-md-12">
+                                        <input id="password-confirm" type="password" class="form-control m-input" placeholder="{{ __('Confirm Password') }}" name="password_confirmation" required>
+                                    </div>
+                                </div>
+                                <div class="m-login__form-action">
+                                    <button type="submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
+                                        {{ __('Reset Password') }}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+        @include('layouts.partials.introduction')
     </div>
 </div>
+<!-- end:: Page -->
 @endsection

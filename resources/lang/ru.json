@@ -10,7 +10,10 @@
     "Login": "Войти",
     "Remember Me": "Запомнить меня",
     "Forgot Your Password?": "Забыли пароль?",
-    "Reset Password": "Сброс пароля",
+    "Reset Password": "Сбросить пароль",
+    "Reset Password Notification": "Уведомление о сбросе пароля",
+    "You are receiving this email because we received a password reset request for your account.": "Вы получаете это электронное письмо, потому что мы получили запрос на сброс пароля для вашей учетной записи.",
+    "If you did not request a password reset, no further action is required.": "Если вы не запросили сброс пароля, никаких действий не требуется.",
     "Send Password Reset Link": "Отправить ссылку для сброса пароля",
     "Authorization": "Авторизация",
     "Nominations": "Номинации",
@@ -42,5 +45,5 @@
     "WeatherLive": "Погода для эфира",
     "TimeShift": "Время",
     "Countdown": "Счетчик события",
-    "Promo": "Промо"
+    "Promo": "Промо",
 }

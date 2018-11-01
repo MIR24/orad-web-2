@@ -30,6 +30,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Environment
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the secure level of protocol your application
+    | is currently running in. This may determine "http" or "https" protocol
+    | will be used. Set this in your ".env" file, true for "https", false
+    | for "http".
+    |
+    */
+
+    'secure' => env('APP_SECURE', env('APP_ENV', 'production') !== 'local'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |

@@ -45,15 +45,15 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--end::Page Vendors Styles -->
 
         <!--begin::Base Styles -->
-        <link href="{{ asset('assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ auto_asset('assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
 
         <!--RTL version:<link href="assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
-        <link href="{{ asset('assets/demo/demo8/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ auto_asset('assets/demo/demo8/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 
         <!--RTL version:<link href="assets/demo/demo8/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
         <!--end::Base Styles -->
-        <link rel="shortcut icon" href="{{ asset('assets/demo8/demo/media/img/logo/favicon.ico') }}" />
+        <link rel="shortcut icon" href="{{ auto_asset('assets/demo8/demo/media/img/logo/favicon.ico') }}" />
     </head>
 
     <!-- end::Head -->
@@ -87,8 +87,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
                                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
                                         <a href="index.html" class="m-brand__logo-wrapper">
-                                            <img alt="{{ config('app.name', 'Laravel') }}" src="{{ asset('assets/demo/demo8/media/img/logo/logo.png') }}" class="m-brand__logo-default" />
-                                            <img alt="{{ config('app.name', 'Laravel') }}" src="{{ asset('assets/demo/demo8/media/img/logo/logo_inverse.png') }}" class="m-brand__logo-inverse" />
+                                            <img alt="{{ config('app.name', 'Laravel') }}" src="{{ auto_asset('assets/demo/demo8/media/img/logo/logo.png') }}" class="m-brand__logo-default" />
+                                            <img alt="{{ config('app.name', 'Laravel') }}" src="{{ auto_asset('assets/demo/demo8/media/img/logo/logo_inverse.png') }}" class="m-brand__logo-inverse" />
                                         </a>
                                     </div>
                                     <div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -198,8 +198,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- end::Scroll Top -->
 
         <!--begin::Base Scripts -->
-        <script src="{{ asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/demo/demo8/base/scripts.bundle.js') }}" type="text/javascript"></script>
+        <script src="{{ auto_asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
+        <script src="{{ auto_asset('assets/demo/demo8/base/scripts.bundle.js') }}" type="text/javascript"></script>
 
         <!--end::Base Scripts -->
 
@@ -209,7 +209,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--end::Page Vendors Scripts -->
 
         <!--begin::Page Snippets -->
-        <script src="{{ asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
+        <script src="{{ auto_asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
 
         <!--end::Page Snippets -->
 
@@ -222,7 +222,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- end::Page Loader -->
 
         <!-- start:Custom Script -->
-        <script src="{{ asset('assets/custom/custom.js') }}"></script>
+        <script src="{{ auto_asset('assets/custom/custom.js') }}"></script>
         <!-- end:Custom Script -->
     </body>
 
