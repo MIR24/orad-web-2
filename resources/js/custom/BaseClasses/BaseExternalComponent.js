@@ -3,12 +3,13 @@ import IdManipulation from "../Utils/IdManipulation.js";
 class BaseExternalComponent {
     constructor (id, type, disabled) {
         this.template = '';
-        this.id = IdManipulation.getPreparedId(type, id);;
+        this.id = IdManipulation.getPreparedId(type, id);
         this.type = type;
         this.disabledString = disabled ? 'disabled' : '';
         this.options = {
             'selectString': null,
             'getValue': this.getValue,
+            'type': type,
         }
     }
 
