@@ -3,7 +3,7 @@ const TabsConfig = {
         "api": {
             "get": "/api/tops",
         },
-        "textMaxCharsPerLine": 5,
+        "textMaxCharsPerLine": 70,
     },
     "Newsbar": {
         "api": {
@@ -13,13 +13,13 @@ const TabsConfig = {
             0: 'Топы',
             1: 'Бегущая строка',
         },
-        "textMaxCharsPerLine": 5,
+        "textMaxCharsPerLine": 70,
     },
     "Expedited": {
         "api": {
             "get": "/test/expedited",
         },
-        "textMaxCharsPerLine": 5,
+        "textMaxCharsPerLine": 70,
     },
     "CurrencyValues": {
         "api": {
@@ -30,7 +30,6 @@ const TabsConfig = {
         "api": {
             "get": "/test/weatherlive",
         },
-        "textMaxCharsPerLine": 5,
     },
     "TimeShift": {
         "api": {
