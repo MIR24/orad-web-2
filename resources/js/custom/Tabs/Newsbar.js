@@ -24,7 +24,7 @@ class Newsbar extends BaseTab {
 
     makeBlock (index, title, text) {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
-            textarea = new Textarea(index, text, this.textareaMaxCharsPerLine, disabled),
+            textarea = new Textarea(index, 'text',text, this.config.textMaxCharsPerLine, disabled),
             controlButtons = '';
 
         textarea.init();
@@ -63,10 +63,6 @@ class Newsbar extends BaseTab {
                 </div>
             </form>
         </div>`
-    }
-
-    updateText (stringId, newVal) {
-        this.updateEditState(stringId, 'text', newVal);
     }
 
     modelChange (modelId, valueName, newValue) {

@@ -31,7 +31,7 @@ class Tops extends BaseTab {
     makeBlock (index, title, text) {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             title = new Input(index, 'title', title, disabled, 'Заголовок'),
-            textarea = new Textarea(index, text, this.config.textMaxCharsPerLine, disabled),
+            textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
             controlButtons = '';
 
         title.init();
@@ -85,10 +85,6 @@ class Tops extends BaseTab {
             'state': true,
         }
         return this.makeBlock('new', '', '');
-    }
-
-    updateText (stringId, newVal) {
-        this.updateEditState(stringId, 'text', newVal);
     }
 
     modelChange (modelId, valueName, newValue) {

@@ -3,23 +3,19 @@ import Listeners from "../Utils/Listeners.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 
 class Textarea extends BaseComponent {
-    constructor (id, value, maxCharsPerLine, disabled) {
-        super();
-        this.listeners = {
-            'input': {}
-        }
-        this.id = IdManipulation.getPreparedId('textarea', id);
-        this.value = value;
+    constructor (id, valueName, value, maxCharsPerLine, disabled, placeholder) {
+        super(id, valueName, 'input', disabled);
+        this.placeholder = placeholder ? placeholder : 'Текст';
+        this.value = Object.is(value, undefined) ? '' : value;
         this.maxCharsPerLine = maxCharsPerLine;
-        this.disabled = disabled;
     }
 
     makeTemplate () {
-        this.template = `<textarea ${this.disabled} class="form-control m-input m-input--air" id="${this.id}" rows="3" placeholder="Текст">${this.value}</textarea>`;
+        this.template = `<textarea ${this.disabled} class="form-control m-input m-input--air" id="${this.id}" rows="3" placeholder="${this.placeholder}">${this.value}</textarea>`;
     }
 
     checkDisallowedCharacters (value) {
-        const regexNotAllowed = new RegExp(/[^a-zA-Zа-яА-Я0-9\.\,\!\?\:\;\`\'\"\+\-\/\*\=\%\^\№\~\#\&\(\)\[\]\<\>\s]/),
+        const regexNotAllowed = new RegExp(/[^a-zA-Zа-яА-ЯёЁ0-9\.\,\!\?\:\;\`\'\"\+\-\/\*\=\%\^\№\~\#\&\(\)\[\]\<\>\s]/),
          matches = regexNotAllowed.exec(value);
         if (matches) {
             var error = 'Chars not allowed: ' + matches[0];
@@ -31,7 +27,7 @@ class Textarea extends BaseComponent {
 
     textAreaSplitLines (value, inputType) {
         const regexMaxChars = new RegExp(`.{${this.maxCharsPerLine}}`, 'gm'),
-            curVal = value.toUpperCase().replace(/(\r\n\t|\n|\r\t)/gm,"");
+            curVal = value.toUpperCase();
 
         if (inputType === "deleteContentBackward" || inputType === "deleteContentForward") {
             return false;
@@ -42,8 +38,8 @@ class Textarea extends BaseComponent {
         });
     }
 
-    splitIntoArray (string) {
-        return string.split("\n");
+    deleteEmptyLines (string) {
+        return string.replace(/^\s*$(?:\r\n?|\n)/gm,"");
     }
 
     handle (initClass, event) {
@@ -52,27 +48,16 @@ class Textarea extends BaseComponent {
             newSectionEnd = event.target.selectionEnd;
 
         if (newVal !== false) {
-            event.target.value = newVal;
+            event.target.value = this.deleteEmptyLines(newVal);
             if (newVal.charAt(newSectionEnd) == '\n') {
                 event.target.selectionEnd = newSectionEnd + 1;
             } else {
                 event.target.selectionEnd = newSectionEnd;
             }
-            initClass.updateText(this.id, this.splitIntoArray(newVal));
         } else {
-            event.target.value = val;
-            initClass.updateText(this.id, this.splitIntoArray(val));
+            event.target.value = this.deleteEmptyLines(val);
         }
-    }
-
-    setListeners () {
-        Listeners.set(this, 'input', {
-            [this.id]: {
-                'function': this.handle,
-                'class': this,
-                'addInitClass': true,
-            }
-        });
+        initClass.modelChange(this.modelId, this.valueName, event.target.value);
     }
 }
 export default Textarea

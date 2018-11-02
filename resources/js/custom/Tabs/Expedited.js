@@ -38,7 +38,7 @@ class Expedited extends BaseTab {
         var titleId = IdManipulation.getPreparedId('title', index),
             disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             title = new Input(index, 'title', title, disabled, 'Заголовок'),
-            textarea = new Textarea(index, text, this.textareaMaxCharsPerLine, disabled),
+            textarea = new Textarea(index, 'text', text, this.config.textMaxCharsPerLine, disabled),
             checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts, disabled),
             controlButtons = '';
 
@@ -100,10 +100,6 @@ class Expedited extends BaseTab {
             'state': true,
         }
         return this.makeBlock('new');
-    }
-
-    updateText (stringId, newVal) {
-        this.updateEditState(stringId, 'text', newVal);
     }
 
     modelChange (modelId, valueName, newValue) {
