@@ -9,8 +9,6 @@ import CancelEditingButton from "../Components/CancelEditingButton.js";
 class Newsbar extends BaseTab {
     constructor () {
         super();
-        this.url = '/test/newsbar';
-        this.textareaMaxCharsPerLine = 6;
         this.listeners = {
             'click' : {},
             'input' : {},

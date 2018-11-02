@@ -11,7 +11,6 @@ import BootstrapTimeCustom from "../ExternalComponents/BootstrapTimeCustom.js";
 class Countdown extends BaseTab {
     constructor () {
         super();
-        this.url = '/test/countdown';
         this.listeners = {
             'click' : {},
             'input' : {},

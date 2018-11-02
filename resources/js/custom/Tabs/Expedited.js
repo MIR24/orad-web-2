@@ -14,8 +14,6 @@ import Input from "../Components/Input.js";
 class Expedited extends BaseTab {
     constructor () {
         super();
-        this.url = '/test/expedited';
-        this.textareaMaxCharsPerLine = 7;
         this.listeners = {
             'click' : {},
             'input' : {},

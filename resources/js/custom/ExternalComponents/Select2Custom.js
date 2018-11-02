@@ -1,7 +1,7 @@
 import BaseExternalComponent from "../BaseClasses/BaseExternalComponent.js";
 
 class Select2Custom extends BaseExternalComponent {
-    constructor (id, type, disabled) {
+    constructor (id, type, selectOptions, defaulVal, disabled) {
         super(id, type);
         this.options = {
             'selectString': '#' + this.id,
@@ -13,9 +13,11 @@ class Select2Custom extends BaseExternalComponent {
                 'disabled': disabled
             }
         };
+        this.selectOptions = selectOptions;
+        this.defaulVal = defaulVal;
     }
 
-    formatData (data) {
+    formatData (data) {console.log(data);
         if (!data.id) {
             return data.text;
         }
@@ -27,11 +29,21 @@ class Select2Custom extends BaseExternalComponent {
         );
     }
 
+    makeOptions () {
+        var options = '';console.log(this);
+        for (var one in this.selectOptions) {console.log(this.selectOptions, one);
+            if (this.selectOptions[one].id == this.defaultVal) {
+                options = options.concat(`<option value="${this.selectOptions[one].id}" selected="selected>${this.selectOptions[one].text}</option>`);
+            } else {
+                options = options.concat(`<option value="${this.selectOptions[one].id}">${this.selectOptions[one].text}</option>`);
+            }
+        }console.log(options);
+        return options;
+    }
+
     makeTemplate () {
         this.template = `<select id="${this.id}" class="form-control js-example-basic-single">
-            <option value="WY">Wyoming</option>
-            <option value="aa">aa</option>
-            <option value="cc">cc</option>
+            ${this.makeOptions()}
         </select>`;
     }
 }

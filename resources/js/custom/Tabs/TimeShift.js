@@ -9,7 +9,6 @@ import Input from "../Components/Input.js";
 class TimeShift extends BaseTab {
     constructor () {
         super();
-        this.url = '/test/timeshift';
         this.listeners = {
             'click' : {},
             'input' : {},

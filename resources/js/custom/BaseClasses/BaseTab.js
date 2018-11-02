@@ -1,10 +1,14 @@
 import Listeners from "../Utils/Listeners.js";
 import IdManipulation from "../Utils/IdManipulation.js";
+import TabsConfig from "../Config/TabsConfig.js";
+import { csrf } from "../Config/Constants.js";
 
 class BaseTab {
     constructor () {
-        this.csrf = $('meta[name="csrf-token"]').attr('content');
+        this.config = TabsConfig[this.constructor.name];
+        this.csrf = csrf;
         this.template = '';
+        this.listeners = {};
         this.edit = {
             'modelId': null,
             'state': false,
@@ -18,7 +22,7 @@ class BaseTab {
                 headers: {
                     'X-CSRF-Token': this.csrf
                 },
-                url: this.url,
+                url: this.config.api.get,
                 method: 'GET',
                 success: data => {
                     resolve(data);
@@ -129,7 +133,7 @@ class BaseTab {
         $('body').addClass('m-page--loading');
         this.getModels()
         .then((response) => {
-            this.setData(response);
+            this.setData(response.data);
             this.makeTemplate();
             this.renderTemplate();
             this.initListeners();

@@ -11,20 +11,11 @@ import Input from "../Components/Input.js";
 class Tops extends BaseTab {
     constructor () {
         super();
-        this.url = '/test/tops';
-        this.textareaMaxCharsPerLine = 5;
-        this.listeners = {
-            'click' : {},
-            'input' : {},
-        };
     }
 
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
-            var text = Object.keys(this.models[key].releated).map(keyInner => (
-                this.models[key].releated[keyInner].text
-            )).join('\n');
-            return this.makeBlock(key, this.models[key].title, text);
+            return this.makeBlock(key, this.models[key].text, this.models[key].strings);
         })
         .join('');
 
@@ -40,7 +31,7 @@ class Tops extends BaseTab {
     makeBlock (index, title, text) {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             title = new Input(index, 'title', title, disabled, 'Заголовок'),
-            textarea = new Textarea(index, text, this.textareaMaxCharsPerLine, disabled),
+            textarea = new Textarea(index, text, this.config.textMaxCharsPerLine, disabled),
             controlButtons = '';
 
         title.init();

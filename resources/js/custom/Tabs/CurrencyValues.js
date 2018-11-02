@@ -14,7 +14,6 @@ const isAdmin = true;
 class CurrencyValues extends BaseTab {
     constructor () {
         super();
-        this.url = '/test/currency';
         this.listeners = {
             'click' : {},
             'input' : {},

@@ -9,7 +9,6 @@ const isSomeRoll = true;
 class Promo extends BaseTab {
     constructor () {
         super();
-        this.url = '/test/promo';
         this.listeners = {
             'click' : {},
             'input' : {},

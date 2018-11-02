@@ -8,7 +8,7 @@ class TestController extends Controller
 {
     public function getTops()
     {
-        return [
+        return ['data' => [
             0 => [
                 'title' => 'title0', 
                 'releated' => [
@@ -29,11 +29,11 @@ class TestController extends Controller
                     0 => ['text' => 'text2']
                 ]
             ]
-        ];
+        ]];
     }
     public function getNewsbar()
     {
-        return [
+        return ['data' => [
             0 => [
                 'title' => 'title0',
                 'releated' => [
@@ -48,11 +48,11 @@ class TestController extends Controller
                     2 => ['text' => 'text12'],
                 ]
             ]
-        ];
+        ]];
     }
     public function getExpedited()
     {
-        return [
+        return ['data' => [
             0 => [
                 'title' => 'title0',
                 'releated' => [
@@ -78,11 +78,11 @@ class TestController extends Controller
                 ],
                 'oribts' => []
             ]
-        ];
+        ]];
     }
     public function getCurrency()
     {
-        return [
+        return ['data' => [
             0 => [
                 'id' => 0,
                 'val1' => 'rub',
@@ -104,11 +104,11 @@ class TestController extends Controller
                 'dir' => 3,
                 'value' => 1.21
             ],
-        ];
+        ]];
     }
     public function getWeather()
     {
-        return [
+        return ['data' => [
             0 => [
                 'id' => 0,
                 'state' => 1,
@@ -142,11 +142,11 @@ class TestController extends Controller
                     'loc' => 'string'
                 ]
             ],
-        ];
+        ]];
     }
     public function getIcons()
     {
-        return [
+        return ['data' => [
             0 => [
                 'id' => 0,
                 'loc' => 'https://png.pngtree.com/svg/20170227/test_356816.png',
@@ -167,11 +167,11 @@ class TestController extends Controller
                 'loc' => 'https://png.pngtree.com/svg/20170227/test_356816.png',
                 'text' => 'text3'
             ],
-        ];
+        ]];
     }
     public function getTimeShift()
     {
-        return [
+        return ['data' => [
             0 => [
                 'id' => 0,
                 'city' => 'city0',
@@ -192,11 +192,11 @@ class TestController extends Controller
                 'city' => 'city3',
                 'timeShift' => 3,
             ],
-        ];
+        ]];
     }
     public function getCountdown()
     {
-        return [
+        return ['data' => [
             0 => [
                 'id' => 0,
                 'name' => 'name0',
@@ -221,11 +221,11 @@ class TestController extends Controller
                 'time' => '2018-12-06 13:10:38',
                 'timestamp' => 123456
             ],
-        ];
+        ]];
     }
     public function getPromo()
     {
-        return [
+        return ['data' => [
             0 => [
                 'id' => 0,
                 'mir_id' => 0,
@@ -298,6 +298,6 @@ class TestController extends Controller
                 'state' => 0,
                 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gull_portrait_ca_usa.jpg/300px-Gull_portrait_ca_usa.jpg',
             ],
-        ];
+        ]];
     }
 }
