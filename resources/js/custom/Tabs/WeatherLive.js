@@ -84,7 +84,7 @@ class WeatherLive extends BaseTab {
             tempMorning = new Input(index, 'morning', tempMorning, disabled, '+0', 'number'),
             tempEvening = new Input(index, 'evening', tempEvening, disabled, '+0', 'number'),
             state = new Checkbox(index, 'state', state, disabled, 'Send to...'),
-            selectWeather = new Select2Custom (index, 'selectWeather', weatherIcons, icon.id, !this.edit.state);
+            selectWeather = new Select2Custom (index, 'icon', weatherIcons, icon.id, !this.edit.state);
 
         cityName.init();
         tempMorning.init();
