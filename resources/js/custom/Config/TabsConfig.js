@@ -9,6 +9,10 @@ const TabsConfig = {
         "api": {
             "get": "/test/newsbar",
         },
+        "groupNames": {
+            0: 'Топы',
+            1: 'Бегущая строка',
+        },
         "textMaxCharsPerLine": 5,
     },
     "Expedited": {

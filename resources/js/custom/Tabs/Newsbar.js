@@ -9,14 +9,6 @@ import CancelEditingButton from "../Components/CancelEditingButton.js";
 class Newsbar extends BaseTab {
     constructor () {
         super();
-        this.listeners = {
-            'click' : {},
-            'input' : {},
-        };
-        this.names = {
-            0: 'Топы',
-            1: 'Бегущая строка',
-        };
     }
 
     makeTemplate () {
@@ -66,7 +58,7 @@ class Newsbar extends BaseTab {
             </div>
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
-                    <label>${this.names[index]}</label>
+                    <label>${this.config.groupNames[index]}</label>
                     ${textarea.getTemplate()}
                 </div>
             </form>

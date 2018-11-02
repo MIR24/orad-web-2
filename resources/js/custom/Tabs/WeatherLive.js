@@ -36,11 +36,6 @@ const weatherIcons = {
 class WeatherLive extends BaseTab {
     constructor () {
         super();
-        this.url = '/test/weatherlive';
-        this.listeners = {
-            'click' : {},
-            'input' : {},
-        };
     }
 
     makeTemplate () {

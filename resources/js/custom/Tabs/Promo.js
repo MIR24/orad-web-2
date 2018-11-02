@@ -9,10 +9,6 @@ const isSomeRoll = true;
 class Promo extends BaseTab {
     constructor () {
         super();
-        this.listeners = {
-            'click' : {},
-            'input' : {},
-        };
     }
 
     makeTemplate () {
