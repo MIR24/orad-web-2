@@ -2,7 +2,7 @@ import BaseExternalComponent from "../BaseClasses/BaseExternalComponent.js";
 
 class Select2Custom extends BaseExternalComponent {
     constructor (id, type, selectOptions, defaultVal, disabled) {
-        super(id, type);
+        super(id, type, 'change');
         this.options = Object.assign(this.options, {
             'function': 'select2',
             'options': {
@@ -16,8 +16,8 @@ class Select2Custom extends BaseExternalComponent {
         this.defaultVal = defaultVal;
     }
 
-    getValue () {
-        return this.selectOptions[$(this.options.selectString).val()];
+    handle (initClass, event) {
+        initClass.modelChange(this.modelId, this.valueName, this.selectOptions[$(this.options.selectString).val()]);
     }
 
     formatData (data) {

@@ -1,34 +1,26 @@
+import BaseComponent from "../BaseClasses/BaseComponent.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 
-class BaseExternalComponent {
-    constructor (id, type, disabled) {
-        this.template = '';
-        this.id = IdManipulation.getPreparedId(type, id);
-        this.type = type;
+class BaseExternalComponent extends BaseComponent {
+    constructor (id, type, listener, disabled) {
+        super (
+            id,
+            type,
+            listener
+        );
         this.disabledString = disabled ? 'disabled' : '';
         this.options = {
             'selectString': '#' + this.id,
-            'getValue': this.getValue.bind(this),
             'type': type,
         }
     }
 
-    makeTemplate () {}
-
-    getValue () {
-        return $(this.options.selectString).val();
+    handle (initClass, event) {
+        initClass.modelChange(this.modelId, this.valueName, $(this.options.selectString).val());
     }
 
     getOptions () {
         return this.options;
-    }
-
-    getTemplate () {
-        return this.template;
-    }
-
-    init () {
-        this.makeTemplate();
     }
 }
 export default BaseExternalComponent

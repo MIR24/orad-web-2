@@ -96,7 +96,7 @@ class WeatherLive extends BaseTab {
         this.addListeners(tempMorning.getListeners());
         this.addListeners(tempEvening.getListeners());
         this.addListeners(state.getListeners());
-        this.addAdditionlClassesJQ(index, selectWeather.getOptions());
+        this.addAdditionlClassesJQ(index, selectWeather);
 
         // TO DO
         if (!disabled && isAdmin) {
@@ -129,7 +129,7 @@ class WeatherLive extends BaseTab {
     }
 
     saveModel (modelId) {
-        console.log(this.getMergedEditStateModelsAll());
+        console.log(this.getMergedEditStateModels());
         this.edit = {
             'modelId': null,
             'state': false,

@@ -95,46 +95,28 @@ class BaseTab {
         console.log(this.edit);
     }
 
-    getMergedEditStateModelsAll () {
-        var results = [];
-        for (var modelId in this.models) {
-            if (this.edit.hasOwnProperty(modelId)) {
-                results.push(Object.assign(this.models[modelId], this.edit[modelId], this.getAdditionlClassesJQValues(modelId)));
-            } else {
-                results.push(Object.assign(this.models[modelId], this.getAdditionlClassesJQValues(modelId)));
-            }
-        }
-        return results;
-    }
-
     getMergedEditStateModels () {
         var results = [];
         for (var modelId in this.edit) {
             if (this.models.hasOwnProperty(modelId)) {
-                results.push(Object.assign(this.models[modelId], this.edit[modelId], this.getAdditionlClassesJQValues(modelId)));
+                results.push(Object.assign(this.models[modelId], this.edit[modelId]));
             }
         }
         return results;
     }
 
-    getAdditionlClassesJQValues (modelId) {
-        var results = {};
-        for (var elementId in this.additionlClassesJQ[modelId]) {
-            results[this.additionlClassesJQ[modelId][elementId].type] = this.additionlClassesJQ[modelId][elementId].getValue();
-        }
-        return results;
-    }
-
-    addAdditionlClassesJQ (modaleId, newObject) {
+    addAdditionlClassesJQ (modaleId, classVar) {
+        var options = classVar.getOptions();
         if (this.additionlClassesJQ.hasOwnProperty(modaleId)) {
             this.additionlClassesJQ[modaleId] = Object.assign(this.additionlClassesJQ[modaleId], {
-                [newObject.selectString]: newObject
+                [options.selectString]: options
             });
         } else {
             this.additionlClassesJQ[modaleId] = {
-                [newObject.selectString]: newObject
+                [options.selectString]: options
             };
         }
+        this.addListeners(classVar.getListeners());
     }
 
     initAdditionlClassesJQ () {
@@ -169,8 +151,8 @@ class BaseTab {
         new Promise((resolve) => {
             this.makeTemplate(this.models);
             this.renderTemplate();
-            this.initListeners();
             this.initAdditionlClassesJQ();
+            this.initListeners();
             resolve();
         }).then(function () {
             $('body').removeClass('m-page--loading');

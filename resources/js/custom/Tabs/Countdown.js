@@ -59,8 +59,8 @@ class Countdown extends BaseTab {
         eventTime.init();
 
         this.addListeners(eventName.getListeners());
-        this.addAdditionlClassesJQ(index, eventDate.getOptions());
-        this.addAdditionlClassesJQ(index, eventTime.getOptions());
+        this.addAdditionlClassesJQ(index, eventDate);
+        this.addAdditionlClassesJQ(index, eventTime);
 
         if (!disabled) {
             var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
