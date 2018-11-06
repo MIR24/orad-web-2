@@ -29,7 +29,7 @@ class BaseTab {
                 },
                 error: e => {
                     alert(e.message);
-                    bodyLoader.removeClass('m-page--loading');
+                    $('body').removeClass('m-page--loading');
                 },
             });
         });
@@ -51,7 +51,7 @@ class BaseTab {
                 },
                 error: e => {
                     alert(e.message);
-                    bodyLoader.removeClass('m-page--loading');
+                    $('body').removeClass('m-page--loading');
                 },
             });
         });
