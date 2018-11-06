@@ -16,33 +16,33 @@ const TabsConfig = {
     },
     "Expedited": {
         "api": {
-            "get": "/test/expedited",
+            "base": "/test/expedited",
         },
         "textMaxCharsPerLine": 70,
     },
     "CurrencyValues": {
         "api": {
-            "get": "/test/currency",
+            "base": "/test/currency",
         },
     },
     "WeatherLive": {
         "api": {
-            "get": "/test/weatherlive",
+            "base": "/test/weatherlive",
         },
     },
     "TimeShift": {
         "api": {
-            "get": "/test/timeshift",
+            "base": "/test/timeshift",
         },
     },
     "Countdown": {
         "api": {
-            "get": "/test/countdown",
+            "base": "/test/countdown",
         },
     },
     "Promo": {
         "api": {
-            "get": "/test/promo",
+            "base": "/test/promo",
         },
     },
 }
