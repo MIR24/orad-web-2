@@ -67,19 +67,20 @@ class Newsbar extends BaseTab {
     }
 
     saveModel (modelId) {
-        console.log(this.getMergedEditStateModels());
-        this.edit = {
-            'modelId': null,
-            'state': false,
+        var models = this.getMergedEditStateModels();
+        if (models.length > 0) {
+            this.updateModels(models)
+            .then((response) => {
+                this.edit = {
+                    'modelId': null,
+                    'state': false,
+                };
+                this.models[modelId] = Object.assign(this.models[modelId], response[0]);
+                this.rerender();
+            });
+        } else {
+            alert('no changes made');
         }
-        this.rerender();
-    }
-
-    removeModel (modelId) {
-        $('#' + modelId).remove();
-        // TO DO
-        //this.rerender();
-        console.log(modelId);
     }
 }
 export default Newsbar

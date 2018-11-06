@@ -9,7 +9,8 @@ const TabsConfig = {
     },
     "Newsbar": {
         "api": {
-            "get": "/api/newsbars",
+            "base": "/api/newsbars",
+            "update": "/api/newsbars/multi",
         },
         "textMaxCharsPerLine": 70,
     },
