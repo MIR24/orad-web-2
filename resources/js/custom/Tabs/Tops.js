@@ -30,7 +30,7 @@ class Tops extends BaseTab {
 
     makeBlock (index, title, text) {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
-            title = new Input(index, 'title', title, disabled, 'Заголовок'),
+            title = new Input(index, 'text', title, disabled, 'Заголовок'),
             textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
             controlButtons = '';
 
@@ -92,7 +92,7 @@ class Tops extends BaseTab {
     }
 
     saveModel (modelId) {
-        console.log(this.edit[modelId]);
+        console.log(this.getMergedEditStateModels());
         this.edit = {
             'modelId': null,
             'state': false,

@@ -95,12 +95,32 @@ class BaseTab {
         console.log(this.edit);
     }
 
+    getMergedEditStateModelsAll () {
+        var results = [];
+        for (var modelId in this.models) {
+            if (this.edit.hasOwnProperty(modelId)) {
+                results.push(Object.assign(this.models[modelId], this.edit[modelId], this.getAdditionlClassesJQValues(modelId)));
+            } else {
+                results.push(Object.assign(this.models[modelId], this.getAdditionlClassesJQValues(modelId)));
+            }
+        }
+        return results;
+    }
+
     getMergedEditStateModels () {
         var results = [];
         for (var modelId in this.edit) {
             if (this.models.hasOwnProperty(modelId)) {
-                results.push(Object.assign(this.models[modelId], this.edit[modelId]));
+                results.push(Object.assign(this.models[modelId], this.edit[modelId], this.getAdditionlClassesJQValues(modelId)));
             }
+        }
+        return results;
+    }
+
+    getAdditionlClassesJQValues (modelId) {
+        var results = {};
+        for (var elementId in this.additionlClassesJQ[modelId]) {
+            results[this.additionlClassesJQ[modelId][elementId].type] = this.additionlClassesJQ[modelId][elementId].getValue();
         }
         return results;
     }

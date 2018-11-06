@@ -129,8 +129,7 @@ class WeatherLive extends BaseTab {
     }
 
     saveModel (modelId) {
-        console.log(modelId, this.edit);
-        this.getMergedEditStateModels();
+        console.log(this.getMergedEditStateModelsAll());
         this.edit = {
             'modelId': null,
             'state': false,
