@@ -1,12 +1,12 @@
 import Listeners from "../Utils/Listeners.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import TabsConfig from "../Config/TabsConfig.js";
-import { csrf } from "../Config/Constants.js";
+import { simpleAjaxPromise } from "../Api/Multi.js";
+import { apiMethods } from "../Config/Constants.js";
 
 class BaseTab {
     constructor () {
         this.config = TabsConfig[this.constructor.name];
-        this.csrf = csrf;
         this.template = '';
         this.listeners = {};
         this.edit = {
@@ -17,44 +17,19 @@ class BaseTab {
     }
 
     getModels () {
-        return new Promise ((resolve, reject) => {
-            $.ajax({
-                headers: {
-                    'X-CSRF-Token': this.csrf
-                },
-                url: this.config.api.get,
-                method: 'GET',
-                success: data => {
-                    resolve(data);
-                },
-                error: e => {
-                    alert(e.message);
-                    $('body').removeClass('m-page--loading');
-                },
-            });
-        });
+        return simpleAjaxPromise(apiMethods.get, this.config.api.get);
     }
 
-    updateModels () {
-        return new Promise ((resolve, reject) => {
-            $.ajax({
-                headers: {
-                    'X-CSRF-Token': this.csrf
-                },
-                url: this.config.api.update,
-                method: 'PUT',
-                data: {
-                    data: this.getMergedEditStateModels(),
-                },
-                success: data => {
-                    resolve(data);
-                },
-                error: e => {
-                    alert(e.message);
-                    $('body').removeClass('m-page--loading');
-                },
-            });
-        });
+    updateModels (models) {
+        return simpleAjaxPromise(apiMethods.update, this.config.api.update, models);
+    }
+
+    createModels (models) {
+        return simpleAjaxPromise(apiMethods.create, this.config.api.create, models);
+    }
+
+    deleteModel (modelId) {
+        return simpleAjaxPromise(apiMethods.delete, this.config.api.delete + modelId);
     }
 
     cancelEditing () {
@@ -171,7 +146,7 @@ class BaseTab {
     rerender () {
         $('body').addClass('m-page--loading');
         new Promise((resolve) => {
-            this.makeTemplate(this.models);
+            this.makeTemplate();
             this.renderTemplate();
             this.initListeners();
             this.initAdditionlClassesJQ();

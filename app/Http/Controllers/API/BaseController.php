@@ -84,6 +84,6 @@ abstract class BaseController extends Controller
      */
     public function destroy($id)
     {
-        return new CommonResource(['model' => $this->repository->delete([$id])]);
+        return new CommonResource(['model' => $this->repository->delete($id)]);
     }
 }

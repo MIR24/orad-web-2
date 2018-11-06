@@ -92,22 +92,44 @@ class Tops extends BaseTab {
     }
 
     saveModel (modelId) {
-        this.updateModels()
-        .then((response) => {
-            this.edit = {
-                'modelId': null,
-                'state': false,
-            };
-            this.models = Object.assign(this.models, response);
-            this.rerender();
-        });
+        if (modelId === 'new') {
+            this.createModels(this.edit.new)
+            .then((response) => {
+                this.edit = {
+                    'modelId': null,
+                    'state': false,
+                };
+                this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                this.rerender();
+            });
+        } else {
+            var models = this.getMergedEditStateModels();
+            if (models.length > 0) {
+                this.updateModels(models)
+                .then((response) => {
+                    this.edit = {
+                        'modelId': null,
+                        'state': false,
+                    };
+                    this.models[modelId] = Object.assign(this.models[modelId], response[0]);
+                    this.rerender();
+                });
+            } else {
+                alert('no changes made');
+            }
+        }
     }
 
     removeModel (modelId) {
-        $('#' + modelId).remove();
-        // TO DO
-        //this.rerender();
-        console.log(modelId);
+        this.deleteModel(this.models[modelId].id)
+        .then((response) => {
+            if (this.edit.hasOwnProperty(modelId)) {
+                delete this.edit[modelId];
+            }
+            $('#' + modelId).remove();
+            delete this.models[modelId];
+            this.rerender();
+        });
     }
 }
 export default Tops
