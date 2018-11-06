@@ -92,12 +92,15 @@ class Tops extends BaseTab {
     }
 
     saveModel (modelId) {
-        console.log(this.getMergedEditStateModels());
-        this.edit = {
-            'modelId': null,
-            'state': false,
-        }
-        this.rerender();
+        this.updateModels()
+        .then((response) => {
+            this.edit = {
+                'modelId': null,
+                'state': false,
+            };
+            this.models = Object.assign(this.models, response);
+            this.rerender();
+        });
     }
 
     removeModel (modelId) {

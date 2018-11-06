@@ -35,6 +35,28 @@ class BaseTab {
         });
     }
 
+    updateModels () {
+        return new Promise ((resolve, reject) => {
+            $.ajax({
+                headers: {
+                    'X-CSRF-Token': this.csrf
+                },
+                url: this.config.api.update,
+                method: 'PUT',
+                data: {
+                    data: this.getMergedEditStateModels(),
+                },
+                success: data => {
+                    resolve(data);
+                },
+                error: e => {
+                    alert(e.message);
+                    bodyLoader.removeClass('m-page--loading');
+                },
+            });
+        });
+    }
+
     cancelEditing () {
         this.edit = {
             'modelId': null,
@@ -151,8 +173,8 @@ class BaseTab {
         new Promise((resolve) => {
             this.makeTemplate(this.models);
             this.renderTemplate();
-            this.initAdditionlClassesJQ();
             this.initListeners();
+            this.initAdditionlClassesJQ();
             resolve();
         }).then(function () {
             $('body').removeClass('m-page--loading');

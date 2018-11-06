@@ -69,7 +69,11 @@ abstract class BaseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return new CommonResource($this->repository->update($request->input('data'), $id));
+        $response = [];
+        foreach ($request->input('data') as $dataValue) {
+            $response[] = new CommonResource($this->repository->update($dataValue, $dataValue['id']));
+        }
+        return $response;
     }
 
     /**
