@@ -7,8 +7,8 @@ class BaseExternalComponent {
         this.type = type;
         this.disabledString = disabled ? 'disabled' : '';
         this.options = {
-            'selectString': null,
-            'getValue': this.getValue,
+            'selectString': '#' + this.id,
+            'getValue': this.getValue.bind(this),
             'type': type,
         }
     }
