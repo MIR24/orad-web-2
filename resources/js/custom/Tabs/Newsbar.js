@@ -13,7 +13,7 @@ class Newsbar extends BaseTab {
 
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].title, this.models[key].strings);
+            return this.makeBlock(key, this.models[key].text, this.models[key].strings);
         })
         .join('');
         this.template = this.getBaseContainer(template);
@@ -55,7 +55,7 @@ class Newsbar extends BaseTab {
             </div>
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
-                    <label>${this.config.groupNames[index]}</label>
+                    <label>${title}</label>
                     ${textarea.getTemplate()}
                 </div>
             </form>
