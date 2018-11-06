@@ -17,7 +17,7 @@ class BaseTab {
     }
 
     getModels () {
-        return simpleAjaxPromise(apiMethods.get, this.config.api.get);
+        return simpleAjaxPromise(apiMethods.get, this.config.api.base);
     }
 
     updateModels (models) {
@@ -25,7 +25,7 @@ class BaseTab {
     }
 
     createModels (models) {
-        return simpleAjaxPromise(apiMethods.create, this.config.api.create, models);
+        return simpleAjaxPromise(apiMethods.create, this.config.api.base, models);
     }
 
     deleteModel (modelId) {

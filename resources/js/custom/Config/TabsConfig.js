@@ -1,9 +1,8 @@
 const TabsConfig = {
     "Tops": {
         "api": {
-            "get": "/api/tops",
+            "base": "/api/tops",
             "update": "/api/tops/multi",
-            "create": "/api/tops",
             "delete": "/api/tops/",
         },
         "textMaxCharsPerLine": 70,
