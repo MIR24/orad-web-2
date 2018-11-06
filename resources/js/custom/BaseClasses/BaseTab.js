@@ -129,7 +129,6 @@ class BaseTab {
     }
 
     init () {
-        $('body').addClass('m-page--loading');
         this.getModels()
         .then((response) => {
             this.setData(response.data);

@@ -1,6 +1,7 @@
 import { csrf } from "../Config/Constants.js";
 
 export function simpleAjaxPromise (method, url, data) {
+    $('body').addClass('m-page--loading');
     return new Promise ((resolve, reject) => {
         $.ajax({
             headers: {
