@@ -7,7 +7,7 @@ const TabsConfig = {
     },
     "Newsbar": {
         "api": {
-            "get": "/test/newsbar",
+            "get": "/api/newsbars",
         },
         "groupNames": {
             0: 'Топы',

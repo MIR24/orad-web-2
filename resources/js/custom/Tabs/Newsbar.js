@@ -13,10 +13,7 @@ class Newsbar extends BaseTab {
 
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
-            var text = Object.keys(this.models[key].releated).map(keyInner => (
-                this.models[key].releated[keyInner].text
-            )).join('\n');
-            return this.makeBlock(key, this.models[key].title, text);
+            return this.makeBlock(key, this.models[key].title, this.models[key].strings);
         })
         .join('');
         this.template = this.getBaseContainer(template);
@@ -24,7 +21,7 @@ class Newsbar extends BaseTab {
 
     makeBlock (index, title, text) {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
-            textarea = new Textarea(index, 'text',text, this.config.textMaxCharsPerLine, disabled),
+            textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
             controlButtons = '';
 
         textarea.init();
@@ -70,7 +67,7 @@ class Newsbar extends BaseTab {
     }
 
     saveModel (modelId) {
-        console.log(this.edit[modelId]);
+        console.log(this.getMergedEditStateModels());
         this.edit = {
             'modelId': null,
             'state': false,
