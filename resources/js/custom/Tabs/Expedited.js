@@ -49,7 +49,7 @@ class Expedited extends BaseTab {
 
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].title, this.models[key].strings);
+            return this.makeBlock(key, this.models[key].text, this.models[key].strings);
         })
         .join('');
 
