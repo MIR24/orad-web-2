@@ -38,23 +38,28 @@ const ButtonsConfig = {
             0: {
                 "text": "-",
                 "cssClass": "btn-dark",
-                "newModelValue": 0,
+                "newModelValue": "stay",
             },
             1: {
                 "text": "↗",
                 "cssClass": "btn-success",
-                "newModelValue": 1,
+                "newModelValue": "rise",
             },
             2: {
                 "text": "↘",
                 "cssClass": "btn-danger",
-                "newModelValue": 2,
+                "newModelValue": "fall",
             },
             3: {
                 "text": "→",
                 "cssClass": "btn-secondary",
-                "newModelValue": 3,
+                "newModelValue": "stay",
             }
+        },
+        "optionsSwitcher": {
+            "rise": 1,
+            "fall": 2,
+            "stay": 3,
         },
     },
     'modal-enter-create': {

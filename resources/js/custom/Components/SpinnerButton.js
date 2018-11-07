@@ -10,7 +10,7 @@ class SpinnerButton extends BaseButton {
             valueName ? valueName : 'new',
             disabled,
         );
-        this.firstOption = firstOption ? firstOption : 0;
+        this.firstOption = firstOption ? this.config.optionsSwitcher[firstOption] : 0;
     }
 
     makeTemplate () {

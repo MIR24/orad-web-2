@@ -24,7 +24,15 @@ const TabsConfig = {
     },
     "CurrencyValues": {
         "api": {
-            "base": "/test/currency",
+            "base": "/api/currencyrates",
+            "update": "/api/currencyrates/multi",
+            "delete": "/api/currencyrates/",
+        },
+        "defaultEditState": {
+            "val1": "",
+            "val2": "",
+            "dir": "stay",
+            "value": 0,
         },
     },
     "WeatherLive": {
