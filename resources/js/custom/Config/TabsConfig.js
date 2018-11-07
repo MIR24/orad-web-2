@@ -16,7 +16,9 @@ const TabsConfig = {
     },
     "Expedited": {
         "api": {
-            "base": "/test/expedited",
+            "base": "/api/hotnews",
+            "update": "/api/tops/multi",
+            "delete": "/api/tops/",
         },
         "textMaxCharsPerLine": 70,
     },

@@ -11,6 +11,37 @@ import CancelEditingButton from "../Components/CancelEditingButton.js";
 import Input from "../Components/Input.js";
 
 
+const orbits = {
+    0: {
+        'id': 3,
+        'name': 'Мир24'
+    },
+    1: {
+        'id': 4,
+        'name': 'Мир+0'
+    },
+    2: {
+        'id': 5,
+        'name': 'Мир3PR'
+    },
+    3: {
+        'id': 6,
+        'name': 'Мир+2'
+    },
+    4: {
+        'id': 7,
+        'name': 'Мир+7'
+    },
+    5: {
+        'id': 8,
+        'name': 'МирHD'
+    },
+    6: {
+        'id': 9,
+        'name': 'МирБеларусь'
+    }
+};
+
 class Expedited extends BaseTab {
     constructor () {
         super();
@@ -18,10 +49,7 @@ class Expedited extends BaseTab {
 
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
-            var text = Object.keys(this.models[key].releated).map(keyInner => (
-                this.models[key].releated[keyInner].text
-            )).join('\n');
-            return this.makeBlock(key, this.models[key].title, text);
+            return this.makeBlock(key, this.models[key].title, this.models[key].strings);
         })
         .join('');
 
@@ -37,9 +65,9 @@ class Expedited extends BaseTab {
     makeBlock (index, title, text) {
         var titleId = IdManipulation.getPreparedId('title', index),
             disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
-            title = new Input(index, 'title', title, disabled, 'Заголовок'),
-            textarea = new Textarea(index, 'text', text, this.config.textMaxCharsPerLine, disabled),
-            checkboxes = new ExpeditedCheckbox(index ,this.models[index].oribts, disabled),
+            title = new Input(index, 'text', title, disabled, 'Заголовок'),
+            textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
+            checkboxes = new ExpeditedCheckbox(index , orbits, disabled),
             controlButtons = '';
 
         title.init();
@@ -107,19 +135,44 @@ class Expedited extends BaseTab {
     }
 
     saveModel (modelId) {
-        console.log(this.edit[modelId]);
-        this.edit = {
-            'modelId': null,
-            'state': false,
+        if (modelId === 'new') {
+            this.createModels(this.edit.new)
+            .then((response) => {
+                this.edit = {
+                    'modelId': null,
+                    'state': false,
+                };
+                this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                this.rerender();
+            });
+        } else {
+            var models = this.getMergedEditStateModels();
+            if (models.length > 0) {
+                this.updateModels(models)
+                .then((response) => {
+                    this.edit = {
+                        'modelId': null,
+                        'state': false,
+                    };
+                    this.models[modelId] = Object.assign(this.models[modelId], response[0]);
+                    this.rerender();
+                });
+            } else {
+                alert('no changes made');
+            }
         }
-        this.rerender();
     }
 
     removeModel (modelId) {
-        $('#' + modelId).remove();
-        // TO DO
-        //this.rerender();
-        console.log(modelId);
+        this.deleteModel(this.models[modelId].id)
+        .then((response) => {
+            if (this.edit.hasOwnProperty(modelId)) {
+                delete this.edit[modelId];
+            }
+            $('#' + modelId).remove();
+            delete this.models[modelId];
+            this.rerender();
+        });
     }
 }
 export default Expedited
