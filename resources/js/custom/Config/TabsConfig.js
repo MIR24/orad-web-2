@@ -53,7 +53,13 @@ const TabsConfig = {
     },
     "TimeShift": {
         "api": {
-            "base": "/test/timeshift",
+            "base": "/api/citytimeshifts",
+            "update": "/api/citytimeshifts/multi",
+            "delete": "/api/citytimeshifts/",
+        },
+        "defaultEditState": {
+            "city": "",
+            "timeshift": 0,
         },
     },
     "Countdown": {

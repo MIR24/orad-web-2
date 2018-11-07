@@ -43,23 +43,23 @@ class TimeShift extends BaseTab {
             <lable class="col-6">Отступ</lable>
         </div>`;
         template += Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].city, this.models[key].timeShift, disabled);
+            return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, disabled);
         })
         .join('')
         .concat(controlButtons);
         this.template = this.getBaseContainer(template);
     }
 
-    makeBlock (index, cityName, timeShift, disabled) {
+    makeBlock (index, cityName, timeshift, disabled) {
         var controlButtons = '',
             cityName = new Input(index, 'city', cityName, disabled, 'City'),
-            timeShift = new Input(index, 'timeShift', timeShift, disabled, '0', 'number');
+            timeshift = new Input(index, 'timeshift', timeshift, disabled, '0', 'number');
 
         cityName.init();
-        timeShift.init();
+        timeshift.init();
 
         this.addListeners(cityName.getListeners());
-        this.addListeners(timeShift.getListeners());
+        this.addListeners(timeshift.getListeners());
 
         if (!disabled) {
             var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
@@ -71,7 +71,7 @@ class TimeShift extends BaseTab {
         return `<div id="${index}" class="col-12 row justify-content-center">
             <div class="row input-group bootstrap-touchspin mb-2">
                 ${cityName.getTemplate()}
-                ${timeShift.getTemplate()}
+                ${timeshift.getTemplate()}
                 ${controlButtons}
             </div>
         </div>`;
@@ -86,19 +86,57 @@ class TimeShift extends BaseTab {
     }
 
     saveModel (modelId) {
-        console.log(modelId, this.edit);
-        this.edit = {
-            'modelId': null,
-            'state': false,
+        var arrayOfPromises = [],
+            models = this.getMergedEditStateModels();
+
+        if (this.edit.hasOwnProperty('new')) {
+            arrayOfPromises.push(
+                this.createModels(this.getNewEditStateModel())
+                .then((response) => {
+                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                })
+            );
         }
-        this.rerender();
+
+        if (models.length > 0) {
+            arrayOfPromises.push(
+                this.updateModels(models)
+                .then((response) => {
+                    for (var responseId in response) {
+                        for (var modelId in this.models) {
+                            if (response[responseId].id === this.models[modelId].id) {
+                                this.models[modelId] = response[responseId];
+                                continue;
+                            }
+                        }
+                    }
+                })
+            );
+        }
+
+        $.when.apply(null, arrayOfPromises).done(() => {
+            this.edit = {
+                'modelId': null,
+                'state': false,
+            };
+            this.rerender();
+        });
     }
 
     removeModel (modelId) {
-        $('#' + modelId).remove();
-        // TO DO
-        //this.rerender();
-        console.log(modelId);
+        if (this.models.hasOwnProperty(modelId)) {
+            this.deleteModel(this.models[modelId].id)
+            .then((response) => {
+                if (this.edit.hasOwnProperty(modelId)) {
+                    delete this.edit[modelId];
+                }
+                $('#' + modelId).remove();
+                delete this.models[modelId];
+                this.rerender();
+            });
+        } else {
+            $('#' + modelId).remove();
+        }
     }
 }
 export default TimeShift
