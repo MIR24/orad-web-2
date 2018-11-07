@@ -17,7 +17,7 @@ class Select2Custom extends BaseExternalComponent {
     }
 
     handle (initClass, event) {
-        initClass.modelChange(this.modelId, this.valueName, this.selectOptions[$(this.options.selectString).val()]);
+        initClass.modelChange(this.modelId, this.valueName, $(this.options.selectString).val());
     }
 
     formatData (data) {
@@ -36,9 +36,9 @@ class Select2Custom extends BaseExternalComponent {
         var options = '';
         for (var one in this.selectOptions) {
             if (this.selectOptions[one].id == this.defaultVal) {
-                options = options.concat(`<option data-image="${this.selectOptions[one].loc}" value="${this.selectOptions[one].id}" selected="selected">${this.selectOptions[one].text}</option>`);
+                options = options.concat(`<option data-image="${this.selectOptions[one].icon}" value="${this.selectOptions[one].id}" selected="selected">${this.selectOptions[one].type}</option>`);
             } else {
-                options = options.concat(`<option data-image="${this.selectOptions[one].loc}" value="${this.selectOptions[one].id}">${this.selectOptions[one].text}</option>`);
+                options = options.concat(`<option data-image="${this.selectOptions[one].icon}" value="${this.selectOptions[one].id}">${this.selectOptions[one].type}</option>`);
             }
         }
         return options;

@@ -14,6 +14,7 @@ class BaseTab {
             'state': false,
         };
         this.additionlClassesJQ = {};
+        this.additions = {};
     }
 
     getModels () {
@@ -102,6 +103,10 @@ class BaseTab {
         return results;
     }
 
+    getNewEditStateModel () {
+        return Object.assign(this.config.defaultEditState, this.edit.new);
+    }
+
     addAdditionlClassesJQ (modaleId, classVar) {
         var options = classVar.getOptions();
         if (this.additionlClassesJQ.hasOwnProperty(modaleId)) {
@@ -124,21 +129,38 @@ class BaseTab {
         }
     }
 
+    getAdditions () {
+        var arrayOfPromises = [];
+        if (this.config.hasOwnProperty('getAdditions')) {
+            for (let addition in this.config.getAdditions) {
+                arrayOfPromises.push(
+                    simpleAjaxPromise(apiMethods.get, this.config.getAdditions[addition])
+                    .then((response) => {
+                        this.additions[addition] = response.data;
+                    })
+                );
+            }
+        }
+        return arrayOfPromises;
+    }
+
     renderTemplate () {
         $('#tab-content').html(this.template);
     }
 
     init () {
-        this.getModels()
-        .then((response) => {
-            this.setData(response.data);
-            this.makeTemplate();
-            this.renderTemplate();
-            this.initListeners();
-            this.initAdditionlClassesJQ();
-        })
-        .then(function () {
-            $('body').removeClass('m-page--loading');
+        $.when.apply(null, this.getAdditions()).done(() => {
+            this.getModels()
+            .then((response) => {
+                this.setData(response.data);
+                this.makeTemplate();
+                this.renderTemplate();
+                this.initListeners();
+                this.initAdditionlClassesJQ();
+            })
+            .then(function () {
+                $('body').removeClass('m-page--loading');
+            });
         });
     }
 

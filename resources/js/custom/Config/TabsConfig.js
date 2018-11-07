@@ -29,7 +29,26 @@ const TabsConfig = {
     },
     "WeatherLive": {
         "api": {
-            "base": "/test/weatherlive",
+            "base": "/api/weatherforecasts",
+            "update": "/api/weatherforecasts/multi",
+            "delete": "/api/weatherforecasts/",
+        },
+        "defaultEditState": {
+            "status": "inactive",
+            "city": "",
+            "morning": 0,
+            "now": 0,
+            "evening": 0,
+            "weather_type_id": 0,
+        },
+        "switchValue": {
+            "status": {
+                "true": "active",
+                "false": "inactive"
+            }
+        },
+        "getAdditions": {
+            "weatherTypes": "/api/weathertypes",
         },
     },
     "TimeShift": {

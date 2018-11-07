@@ -71,31 +71,31 @@ class WeatherLive extends BaseTab {
         }
         
         var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].city, this.models[key].morning, this.models[key].evening, this.models[key].state, this.models[key].icon, disabled);
+            return this.makeBlock(key, this.models[key].city, this.models[key].morning, this.models[key].evening, this.models[key].status, this.models[key].weather_type_id, disabled);
         })
         .join('')
         .concat(controlButtons);
         this.template = this.getBaseContainer(template);
     }
 
-    makeBlock (index, cityName, tempMorning, tempEvening, state, icon, disabled) {
+    makeBlock (index, cityName, tempMorning, tempEvening, status, weather_type_id, disabled) {console.log(this);
         var controlButtons = '',
             cityName = new Input(index, 'city', cityName, disabled, 'City'),
             tempMorning = new Input(index, 'morning', tempMorning, disabled, '+0', 'number'),
             tempEvening = new Input(index, 'evening', tempEvening, disabled, '+0', 'number'),
-            state = new Checkbox(index, 'state', state, disabled, 'Send to...'),
-            selectWeather = new Select2Custom (index, 'icon', weatherIcons, icon.id, !this.edit.state);
+            status = new Checkbox(index, 'status', status === 'active' ? true : false, disabled, 'Send to...'),
+            selectWeather = new Select2Custom (index, 'weather_type_id', this.additions.weatherTypes, weather_type_id, !this.edit.state);
 
         cityName.init();
         tempMorning.init();
         tempEvening.init();
-        state.init();
+        status.init();
         selectWeather.init();
 
         this.addListeners(cityName.getListeners());
         this.addListeners(tempMorning.getListeners());
         this.addListeners(tempEvening.getListeners());
-        this.addListeners(state.getListeners());
+        this.addListeners(status.getListeners());
         this.addAdditionlClassesJQ(index, selectWeather);
 
         // TO DO
@@ -113,7 +113,7 @@ class WeatherLive extends BaseTab {
                 ${tempEvening.getTemplate()}
                 ${selectWeather.getTemplate()}
                 <div class="form-control">
-                    ${state.getTemplate()}
+                    ${status.getTemplate()}
                 </div>
                 ${controlButtons}
             </div>
@@ -125,23 +125,64 @@ class WeatherLive extends BaseTab {
     }
 
     modelChange (modelId, valueName, newValue) {
+        if (this.config.switchValue.hasOwnProperty(valueName)) {
+            newValue = this.config.switchValue[valueName][newValue];
+        }
         this.updateEditState(modelId, valueName, newValue);
     }
 
     saveModel (modelId) {
-        console.log(this.getMergedEditStateModels());
-        this.edit = {
-            'modelId': null,
-            'state': false,
+        var arrayOfPromises = [],
+            models = this.getMergedEditStateModels();
+
+        if (this.edit.hasOwnProperty('new')) {
+            arrayOfPromises.push(
+                this.createModels(this.getNewEditStateModel())
+                .then((response) => {
+                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                })
+            );
         }
-        this.rerender();
+
+        if (models.length > 0) {
+            arrayOfPromises.push(
+                this.updateModels(models)
+                .then((response) => {
+                    for (var responseId in response) {
+                        for (var modelId in this.models) {
+                            if (response[responseId].id === this.models[modelId].id) {
+                                this.models[modelId] = response[responseId];
+                                continue;
+                            }
+                        }
+                    }
+                })
+            );
+        }
+
+        $.when.apply(null, arrayOfPromises).done(() => {
+            this.edit = {
+                'modelId': null,
+                'state': false,
+            };
+            this.rerender();
+        });
     }
 
     removeModel (modelId) {
-        $('#' + modelId).remove();
-        // TO DO
-        //this.rerender();
-        console.log(modelId);
+        if (this.models.hasOwnProperty(modelId)) {
+            this.deleteModel(this.models[modelId].id)
+            .then((response) => {
+                if (this.edit.hasOwnProperty(modelId)) {
+                    delete this.edit[modelId];
+                }
+                $('#' + modelId).remove();
+                delete this.models[modelId];
+                this.rerender();
+            });
+        } else {
+            $('#' + modelId).remove();
+        }
     }
 }
 export default WeatherLive
