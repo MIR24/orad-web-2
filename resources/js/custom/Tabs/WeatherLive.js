@@ -56,7 +56,7 @@ class WeatherLive extends BaseTab {
         this.template = this.getBaseContainer(template);
     }
 
-    makeBlock (index, cityName, tempMorning, tempEvening, status, weather_type_id, disabled) {console.log(this);
+    makeBlock (index, cityName, tempMorning, tempEvening, status, weather_type_id, disabled) {
         var controlButtons = '',
             cityName = new Input(index, 'city', cityName, disabled, 'City'),
             tempMorning = new Input(index, 'morning', tempMorning, disabled, '+0', 'number'),
