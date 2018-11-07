@@ -213,14 +213,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <!--end::Page Snippets -->
 
-        <!-- begin::Page Loader -->
-        <script>
-            $(window).on('load', function() {
-                $('body').removeClass('m-page--loading');
-            });
-        </script>
-        <!-- end::Page Loader -->
-
         <!-- start:Custom Script -->
         <script src="{{ auto_asset('assets/custom/custom.js') }}"></script>
         <!-- end:Custom Script -->
