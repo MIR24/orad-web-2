@@ -17,9 +17,17 @@ const Listeners = {
         for (var type in classVar.listeners) {
             for (var key in classVar.listeners[type]) {
                 if (classVar.listeners[type][key].addInitClass) {
-                    $('#' + key).bind(type, classVar.listeners[type][key].function.bind(classVar.listeners[type][key].class, classVar));
+                    if (classVar.listeners[type][key].hasOwnProperty('props')) {
+                        $('#' + key).bind(type, classVar.listeners[type][key].function.bind(classVar.listeners[type][key].class, classVar, classVar.listeners[type][key].props));
+                    } else {
+                        $('#' + key).bind(type, classVar.listeners[type][key].function.bind(classVar.listeners[type][key].class, classVar));
+                    }
                 } else {
-                    $('#' + key).bind(type, classVar.listeners[type][key].function.bind(classVar.listeners[type][key].class));
+                    if (classVar.listeners[type][key].hasOwnProperty('props')) {
+                        $('#' + key).bind(type, classVar.listeners[type][key].function.bind(classVar.listeners[type][key].class, classVar.listeners[type][key].props));
+                    } else {
+                        $('#' + key).bind(type, classVar.listeners[type][key].function.bind(classVar.listeners[type][key].class));
+                    }
                 }
                 delete classVar.listeners[type][key];
             }
