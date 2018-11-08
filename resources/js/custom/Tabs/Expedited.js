@@ -2,8 +2,6 @@ import BaseTab from "../BaseClasses/BaseTab.js";
 import ExpeditedCheckbox from "../Groups/ExpeditedCheckbox.js";
 import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
 import Textarea from "../Components/Textarea.js";
-import SpinnerButton from "../Utils/IdManipulation.js";
-import IdManipulation from "../Utils/IdManipulation.js";
 import SaveButton from "../Components/SaveButton.js";
 import DeleteButton from "../Components/DeleteButton.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
@@ -31,8 +29,7 @@ class Expedited extends BaseTab {
     }
 
     makeBlock (index, title, text) {
-        var titleId = IdManipulation.getPreparedId('title', index),
-            disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
+        var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             title = new Input(index, 'text', title, disabled, 'Заголовок'),
             textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
             checkboxes = new ExpeditedCheckbox(index, 'orbits', this.additions.orbits, disabled),
