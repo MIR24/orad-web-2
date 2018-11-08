@@ -17,6 +17,19 @@ class BaseComponent {
 
     makeTemplate () {};
 
+    setNewHandle (parentClass) {
+        Listeners.set(this, this.listener, {
+            [this.id]: {
+                'function': parentClass.handle,
+                'class': parentClass,
+                'addInitClass': true,
+                'props': {
+                    'childClass': this,
+                }
+            }
+        });
+    }
+
     setListeners() {
         Listeners.set(this, this.listener, {
             [this.id]: {
