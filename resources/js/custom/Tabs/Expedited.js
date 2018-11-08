@@ -1,5 +1,5 @@
 import BaseTab from "../BaseClasses/BaseTab.js";
-import ExpeditedCheckbox from "../Components/ExpeditedCheckbox.js";
+import ExpeditedCheckbox from "../Groups/ExpeditedCheckbox.js";
 import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
 import Textarea from "../Components/Textarea.js";
 import SpinnerButton from "../Utils/IdManipulation.js";
@@ -14,31 +14,38 @@ import Input from "../Components/Input.js";
 const orbits = {
     0: {
         'id': 3,
-        'name': 'Мир24'
+        'name': 'Мир24',
+        'checked': true,
     },
     1: {
         'id': 4,
-        'name': 'Мир+0'
+        'name': 'Мир+0',
+        'checked': true,
     },
     2: {
         'id': 5,
-        'name': 'Мир3PR'
+        'name': 'Мир3PR',
+        'checked': true,
     },
     3: {
         'id': 6,
-        'name': 'Мир+2'
+        'name': 'Мир+2',
+        'checked': true,
     },
     4: {
         'id': 7,
-        'name': 'Мир+7'
+        'name': 'Мир+7',
+        'checked': true,
     },
     5: {
         'id': 8,
-        'name': 'МирHD'
+        'name': 'МирHD',
+        'checked': true,
     },
     6: {
         'id': 9,
-        'name': 'МирБеларусь'
+        'name': 'МирБеларусь',
+        'checked': true,
     }
 };
 
@@ -67,7 +74,7 @@ class Expedited extends BaseTab {
             disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             title = new Input(index, 'text', title, disabled, 'Заголовок'),
             textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
-            checkboxes = new ExpeditedCheckbox(index , orbits, disabled),
+            checkboxes = new ExpeditedCheckbox(index, 'orbits', orbits, disabled),
             controlButtons = '';
 
         title.init();
