@@ -17,10 +17,10 @@ class BaseComponent {
 
     makeTemplate () {};
 
-    setNewHandle (parentClass) {
+    setNewHandle (parentClass, cb) {
         Listeners.set(this, this.listener, {
             [this.id]: {
-                'function': parentClass.handle,
+                'function': cb ? cb : parentClass.handle,
                 'class': parentClass,
                 'addInitClass': true,
                 'props': {
