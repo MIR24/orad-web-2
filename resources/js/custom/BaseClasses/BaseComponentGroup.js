@@ -7,9 +7,9 @@ class BaseComponentGroup {
         this.template = '';
         this.listeners = {};
         this.additionlClassesJQ = {};
-        this.id = IdManipulation.getPreparedId('group-' + valueName, id);
+        this.valueName = valueName ? valueName : this.constructor.name;
+        this.id = IdManipulation.getPreparedId('group-' + this.valueName, id);
         this.modelId = id;
-        this.valueName = valueName;
         this.value = Object.is(value, undefined) ? '' : value;
         if (disabled) {
             this.disabled = true;
