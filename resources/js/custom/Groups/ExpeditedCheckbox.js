@@ -3,16 +3,19 @@ import Checkbox from "../Components/Checkbox.js";
 
 class ExpeditedCheckbox extends BaseComponentGroup {
     constructor (id, valueName, value, disabled) {
-        super(id, null, value, disabled);
+        super(id, valueName, value, disabled);
+        this.checkboxesIds = [];console.log(this);
     }
 
     makeTemplate () {
-        var checkboxAll = new Checkbox(this.id + '-all', 'all', false, this.disabled, 'Выбрать все'),
+        var checkboxAll = new Checkbox(this.id + '-all', 'all', false, this.disabledString, 'Выбрать все'),
             checkboxesTemplate = Object.keys(this.value).map(key => {
-                var checkbox = new Checkbox(this.id + '-' + key, this.value[key].name, this.value[key].checked, this.disabled, this.value[key].name);
+                var checkbox = new Checkbox(this.id + '-' + key, key, this.value[key].checked, this.disabledString, this.value[key].name);
+
+                this.checkboxesIds.push('#' + checkbox.id);
 
                 checkbox.init();
-                checkbox.setNewHandle(this);
+                checkbox.setNewHandle(this, this.checkHandle);
                 this.addListeners(checkbox.getListeners());
 
                 return checkbox.getTemplate();
@@ -20,7 +23,7 @@ class ExpeditedCheckbox extends BaseComponentGroup {
             .join('');
 
         checkboxAll.init();
-        checkboxAll.setNewHandle(this);
+        checkboxAll.setNewHandle(this, this.checkHandleAll);
         this.addListeners(checkboxAll.getListeners());
 
         this.template = `<div class="m-form__group form-group">
@@ -32,10 +35,29 @@ class ExpeditedCheckbox extends BaseComponentGroup {
         </div>`;
     }
 
-    handle (initClass, props, event) {
-        console.log(initClass, props, event);
+    checkHandle (initClass, props, event) {
+        if (event.target.checked) {
+            initClass.addToEditState(this.modelId, this.valueName, {
+                [props.childClass.valueName]: this.value[props.childClass.valueName]
+            });
+        } else {
+            initClass.removeFromEditState(this.modelId, this.valueName, props.childClass.valueName);
+        }
+    }
 
-        //initClass.modelChange(this.modelId, this.valueName, this.value);
+    checkHandleAll (initClass, props, event) {
+        if (event.target.checked) {
+            for (var checkboxId in this.checkboxesIds) {
+                var select = $(this.checkboxesIds[checkboxId]);
+                if (select.is(":checked")) {
+                    select.prop('disabled', true);
+                } else {
+                    select.trigger('click').prop('disabled', true);
+                }
+            }
+        } else {
+            $(this.checkboxesIds.join(', ')).prop('disabled', false);
+        }
     }
 }
 export default ExpeditedCheckbox
