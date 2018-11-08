@@ -17,8 +17,8 @@ const TabsConfig = {
     "Expedited": {
         "api": {
             "base": "/api/hotnews",
-            "update": "/api/tops/multi",
-            "delete": "/api/tops/",
+            "update": "/api/hotnews/multi",
+            "delete": "/api/hotnews/",
         },
         "textMaxCharsPerLine": 70,
         "getAdditions": {
