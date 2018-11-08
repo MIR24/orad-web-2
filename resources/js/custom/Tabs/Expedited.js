@@ -10,45 +10,6 @@ import EnterEditingButton from "../Components/EnterEditingButton.js";
 import CancelEditingButton from "../Components/CancelEditingButton.js";
 import Input from "../Components/Input.js";
 
-// TO DO
-const orbits = {
-    0: {
-        'id': 3,
-        'name': 'Мир24',
-        'checked': true,
-    },
-    1: {
-        'id': 4,
-        'name': 'Мир+0',
-        'checked': true,
-    },
-    2: {
-        'id': 5,
-        'name': 'Мир3PR',
-        'checked': true,
-    },
-    3: {
-        'id': 6,
-        'name': 'Мир+2',
-        'checked': true,
-    },
-    4: {
-        'id': 7,
-        'name': 'Мир+7',
-        'checked': true,
-    },
-    5: {
-        'id': 8,
-        'name': 'МирHD',
-        'checked': true,
-    },
-    6: {
-        'id': 9,
-        'name': 'МирБеларусь',
-        'checked': true,
-    }
-};
-
 class Expedited extends BaseTab {
     constructor () {
         super();
@@ -74,7 +35,7 @@ class Expedited extends BaseTab {
             disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             title = new Input(index, 'text', title, disabled, 'Заголовок'),
             textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
-            checkboxes = new ExpeditedCheckbox(index, 'orbits', orbits, disabled),
+            checkboxes = new ExpeditedCheckbox(index, 'orbits', this.additions.orbits, disabled),
             controlButtons = '';
 
         title.init();
