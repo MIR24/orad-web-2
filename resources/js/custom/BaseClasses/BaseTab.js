@@ -107,6 +107,10 @@ class BaseTab {
         return Object.assign(this.config.defaultEditState, this.edit.new);
     }
 
+    mergeAdditionlClassesJQ (object) {
+        this.additionlClassesJQ = Object.assign(this.additionlClassesJQ, object);
+    }
+
     addAdditionlClassesJQ (modaleId, classVar) {
         var options = classVar.getOptions();
         if (this.additionlClassesJQ.hasOwnProperty(modaleId)) {
@@ -125,6 +129,17 @@ class BaseTab {
         for (var modelId in this.additionlClassesJQ) {
             for (var elementId in this.additionlClassesJQ[modelId]) {
                 $(this.additionlClassesJQ[modelId][elementId].selectString)[this.additionlClassesJQ[modelId][elementId].function](this.additionlClassesJQ[modelId][elementId].options);
+            }
+        }
+        if (this.edit.modelId) {
+            this.edit = {
+                'modelId': this.edit.modelId,
+                'state': true,
+            }
+        } else {
+            this.edit = {
+                'modelId': null,
+                'state': false,
             }
         }
     }
