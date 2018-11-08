@@ -18,10 +18,6 @@ class Select2Custom extends BaseExternalComponent {
         this.defaultVal = defaultVal;
     }
 
-    handle (initClass, event) {
-        initClass.modelChange(this.modelId, this.valueName, $(this.options.selectString).val());
-    }
-
     formatData (data) {
         if (!data.id) {
             return data.text;
