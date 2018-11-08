@@ -13,10 +13,10 @@ class BaseComponentGroup {
         this.value = Object.is(value, undefined) ? '' : value;
         if (disabled) {
             this.disabled = true;
-            this.disabledString = ''
+            this.disabledString = 'disabled'
         } else {
             this.disabled = false;
-            this.disabledString = 'disabled'
+            this.disabledString = ''
         }
     }
 
