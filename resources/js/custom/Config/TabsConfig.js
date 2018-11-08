@@ -21,6 +21,9 @@ const TabsConfig = {
             "delete": "/api/tops/",
         },
         "textMaxCharsPerLine": 70,
+        "getAdditions": {
+            "orbits": "/api/orbits",
+        },
     },
     "CurrencyValues": {
         "api": {
