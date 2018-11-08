@@ -36,3 +36,4 @@ Route::apiResource('photos', 'API\PhotoController');
 Route::apiResource('photocategories', 'API\PhotoCategoryController');
 Route::apiResource('promos', 'API\PromoController');
 Route::apiResource('promocategories', 'API\PromoCategoryController');
+Route::apiResource('orbits', 'API\OrbitController');
