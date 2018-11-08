@@ -72,7 +72,14 @@ const TabsConfig = {
     },
     "Countdown": {
         "api": {
-            "base": "/test/countdown",
+            "base": "/api/eventcountdowns",
+            "update": "/api/eventcountdowns/multi",
+            "delete": "/api/eventcountdowns/",
+        },
+        "defaultEditState": {
+            "title": "",
+            "description": "test",
+            "happen_at": "",
         },
     },
     "Promo": {

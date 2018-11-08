@@ -29,7 +29,7 @@ class DateTime extends BaseComponentGroup {
         if (props.childClass.valueName === 'date') {
             this.value = moment(props.childClass.getNewValue(), 'DD-MM-YYYY').format('YYYY-MM-DD') + ' ' + currentValue.format('hh:mm:ss');
         } else {
-            this.value = currentValue.format('YYYY-MM-DD') + ' ' + props.childClass.getNewValue();
+            this.value = currentValue.format('YYYY-MM-DD') + ' ' + props.childClass.getNewValue() + ':00';
         }
 
         initClass.modelChange(this.modelId, this.valueName, this.value);
