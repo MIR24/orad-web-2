@@ -1,4 +1,5 @@
 import Listeners from "../Utils/Listeners.js";
+import AdditionlClassesJQ from "../Utils/AdditionlClassesJQ.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 
 class BaseComponentGroup {
@@ -21,17 +22,8 @@ class BaseComponentGroup {
 
     makeTemplate () {};
 
-    addAdditionlClassesJQ (modaleId, classVar) {
-        var options = classVar.getOptions();
-        if (this.additionlClassesJQ.hasOwnProperty(modaleId)) {
-            this.additionlClassesJQ[modaleId] = Object.assign(this.additionlClassesJQ[modaleId], {
-                [options.selectString]: options
-            });
-        } else {
-            this.additionlClassesJQ[modaleId] = {
-                [options.selectString]: options
-            };
-        }
+    addAdditionlClassesJQ (modelId, classVar) {
+        AdditionlClassesJQ.add(this.additionlClassesJQ, modelId ,classVar);
         this.addListeners(classVar.getListeners());
     }
 

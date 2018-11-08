@@ -1,4 +1,5 @@
 import Listeners from "../Utils/Listeners.js";
+import AdditionlClassesJQ from "../Utils/AdditionlClassesJQ.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import TabsConfig from "../Config/TabsConfig.js";
 import { simpleAjaxPromise } from "../Api/Multi.js";
@@ -108,29 +109,16 @@ class BaseTab {
     }
 
     mergeAdditionlClassesJQ (object) {
-        this.additionlClassesJQ = Object.assign(this.additionlClassesJQ, object);
+        AdditionlClassesJQ.merge(this.additionlClassesJQ, object);
     }
 
-    addAdditionlClassesJQ (modaleId, classVar) {
-        var options = classVar.getOptions();
-        if (this.additionlClassesJQ.hasOwnProperty(modaleId)) {
-            this.additionlClassesJQ[modaleId] = Object.assign(this.additionlClassesJQ[modaleId], {
-                [options.selectString]: options
-            });
-        } else {
-            this.additionlClassesJQ[modaleId] = {
-                [options.selectString]: options
-            };
-        }
+    addAdditionlClassesJQ (modelId, classVar) {
+        AdditionlClassesJQ.add(this.additionlClassesJQ, modelId ,classVar);
         this.addListeners(classVar.getListeners());
     }
 
     initAdditionlClassesJQ () {
-        for (var modelId in this.additionlClassesJQ) {
-            for (var elementId in this.additionlClassesJQ[modelId]) {
-                $(this.additionlClassesJQ[modelId][elementId].selectString)[this.additionlClassesJQ[modelId][elementId].function](this.additionlClassesJQ[modelId][elementId].options);
-            }
-        }
+        AdditionlClassesJQ.init(this.additionlClassesJQ);
         if (this.edit.modelId) {
             this.edit = {
                 'modelId': this.edit.modelId,
