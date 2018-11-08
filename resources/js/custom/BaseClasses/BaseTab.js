@@ -83,6 +83,30 @@ class BaseTab {
         Listeners.init(this);
     }
 
+    addToEditState (modelId, type, object) {
+        if (this.edit.hasOwnProperty(modelId)) {
+            if (this.edit[modelId].hasOwnProperty(type)) {
+                this.edit[modelId][type] = Object.assign(this.edit[modelId][type], object);
+            } else {
+                this.edit[modelId][type] = object;
+            }
+        } else {
+            this.edit[modelId] = {
+                [type]: object
+            };
+        }
+        console.log(this.edit);
+    }
+
+    removeFromEditState (modelId, type, typeId) {
+        if (this.edit.hasOwnProperty(modelId) &&
+            this.edit[modelId].hasOwnProperty(type) &&
+            this.edit[modelId][type].hasOwnProperty(typeId)) {
+            delete this.edit[modelId][type][typeId];
+        }
+        console.log(this.edit);
+    }
+
     updateEditState (modelId, type, value) {
         if (this.edit.hasOwnProperty(modelId)) {
             this.edit[modelId][type] = value;
