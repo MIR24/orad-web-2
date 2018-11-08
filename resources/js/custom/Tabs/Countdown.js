@@ -5,8 +5,7 @@ import DeleteButton from "../Components/DeleteButton.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import CancelEditingButton from "../Components/CancelEditingButton.js";
 import Input from "../Components/Input.js";
-import BootstrapDateCustom from "../ExternalComponents/BootstrapDateCustom.js";
-import BootstrapTimeCustom from "../ExternalComponents/BootstrapTimeCustom.js";
+import DateTime from "../Groups/DateTime.js";
 
 class Countdown extends BaseTab {
     constructor () {
@@ -51,16 +50,14 @@ class Countdown extends BaseTab {
     makeBlock (index, eventName, eventDateTime, disabled) {
         var controlButtons = '',
             eventName = new Input(index, 'city', eventName, disabled, 'Название события'),
-            eventDate = new BootstrapDateCustom(index, 'date', eventDateTime, disabled),
-            eventTime = new BootstrapTimeCustom(index, 'time', eventDateTime, disabled);
+            dateTime = new DateTime(index, 'dateTime', eventDateTime, disabled);
 
         eventName.init();
-        eventDate.init();
-        eventTime.init();
+        dateTime.init();
 
         this.addListeners(eventName.getListeners());
-        this.addAdditionlClassesJQ(index, eventDate);
-        this.addAdditionlClassesJQ(index, eventTime);
+        this.addListeners(dateTime.getListeners());
+        this.mergeAdditionlClassesJQ(dateTime.getAdditionlClassesJQ());
 
         if (!disabled) {
             var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
@@ -72,8 +69,7 @@ class Countdown extends BaseTab {
         return `<div id="${index}" class="col-12 row justify-content-center">
             <div class="row input-group bootstrap-touchspin mb-2">
                 ${eventName.getTemplate()}
-                ${eventDate.getTemplate()}
-                ${eventTime.getTemplate()}
+                ${dateTime.getTemplate()}
                 ${controlButtons}
             </div>
         </div>`;
