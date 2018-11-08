@@ -15,8 +15,12 @@ class BaseExternalComponent extends BaseComponent {
         }
     }
 
+    getNewValue () {
+        return $(this.options.selectString).val();
+    }
+
     handle (initClass, event) {
-        initClass.modelChange(this.modelId, this.valueName, $(this.options.selectString).val());
+        initClass.modelChange(this.modelId, this.valueName, this.getNewValue());
     }
 
     getOptions () {
