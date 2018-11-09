@@ -4,7 +4,8 @@ import PromoEditModal from "../Modals/PromoEditModal.js"
 import DeleteButton from "../Components/DeleteButton.js";
 
 // TO DO
-const isSomeRoll = true;
+const isSomeRoll = true,
+    testImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gull_portrait_ca_usa.jpg/300px-Gull_portrait_ca_usa.jpg';
 
 class Promo extends BaseTab {
     constructor () {
@@ -25,18 +26,7 @@ class Promo extends BaseTab {
         }
 
         template = Object.keys(this.models).map(key => {
-            return this.makeBlock(
-                key,
-                this.models[key].mir_id,
-                this.models[key].hd_id,
-                this.models[key].category,
-                this.models[key].name,
-                this.models[key].title,
-                this.models[key].underTitle,
-                this.models[key].ageRestriction,
-                this.models[key].state,
-                this.models[key].image
-            );
+            return this.makeBlock(key);
         })
         .join('');
 
@@ -58,7 +48,7 @@ class Promo extends BaseTab {
         </div>`;
     }
 
-    makeBlock (index, mirId, hdId, category, name, title, underTitle, ageRestriction, state, imageSrc) {
+    makeBlock (index) {
         var controlButtons = '';
 
         // TO DO
@@ -89,7 +79,7 @@ class Promo extends BaseTab {
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
                             <h3 class="m-portlet__head-text">
-                                ${name}
+                                ${this.models[index].name}
                             </h3>
                         </div>			
                     </div>
@@ -98,26 +88,26 @@ class Promo extends BaseTab {
                     <div class="row pb-2">
                         <div class="col">
                             <div class="container p-0">
-                                <img width="250" src="${imageSrc}">
-                                <h4 class="position-absolute ml-4 mt-1 fixed-top text-light">+${ageRestriction}</h4>
+                                <img width="250" src="${testImg}">
+                                <h4 class="position-absolute ml-4 mt-1 fixed-top text-light">${this.models[index].age ? '+' + this.models[index].age: '-'}</h4>
                             </div>
                         </div>
                         <div class="col mt-2 mr-4">
                             <div class="row border-bottom mb-3">
                                 <lable class="col">ID МИР</lable>
-                                <lable class="col text-right">${mirId}</lable>
+                                <lable class="col text-right">${this.models[index].mir_id ? this.models[index].mir_id : '-'}</lable>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">ID МИРHD</lable>
-                                <lable class="col text-right">${hdId}</lable>
+                                <lable class="col text-right">${this.models[index].mirhd_id ? this.models[index].mirhd_id : '-'}</lable>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">Программа</lable>
-                                <lable class="col text-right">${category}</lable>
+                                <lable class="col text-right">${this.models[index].category.text}</lable>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">Режим</lable>
-                                <lable class="col text-right">${state}</lable>
+                                <lable class="col text-right">${this.models[index].mode ? this.models[index].mode : '-'}</lable>
                             </div>
                         </div>
                     </div>

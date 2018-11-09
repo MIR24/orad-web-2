@@ -87,7 +87,9 @@ const TabsConfig = {
     },
     "Promo": {
         "api": {
-            "base": "/test/promo",
+            "base": "/api/promos",
+            "update": "/api/promos/multi",
+            "delete": "/api/promos/",
         },
     },
 }

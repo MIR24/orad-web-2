@@ -12,12 +12,12 @@ class PromoEditModal extends BaseModal {
 
     getEditBlock () {
         var mirId = new Input(this.modelId, 'mir_id', this.model.mir_id, false, 'ID МИР'),
-            mirHdId = new Input(this.modelId, 'hd_id', this.model.hd_id, false, 'ID МИРHD'),
+            mirHdId = new Input(this.modelId, 'mirhd_id', this.model.mirhd_id, false, 'ID МИРHD'),
             category = 'Категория',
             name = new Input(this.modelId, 'name', this.model.name, false, 'Название'),
-            title = new Input(this.modelId, 'title', this.model.title, false, 'Заголовок'),
-            underTitle = new Input(this.modelId, 'underTitle', this.model.underTitle, false, 'Подзаголовок'),
-            ageRestriction = new Input(this.modelId, 'ageRestriction', this.model.ageRestriction, false, '0', 'number'),
+            title = new Input(this.modelId, 'header', this.model.header, false, 'Заголовок'),
+            underTitle = new Input(this.modelId, 'subheader', this.model.subheader, false, 'Подзаголовок'),
+            ageRestriction = new Input(this.modelId, 'age', this.model.age, false, '0', 'number'),
             mode = 'Режим';
 
         mirId.init();
