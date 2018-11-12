@@ -70,7 +70,7 @@ class Tops extends BaseTab {
             </div>
             <form class="m-form m-form--fit m-form--label-align-right">
                 <div class="form-group m-form__group">
-                    <label">Заголовок</label>
+                    <label>Заголовок</label>
                     ${title.getTemplate()}
                     <label>Текст</label>
                     ${textarea.getTemplate()}

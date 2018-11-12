@@ -74,9 +74,9 @@ class Expedited extends BaseTab {
             <div class="row">
                 <form class="col-md-10 m-form m-form--fit m-form--label-align-right">
                     <div class="form-group m-form__group">
-                        <label">Заголовок</label>
+                        <label>Заголовок</label>
                         ${title.getTemplate()}
-                        <label">Текст</label>
+                        <label>Текст</label>
                         ${textarea.getTemplate()}
                     </div>
                 </form>
