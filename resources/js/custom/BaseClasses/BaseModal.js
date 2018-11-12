@@ -14,11 +14,18 @@ class BaseModal {
         this.model = model;
         this.listeners = {};
         this.openButton = '';
+        this.modalBodyId = IdManipulation.getPreparedId(this.id, 'body');
     }
 
-    makeTemplate () {}
+    makeModalBody () {
+        this.modalBody = this.getModalBody();
+    }
 
-    getBaseTemplate (bodyContent) {
+    makeTemplate () {
+        this.template = this.getBaseTemplate();
+    }
+
+    getBaseTemplate () {
         var exitEditButton = new ModalExitEditButton(this.id),
             exitEditButtonTop = new ModalExitEditButton(this.id, 'modal-exit-edit-top'),
             saveButton = new ModalSaveEditButton(this.modelId);
@@ -41,8 +48,8 @@ class BaseModal {
                         <h5 class="modal-title" id="exampleModalLongTitle">${this.config.modalTitle}</h5>
                         ${exitEditButtonTop.getTemplate()}
                     </div>
-                    <div class="modal-body">
-                        ${bodyContent}
+                    <div id=${this.modalBodyId} class="modal-body">
+                        ${this.modalBody}
                     </div>
                     <div class="modal-footer">
                         ${saveButton.getTemplate()}
@@ -81,6 +88,7 @@ class BaseModal {
     }
 
     init () {
+        this.makeModalBody()
         this.makeTemplate();
         this.setOpenButton();
     }

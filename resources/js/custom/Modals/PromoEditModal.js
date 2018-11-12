@@ -6,11 +6,7 @@ class PromoEditModal extends BaseModal {
         super(id, type + '-promo', model);
     }
 
-    makeTemplate () {
-        this.template = this.getBaseTemplate(this.getEditBlock());
-    }
-
-    getEditBlock () {
+    getModalBody () {
         var mirId = new Input(this.modelId, 'mir_id', this.model.mir_id, false, 'ID МИР'),
             mirHdId = new Input(this.modelId, 'mirhd_id', this.model.mirhd_id, false, 'ID МИРHD'),
             category = 'Категория',
