@@ -1,10 +1,10 @@
 import BaseButton from "../BaseClasses/BaseButton.js";
 
-class ModalExitEditButton extends BaseButton {
+class ModalSaveEditButton extends BaseButton {
     constructor (id, type) {
         super (
             id,
-            type ? type : 'modal-exit-edit'
+            type ? type : 'modal-save-edit'
         );
     }
 
@@ -16,4 +16,4 @@ class ModalExitEditButton extends BaseButton {
         initClass.cancelEditing();
     }
 }
-export default ModalExitEditButton
+export default ModalSaveEditButton

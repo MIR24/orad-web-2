@@ -1,7 +1,7 @@
 import ModalsConfig from "../Config/ModalsConfig.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import Listeners from "../Utils/Listeners.js";
-import SaveButton from "../Components/SaveButton.js";
+import ModalSaveEditButton from "../Components/ModalSaveEditButton.js";
 import ModalEnterEditButton from "../Components/ModalEnterEditButton.js";
 import ModalExitEditButton from "../Components/ModalExitEditButton.js";
 
@@ -21,11 +21,14 @@ class BaseModal {
     getBaseTemplate (bodyContent) {
         var exitEditButton = new ModalExitEditButton(this.id),
             exitEditButtonTop = new ModalExitEditButton(this.id, 'modal-exit-edit-top'),
-            saveButton = new SaveButton(this.modelId);
+            saveButton = new ModalSaveEditButton(this.modelId);
 
         exitEditButton.init();
         exitEditButtonTop.init();
         saveButton.init();
+
+        exitEditButton.setNewHandle(this, this.exitEditHandle);
+        exitEditButtonTop.setNewHandle(this, this.exitEditHandle);
 
         this.addListeners(exitEditButton.getListeners());
         this.addListeners(exitEditButtonTop.getListeners());
@@ -48,6 +51,10 @@ class BaseModal {
                 </div>
             </div>
         </div>`;
+    }
+
+    exitEditHandle (initClass, props, event) {console.log(1);
+        initClass.cancelEditing(props.childClass.modelId);
     }
 
     setOpenButton () {

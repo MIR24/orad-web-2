@@ -82,5 +82,10 @@ const ButtonsConfig = {
         "cssClass": "close",
         "additions": 'data-dismiss="modal"',
     },
+    'modal-save-edit': {
+        "text": "Сохранить",
+        "cssClass": "btn-success",
+        "additions": 'data-dismiss="modal"',
+    },
 }
 export default ButtonsConfig
