@@ -91,6 +91,14 @@ const TabsConfig = {
             "update": "/api/promos/multi",
             "delete": "/api/promos/",
         },
+        "defaultEditState": {
+            "mir_id": 0,
+            "mirhd_id": 0,
+            "name": "test name",
+            "header": "test header",
+            "subheader": "test subheader",
+            "age": 0,
+        },
     },
 }
 export default TabsConfig

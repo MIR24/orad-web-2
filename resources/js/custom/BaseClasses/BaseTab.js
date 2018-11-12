@@ -50,6 +50,13 @@ class BaseTab {
         this.rerender();
     }
 
+    cancelEditingModal () {
+        this.edit = {
+            'modelId': null,
+            'state': false,
+        }
+    }
+
     enterEditingModel (modelId) {
         this.edit = {
             'modelId': modelId,

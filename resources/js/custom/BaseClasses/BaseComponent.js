@@ -15,6 +15,7 @@ class BaseComponent {
         this.type = type;
     }
 
+    handle () {};
     makeTemplate () {};
 
     setNewHandle (parentClass, cb) {

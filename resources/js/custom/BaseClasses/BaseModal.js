@@ -36,6 +36,7 @@ class BaseModal {
 
         exitEditButton.setNewHandle(this, this.exitEditHandle);
         exitEditButtonTop.setNewHandle(this, this.exitEditHandle);
+        saveButton.setNewHandle(this, this.saveModelHandle);
 
         this.addListeners(exitEditButton.getListeners());
         this.addListeners(exitEditButtonTop.getListeners());
@@ -60,8 +61,18 @@ class BaseModal {
         </div>`;
     }
 
-    exitEditHandle (initClass, props, event) {console.log(1);
-        initClass.cancelEditing(props.childClass.modelId);
+    exitEditHandle (initClass, props, event) {
+        this.makeModalBody();
+        $('#' + this.modalBodyId).empty().append(this.modalBody);
+        $('#' + this.id).modal('toggle');
+        initClass.addListeners(this.getListeners());
+        initClass.initListeners();
+        initClass.cancelEditingModal();
+    }
+
+    saveModelHandle (initClass, props, event) {
+        $('#' + this.id).modal('toggle');
+        initClass.saveModel(this.modelId);
     }
 
     setOpenButton () {

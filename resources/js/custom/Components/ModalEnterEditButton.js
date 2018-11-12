@@ -11,9 +11,5 @@ class ModalEnterEditButton extends BaseButton {
     makeTemplate () {
         this.template = `<button id="${this.id}" class="btn ${this.config.cssClass}" ${this.config.additions} data-target="#${this.modelId}">${this.config.text}</button>`;
     }
-
-    handle (initClass, event) {
-        initClass.saveModel(this.modelId);
-    }
 }
 export default ModalEnterEditButton

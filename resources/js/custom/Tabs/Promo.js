@@ -122,21 +122,46 @@ class Promo extends BaseTab {
     }
 
     saveModel (modelId) {
-        console.log(this.edit[modelId]);
-        this.edit = {
-            'modelId': null,
-            'state': false,
+        if (modelId === 'new') {
+            this.createModels(this.getNewEditStateModel())
+            .then((response) => {
+                this.edit = {
+                    'modelId': null,
+                    'state': false,
+                };
+                this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                this.rerender();
+            });
+        } else {
+            var models = this.getMergedEditStateModels();
+            if (models.length > 0) {
+                this.updateModels(models)
+                .then((response) => {
+                    this.edit = {
+                        'modelId': null,
+                        'state': false,
+                    };
+                    this.models[modelId] = Object.assign(this.models[modelId], response[0]);
+                    $('body').css('padding-right','0px')
+                    $('.modal-backdrop').remove();
+                    this.rerender();
+                });
+            } else {
+                alert('no changes made');
+            }
         }
-        $('.modal-backdrop').remove();
-        // TO DO
-        this.rerender();
     }
 
     removeModel (modelId) {
-        $('#' + modelId).remove();
-        // TO DO
-        //this.rerender();
-        console.log(modelId);
+        this.deleteModel(this.models[modelId].id)
+        .then((response) => {
+            if (this.edit.hasOwnProperty(modelId)) {
+                delete this.edit[modelId];
+            }
+            $('#' + modelId).remove();
+            delete this.models[modelId];
+            this.rerender();
+        });
     }
 }
 export default Promo

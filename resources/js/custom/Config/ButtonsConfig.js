@@ -75,17 +75,14 @@ const ButtonsConfig = {
     'modal-exit-edit': {
         "text": "Отменить",
         "cssClass": "btn-danger",
-        "additions": 'data-dismiss="modal"',
     },
     'modal-exit-edit-top': {
         "text": '<span aria-hidden="true">×</span>',
         "cssClass": "close",
-        "additions": 'data-dismiss="modal"',
     },
     'modal-save-edit': {
         "text": "Сохранить",
         "cssClass": "btn-success",
-        "additions": 'data-dismiss="modal"',
     },
 }
 export default ButtonsConfig
