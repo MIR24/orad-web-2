@@ -7,9 +7,5 @@ class ModalSaveEditButton extends BaseButton {
             type ? type : 'modal-save-edit'
         );
     }
-
-    makeTemplate () {
-        this.template = `<button id="${this.id}" class="btn ${this.config.cssClass}" ${this.config.additions} >${this.config.text}</button>`;
-    }
 }
 export default ModalSaveEditButton
