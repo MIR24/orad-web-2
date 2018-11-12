@@ -130,6 +130,8 @@ class Promo extends BaseTab {
                     'state': false,
                 };
                 this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                $('body').css('padding-right','0px')
+                $('.modal-backdrop').remove();
                 this.rerender();
             });
         } else {
