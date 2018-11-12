@@ -34,9 +34,9 @@ class BaseModal {
         exitEditButtonTop.init();
         saveButton.init();
 
-        exitEditButton.setNewHandle(this, this.exitEditHandle);
-        exitEditButtonTop.setNewHandle(this, this.exitEditHandle);
-        saveButton.setNewHandle(this, this.saveModelHandle);
+        exitEditButton.setNewHandle(this, this.__proto__.__proto__.exitEditHandle);
+        exitEditButtonTop.setNewHandle(this, this.__proto__.__proto__.exitEditHandle);
+        saveButton.setNewHandle(this, this.__proto__.__proto__.saveModelHandle);
 
         this.addListeners(exitEditButton.getListeners());
         this.addListeners(exitEditButtonTop.getListeners());
