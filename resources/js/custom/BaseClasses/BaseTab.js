@@ -45,10 +45,11 @@ class BaseTab {
                     'state': false,
                 };
                 this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                this.rerender();
                 toastr.success(toasterMessages.success.save);
             }, function (error) {
                 toastr.error(toasterMessages.error.save);
+            }).then(() => {
+                this.rerender();
             });
         } else {
             var models = this.getMergedEditStateModels();
@@ -60,10 +61,11 @@ class BaseTab {
                         'state': false,
                     };
                     this.models[modelId] = Object.assign(this.models[modelId], response[0]);
-                    this.rerender();
                     toastr.success(toasterMessages.success.update);
                 }, function (error) {
                     toastr.error(toasterMessages.error.update);
+                }).then(() => {
+                    this.rerender();
                 });
             } else {
                 toastr.warning(toasterMessages.warning.nothingToSave);
