@@ -3,7 +3,7 @@ import AdditionlClassesJQ from "../Utils/AdditionlClassesJQ.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import TabsConfig from "../Config/TabsConfig.js";
 import { simpleAjaxPromise } from "../Api/Multi.js";
-import { apiMethods } from "../Config/Constants.js";
+import { apiMethods, toasterMessages } from "../Config/Constants.js";
 
 class BaseTab {
     constructor () {
@@ -32,6 +32,106 @@ class BaseTab {
 
     deleteModel (modelId) {
         return simpleAjaxPromise(apiMethods.delete, this.config.api.delete + modelId);
+    }
+
+    saveModel (modelId) {}
+
+    saveOneModel (modelId) {
+        if (modelId === 'new') {
+            this.createModels(this.edit.new)
+            .then((response) => {
+                this.edit = {
+                    'modelId': null,
+                    'state': false,
+                };
+                this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                this.rerender();
+                toastr.success(toasterMessages.success.save);
+            }, function (error) {
+                toastr.error(toasterMessages.error.save);
+            });
+        } else {
+            var models = this.getMergedEditStateModels();
+            if (models.length > 0) {
+                this.updateModels(models)
+                .then((response) => {
+                    this.edit = {
+                        'modelId': null,
+                        'state': false,
+                    };
+                    this.models[modelId] = Object.assign(this.models[modelId], response[0]);
+                    this.rerender();
+                    toastr.success(toasterMessages.success.update);
+                }, function (error) {
+                    toastr.error(toasterMessages.error.update);
+                });
+            } else {
+                toastr.warning(toasterMessages.warning.nothingToSave);
+            }
+        }
+    }
+
+    saveAllModels () {
+        var arrayOfPromises = [],
+            models = this.getMergedEditStateModels();
+
+        if (this.edit.hasOwnProperty('new')) {
+            arrayOfPromises.push(
+                this.createModels(this.getNewEditStateModel())
+                .then((response) => {
+                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                    toastr.success(toasterMessages.success.save);
+                }, function (error) {
+                    toastr.error(toasterMessages.error.save);
+                })
+            );
+        }
+
+        if (models.length > 0) {
+            arrayOfPromises.push(
+                this.updateModels(models)
+                .then((response) => {
+                    for (var responseId in response) {
+                        for (var modelId in this.models) {
+                            if (response[responseId].id === this.models[modelId].id) {
+                                this.models[modelId] = response[responseId];
+                                continue;
+                            }
+                        }
+                    }
+                    toastr.success(toasterMessages.success.update);
+                }, function (error) {
+                    toastr.error(toasterMessages.error.update);
+                })
+            );
+        }
+
+        $.when.apply(null, arrayOfPromises).done(() => {
+            this.edit = {
+                'modelId': null,
+                'state': false,
+            };
+            this.rerender();
+        });
+    }
+
+    removeModel (modelId) {
+        if (this.models.hasOwnProperty(modelId)) {
+            this.deleteModel(this.models[modelId].id)
+            .then((response) => {
+                if (this.edit.hasOwnProperty(modelId)) {
+                    delete this.edit[modelId];
+                }
+                $('#' + modelId).remove();
+                delete this.models[modelId];
+                this.rerender();
+                toastr.success(toasterMessages.success.delete);
+            }, function (error) {
+                toastr.error(toasterMessages.error.delete);
+            });
+        } else {
+            $('#' + modelId).remove();
+        }
     }
 
     cancelEditing () {
@@ -171,6 +271,8 @@ class BaseTab {
                     simpleAjaxPromise(apiMethods.get, this.config.getAdditions[addition])
                     .then((response) => {
                         this.additions[addition] = response.data;
+                    }, function (error) {
+                        toastr.error(toasterMessages.error.noData);
                     })
                 );
             }
@@ -191,6 +293,8 @@ class BaseTab {
                 this.renderTemplate();
                 this.initListeners();
                 this.initAdditionlClassesJQ();
+            }, (error) => {
+                toastr.error(toasterMessages.error.noData);
             })
             .then(function () {
                 $('body').removeClass('m-page--loading');

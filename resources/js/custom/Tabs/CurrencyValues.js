@@ -61,7 +61,7 @@ class CurrencyValues extends BaseTab {
     }
 
     makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
-        var spinnerButton = new SpinnerButton(index, 'direction', disabled, direction),
+        var spinnerButton = new SpinnerButton(index, 'dir', disabled, direction),
             valueInput = new Input(index, 'value', inputValue, disabled, '0.0', 'number'),
             controlButtons = '';
 
@@ -93,7 +93,7 @@ class CurrencyValues extends BaseTab {
     }
 
     makeEmptyBlock () {
-        var spinnerButton = new SpinnerButton('new'),
+        var spinnerButton = new SpinnerButton('new', 'dir'),
             leftValNameInput = new Input('new', 'val1', '', false, 'Валюта'),
             rightValNameInput = new Input('new', 'val2', '', false, 'Валюта'),
             valueInput = new Input('new', 'value', '', false, '0.0', 'number'),
@@ -134,57 +134,7 @@ class CurrencyValues extends BaseTab {
     }
 
     saveModel (modelId) {
-        var arrayOfPromises = [],
-            models = this.getMergedEditStateModels();
-
-        if (this.edit.hasOwnProperty('new')) {
-            arrayOfPromises.push(
-                this.createModels(this.getNewEditStateModel())
-                .then((response) => {
-                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                })
-            );
-        }
-
-        if (models.length > 0) {
-            arrayOfPromises.push(
-                this.updateModels(models)
-                .then((response) => {
-                    for (var responseId in response) {
-                        for (var modelId in this.models) {
-                            if (response[responseId].id === this.models[modelId].id) {
-                                this.models[modelId] = response[responseId];
-                                continue;
-                            }
-                        }
-                    }
-                })
-            );
-        }
-
-        $.when.apply(null, arrayOfPromises).done(() => {
-            this.edit = {
-                'modelId': null,
-                'state': false,
-            };
-            this.rerender();
-        });
-    }
-
-    removeModel (modelId) {
-        if (this.models.hasOwnProperty(modelId)) {
-            this.deleteModel(this.models[modelId].id)
-            .then((response) => {
-                if (this.edit.hasOwnProperty(modelId)) {
-                    delete this.edit[modelId];
-                }
-                $('#' + modelId).remove();
-                delete this.models[modelId];
-                this.rerender();
-            });
-        } else {
-            $('#' + modelId).remove();
-        }
+        this.saveAllModels();
     }
 }
 export default CurrencyValues

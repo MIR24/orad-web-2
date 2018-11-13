@@ -14,8 +14,7 @@ export function simpleAjaxPromise (method, url, data) {
                 resolve(data);
             },
             error: e => {
-                alert(e.message);
-                $('body').removeClass('m-page--loading');
+                reject(e);
             },
         });
     });

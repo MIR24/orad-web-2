@@ -1,3 +1,4 @@
+import { toasterMessages } from "../Config/Constants.js";
 import BaseTab from "../BaseClasses/BaseTab.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import PromoEditModal from "../Modals/PromoEditModal.js"
@@ -133,6 +134,9 @@ class Promo extends BaseTab {
                 $('body').css('padding-right','0px')
                 $('.modal-backdrop').remove();
                 this.rerender();
+                toastr.success(toasterMessages.success.save);
+            }, function (error) {
+                toastr.error(toasterMessages.error.save);
             });
         } else {
             var models = this.getMergedEditStateModels();
@@ -147,23 +151,14 @@ class Promo extends BaseTab {
                     $('body').css('padding-right','0px')
                     $('.modal-backdrop').remove();
                     this.rerender();
+                    toastr.success(toasterMessages.success.update);
+                }, function (error) {
+                    toastr.error(toasterMessages.error.update);
                 });
             } else {
-                alert('no changes made');
+                toastr.warning(toasterMessages.warning.nothingToSave);
             }
         }
-    }
-
-    removeModel (modelId) {
-        this.deleteModel(this.models[modelId].id)
-        .then((response) => {
-            if (this.edit.hasOwnProperty(modelId)) {
-                delete this.edit[modelId];
-            }
-            $('#' + modelId).remove();
-            delete this.models[modelId];
-            this.rerender();
-        });
     }
 }
 export default Promo
