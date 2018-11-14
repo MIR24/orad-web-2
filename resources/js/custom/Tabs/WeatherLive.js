@@ -47,8 +47,18 @@ class WeatherLive extends BaseTab {
 
             controlButtons = enterRedactingBtn.getTemplate();
         }
-        
-        var template = Object.keys(this.models).map(key => {
+
+        var template = `<div class="col-12 row justify-content-center">
+                <div class="row input-group bootstrap-touchspin mb-2">
+                    <lable class="col">Город</lable>
+                    <lable class="col">Температура утром</lable>
+                    <lable class="col">Температура вечером</lable>
+                    <lable class="col">Иконка</lable>
+                    <lable class="col"></lable>
+                    ${ disabled ? '' : '<lable class="col-1"></lable>' }
+                </div>
+            </div>`;
+        template += Object.keys(this.models).map(key => {
             return this.makeBlock(key, this.models[key].city, this.models[key].morning, this.models[key].evening, this.models[key].status, this.models[key].weather_type_id, disabled);
         })
         .join('')
@@ -61,7 +71,7 @@ class WeatherLive extends BaseTab {
             cityName = new Input(index, 'city', cityName, disabled, 'City'),
             tempMorning = new Input(index, 'morning', tempMorning, disabled, '+0', 'number'),
             tempEvening = new Input(index, 'evening', tempEvening, disabled, '+0', 'number'),
-            status = new Checkbox(index, 'status', status === 'active' ? true : false, disabled, 'Send to...'),
+            status = new Checkbox(index, 'status', status === 'active' ? true : false, disabled, 'Активно'),
             selectWeather = new Select2Custom (index, 'weather_type_id', this.additions.weatherTypes, weather_type_id, !this.edit.state);
 
         cityName.init();

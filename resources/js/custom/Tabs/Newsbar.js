@@ -16,7 +16,7 @@ class Newsbar extends BaseTab {
             return this.makeBlock(key, this.models[key].text, this.models[key].strings);
         })
         .join('');
-        this.template = this.getBaseContainer(template);
+        this.template = this.getBaseContainerFullWidth(template);
     }
 
     makeBlock (index, title, text) {
@@ -49,16 +49,23 @@ class Newsbar extends BaseTab {
             controlButtons = `${enterRedactingBtn.getTemplate()}`;
         }
 
-        return `<div class="col-12 mb-5 p-5 bg-secondary rounded">
-            <div class="text-right">
-                ${controlButtons}
-            </div>
-            <form class="m-form m-form--fit m-form--label-align-right">
-                <div class="form-group m-form__group">
-                    <label>${title}</label>
-                    ${textarea.getTemplate()}
+        return `<div class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
+            <div class="m-portlet__head p-0">
+                <div class="row col align-items-center">
+                    <div class="col-6"></div>
+                    <div class="col-6 m--align-right">
+                        ${controlButtons}
+                    </div>
                 </div>
-            </form>
+            </div>
+            <div class="m-portlet__body">
+                <form class="m-form m-form--fit m-form--label-align-right">
+                    <div class="form-group m-form__group">
+                        <label>${title}</label>
+                        ${textarea.getTemplate()}
+                    </div>
+                </form>
+            </div>
         </div>`
     }
 

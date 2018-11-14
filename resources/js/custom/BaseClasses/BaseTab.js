@@ -180,6 +180,12 @@ class BaseTab {
         </div>`;
     }
 
+    getBaseContainerFullWidth (content) {
+        return `<div  class="row justify-content-center">
+            ${content}
+        </div>`;
+    }
+
     setListeners (type, listenerObj) {
         Listeners.set(this, type, listenerObj);
     }

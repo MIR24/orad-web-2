@@ -25,7 +25,7 @@ class Expedited extends BaseTab {
             this.addListeners(addEmptyBlockButton.getListeners());
             template = template.concat(addEmptyBlockButton.getTemplate());
         }
-        this.template = this.getBaseContainer(template);
+        this.template = this.getBaseContainerFullWidth(template);
     }
 
     makeBlock (index, title, text) {
@@ -67,22 +67,31 @@ class Expedited extends BaseTab {
             controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
         }
 
-        return `<div id="${index}" class="col-12 mb-5 p-5 bg-secondary rounded">
-            <div class="text-right">
-                ${controlButtons}
-            </div>
-            <div class="row">
-                <form class="col-md-10 m-form m-form--fit m-form--label-align-right">
-                    <div class="form-group m-form__group">
-                        <label>Заголовок</label>
-                        ${title.getTemplate()}
-                        <label>Текст</label>
-                        ${textarea.getTemplate()}
+        return `<div id="${index}" class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
+            <div class="m-portlet__head p-0">
+                <div class="row col align-items-center">
+                    <div class="col-6"></div>
+                    <div class="col-6 m--align-right">
+                        ${controlButtons}
                     </div>
-                </form>
-                <form class="col-md-2 pt-4 p-0 m-form m-form--fit m-form--label-align-right">
-                    ${checkboxes.getTemplate()}
-                </form>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <div class="row">
+                    <form class="col-md-10 m-form m-form--fit m-form--label-align-right">
+                        <div class="form-group m-form__group">
+                            <label>Заголовок</label>
+                            ${title.getTemplate()}
+                        </div>
+                        <div class="form-group m-form__group">
+                            <label>Текст</label>
+                            ${textarea.getTemplate()}
+                        </div>
+                    </form>
+                    <form class="col-md-2 pt-4 p-0 m-form m-form--fit m-form--label-align-right">
+                        ${checkboxes.getTemplate()}
+                    </form>
+                </div>
             </div>
         </div>`
     }

@@ -39,8 +39,9 @@ class TimeShift extends BaseTab {
         }
 
         var template = `<div class="row col-12 mb-2">
-            <lable class="col-6">Город</lable>
-            <lable class="col-6">Отступ</lable>
+            <lable class="col">Город</lable>
+            <lable class="col">Отступ</lable>
+            ${ disabled ? '' : '<lable class="col-1"></lable>' }
         </div>`;
         template += Object.keys(this.models).map(key => {
             return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, disabled);

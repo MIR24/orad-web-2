@@ -11,7 +11,7 @@ class Textarea extends BaseComponent {
     }
 
     makeTemplate () {
-        this.template = `<textarea ${this.disabled} class="form-control m-input m-input--air" id="${this.id}" rows="3" placeholder="${this.placeholder}">${this.value}</textarea>`;
+        this.template = `<textarea ${this.disabled} class="form-control m-input m-input--air" id="${this.id}" rows="${this.value.split(/\r\n|\r|\n/).length}" placeholder="${this.placeholder}">${this.value}</textarea>`;
     }
 
     checkDisallowedCharacters (value) {
@@ -57,6 +57,8 @@ class Textarea extends BaseComponent {
         } else {
             event.target.value = this.deleteEmptyLines(val);
         }
+        event.target.style.height = '1px';
+        event.target.style.height = (20 + event.target.scrollHeight) + 'px';
         initClass.modelChange(this.modelId, this.valueName, event.target.value);
     }
 }

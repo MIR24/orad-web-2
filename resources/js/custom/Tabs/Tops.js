@@ -25,7 +25,7 @@ class Tops extends BaseTab {
             this.addListeners(addEmptyBlockButton.getListeners());
             template = template.concat(addEmptyBlockButton.getTemplate());
         }
-        this.template = this.getBaseContainer(template);
+        this.template = this.getBaseContainerFullWidth(template);
     }
 
     makeBlock (index, title, text) {
@@ -64,18 +64,27 @@ class Tops extends BaseTab {
             controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
         }
 
-        return `<div id="${index}" class="col-12 mb-5 p-5 bg-secondary rounded">
-            <div class="text-right">
-                ${controlButtons}
-            </div>
-            <form class="m-form m-form--fit m-form--label-align-right">
-                <div class="form-group m-form__group">
-                    <label>Заголовок</label>
-                    ${title.getTemplate()}
-                    <label>Текст</label>
-                    ${textarea.getTemplate()}
+        return `<div id="${index}" class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
+            <div class="m-portlet__head p-0">
+                <div class="row col align-items-center">
+                    <div class="col-6"></div>
+                    <div class="col-6 m--align-right">
+                        ${controlButtons}
+                    </div>
                 </div>
-            </form>
+            </div>
+            <div class="m-portlet__body">
+                <form class="m-form m-form--fit m-form--label-align-right">
+                    <div class="form-group m-form__group row">
+                        <label>Заголовок</label>
+                        ${title.getTemplate()}
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <label>Текст</label>
+                        ${textarea.getTemplate()}
+                    </div>
+                </form>
+            </div>
         </div>`
     }
     

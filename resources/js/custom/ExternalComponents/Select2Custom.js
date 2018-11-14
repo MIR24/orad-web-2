@@ -43,7 +43,7 @@ class Select2Custom extends BaseExternalComponent {
     }
 
     makeTemplate () {
-        this.template = `<select id="${this.id}" class="form-control js-example-basic-single">
+        this.template = `<select id="${this.id}" class="form-control js-example-basic-single m-select2">
             ${this.makeOptions()}
         </select>`;
     }
