@@ -96,7 +96,7 @@ class CurrencyValues extends BaseTab {
             controlButtons = rmBtn.getTemplate();
         }
 
-        return `<div id="new" class="col-12 row justify-content-center">
+        return `<div id="${index}" class="col-12 row justify-content-center">
             <div class="col-8">
                 <div class="row input-group bootstrap-touchspin mb-3">
                     ${leftValNameInput.getTemplate()}
