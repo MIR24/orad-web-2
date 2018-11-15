@@ -1,7 +1,7 @@
-import BaseModal from "../BaseClasses/BaseModal.js";
+import BaseModalEdit from "../BaseClasses/BaseModalEdit.js";
 import Input from "../Components/Input.js";
 
-class PromoEditModal extends BaseModal {
+class PromoEditModal extends BaseModalEdit {
     constructor (id, model, type) {
         super(id, type + '-promo', model);
     }
