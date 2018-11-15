@@ -11,7 +11,15 @@ class Textarea extends BaseComponent {
     }
 
     makeTemplate () {
-        this.template = `<textarea ${this.disabled} class="form-control m-input m-input--air" id="${this.id}" rows="${this.value.split(/\r\n|\r|\n/).length}" placeholder="${this.placeholder}">${this.value}</textarea>`;
+        this.template = `<textarea
+            ${this.disabled}
+            class="form-control m-input m-input--air"
+            id="${this.id}"
+            rows="${this.value.split(/\r\n|\r|\n/).length}"
+            placeholder="${this.placeholder}"
+            style="font-family: monospace;"
+        >${this.value}
+        </textarea>`;
     }
 
     checkDisallowedCharacters (value) {
