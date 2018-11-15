@@ -138,8 +138,6 @@ class Promo extends BaseTab {
                     'state': false,
                 };
                 this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                $('body').css('padding-right','0px')
-                $('.modal-backdrop').remove();
                 this.rerender();
                 toastr.success(toasterMessages.success.save);
             }, function (error) {
@@ -155,8 +153,6 @@ class Promo extends BaseTab {
                         'state': false,
                     };
                     this.models[modelId] = Object.assign(this.models[modelId], response[0]);
-                    $('body').css('padding-right','0px')
-                    $('.modal-backdrop').remove();
                     this.rerender();
                     toastr.success(toasterMessages.success.update);
                 }, function (error) {
