@@ -99,6 +99,11 @@ const TabsConfig = {
             "subheader": "test subheader",
             "age": 0,
         },
+        "pagination": {
+            "take": 0,
+            "skip": 50,
+            "hasMore": true,
+        },
     },
 }
 export default TabsConfig

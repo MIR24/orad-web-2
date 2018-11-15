@@ -84,5 +84,13 @@ const ButtonsConfig = {
         "text": "Сохранить",
         "cssClass": "btn-success",
     },
+    'pagination-forward': {
+        "text": "Вперед",
+        "cssClass": "btn-outline-info m-btn--wide",
+    },
+    'pagination-back': {
+        "text": "Назад",
+        "cssClass": "btn-outline-info m-btn--wide",
+    },
 }
 export default ButtonsConfig

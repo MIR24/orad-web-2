@@ -186,6 +186,22 @@ class BaseTab {
         </div>`;
     }
 
+    paginationMove (skip, take) {
+        simpleAjaxPromise(apiMethods.get, this.config.api.base)
+        .then((response) => {
+            this.config.pagination.take = take;
+            if (response.data.length != skip) {
+                this.config.pagination.hasMore = false;
+            } else {
+                this.config.pagination.hasMore = true;
+            }
+            this.setData(response.data);
+            this.rerender();
+        }, (error) => {
+            toastr.error(toasterMessages.error.noData);
+        })
+    }
+
     setListeners (type, listenerObj) {
         Listeners.set(this, type, listenerObj);
     }

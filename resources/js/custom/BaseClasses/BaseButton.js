@@ -16,7 +16,7 @@ class BaseButton extends BaseComponent {
     }
 
     makeTemplate () {
-        this.template = `<button id="${this.id}" class="btn ${this.config.cssClass}" ${this.config.additions}>${this.config.text}</button>`;
+        this.template = `<button id="${this.id}" class="btn ${this.config.cssClass}" ${this.config.additions} ${this.disabled}>${this.config.text}</button>`;
     }
 }
 export default BaseButton

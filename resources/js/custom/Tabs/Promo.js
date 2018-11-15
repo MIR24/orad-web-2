@@ -3,6 +3,7 @@ import BaseTab from "../BaseClasses/BaseTab.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import PromoEditModal from "../Modals/PromoEditModal.js"
 import DeleteButton from "../Components/DeleteButton.js";
+import Pagination from "../Groups/Pagination.js"
 
 // TO DO
 const isSomeRoll = true,
@@ -15,7 +16,12 @@ class Promo extends BaseTab {
 
     makeTemplate () {
         var template = '',
-            controlButtons = '';
+            controlButtons = '',
+            pagination = new Pagination(this.constructor.name, this.config.pagination);
+
+        pagination.init();
+
+        this.addListeners(pagination.getListeners());
 
         // TO DO
         if (isSomeRoll) {
@@ -46,7 +52,8 @@ class Promo extends BaseTab {
         </div>
         <div  class="row justify-content">
             ${template}
-        </div>`;
+        </div>
+        ${pagination.getTemplate()}`;
     }
 
     makeBlock (index) {
