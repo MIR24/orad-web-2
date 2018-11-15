@@ -48,7 +48,17 @@ class CurrencyValues extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
 
-        var template = Object.keys(this.models).map(key => {
+
+        var template = `<div class="col-12 row justify-content-center">
+            <div class="col-8 row input-group bootstrap-touchspin mb-2">
+                <lable class="col">Валюта</lable>
+                <lable class="col">Динамика</lable>
+                <lable class="col">Курс</lable>
+                <lable class="col">Валюта</lable>
+                ${ !disabled && isAdmin ? '<lable class="col-2"></lable>' : '' }
+            </div>
+        </div>`;
+        template += Object.keys(this.models).map(key => {
             return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled);
         })
         .join('')
@@ -61,9 +71,22 @@ class CurrencyValues extends BaseTab {
     }
 
     makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
-        var spinnerButton = new SpinnerButton(index, 'dir', disabled, direction),
+        var allowUsage = (!disabled && isAdmin) ? '' : 'disabled',
+            spinnerButton = new SpinnerButton(index, 'dir', disabled, direction),
+            leftValNameInput = new Input(index, 'val1', leftValName, allowUsage, 'Валюта'),
+            rightValNameInput = new Input(index, 'val2', rightValName, allowUsage, 'Валюта'),
             valueInput = new Input(index, 'value', inputValue, disabled, '0.0', 'number'),
             controlButtons = '';
+
+        spinnerButton.init();
+        leftValNameInput.init();
+        rightValNameInput.init();
+        valueInput.init();
+
+        this.addListeners(spinnerButton.getListeners());
+        this.addListeners(leftValNameInput.getListeners());
+        this.addListeners(rightValNameInput.getListeners());
+        this.addListeners(valueInput.getListeners());
 
         // TO DO
         if (!disabled && isAdmin) {
@@ -73,51 +96,8 @@ class CurrencyValues extends BaseTab {
             controlButtons = rmBtn.getTemplate();
         }
 
-        spinnerButton.init();
-        valueInput.init();
-
-        this.addListeners(spinnerButton.getListeners());
-        this.addListeners(valueInput.getListeners());
-
-        return `<div id="${index}" class="col-12 row justify-content-center">
-            <div class="col-6">
-                <div class="row input-group bootstrap-touchspin mb-2">
-                    <span class="input-group-addon">${leftValName}</span>
-                    ${spinnerButton.getTemplate()}
-                    ${valueInput.getTemplate()}
-                    <span class="input-group-addon bootstrap-touchspin-prefix">${rightValName}</span>
-                    ${controlButtons}
-                </div>
-            </div>
-        </div>`
-    }
-
-    makeEmptyBlock () {
-        var spinnerButton = new SpinnerButton('new', 'dir'),
-            leftValNameInput = new Input('new', 'val1', '', false, 'Валюта'),
-            rightValNameInput = new Input('new', 'val2', '', false, 'Валюта'),
-            valueInput = new Input('new', 'value', '', false, '0.0', 'number'),
-            controlButtons = '';
-
-        spinnerButton.init();
-        leftValNameInput.init();
-        rightValNameInput.init();
-        valueInput.init();
-        this.addListeners(spinnerButton.getListeners());
-        this.addListeners(leftValNameInput.getListeners());
-        this.addListeners(rightValNameInput.getListeners());
-        this.addListeners(valueInput.getListeners());
-
-        // TO DO
-        if (isAdmin) {
-            var rmBtn = new DeleteButton('new', 'delete-button-CurrencyValues');
-            rmBtn.init();
-            this.addListeners(rmBtn.getListeners());
-            controlButtons = rmBtn.getTemplate();
-        }
-
         return `<div id="new" class="col-12 row justify-content-center">
-            <div class="col-6">
+            <div class="col-8">
                 <div class="row input-group bootstrap-touchspin mb-3">
                     ${leftValNameInput.getTemplate()}
                     ${spinnerButton.getTemplate()}
@@ -130,7 +110,7 @@ class CurrencyValues extends BaseTab {
     }
 
     getEmptyBlock (event) {
-        return this.makeEmptyBlock();
+        return this.makeBlock('new');
     }
 
     saveModel (modelId) {
