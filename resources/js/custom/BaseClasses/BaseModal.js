@@ -14,6 +14,9 @@ class BaseModal {
         this.modalBodyId = IdManipulation.getPreparedId(this.id, 'body');
     }
 
+    getModalBody () {};
+    getBaseTemplate () {};
+
     makeModalBody () {
         this.modalBody = this.getModalBody();
     }
@@ -21,8 +24,6 @@ class BaseModal {
     makeTemplate () {
         this.template = this.getBaseTemplate();
     }
-
-    getBaseTemplate () {}
     
     getOpenButton () {
         return this.openButton;
