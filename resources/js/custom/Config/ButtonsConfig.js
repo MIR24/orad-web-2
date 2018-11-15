@@ -92,5 +92,13 @@ const ButtonsConfig = {
         "text": "Назад",
         "cssClass": "btn-outline-info m-btn--wide",
     },
+    'confirmation-modal-ok': {
+        "text": "Да",
+        "cssClass": "btn-success m-btn--wide",
+    },
+    'confirmation-modal-no': {
+        "text": "Нет",
+        "cssClass": "btn-danger m-btn--wide",
+    },
 }
 export default ButtonsConfig

@@ -1,9 +1,11 @@
 import Listeners from "../Utils/Listeners.js";
 import AdditionlClassesJQ from "../Utils/AdditionlClassesJQ.js";
+import UtilityBlocks from "../Utils/UtilityBlocks.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import TabsConfig from "../Config/TabsConfig.js";
 import { simpleAjaxPromise } from "../Api/Multi.js";
 import { apiMethods, toasterMessages } from "../Config/Constants.js";
+import ConformationModal from "../Modals/ConformationModal.js"
 
 class BaseTab {
     constructor () {
@@ -16,6 +18,7 @@ class BaseTab {
         };
         this.additionlClassesJQ = {};
         this.additions = {};
+        this.utilityBlocksInfo = {};
     }
 
     getModels () {
@@ -118,22 +121,26 @@ class BaseTab {
     }
 
     removeModel (modelId) {
-        if (this.models.hasOwnProperty(modelId)) {
-            this.deleteModel(this.models[modelId].id)
-            .then((response) => {
-                if (this.edit.hasOwnProperty(modelId)) {
-                    delete this.edit[modelId];
-                }
+        this.utilityBlocksInfo['confirmation-delete-model'].continue = () => {
+            console.log(modelId);
+            if (this.models.hasOwnProperty(modelId)) {
+                this.deleteModel(this.models[modelId].id)
+                .then((response) => {
+                    if (this.edit.hasOwnProperty(modelId)) {
+                        delete this.edit[modelId];
+                    }
+                    $('#' + modelId).remove();
+                    delete this.models[modelId];
+                    this.rerender();
+                    toastr.success(toasterMessages.success.delete);
+                }, function (error) {
+                    toastr.error(toasterMessages.error.delete);
+                });
+            } else {
                 $('#' + modelId).remove();
-                delete this.models[modelId];
-                this.rerender();
-                toastr.success(toasterMessages.success.delete);
-            }, function (error) {
-                toastr.error(toasterMessages.error.delete);
-            });
-        } else {
-            $('#' + modelId).remove();
-        }
+            }
+        };
+        this.utilityBlocksInfo['confirmation-delete-model'].open();
     }
 
     cancelEditing () {
@@ -184,6 +191,20 @@ class BaseTab {
         return `<div  class="row justify-content-center">
             ${content}
         </div>`;
+    }
+
+    mergeUtilityBlocksInfo (object) {
+        UtilityBlocks.merge(this.utilityBlocksInfo, object);
+    }
+
+    makeUtilityBlocks () {
+        var conformationModal = new ConformationModal(this.constructor.name, 'delete-model');
+
+        conformationModal.init();
+        this.mergeUtilityBlocksInfo(conformationModal.getUtilityBlockInfo());
+        this.addListeners(conformationModal.getListeners());
+
+        this.template = this.template.concat(conformationModal.getTemplate());
     }
 
     paginationMove (skip, take) {
@@ -314,6 +335,7 @@ class BaseTab {
             .then((response) => {
                 this.setData(response.data);
                 this.makeTemplate();
+                this.makeUtilityBlocks();
                 this.renderTemplate();
                 this.initListeners();
                 this.initAdditionlClassesJQ();
@@ -327,15 +349,19 @@ class BaseTab {
     }
 
     rerender () {
-        $('body').addClass('m-page--loading');
+        var bodySelect = $('body');
+        bodySelect.addClass('m-page--loading')
+            .css('padding-right','0px')
+        $('.modal-backdrop').remove();
         new Promise((resolve) => {
             this.makeTemplate();
+            this.makeUtilityBlocks();
             this.renderTemplate();
             this.initListeners();
             this.initAdditionlClassesJQ();
             resolve();
         }).then(function () {
-            $('body').removeClass('m-page--loading');
+            bodySelect.removeClass('m-page--loading');
         });
     }
 }
