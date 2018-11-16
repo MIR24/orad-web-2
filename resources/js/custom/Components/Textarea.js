@@ -15,7 +15,7 @@ class Textarea extends BaseComponent {
             ${this.disabled}
             class="form-control m-input m-input--air"
             id="${this.id}"
-            rows="${this.value.split(/\r\n|\r|\n/).length}"
+            rows="${this.value.split(/\r\n|\r|\n/).length + 1}"
             placeholder="${this.placeholder}"
             style="font-family: monospace;"
         >${this.value}
