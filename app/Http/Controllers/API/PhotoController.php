@@ -30,8 +30,7 @@ class PhotoController extends BaseController
     {
         return new CommonCollectionResource(
             $this->repository->search(
-                $request->input('data'),
-                config('search.photo.columns')
+                $request->query()
             )
         );
     }

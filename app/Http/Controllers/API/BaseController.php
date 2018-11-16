@@ -57,7 +57,7 @@ abstract class BaseController extends Controller
      */
     public function show($id)
     {
-        return new CommonResource($this->repository->with('category')->findOrFail($id));
+        return new CommonResource($this->repository->findOrFail($id));
     }
 
     /**
