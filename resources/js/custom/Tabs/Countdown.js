@@ -14,12 +14,13 @@ class Countdown extends BaseTab {
 
     makeTemplate () {
         var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '';
+            controlButtons = '',
+            tableBodyId = 'table-body-' + this.constructor.name;;
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
                 cancelEditBtn = new CancelEditingButton('all'),
-                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
 
             saveBtn.init();
             cancelEditBtn.init();
@@ -39,23 +40,25 @@ class Countdown extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
 
-        var template = `<div class="col-12 row justify-content-center">
-                <div class="row input-group bootstrap-touchspin mb-2">
-                    <lable class="col">Название</lable>
-                    <lable class="col">Дата</lable>
-                    <lable class="col">Время</lable>
-                    ${ disabled ? '' : '<lable class="col-1"></lable>' }
-                </div>
-            </div>`;
-        template += Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].title, this.models[key].happen_at, disabled);
-        })
-        .join('')
-        .concat(controlButtons);
-        this.template = this.getBaseContainer(template);
+        var template = `<table class="table m-table m-table--head-no-border text-center">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Дата и время</th>
+                    ${ !disabled ? '<th></th>' : '' }
+                </tr>
+            </thead>
+               <tbody id="${tableBodyId}">`;
+       template += Object.keys(this.models).map(key => {
+           return this.makeBlock(key, this.models[key].title, this.models[key].happen_at, disabled, this.models[key].error);
+       })
+       .join('')
+       .concat('</tbody></table>')
+       .concat(controlButtons);
+       this.template = this.getBaseContainer(template);
     }
 
-    makeBlock (index, eventName, eventDateTime, disabled) {
+    makeBlock (index, eventName, eventDateTime, disabled, error) {
         var controlButtons = '',
             eventName = new Input(index, 'title', eventName, disabled, 'Название события'),
             dateTime = new DateTime(index, 'happen_at', eventDateTime, disabled);
@@ -71,16 +74,27 @@ class Countdown extends BaseTab {
             var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
-            controlButtons = rmBtn.getTemplate();
+            controlButtons = `<td>${rmBtn.getTemplate()}</td>`;
         }
 
-        return `<div id="${index}" class="col-12 row justify-content-center">
-            <div class="row input-group bootstrap-touchspin mb-2">
-                ${eventName.getTemplate()}
-                ${dateTime.getTemplate()}
-                ${controlButtons}
-            </div>
-        </div>`;
+        return `<tr id="${index}">
+            <td>${this.getRow(eventName.getTemplate(), error ? error.title : false)}</td>
+            <td>${this.getRow(dateTime.getTemplate(), error ? error.happen_at : false)}</td>
+            ${controlButtons}
+        </tr>`;
+    }
+
+    getRow (elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group has-danger mb-0">
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="input-group">
+                ${elementTemplate}
+            </div>`;
+        }
     }
 
     getEmptyBlock () {
