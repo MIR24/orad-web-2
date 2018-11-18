@@ -18,7 +18,8 @@ class WeatherLive extends BaseTab {
 
     makeTemplate () {
         var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '';
+            controlButtons = '',
+            tableBodyId = 'table-body-' + this.constructor.name;
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
@@ -32,7 +33,7 @@ class WeatherLive extends BaseTab {
 
             // TO DO
             if (isAdmin) {
-                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
                 addEmptyBlockButton.init();
                 this.addListeners(addEmptyBlockButton.getListeners());
                 controlButtons = addEmptyBlockButton.getTemplate();
@@ -48,25 +49,28 @@ class WeatherLive extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
 
-        var template = `<div class="col-12 row justify-content-center">
-                <div class="row input-group bootstrap-touchspin mb-2">
-                    <lable class="col">Город</lable>
-                    <lable class="col">Температура утром</lable>
-                    <lable class="col">Температура вечером</lable>
-                    <lable class="col">Иконка</lable>
-                    <lable class="col"></lable>
-                    ${ disabled ? '' : '<lable class="col-1"></lable>' }
-                </div>
-            </div>`;
+        var template = `<table class="table m-table m-table--head-no-border text-center">
+            <thead>
+                <tr>
+                    <th>Город</th>
+                    <th>Температура утром</th>
+                    <th>Температура вечером</th>
+                    <th>Иконка</th>
+                    <th></th>
+                    ${ !disabled ? '<th></th>' : '' }
+                </tr>
+            </thead>
+               <tbody id="${tableBodyId}">`;
         template += Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].city, this.models[key].morning, this.models[key].evening, this.models[key].status, this.models[key].weather_type_id, disabled);
+           return this.makeBlock(key, this.models[key].city, this.models[key].morning, this.models[key].evening, this.models[key].status, this.models[key].weather_type_id, disabled, this.models[key].error);
         })
         .join('')
+        .concat('</tbody></table>')
         .concat(controlButtons);
-        this.template = this.getBaseContainer(template);
+        this.template = this.getBaseContainerFullWidth(template);
     }
 
-    makeBlock (index, cityName, tempMorning, tempEvening, status, weather_type_id, disabled) {
+    makeBlock (index, cityName, tempMorning, tempEvening, status, weather_type_id, disabled, error) {
         var controlButtons = '',
             cityName = new Input(index, 'city', cityName, disabled, 'City'),
             tempMorning = new Input(index, 'morning', tempMorning, disabled, '+0', 'number'),
@@ -91,21 +95,36 @@ class WeatherLive extends BaseTab {
             var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
-            controlButtons = rmBtn.getTemplate();
+            controlButtons = `<td>${rmBtn.getTemplate()}</td>`;
         }
 
-        return `<div id="${index}" class="col-12 row justify-content-center">
-            <div class="row input-group bootstrap-touchspin mb-2">
-                ${cityName.getTemplate()}
-                ${tempMorning.getTemplate()}
-                ${tempEvening.getTemplate()}
-                ${selectWeather.getTemplate()}
+        return `<tr id="${index}">
+            <td>${this.getRow(cityName.getTemplate(), error ? error.city : false)}</td>
+            <td>${this.getRow(tempMorning.getTemplate(), error ? error.morning : false)}</td>
+            <td>${this.getRow(tempEvening.getTemplate(), error ? error.evening : false)}</td>
+            <td>
+                    ${selectWeather.getTemplate()}
+            </td>
+            <td>
                 <div class="form-control">
                     ${status.getTemplate()}
                 </div>
-                ${controlButtons}
-            </div>
-        </div>`;
+            </td>
+            ${controlButtons}
+        </tr>`;
+    }
+
+    getRow (elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group row has-danger mb-0">
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group row">
+                ${elementTemplate}
+            </div>`;
+        }
     }
 
     getEmptyBlock () {
