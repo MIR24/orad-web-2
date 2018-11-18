@@ -13,13 +13,13 @@ class Newsbar extends BaseTab {
 
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].text, this.models[key].strings);
+            return this.makeBlock(key, this.models[key].text, this.models[key].strings, this.models[key].error);
         })
         .join('');
         this.template = this.getBaseContainerFullWidth(template);
     }
 
-    makeBlock (index, title, text) {
+    makeBlock (index, title, text, error) {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
             controlButtons = '';
@@ -59,12 +59,18 @@ class Newsbar extends BaseTab {
                 </div>
             </div>
             <div class="m-portlet__body">
-                <form class="m-form m-form--fit m-form--label-align-right">
+                ${ error && error.strings ? `<form class="m-form m-form--fit m-form--label-align-right  has-danger">
+                    <div class="form-group m-form__group">
+                        <label>${title}</label>
+                        ${textarea.getTemplate()}
+                        <label>${error.strings}</label>
+                    </div>
+                </form>` : `<form class="m-form m-form--fit m-form--label-align-right">
                     <div class="form-group m-form__group">
                         <label>${title}</label>
                         ${textarea.getTemplate()}
                     </div>
-                </form>
+                </form>` }
             </div>
         </div>`
     }
