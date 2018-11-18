@@ -13,12 +13,13 @@ class TimeShift extends BaseTab {
 
     makeTemplate () {
         var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '';
+            controlButtons = '',
+            tableBodyId = 'table-body-' + this.constructor.name;
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
                 cancelEditBtn = new CancelEditingButton('all'),
-                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
 
             saveBtn.init();
             cancelEditBtn.init();
@@ -38,20 +39,25 @@ class TimeShift extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
 
-        var template = `<div class="row col-12 mb-2">
-            <lable class="col">Город</lable>
-            <lable class="col">Отступ</lable>
-            ${ disabled ? '' : '<lable class="col-1"></lable>' }
-        </div>`;
+        var template = `<table class="table m-table m-table--head-no-border text-center">
+            <thead>
+                <tr>
+                    <th>Город</th>
+                    <th>Отступ</th>
+                    ${ !disabled ? '<th></th>' : '' }
+                </tr>
+            </thead>
+               <tbody id="${tableBodyId}">`;
         template += Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, disabled);
+           return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, disabled, this.models[key].error);
         })
         .join('')
+        .concat('</tbody></table>')
         .concat(controlButtons);
         this.template = this.getBaseContainer(template);
     }
 
-    makeBlock (index, cityName, timeshift, disabled) {
+    makeBlock (index, cityName, timeshift, disabled, error) {
         var controlButtons = '',
             cityName = new Input(index, 'city', cityName, disabled, 'City'),
             timeshift = new Input(index, 'timeshift', timeshift, disabled, '0', 'number');
@@ -66,16 +72,27 @@ class TimeShift extends BaseTab {
             var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
-            controlButtons = rmBtn.getTemplate();
+            controlButtons = `<td>${rmBtn.getTemplate()}</td>`;
         }
 
-        return `<div id="${index}" class="col-12 row justify-content-center">
-            <div class="row input-group bootstrap-touchspin mb-2">
-                ${cityName.getTemplate()}
-                ${timeshift.getTemplate()}
-                ${controlButtons}
-            </div>
-        </div>`;
+        return `<tr id="${index}">
+            <td>${this.getRow(cityName.getTemplate(), error ? error.city : false)}</td>
+            <td>${this.getRow(timeshift.getTemplate(), error ? error.timeshift : false)}</td>
+            ${controlButtons}
+        </tr>`;
+    }
+
+    getRow (elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group row has-danger mb-0">
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group row">
+                ${elementTemplate}
+            </div>`;
+        }
     }
 
     getEmptyBlock () {
