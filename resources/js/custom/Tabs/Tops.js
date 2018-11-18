@@ -15,7 +15,7 @@ class Tops extends BaseTab {
 
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].text, this.models[key].strings);
+            return this.makeBlock(key, this.models[key].text, this.models[key].strings, this.models[key].error);
         })
         .join('');
 
@@ -28,7 +28,7 @@ class Tops extends BaseTab {
         this.template = this.getBaseContainerFullWidth(template);
     }
 
-    makeBlock (index, title, text) {
+    makeBlock (index, title, text, error) {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             title = new Input(index, 'text', title, disabled, 'Заголовок'),
             textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
@@ -75,25 +75,34 @@ class Tops extends BaseTab {
             </div>
             <div class="m-portlet__body">
                 <form class="m-form m-form--fit m-form--label-align-right">
-                    <div class="form-group m-form__group row">
-                        <label>Заголовок</label>
-                        ${title.getTemplate()}
-                    </div>
-                    <div class="form-group m-form__group row">
-                        <label>Текст</label>
-                        ${textarea.getTemplate()}
-                    </div>
+                    ${this.getRow('Заголовок', title.getTemplate(), error ? error.text : false)}
+                    ${this.getRow('Текст', textarea.getTemplate(), error ? error.strings : false)}
                 </form>
             </div>
         </div>`
     }
-    
+
+    getRow (label, elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group row has-danger">
+                <label>${label}</label>
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group row">
+                <label>${label}</label>
+                ${elementTemplate}
+            </div>`;
+        }
+    }
+
     getEmptyBlock () {
         this.eidting = {
             'modelId': 'new',
             'state': true,
         }
-        return this.makeBlock('new', '', '');
+        return this.makeBlock('new');
     }
 
     modelChange (modelId, valueName, newValue) {
