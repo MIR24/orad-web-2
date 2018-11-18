@@ -13,8 +13,8 @@ window.addEventListener('DOMContentLoaded', () => {
     currentTab = new Tops();
     currentTab.init();console.log(1, currentTab);
 
-    var TabSwitchs = document.querySelectorAll('a[id^=TabSwitch]');
-    Array.from(TabSwitchs).forEach(tab => {
+    var TabSwitches = document.querySelectorAll('a[id^=TabSwitch]');
+    Array.from(TabSwitches).forEach(tab => {
         tab.addEventListener('click', function(event) {
             var formatters = {
                   'Tops': Tops,
