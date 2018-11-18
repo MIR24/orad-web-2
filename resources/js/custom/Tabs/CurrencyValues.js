@@ -18,7 +18,8 @@ class CurrencyValues extends BaseTab {
 
     makeTemplate () {
         var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '';
+            controlButtons = '',
+            tableBodyId = 'table-body-' + this.constructor.name;
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
@@ -32,7 +33,7 @@ class CurrencyValues extends BaseTab {
 
             // TO DO
             if (isAdmin) {
-                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
                 addEmptyBlockButton.init();
                 this.addListeners(addEmptyBlockButton.getListeners());
                 controlButtons = addEmptyBlockButton.getTemplate();
@@ -49,20 +50,23 @@ class CurrencyValues extends BaseTab {
         }
 
 
-        var template = `<div class="col-12 row justify-content-center">
-            <div class="col-8 row input-group bootstrap-touchspin mb-2">
-                <lable class="col">Валюта</lable>
-                <lable class="col">Динамика</lable>
-                <lable class="col">Курс</lable>
-                <lable class="col">Валюта</lable>
-                ${ !disabled && isAdmin ? '<lable class="col-2"></lable>' : '' }
-            </div>
-        </div>`;
-        template += Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled);
-        })
-        .join('')
-        .concat(controlButtons);
+        var template = `<table class="table m-table m-table--head-no-border text-center">
+            <thead>
+                <tr>
+                    <th>Валюта</th>
+                    <th>Динамика</th>
+                    <th>Курс</th>
+                    <th>Валюта</th>
+                    ${ !disabled && isAdmin ? '<th></th>' : '' }
+                </tr>
+            </thead>
+            <tbody id="${tableBodyId}">`;
+       template += Object.keys(this.models).map(key => {
+           return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled, this.models[key].error);
+       })
+       .join('')
+       .concat('</tbody></table>')
+       .concat(controlButtons);
         this.template = this.getBaseContainer(template);
     }
 
@@ -70,7 +74,7 @@ class CurrencyValues extends BaseTab {
         this.updateEditState(modelId, valueName, newValue);
     }
 
-    makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
+    makeBlock (index, leftValName, rightValName, inputValue, direction, disabled, error) {
         var allowUsage = (!disabled && isAdmin) ? '' : 'disabled',
             spinnerButton = new SpinnerButton(index, 'dir', disabled, direction),
             leftValNameInput = new Input(index, 'val1', leftValName, allowUsage, 'Валюта'),
@@ -93,20 +97,29 @@ class CurrencyValues extends BaseTab {
             var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
-            controlButtons = rmBtn.getTemplate();
+            controlButtons = `<td>${rmBtn.getTemplate()}</td>`;
         }
 
-        return `<div id="${index}" class="col-12 row justify-content-center">
-            <div class="col-8">
-                <div class="row input-group bootstrap-touchspin mb-3">
-                    ${leftValNameInput.getTemplate()}
-                    ${spinnerButton.getTemplate()}
-                    ${valueInput.getTemplate()}
-                    ${rightValNameInput.getTemplate()}
-                    ${controlButtons}
-                </div>
-            </div>
-        </div>`
+        return `<tr id="${index}">
+            <td>${this.getRow(leftValNameInput.getTemplate(), error ? error.val1 : false)}</td>
+            <td>${this.getRow(spinnerButton.getTemplate(), error ? error.dir : false)}</td>
+            <td>${this.getRow(valueInput.getTemplate(), error ? error.value : false)}</td>
+            <td>${this.getRow(rightValNameInput.getTemplate(), error ? error.val2 : false)}</td>
+            ${controlButtons}
+        </tr>`;
+    }
+
+    getRow (elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group row has-danger mb-0">
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group row">
+                ${elementTemplate}
+            </div>`;
+        }
     }
 
     getEmptyBlock (event) {
