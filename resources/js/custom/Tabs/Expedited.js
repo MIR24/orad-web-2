@@ -15,7 +15,7 @@ class Expedited extends BaseTab {
 
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].text, this.models[key].strings);
+            return this.makeBlock(key, this.models[key].text, this.models[key].strings, this.models[key].error);
         })
         .join('');
 
@@ -28,7 +28,7 @@ class Expedited extends BaseTab {
         this.template = this.getBaseContainerFullWidth(template);
     }
 
-    makeBlock (index, title, text) {
+    makeBlock (index, title, text, error) {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             title = new Input(index, 'text', title, disabled, 'Заголовок'),
             textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
@@ -79,14 +79,8 @@ class Expedited extends BaseTab {
             <div class="m-portlet__body">
                 <div class="row">
                     <form class="col-md-10 m-form m-form--fit m-form--label-align-right">
-                        <div class="form-group m-form__group">
-                            <label>Заголовок</label>
-                            ${title.getTemplate()}
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label>Текст</label>
-                            ${textarea.getTemplate()}
-                        </div>
+                    ${this.getRow('Заголовок', title.getTemplate(), error ? error.text : false)}
+                    ${this.getRow('Текст', textarea.getTemplate(), error ? error.strings : false)}
                     </form>
                     <form class="col-md-2 pt-4 p-0 m-form m-form--fit m-form--label-align-right">
                         ${checkboxes.getTemplate()}
@@ -94,6 +88,21 @@ class Expedited extends BaseTab {
                 </div>
             </div>
         </div>`
+    }
+
+    getRow (label, elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group has-danger">
+                <label>${label}</label>
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group">
+                <label>${label}</label>
+                ${elementTemplate}
+            </div>`;
+        }
     }
 
     getEmptyBlock () {
