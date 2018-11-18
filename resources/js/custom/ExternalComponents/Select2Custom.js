@@ -11,7 +11,8 @@ class Select2Custom extends BaseExternalComponent {
                 'minimumResultsForSearch': -1,
                 'templateResult': this.formatData,
                 'templateSelection': this.formatData,
-                'disabled': disabled
+                'disabled': disabled,
+                'width': '100%',
             },
         });
         this.selectOptions = selectOptions;
@@ -24,7 +25,7 @@ class Select2Custom extends BaseExternalComponent {
         }
         return $(
             `<span>
-                <img width="15px" src="${$(data.element).attr('data-image')}"/>
+                <img width="20px" src="${$(data.element).attr('data-image')}"/>
                 ${data.text}
             </span>`
         );
@@ -43,7 +44,7 @@ class Select2Custom extends BaseExternalComponent {
     }
 
     makeTemplate () {
-        this.template = `<select id="${this.id}" class="form-control js-example-basic-single m-select2">
+        this.template = `<select id="${this.id}" class="col-xl form-control js-example-basic-single m-select2">
             ${this.makeOptions()}
         </select>`;
     }

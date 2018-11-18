@@ -18,8 +18,7 @@ class Textarea extends BaseComponent {
             rows="${this.value.split(/\r\n|\r|\n/).length + 1}"
             placeholder="${this.placeholder}"
             style="font-family: monospace;"
-        >${this.value}
-        </textarea>`;
+        >${this.value}</textarea>`;
     }
 
     checkDisallowedCharacters (value) {
