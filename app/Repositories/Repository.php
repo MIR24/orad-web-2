@@ -20,6 +20,11 @@ abstract class Repository implements RepositoryInterface
     protected $model;
 
     /**
+     * Builder property on class instances.
+     */
+    protected $builder;
+
+    /**
      * Constructor to bind model to repository.
      *
      * @param App $app
@@ -29,6 +34,7 @@ abstract class Repository implements RepositoryInterface
     {
         $this->app = $app;
         $this->makeModel();
+        $this->makeBuilder();
     }
 
     /**
@@ -54,6 +60,19 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
+     * @return Builder
+     * @throws RepositoryException
+     */
+    protected function makeBuilder()
+    {
+        if (!$this->model instanceof Model) {
+            throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+        }
+
+        return $this->builder = $this->model->query()->take(config('database.query.limit'));
+    }
+
+    /**
      * Get all of the models from the database.
      *
      * @param  array|mixed  $columns
@@ -61,7 +80,20 @@ abstract class Repository implements RepositoryInterface
      */
     public function all($columns = ['*'])
     {
-        return $this->model->all($columns);
+        return $this->builder->get($columns);
+    }
+
+    /**
+     * Get multiple models from the database.
+     *
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function get($query, $columns = ['*'])
+    {
+        $this->checkURLQuery($query);
+
+        return $this->builder->get($columns);
     }
 
     /**
@@ -134,21 +166,26 @@ abstract class Repository implements RepositoryInterface
     /**
      * Search for the models from the database.
      *
-     * @param  array  $columns
+     * @param  array  $query
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function search($query, $columns = [])
     {
-        $builder = $this->model->query();
+        $searchKey = config('url.keys.search');
+        $this->checkURLQuery($query);
 
-        if (!empty($query[config('search.query.name')])) {
+        if (empty($columns) && $this->model instanceof \App\Contracts\Searchable) {
+            $columns = $this->model->getSearchableColumns();
+        }
+
+        if (!empty($query[$searchKey])) {
             foreach ($columns as $column) {
-                $builder->orWhere($column, 'like', '%'.$query[config('search.query.name')].'%');
+                $this->builder->orWhere($column, 'like', '%'.$query[$searchKey].'%');
             }
         }
 
-        return $builder->get();
+        return $this->builder->get();
     }
 
     /**
@@ -161,27 +198,54 @@ abstract class Repository implements RepositoryInterface
      */
     public function searchWithRelations($query, $columns = [], $relations = [])
     {
-        $builder = $this->model->query();
+        $searchKey = config('url.keys.search');
+        $this->builder->with($relations);
+        $this->checkURLQuery($query);
 
-        $builder->with($relations);
+        if (empty($columns) && $this->model instanceof \App\Contracts\Searchable) {
+            $columns = $this->model->getSearchableColumns();
+        }
 
-        if (!empty($query[config('search.query.name')])) {
+        if (!empty($query[$searchKey])) {
             foreach ($columns as $column) {
-                $builder->orWhere($column, 'like', '%'.$query[config('search.query.name')].'%');
+                $this->builder->orWhere($column, 'like', '%'.$query[$searchKey].'%');
             }
         }
 
-        return $builder->get();
+        return $this->builder->get();
     }
 
     /**
      * Set the relationships that should be eager loaded.
      *
-     * @param  mixed  $relations
-     * @return Illuminate\\Database\\Eloquent\\Builder
+     * @param  mixed $relations
+     * @return App\Repositories\Repository
      */
     public function with($relations)
     {
-        return $this->model->with($relations);
+        $this->builder->with($relations);
+
+        return $this;
+    }
+
+    /**
+     * Set the relationships that should be eager loaded.
+     *
+     * @param  array $query
+     * @return App\Repositories\Repository
+     */
+    public function checkURLQuery($query)
+    {
+        $limitKey = config('url.keys.limit');
+        if (!empty($query[$limitKey])) {
+            $this->builder->take($query[$limitKey]+1);
+        }
+
+        $offsetKey = config('url.keys.offset');
+        if (!empty($query[$offsetKey])) {
+            $this->builder->skip($query[$offsetKey]);
+        }
+
+        return $this;
     }
 }

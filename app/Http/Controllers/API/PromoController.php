@@ -30,8 +30,7 @@ class PromoController extends BaseController
     {
         return new CommonCollectionResource(
             $this->repository->search(
-                $request->input('data'),
-                config('search.promo.columns')
+                $request->query()
             )
         );
     }

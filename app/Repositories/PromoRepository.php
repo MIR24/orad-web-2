@@ -33,7 +33,7 @@ class PromoRepository extends Repository
     /**
      * Search for the models from the database.
      *
-     * @param  array  $columns
+     * @param  array  $query
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */

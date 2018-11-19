@@ -4,12 +4,12 @@ namespace App\Contracts;
 
 use Illuminate\Http\Request;
 
-interface CategoryWithStrings
+interface Searchable
 {
     /**
      * Get the strings for the category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return array
      */
-    public function strings();
+    public function getSearchableColumns();
 }

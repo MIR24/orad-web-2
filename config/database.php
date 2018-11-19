@@ -124,4 +124,17 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Database Queues Options
+    |--------------------------------------------------------------------------
+    |
+    | This option controls the default limit for database select statements.
+    |
+    */
+
+    'query' => [
+        'limit' => env('DTABASE_QUERY_ROWS_LIMIT', 101),
+    ],
+
 ];

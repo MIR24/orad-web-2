@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Container\Container as App;
 use App\Exceptions\RepositoryException;
 use App\Repositories\Repository;
+use Carbon\Carbon;
 
 abstract class RepositoryWithStrings extends Repository
 {
@@ -17,7 +18,7 @@ abstract class RepositoryWithStrings extends Repository
      */
     public function all($columns = ['*'])
     {
-        return $this->model->allWithStrings($columns);
+        return load_strings(parent::all($columns));
     }
 
     /**
@@ -28,7 +29,17 @@ abstract class RepositoryWithStrings extends Repository
      */
     public function create(array $attributes = [])
     {
-        return $this->model->createWithStrings($attributes);
+        $model = $this->model->create($attributes);
+        $strings = explode(config('strings.eol_symbol'), $attributes['strings']);
+        $convertedStrings = [];
+
+        foreach ($strings as $string) {
+            $convertedStrings[] = ['text' => $string];
+        }
+
+        $newStrings = $model->strings()->createMany($convertedStrings);
+
+        return $this->findOrFail($model->id);
     }
 
     /**
@@ -42,20 +53,28 @@ abstract class RepositoryWithStrings extends Repository
     {
         $model = $this->model->findOrFail($id);
 
-        $model->updateWithStrings($attributes, $id);
+        $strings = explode(config('strings.eol_symbol'), $attributes['strings']);
 
-        return $this->findOrFail($id);
-    }
+        foreach ($model->strings as $key => $oldString) {
+            if (!empty($strings[$key])) {
+                $oldString->text = $strings[$key];
+                unset($strings[$key]);
+            } else {
+                $oldString->deleted_at = Carbon::now();
+            }
+        }
+        $convertedStrings = [];
 
-    /**
-     * Destroy the models for the given IDs.
-     *
-     * @param  array|int  $ids
-     * @return int
-     */
-    public function delete($ids)
-    {
-        return $this->model->deleteWithStrings($ids);
+        foreach ($strings as $string) {
+            $convertedStrings[] = ['text' => $string];
+        }
+
+        $model->fill($attributes);
+        $model->push();
+
+        $model->strings()->createMany($convertedStrings);
+
+        return $this->findOrFail($model->id);
     }
 
     /**
@@ -69,7 +88,7 @@ abstract class RepositoryWithStrings extends Repository
      */
     public function findOrFail($id, $columns = ['*'])
     {
-        return $this->model->findWithStrings($id, $columns);
+        return load_strings(parent::findOrFail($id, $columns));
     }
 
     /**
@@ -84,60 +103,6 @@ abstract class RepositoryWithStrings extends Repository
      */
     public function findOrFailWithRelations($id, $columns = ['*'], $relations = [])
     {
-        return $this->model->with($relations)->findWithStrings($id, $columns);
-    }
-
-    /**
-     * Search for the models from the database.
-     *
-     * @param  array  $columns
-     * @param  array  $columns
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function search($query, $columns = [])
-    {
-        $builder = $this->model->query();
-
-        if (!empty($query[config('search.query.name')])) {
-            foreach ($columns as $column) {
-                $builder->orWhere($column, 'like', '%'.$query[config('search.query.name')].'%');
-            }
-        }
-
-        return $builder->get();
-    }
-
-    /**
-     * Search for the models from the database with relations.
-     *
-     * @param  array  $query
-     * @param  array  $columns
-     * @param  array|string  $relations
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function searchWithRelations($query, $columns = [], $relations = [])
-    {
-        $builder = $this->model->query();
-
-        $builder->with($relations);
-
-        if (!empty($query[config('search.query.name')])) {
-            foreach ($columns as $column) {
-                $builder->orWhere($column, 'like', '%'.$query[config('search.query.name')].'%');
-            }
-        }
-
-        return $builder->get();
-    }
-
-    /**
-     * Set the relationships that should be eager loaded.
-     *
-     * @param  mixed  $relations
-     * @return Illuminate\\Database\\Eloquent\\Builder
-     */
-    public function with($relations)
-    {
-        return $this->model->with($relations);
+        return load_strings(parent::findOrFailWithRelations($id, $columns, $relations));
     }
 }
