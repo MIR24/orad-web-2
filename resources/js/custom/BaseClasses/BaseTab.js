@@ -211,10 +211,13 @@ class BaseTab {
         this.template = this.template.concat(conformationModal.getTemplate());
     }
 
-    paginationMove (offset, limit) {console.log(offset, limit);
-        simpleAjaxPromise(apiMethods.get, this.config.api.base, { 'offset': offset, 'limit': limit })
+    paginationMove (offset, limit) {
+        simpleAjaxPromise(apiMethods.get, this.config.api.base, {
+            'offset': offset,
+            'limit': limit,
+        })
         .then((response) => {
-            this.config.pagination.params.offset = offset;console.log(response.data.length, limit, offset);
+            this.config.pagination.params.offset = offset;
             if (response.data.length != limit) {
                 this.config.pagination.hasMore = false;
             } else {
@@ -224,7 +227,27 @@ class BaseTab {
             this.rerender();
         }, (error) => {
             toastr.error(toasterMessages.error.noData);
+        });
+    }
+
+    searchModels (query) {
+        simpleAjaxPromise(apiMethods.get, this.config.api.base, {
+            'offset': this.config.pagination.params.offset,
+            'limit': this.config.pagination.params.limit,
+            'q': query,
         })
+        .then((response) => {
+            this.config.pagination.params.offset = 0;
+            if (response.data.length != this.config.pagination.params.limit) {
+                this.config.pagination.hasMore = false;
+            } else {
+                this.config.pagination.hasMore = true;
+            }
+            this.setData(response.data);
+            this.rerender();
+        }, (error) => {
+            toastr.error(toasterMessages.error.noData);
+        });
     }
 
     setListeners (type, listenerObj) {

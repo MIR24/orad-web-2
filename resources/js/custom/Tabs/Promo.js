@@ -3,7 +3,8 @@ import BaseTab from "../BaseClasses/BaseTab.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import PromoEditModal from "../Modals/PromoEditModal.js"
 import DeleteButton from "../Components/DeleteButton.js";
-import Pagination from "../Groups/Pagination.js"
+import Pagination from "../Groups/Pagination.js";
+import SearchInline from "../Groups/SearchInline.js";
 
 // TO DO
 const isSomeRoll = true,
@@ -17,11 +18,14 @@ class Promo extends BaseTab {
     makeTemplate () {
         var template = '',
             controlButtons = '',
-            pagination = new Pagination(this.constructor.name, this.config.pagination);
+            pagination = new Pagination(this.constructor.name, this.config.pagination),
+            searchInline = new SearchInline(this.constructor.name);
 
         pagination.init();
+        searchInline.init();
 
         this.addListeners(pagination.getListeners());
+        this.addListeners(searchInline.getListeners());
 
         // TO DO
         if (isSomeRoll) {
@@ -39,12 +43,7 @@ class Promo extends BaseTab {
 
         this.template = `<div class="row pb-5">
             <div class="input-group col-4">
-				<input type="text" class="form-control" placeholder="Поиск...">
-				<div class="input-group-append">
-					<button class="btn btn-primary" type="button">
-                        <i class="la la-search"></i>
-                    </button>
-				</div>
+				${searchInline.getTemplate()}
 			</div>
             <div class="coll">
                 ${controlButtons}

@@ -100,5 +100,9 @@ const ButtonsConfig = {
         "text": "Нет",
         "cssClass": "btn-danger m-btn--wide",
     },
+    'search-inline': {
+        "text": '<i class="la la-search"></i>',
+        "cssClass": "btn-primary",
+    },
 }
 export default ButtonsConfig
