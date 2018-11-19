@@ -1,6 +1,14 @@
 import { csrf } from "../Config/Constants.js";
+import { apiMethods } from "../Config/Constants.js";
 
 export function simpleAjaxPromise (method, url, data) {
+    var dataTemp = null;
+    if (method === apiMethods.get) {
+        dataTemp = data ? data : null;
+    } else  {
+        dataTemp = data ? { data } : null;
+    }
+
     $('body').addClass('m-page--loading');
     return new Promise ((resolve, reject) => {
         $.ajax({
@@ -9,7 +17,7 @@ export function simpleAjaxPromise (method, url, data) {
             },
             url: url,
             method: method,
-            data: data ? { data } : null,
+            data: dataTemp,
             success: data => {
                 resolve(data);
             },

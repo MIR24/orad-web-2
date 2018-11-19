@@ -100,8 +100,10 @@ const TabsConfig = {
             "age": 0,
         },
         "pagination": {
-            "take": 0,
-            "skip": 50,
+            "params": {
+                "offset": 0,
+                "limit": 51,
+            },
             "hasMore": true,
         },
     },

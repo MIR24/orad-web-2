@@ -4,10 +4,10 @@ import SimpleButton from "../Components/SimpleButton.js";
 class Pagination extends BaseComponentGroup {
     constructor (id, paginationObj) {
         super(id, 'pagination', paginationObj);
-        this.pageNumber = this.value.take / this.value.skip + 1;
+        this.pageNumber = this.value.params.offset / this.value.params.limit + 1;
     }
 
-    makeTemplate () {console.log(this);
+    makeTemplate () {
         var moveForward = new SimpleButton(this.id + '-forward', 'pagination-forward', 'forward', this.value.hasMore ? '' : 'disabled'),
             moveBack = new SimpleButton(this.id + '-back', 'pagination-back', 'back', this.pageNumber == 1 ? 'disabled' : '');
 
@@ -29,9 +29,9 @@ class Pagination extends BaseComponentGroup {
 
     moveHandle (initClass, props, event) {
         if (props.childClass.valueName === 'forward') {
-            initClass.paginationMove(this.value.skip, this.value.take + this.value.skip)
+            initClass.paginationMove(this.value.params.offset + this.value.params.limit, this.value.params.limit)
         } else {
-            initClass.paginationMove(this.value.skip, this.value.take - this.value.skip)
+            initClass.paginationMove(this.value.params.offset - this.value.params.limit, this.value.params.limit)
         }
     }
 }

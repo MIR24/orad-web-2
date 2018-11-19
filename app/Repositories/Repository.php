@@ -238,7 +238,7 @@ abstract class Repository implements RepositoryInterface
     {
         $limitKey = config('url.keys.limit');
         if (!empty($query[$limitKey])) {
-            $this->builder->take($query[$limitKey]+1);
+            $this->builder->take($query[$limitKey]);
         }
 
         $offsetKey = config('url.keys.offset');

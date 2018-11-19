@@ -22,7 +22,11 @@ class BaseTab {
     }
 
     getModels () {
-        return simpleAjaxPromise(apiMethods.get, this.config.api.base);
+        if (this.config.pagination) {
+            return simpleAjaxPromise(apiMethods.get, this.config.api.base, this.config.pagination.params);
+        } else {
+            return simpleAjaxPromise(apiMethods.get, this.config.api.base);
+        }
     }
 
     updateModels (models) {
@@ -207,11 +211,11 @@ class BaseTab {
         this.template = this.template.concat(conformationModal.getTemplate());
     }
 
-    paginationMove (skip, take) {
-        simpleAjaxPromise(apiMethods.get, this.config.api.base)
+    paginationMove (offset, limit) {console.log(offset, limit);
+        simpleAjaxPromise(apiMethods.get, this.config.api.base, { 'offset': offset, 'limit': limit })
         .then((response) => {
-            this.config.pagination.take = take;
-            if (response.data.length != skip) {
+            this.config.pagination.params.offset = offset;console.log(response.data.length, limit, offset);
+            if (response.data.length != limit) {
                 this.config.pagination.hasMore = false;
             } else {
                 this.config.pagination.hasMore = true;
