@@ -32,38 +32,8 @@ class Textarea extends BaseComponent {
         return value;
     }
 
-    textAreaSplitLines (value, inputType) {
-        const regexMaxChars = new RegExp(`.{${this.maxCharsPerLine}}`, 'gm'),
-            curVal = value.toUpperCase();
-
-        if (inputType === "deleteContentBackward" || inputType === "deleteContentForward") {
-            return false;
-        }
-
-        return curVal.replace(regexMaxChars, function (match) {
-            return match + '\n';
-        });
-    }
-
-    deleteEmptyLines (string) {
-        return string.replace(/^\s*$(?:\r\n?|\n)/gm,"");
-    }
-
     handle (initClass, event) {
-        var val = this.checkDisallowedCharacters(event.target.value),
-            newVal = this.textAreaSplitLines(val, event.originalEvent.inputType),
-            newSectionEnd = event.target.selectionEnd;
-
-        if (newVal !== false) {
-            event.target.value = this.deleteEmptyLines(newVal);
-            if (newVal.charAt(newSectionEnd) == '\n') {
-                event.target.selectionEnd = newSectionEnd + 1;
-            } else {
-                event.target.selectionEnd = newSectionEnd;
-            }
-        } else {
-            event.target.value = this.deleteEmptyLines(val);
-        }
+        event.target.value = this.checkDisallowedCharacters(event.target.value).toUpperCase();
         event.target.style.height = '1px';
         event.target.style.height = (20 + event.target.scrollHeight) + 'px';
         initClass.modelChange(this.modelId, this.valueName, event.target.value);
