@@ -21,3 +21,9 @@ label {
 .select2-container {
     font-size: $font-size-base;
 }
+
+.textarea-vertical-line {
+    position: absolute;
+    border-left: 1.2px solid red;
+    height: 100%;
+}

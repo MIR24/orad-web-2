@@ -11,14 +11,19 @@ class Textarea extends BaseComponent {
     }
 
     makeTemplate () {
-        this.template = `<textarea
+        this.template = `<div class="w-100 position-relative">
+            <div class="textarea-vertical-line"
+                style="margin-left:${(this.maxCharsPerLine + 1) * 10 + 17}px">
+            </div>
+            <textarea
             ${this.disabled}
             class="form-control m-input m-input--air"
             id="${this.id}"
             rows="${this.value.split(/\r\n|\r|\n/).length + 1}"
             placeholder="${this.placeholder}"
             style="font-family: monospace;"
-        >${this.value}</textarea>`;
+            >${this.value}</textarea>
+        </div>`;
     }
 
     checkDisallowedCharacters (value) {
@@ -33,7 +38,7 @@ class Textarea extends BaseComponent {
     }
 
     handle (initClass, event) {
-        event.target.value = this.checkDisallowedCharacters(event.target.value).toUpperCase();
+        event.target.value = this.checkDisallowedCharacters(event.target.value.toUpperCase());
         event.target.style.height = '1px';
         event.target.style.height = (20 + event.target.scrollHeight) + 'px';
         initClass.modelChange(this.modelId, this.valueName, event.target.value);
