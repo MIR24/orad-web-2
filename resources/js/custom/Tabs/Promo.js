@@ -110,7 +110,7 @@ class Promo extends BaseTab {
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">Программа</lable>
-                                <lable class="col text-right">${this.models[index].category.text}</lable>
+                                <lable class="col text-right">${this.models[index].category ? this.models[index].category.text : '-'}</lable>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">Режим</lable>
@@ -129,38 +129,7 @@ class Promo extends BaseTab {
     }
 
     saveModel (modelId) {
-        if (modelId === 'new') {
-            this.createModels(this.getNewEditStateModel())
-            .then((response) => {
-                this.edit = {
-                    'modelId': null,
-                    'state': false,
-                };
-                this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                this.rerender();
-                toastr.success(toasterMessages.success.save);
-            }, function (error) {
-                toastr.error(toasterMessages.error.save);
-            });
-        } else {
-            var models = this.getMergedEditStateModels();
-            if (models.length > 0) {
-                this.updateModels(models)
-                .then((response) => {
-                    this.edit = {
-                        'modelId': null,
-                        'state': false,
-                    };
-                    this.models[modelId] = Object.assign(this.models[modelId], response[0]);
-                    this.rerender();
-                    toastr.success(toasterMessages.success.update);
-                }, function (error) {
-                    toastr.error(toasterMessages.error.update);
-                });
-            } else {
-                toastr.warning(toasterMessages.warning.nothingToSave);
-            }
-        }
+        this.saveOneModel(modelId);
     }
 }
 export default Promo

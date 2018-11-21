@@ -375,6 +375,21 @@ class BaseTab {
         }
     }
 
+    getValidatedObject (modelId) {
+        if (this.validation.hasOwnProperty(modelId)) {
+            var errorModel = this.getMergedEditStateModel(modelId),
+                errorValidation = this.validation[modelId];
+
+            delete this.validation[modelId];
+
+            return {
+                'errorModel': errorModel,
+                'errorValidation': errorValidation,
+            };
+        }
+        return false;
+    }
+
     getMergedEditStateModels () {
         var results = [];
         for (var modelId in this.edit) {
@@ -387,7 +402,7 @@ class BaseTab {
         return results;
     }
 
-    getMergedEditStateModel (modelId) {console.log(this);
+    getMergedEditStateModel (modelId) {
         return Object.assign({}, this.models[modelId], this.edit[modelId]);
     }
 

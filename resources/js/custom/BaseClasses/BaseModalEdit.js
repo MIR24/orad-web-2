@@ -6,6 +6,7 @@ import ModalEnterEditButton from "../Components/ModalEnterEditButton.js";
 class BaseModalEdit extends BaseModal {
     constructor (id, type, model) {
         super(id, type, model);
+        this.validationModel = {};
     }
 
     getBaseTemplate () {
@@ -31,7 +32,7 @@ class BaseModalEdit extends BaseModal {
 
         return `<div class="modal fade" id="${this.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div id="${this.modalContentId}" class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">${this.config.modalTitle}</h5>
                         ${exitEditButtonTop.getTemplate()}
@@ -58,8 +59,24 @@ class BaseModalEdit extends BaseModal {
     }
 
     saveModelHandle (initClass, props, event) {
-        $('#' + this.id).modal('toggle');
-        initClass.saveModel(this.modelId);
+        $('#' + this.modalContentId).append(this.config.loader.template);
+        if (this.modelId === 'new') {
+            initClass.validateEditState(this.modelId, initClass.getNewEditStateModel());
+        } else {
+            initClass.validateEditState(this.modelId, initClass.getMergedEditStateModel(this.modelId));
+        }
+        this.validationModel = initClass.getValidatedObject(this.modelId);
+        if (this.validationModel !== false) {
+            this.makeModalBody();
+            $('#' + this.modalBodyId).empty().append(this.modalBody);
+            initClass.addListeners(this.getListeners());
+            initClass.initListeners();
+            this.validationModel = {};
+            $(this.config.loader.jqClassName).remove();
+        } else {
+            $('#' + this.id).modal('toggle');
+            initClass.saveModel(this.modelId);
+        }
     }
 }
 export default BaseModalEdit

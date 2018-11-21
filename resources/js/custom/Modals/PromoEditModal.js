@@ -7,14 +7,27 @@ class PromoEditModal extends BaseModalEdit {
     }
 
     getModalBody () {
-        var mirId = new Input(this.modelId, 'mir_id', this.model.mir_id, false, 'ID МИР'),
-            mirHdId = new Input(this.modelId, 'mirhd_id', this.model.mirhd_id, false, 'ID МИРHD'),
-            category = 'Категория',
-            name = new Input(this.modelId, 'name', this.model.name, false, 'Название'),
-            title = new Input(this.modelId, 'header', this.model.header, false, 'Заголовок'),
-            underTitle = new Input(this.modelId, 'subheader', this.model.subheader, false, 'Подзаголовок'),
-            ageRestriction = new Input(this.modelId, 'age', this.model.age, false, '0', 'number'),
-            mode = 'Режим';
+        if (jQuery.isEmptyObject(this.validationModel)) {
+            var mirId = new Input(this.modelId, 'mir_id', this.model.mir_id, false, 'ID МИР'),
+                mirHdId = new Input(this.modelId, 'mirhd_id', this.model.mirhd_id, false, 'ID МИРHD'),
+                category = 'Категория',
+                name = new Input(this.modelId, 'name', this.model.name, false, 'Название'),
+                title = new Input(this.modelId, 'header', this.model.header, false, 'Заголовок'),
+                underTitle = new Input(this.modelId, 'subheader', this.model.subheader, false, 'Подзаголовок'),
+                ageRestriction = new Input(this.modelId, 'age', this.model.age, false, '0', 'number'),
+                mode = 'Режим',
+                error = {};
+        } else {
+            var mirId = new Input(this.modelId, 'mir_id', this.validationModel.errorModel.mir_id, false, 'ID МИР'),
+                mirHdId = new Input(this.modelId, 'mirhd_id', this.validationModel.errorModel.mirhd_id, false, 'ID МИРHD'),
+                category = 'Категория',
+                name = new Input(this.modelId, 'name', this.validationModel.errorModel.name, false, 'Название'),
+                title = new Input(this.modelId, 'header', this.validationModel.errorModel.header, false, 'Заголовок'),
+                underTitle = new Input(this.modelId, 'subheader', this.validationModel.errorModel.subheader, false, 'Подзаголовок'),
+                ageRestriction = new Input(this.modelId, 'age', this.validationModel.errorModel.age, false, '0', 'number'),
+                mode = 'Режим'
+                error = this.validationModel.errorValidation;
+        }
 
         mirId.init();
         mirHdId.init();
@@ -30,37 +43,35 @@ class PromoEditModal extends BaseModalEdit {
         this.addListeners(underTitle.getListeners());
         this.addListeners(ageRestriction.getListeners());
 
-        return `
-            <div class="pb-4">
-                <lable class="float-left">ID МИР</lable>
-                ${mirId.getTemplate()}
-            </div>
-            <div class="pb-4">
-                <lable class="float-left">ID МИРHD</lable>
-                ${mirHdId.getTemplate()}
-            </div>
-            <div class="pb-4">
-                <lable class="float-left">Название</lable>
-                ${name.getTemplate()}
-            </div>
-            <div class="pb-4">
-                <lable class="float-left">Заголовок</lable>
-                ${title.getTemplate()}
-            </div>
-            <div class="pb-4">
-                <lable class="float-left">Подзаголовок</lable>
-                ${underTitle.getTemplate()}
-            </div>
-            <div class="pb-4">
-                <lable class="float-left">Ограничение по возрасту</lable>
+        return `${this.getRow('ID МИР', mirId.getTemplate(), error.mir_id)}
+            ${this.getRow('ID МИРHD', mirHdId.getTemplate(), error.mirhd_id)}
+            ${this.getRow('Название', name.getTemplate(), error.name)}
+            ${this.getRow('Заголовок', title.getTemplate(), error.header)}
+            ${this.getRow('Подзаголовок', underTitle.getTemplate(), error.subheader)}
+            ${this.getRow('Ограничение по возрасту', `
                 <div class="input-group">
-					<div class="input-group-prepend">
+                    <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">+</span>
                     </div>
-					${ageRestriction.getTemplate()}
-				</div>
-            </div>
+                    ${ageRestriction.getTemplate()}
+                </div>`,
+            error.age)}
         `;
+    }
+
+    getRow (label, elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group has-danger text-left">
+                <label>${label}</label>
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group text-left">
+                <label>${label}</label>
+                ${elementTemplate}
+            </div>`;
+        }
     }
 }
 export default PromoEditModal

@@ -7,11 +7,12 @@ class BaseModal {
         this.modelId = id; 
         this.id = IdManipulation.getPreparedId('modal-' + type, id);
         this.type = type;
-        this.config = ModalsConfig[type];
+        this.config = Object.assign({}, ModalsConfig[type], ModalsConfig['default']);
         this.model = model;
         this.listeners = {};
         this.openButton = '';
         this.modalBodyId = IdManipulation.getPreparedId(this.id, 'body');
+        this.modalContentId = IdManipulation.getPreparedId(this.id, 'content');
     }
 
     getModalBody () {};
@@ -34,7 +35,9 @@ class BaseModal {
     }
 
     getListeners () {
-        return this.listeners;
+        var tempListeners = this.listeners;
+        this.listeners = {};
+        return tempListeners;
     }
 
     getTemplate () {
