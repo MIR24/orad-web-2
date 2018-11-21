@@ -37,22 +37,22 @@ const ButtonsConfig = {
         "options": {
             0: {
                 "text": "-",
-                "cssClass": "btn-dark col-xl mx-3",
+                "cssClass": "btn-dark col-xl",
                 "newModelValue": "stay",
             },
             1: {
                 "text": "↗",
-                "cssClass": "btn-success col-xl mx-3",
+                "cssClass": "btn-success col-xl",
                 "newModelValue": "rise",
             },
             2: {
                 "text": "↘",
-                "cssClass": "btn-danger col-xl mx-3",
+                "cssClass": "btn-danger col-xl",
                 "newModelValue": "fall",
             },
             3: {
                 "text": "→",
-                "cssClass": "btn-secondary col-xl mx-3",
+                "cssClass": "btn-secondary col-xl",
                 "newModelValue": "stay",
             }
         },
