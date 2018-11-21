@@ -15,9 +15,29 @@ class Expedited extends BaseTab {
 
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].text, this.models[key].strings, this.models[key].error);
+            if (this.edit.hasOwnProperty(key)) {
+                var errorModel = this.getMergedEditStateModel(key),
+                    errorValidation = this.validation[key] ? this.validation[key] : {};
+
+                delete this.validation[key];
+
+                return this.makeBlock(key, errorModel.text, errorModel.strings, errorValidation);
+            }
+            return this.makeBlock(key, this.models[key].text, this.models[key].strings, {});
         })
         .join('');
+
+        if (this.validation.hasOwnProperty('new')) {
+            var errorModel = this.getMergedEditStateModel('new'),
+                errorValidation = this.validation.new ? this.validation.new : {};
+
+            delete this.validation.new;
+
+            template = template.concat(
+                this.makeBlock('new', errorModel.text, errorModel.strings, errorValidation)
+            );
+        }
+
 
         if (!this.edit.state) {
             var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
@@ -66,7 +86,7 @@ class Expedited extends BaseTab {
 
             controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
         }
-
+console.log(error);
         return `<div id="${index}" class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
             <div class="m-portlet__head p-0">
                 <div class="row col align-items-center">
@@ -79,8 +99,8 @@ class Expedited extends BaseTab {
             <div class="m-portlet__body">
                 <div class="row">
                     <form class="col-md-10 m-form m-form--fit m-form--label-align-right">
-                    ${this.getRow('Заголовок', title.getTemplate(), error ? error.text : false)}
-                    ${this.getRow('Текст', textarea.getTemplate(), error ? error.strings : false)}
+                    ${this.getRow('Заголовок', title.getTemplate(), error.text)}
+                    ${this.getRow('Текст', textarea.getTemplate(), error.strings)}
                     </form>
                     <form class="col-md-2 pt-4 p-0 m-form m-form--fit m-form--label-align-right">
                         ${checkboxes.getTemplate()}
@@ -106,11 +126,11 @@ class Expedited extends BaseTab {
     }
 
     getEmptyBlock () {
-        this.eidting = {
+        this.edit = {
             'modelId': 'new',
             'state': true,
-        }
-        return this.makeBlock('new');
+        };
+        return this.makeBlock('new', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {
