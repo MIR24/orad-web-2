@@ -213,10 +213,23 @@ const TabsConfig = {
         "defaultEditState": {
             "mir_id": 0,
             "mirhd_id": 0,
-            "name": "test name",
-            "header": "test header",
-            "subheader": "test subheader",
+            "name": "",
+            "header": "",
+            "subheader": "",
             "age": 0,
+        },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "mir_id",
+                    "mirhd_id",
+                    "name",
+                    "header",
+                    "subheader",
+                    "age"
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
         },
         "pagination": {
             "params": {
