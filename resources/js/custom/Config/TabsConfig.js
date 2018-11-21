@@ -1,3 +1,5 @@
+import { configFromDB, validationMessages } from "../Config/Constants"
+
 const TabsConfig = {
     "Tops": {
         "api": {
@@ -5,14 +7,53 @@ const TabsConfig = {
             "update": "/api/tops/multi",
             "delete": "/api/tops/",
         },
-        "textMaxCharsPerLine": 70,
+        "textMaxCharsPerLine": configFromDB.topsMaxCharsPerLine,
+        "defaultEditState": {
+            "text": "",
+            "strings": "",
+        },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "text",
+                    "strings",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+            "regexFailed": {
+                "strings": {
+                    "regex": `^.{${(configFromDB.topsMaxCharsPerLine + 1)},}$`,
+                    "flags": "gm",
+                    "errorMsg": validationMessages.toManyChars,
+                },
+            },
+        },
     },
     "Newsbar": {
         "api": {
             "base": "/api/newsbars",
             "update": "/api/newsbars/multi",
         },
-        "textMaxCharsPerLine": 70,
+        "textMaxCharsPerLine": configFromDB.newsbarMaxCharsPerLine,
+        "defaultEditState": {
+            "text": "",
+            "strings": "",
+        },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "strings",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+            "regexFailed": {
+                "strings": {
+                    "regex": `^.{${(configFromDB.newsbarMaxCharsPerLine + 1)},}$`,
+                    "flags": "gm",
+                    "errorMsg": validationMessages.toManyChars,
+                },
+            },
+        },
     },
     "Expedited": {
         "api": {
@@ -20,7 +61,27 @@ const TabsConfig = {
             "update": "/api/hotnews/multi",
             "delete": "/api/hotnews/",
         },
-        "textMaxCharsPerLine": 70,
+        "textMaxCharsPerLine": configFromDB.expeditedMaxCharsPerLine,
+        "defaultEditState": {
+            "text": "",
+            "strings": "",
+        },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "text",
+                    "strings",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+            "regexFailed": {
+                "strings": {
+                    "regex": `^.{${(configFromDB.newsbarMaxCharsPerLine + 1)},}$`,
+                    "flags": "gm",
+                    "errorMsg": validationMessages.toManyChars,
+                },
+            },
+        },
         "getAdditions": {
             "orbits": "/api/orbits",
         },
@@ -37,6 +98,27 @@ const TabsConfig = {
             "dir": "stay",
             "value": 0,
         },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "val1",
+                    "val2",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+            "regexFailed": {
+                "val1": {
+                    "regex": '^.{6,}$',
+                    "flags": "g",
+                    "errorMsg": validationMessages.noMoreThan5,
+                },
+                "val2": {
+                    "regex": `^.{6,}$`,
+                    "flags": "g",
+                    "errorMsg": validationMessages.noMoreThan5,
+                },
+            },
+        },
     },
     "WeatherLive": {
         "api": {
@@ -51,6 +133,18 @@ const TabsConfig = {
             "now": 0,
             "evening": 0,
             "weather_type_id": 0,
+        },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "status",
+                    "city",
+                    "morning",
+                    "evening",
+                    "weather_type_id",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
         },
         "switchValue": {
             "status": {
@@ -72,6 +166,15 @@ const TabsConfig = {
             "city": "",
             "timeshift": 0,
         },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "city",
+                    "timeshift",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+        },
     },
     "Countdown": {
         "api": {
@@ -83,6 +186,22 @@ const TabsConfig = {
             "title": "",
             "description": "test",
             "happen_at": "",
+        },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "title",
+                    "happen_at",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+            "regexFailed": {
+                "happen_at": {
+                    "regex": `^(0000-01-01|.+Invalid).+$`,
+                    "flags": "g",
+                    "errorMsg": validationMessages.dataTimeAgain,
+                },
+            },
         },
     },
     "Promo": {
