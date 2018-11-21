@@ -19,6 +19,7 @@ class BaseTab {
         this.additionlClassesJQ = {};
         this.additions = {};
         this.utilityBlocksInfo = {};
+        this.validation = {};
     }
 
     getModels () {
@@ -45,37 +46,47 @@ class BaseTab {
 
     saveOneModel (modelId) {
         if (modelId === 'new') {
-            this.createModels(this.edit.new)
-            .then((response) => {
-                this.edit = {
-                    'modelId': null,
-                    'state': false,
-                };
-                this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                toastr.success(toasterMessages.success.save);
-            }, function (error) {
-                toastr.error(toasterMessages.error.save);
-            }).then(() => {
+            this.edit.new = this.getNewEditStateModel();
+            this.validateEditState('new', this.edit.new);
+            if (this.validation.hasOwnProperty('new')) {
                 this.rerender();
-            });
-        } else {
-            var models = this.getMergedEditStateModels();
-            if (models.length > 0) {
-                this.updateModels(models)
+            } else {
+                this.createModels(this.edit.new)
                 .then((response) => {
                     this.edit = {
                         'modelId': null,
                         'state': false,
                     };
-                    this.models[modelId] = Object.assign(this.models[modelId], response[0]);
-                    toastr.success(toasterMessages.success.update);
+                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                    toastr.success(toasterMessages.success.save);
                 }, function (error) {
-                    toastr.error(toasterMessages.error.update);
+                    toastr.error(toasterMessages.error.save);
                 }).then(() => {
                     this.rerender();
                 });
+            }
+        } else {
+            var models = this.getMergedEditStateModels();
+            if (this.validation.hasOwnProperty(modelId)) {
+                this.rerender();
             } else {
-                toastr.warning(toasterMessages.warning.nothingToSave);
+                if (models.length > 0) {
+                    this.updateModels(models)
+                    .then((response) => {
+                        this.edit = {
+                            'modelId': null,
+                            'state': false,
+                        };
+                        this.models[modelId] = Object.assign(this.models[modelId], response[0]);
+                        toastr.success(toasterMessages.success.update);
+                    }, function (error) {
+                        toastr.error(toasterMessages.error.update);
+                    }).then(() => {
+                        this.rerender();
+                    });
+                } else {
+                    toastr.warning(toasterMessages.warning.nothingToSave);
+                }
             }
         }
     }
@@ -85,18 +96,22 @@ class BaseTab {
             models = this.getMergedEditStateModels();
 
         if (this.edit.hasOwnProperty('new')) {
-            arrayOfPromises.push(
-                this.createModels(this.getNewEditStateModel())
-                .then((response) => {
-                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                    toastr.success(toasterMessages.success.save);
-                }, function (error) {
-                    toastr.error(toasterMessages.error.save);
-                })
-            );
+            this.edit.new = this.getNewEditStateModel()
+            this.validateEditState('new', this.edit.new);
+            if (jQuery.isEmptyObject(this.validation)) {
+                arrayOfPromises.push(
+                    this.createModels(this.edit.new)
+                    .then((response) => {
+                        this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                        toastr.success(toasterMessages.success.save);
+                    }, function (error) {
+                        toastr.error(toasterMessages.error.save);
+                    })
+                );
+            }
         }
 
-        if (models.length > 0) {
+        if (jQuery.isEmptyObject(this.validation) && models.length > 0) {
             arrayOfPromises.push(
                 this.updateModels(models)
                 .then((response) => {
@@ -115,13 +130,17 @@ class BaseTab {
             );
         }
 
-        $.when.apply(null, arrayOfPromises).done(() => {
-            this.edit = {
-                'modelId': null,
-                'state': false,
-            };
+        if (jQuery.isEmptyObject(this.validation)) {
+            $.when.apply(null, arrayOfPromises).done(() => {
+                this.edit = {
+                    'modelId': null,
+                    'state': false,
+                };
+                this.rerender();
+            });
+        } else {
             this.rerender();
-        });
+        }
     }
 
     removeModel (modelId) {
@@ -135,6 +154,8 @@ class BaseTab {
                     }
                     $('#' + modelId).remove();
                     delete this.models[modelId];
+                    delete this.edit[modelId];
+                    delete this.validation[modelId];
                     this.rerender();
                     toastr.success(toasterMessages.success.delete);
                 }, function (error) {
@@ -142,6 +163,8 @@ class BaseTab {
                 });
             } else {
                 $('#' + modelId).remove();
+                delete this.edit[modelId];
+                delete this.validation[modelId];
             }
         };
         this.utilityBlocksInfo['confirmation-delete-model'].open();
@@ -151,7 +174,7 @@ class BaseTab {
         this.edit = {
             'modelId': null,
             'state': false,
-        }
+        };
         this.rerender();
     }
 
@@ -297,18 +320,79 @@ class BaseTab {
         console.log(this.edit);
     }
 
+    validateEditState (modelId, model) {console.log(model);
+        for (var fieldName in model) {
+            for (var validationIndex in this.config.validation) {
+                switch (validationIndex) {
+                    case 'notNull':
+                        if (this.config.validation.notNull.fieldNames.includes(fieldName) && !model[fieldName]) {
+                            this.validationAssigne(modelId, fieldName, this.config.validation.notNull.errorMsg);
+                        } else {
+                            this.validationRemove(modelId, fieldName, this.config.validation.notNull.errorMsg);
+                        }
+                        break;
+                    case 'regexFailed':
+                        if (this.config.validation.regexFailed.hasOwnProperty(fieldName)) {
+                            var reg = new RegExp(this.config.validation.regexFailed[fieldName].regex, this.config.validation.regexFailed[fieldName].flags),
+                                match = reg.exec(model[fieldName]);
+
+                            if (match) {
+                                this.validationAssigne(modelId, fieldName, this.config.validation.regexFailed[fieldName].errorMsg);
+                            } else {
+                                this.validationRemove(modelId, fieldName, this.config.validation.regexFailed[fieldName].errorMsg);
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    validationRemove (modelId, fieldName, errorMsg) {
+        if (this.validation.hasOwnProperty(modelId) &&
+            this.validation[modelId].hasOwnProperty(fieldName) &&
+            this.validation[modelId][fieldName].errorMsg == errorMsg) {
+            delete this.validation[modelId][fieldName];
+            if (jQuery.isEmptyObject(this.validation[modelId])) {
+                delete this.validation[modelId];
+            }
+        }
+    }
+
+    validationAssigne (modelId, fieldName, errorMsg) {
+        if (this.validation.hasOwnProperty(modelId)) {
+            if (!this.validation[modelId].hasOwnProperty(fieldName)) {
+                this.validation[modelId] = Object.assign({}, this.validation[modelId], {
+                    [fieldName]: errorMsg
+                });
+            }
+        } else {
+            this.validation = Object.assign({}, this.validation, {
+                [modelId]: {
+                    [fieldName]: errorMsg
+                }
+            });
+        }
+    }
+
     getMergedEditStateModels () {
         var results = [];
         for (var modelId in this.edit) {
             if (this.models.hasOwnProperty(modelId)) {
-                results.push(Object.assign(this.models[modelId], this.edit[modelId]));
+                var mergedModel = this.getMergedEditStateModel(modelId);
+                this.validateEditState(modelId, mergedModel);
+                results.push(mergedModel);
             }
         }
         return results;
     }
 
+    getMergedEditStateModel (modelId) {console.log(this);
+        return Object.assign({}, this.models[modelId], this.edit[modelId]);
+    }
+
     getNewEditStateModel () {
-        return Object.assign(this.config.defaultEditState, this.edit.new);
+        return Object.assign({}, this.config.defaultEditState, this.edit.new);
     }
 
     mergeAdditionlClassesJQ (object) {
@@ -323,9 +407,11 @@ class BaseTab {
     initAdditionlClassesJQ () {
         AdditionlClassesJQ.init(this.additionlClassesJQ);
         if (this.edit.modelId) {
-            this.edit = {
-                'modelId': this.edit.modelId,
-                'state': true,
+            if (!jQuery.isEmptyObject(this.validation)) {
+                this.edit = {
+                    'modelId': this.edit.modelId,
+                    'state': true,
+                }
             }
         } else {
             this.edit = {
