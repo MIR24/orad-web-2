@@ -78,7 +78,7 @@ class BaseTab {
                             'modelId': null,
                             'state': false,
                         };
-                        this.models[modelId] = Object.assign(this.models[modelId], response[0]);
+                        this.models[modelId] = response.data[0];
                         toastr.success(toasterMessages.success.update);
                     }, function (error) {
                         toastr.error(toasterMessages.error.update);
