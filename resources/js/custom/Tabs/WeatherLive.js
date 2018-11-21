@@ -62,10 +62,30 @@ class WeatherLive extends BaseTab {
             </thead>
                <tbody id="${tableBodyId}">`;
         template += Object.keys(this.models).map(key => {
-           return this.makeBlock(key, this.models[key].city, this.models[key].morning, this.models[key].evening, this.models[key].status, this.models[key].weather_type_id, disabled, this.models[key].error);
+            if (this.edit.hasOwnProperty(key)) {
+                var errorModel = this.getMergedEditStateModel(key),
+                    errorValidation = this.validation[key] ? this.validation[key] : {};
+
+                delete this.validation[key];
+
+                return this.makeBlock(key, errorModel.city, errorModel.morning, errorModel.evening, errorModel.status, errorModel.weather_type_id, disabled, errorValidation);
+            }
+           return this.makeBlock(key, this.models[key].city, this.models[key].morning, this.models[key].evening, this.models[key].status, this.models[key].weather_type_id, disabled, {});
         })
-        .join('')
-        .concat('</tbody></table>')
+        .join('');
+
+        if (this.validation.hasOwnProperty('new')) {
+            var errorModel = this.getMergedEditStateModel('new'),
+                errorValidation = this.validation.new ? this.validation.new : {};
+
+            delete this.validation.new;
+
+            template = template.concat(
+                this.makeBlock('new', errorModel.city, errorModel.morning, errorModel.evening, errorModel.status, errorModel.weather_type_id, disabled, errorValidation)
+            );
+        }
+
+        template = template.concat('</tbody></table>')
         .concat(controlButtons);
         this.template = this.getBaseContainerFullWidth(template);
     }
@@ -99,9 +119,9 @@ class WeatherLive extends BaseTab {
         }
 
         return `<tr id="${index}">
-            <td>${this.getRow(cityName.getTemplate(), error ? error.city : false)}</td>
-            <td>${this.getRow(tempMorning.getTemplate(), error ? error.morning : false)}</td>
-            <td>${this.getRow(tempEvening.getTemplate(), error ? error.evening : false)}</td>
+            <td>${this.getRow(cityName.getTemplate(), error.city)}</td>
+            <td>${this.getRow(tempMorning.getTemplate(), error.morning)}</td>
+            <td>${this.getRow(tempEvening.getTemplate(), error.evening)}</td>
             <td>
                     ${selectWeather.getTemplate()}
             </td>
@@ -116,19 +136,19 @@ class WeatherLive extends BaseTab {
 
     getRow (elementTemplate, errorMessage) {
         if (errorMessage) {
-            return `<div class="form-group m-form__group row has-danger mb-0">
+            return `<div class="form-group m-form__group has-danger mb-0">
                 ${elementTemplate}
                 <label>${errorMessage}</label>
             </div>`;
         } else {
-            return `<div class="form-group m-form__group row">
+            return `<div class="form-group m-form__group">
                 ${elementTemplate}
             </div>`;
         }
     }
 
     getEmptyBlock () {
-        return this.makeBlock('new', '');
+        return this.makeBlock('new', '', '', '', '', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {
