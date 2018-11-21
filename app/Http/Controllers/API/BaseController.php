@@ -18,7 +18,7 @@ abstract class BaseController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  Repository  $repository
      * @return void
      */
     public function __construct(Repository $repository)

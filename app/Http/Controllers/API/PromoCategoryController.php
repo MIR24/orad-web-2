@@ -10,7 +10,7 @@ class PromoCategoryController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  PromoCategoryRepository  $repository
      * @return void
      */
     public function __construct(PromoCategoryRepository $repository)

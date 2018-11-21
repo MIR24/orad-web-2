@@ -10,7 +10,7 @@ class EventCountdownController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  EventCountdownRepository  $repository
      * @return void
      */
     public function __construct(EventCountdownRepository $repository)

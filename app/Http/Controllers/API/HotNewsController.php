@@ -10,7 +10,7 @@ class HotNewsController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  HotNewsRepository  $repository
      * @return void
      */
     public function __construct(HotNewsRepository $repository)

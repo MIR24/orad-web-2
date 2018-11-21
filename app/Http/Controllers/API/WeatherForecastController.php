@@ -12,7 +12,7 @@ class WeatherForecastController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  WeatherForecastRepository  $repository
      * @return void
      */
     public function __construct(WeatherForecastRepository $repository)

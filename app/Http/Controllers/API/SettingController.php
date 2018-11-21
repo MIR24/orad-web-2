@@ -10,7 +10,7 @@ class SettingController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  SettingRepository  $repository
      * @return void
      */
     public function __construct(SettingRepository $repository)

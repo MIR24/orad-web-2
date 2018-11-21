@@ -10,7 +10,7 @@ class PhotoCategoryController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  PhotoCategoryRepository  $repository
      * @return void
      */
     public function __construct(PhotoCategoryRepository $repository)

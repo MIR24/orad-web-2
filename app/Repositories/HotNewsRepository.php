@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Repository;
+use App\Repositories\RepositoryWithStrings;
 
 class HotNewsRepository extends RepositoryWithStrings
 {

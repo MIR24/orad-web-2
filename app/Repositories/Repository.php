@@ -196,7 +196,7 @@ abstract class Repository implements RepositoryInterface
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function findOrFailWithRelations($id, $columns = ['*'], $relations = [])
+    public function findOrFailWithRelations($id, array $columns = ['*'], $relations = [])
     {
         return $this->model->with($relations)->findOrFail($id, $columns);
     }

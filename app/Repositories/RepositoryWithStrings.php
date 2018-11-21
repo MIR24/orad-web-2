@@ -2,9 +2,6 @@
 
 namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Container\Container as App;
-use App\Exceptions\RepositoryException;
 use App\Repositories\Repository;
 use Carbon\Carbon;
 
