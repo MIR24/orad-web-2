@@ -35,3 +35,15 @@ export const toasterMessages = {
         'nothingToSave': 'Нет изменений',
     },
 };
+export const configFromDB = {
+    'topsMaxCharsPerLine': 70,
+    'newsbarMaxCharsPerLine': 70,
+    'expeditedMaxCharsPerLine': 70,
+}
+export const validationMessages = {
+    'requiredField': 'Обязательное поле',
+    'toManyChars': 'chars error',
+    'followPattern': 'follow patter ',
+    'noMoreThan5': 'Максимум 5 букв',
+    'dataTimeAgain': 'Выберите еще раз дату и время',
+}
