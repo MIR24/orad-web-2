@@ -49,10 +49,30 @@ class TimeShift extends BaseTab {
             </thead>
                <tbody id="${tableBodyId}">`;
         template += Object.keys(this.models).map(key => {
-           return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, disabled, this.models[key].error);
+            if (this.edit.hasOwnProperty(key)) {
+                var errorModel = this.getMergedEditStateModel(key),
+                    errorValidation = this.validation[key] ? this.validation[key] : {};
+
+                delete this.validation[key];
+
+                return this.makeBlock(key, errorModel.city, errorModel.timeshift, disabled, errorValidation);
+            }
+            return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, disabled, {});
         })
-        .join('')
-        .concat('</tbody></table>')
+        .join('');
+
+        if (this.validation.hasOwnProperty('new')) {
+            var errorModel = this.getMergedEditStateModel('new'),
+                errorValidation = this.validation.new ? this.validation.new : {};
+
+            delete this.validation.new;
+
+            template = template.concat(
+                this.makeBlock('new', errorModel.city, errorModel.timeshift, disabled, errorValidation)
+            );
+        }
+
+        template = template.concat('</tbody></table>')
         .concat(controlButtons);
         this.template = this.getBaseContainer(template);
     }
@@ -76,27 +96,27 @@ class TimeShift extends BaseTab {
         }
 
         return `<tr id="${index}">
-            <td>${this.getRow(cityName.getTemplate(), error ? error.city : false)}</td>
-            <td>${this.getRow(timeshift.getTemplate(), error ? error.timeshift : false)}</td>
+            <td>${this.getRow(cityName.getTemplate(), error.city)}</td>
+            <td>${this.getRow(timeshift.getTemplate(), error.timeshift)}</td>
             ${controlButtons}
         </tr>`;
     }
 
     getRow (elementTemplate, errorMessage) {
         if (errorMessage) {
-            return `<div class="form-group m-form__group row has-danger mb-0">
+            return `<div class="form-group m-form__group has-danger mb-0">
                 ${elementTemplate}
                 <label>${errorMessage}</label>
             </div>`;
         } else {
-            return `<div class="form-group m-form__group row">
+            return `<div class="form-group m-form__group">
                 ${elementTemplate}
             </div>`;
         }
     }
 
     getEmptyBlock () {
-        return this.makeBlock('new', '');
+        return this.makeBlock('new', '', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {
