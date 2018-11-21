@@ -78,7 +78,7 @@ abstract class Repository implements RepositoryInterface
      * @param  array|mixed  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function all($columns = ['*'])
+    public function all(array $columns = ['*'])
     {
         return $this->builder->get($columns);
     }
@@ -89,7 +89,7 @@ abstract class Repository implements RepositoryInterface
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function get($query, $columns = ['*'])
+    public function get(array $query, array $columns = ['*'])
     {
         $this->checkURLQuery($query);
 
@@ -114,13 +114,51 @@ abstract class Repository implements RepositoryInterface
      * @param  int  $id
      * @return \Illuminate\Database\Eloquent\Model|$this
      */
-    public function update(array $attributes, $id)
+    public function update(array $attributes, int $id)
     {
         $model = $this->model->findOrFail($id);
 
         $model->update($attributes);
 
         return $this->findOrFail($id);
+    }
+
+    /**
+     * Create multiple models and return the instances.
+     *
+     * @param  array  $models
+     * @return \Illuminate\Database\Eloquent\Model|$this
+     */
+    public function createMultiple(array $models = [])
+    {
+        $result = [];
+
+        foreach ($models as $attributes) {
+            $result[] = $this->create($attributes);
+        }
+
+        return collect($result);
+    }
+
+    /**
+     * Update or Create multiple models in the database.
+     *
+     * @param  array  $models
+     * @return \Illuminate\Database\Eloquent\Model|$this
+     */
+    public function patchMultiple(array $models)
+    {
+        $result = [];
+
+        foreach ($models as $attributes) {
+            if (!empty($attributes['id'])) {
+                $result[] = $this->update($attributes, $attributes['id']);
+            } else {
+                $result[] = $this->create($attributes);
+            }
+        }
+
+        return collect($result);
     }
 
     /**
@@ -143,7 +181,7 @@ abstract class Repository implements RepositoryInterface
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function findOrFail($id, $columns = ['*'])
+    public function findOrFail($id, array $columns = ['*'])
     {
         return $this->model->findOrFail($id, $columns);
     }
@@ -170,7 +208,7 @@ abstract class Repository implements RepositoryInterface
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function search($query, $columns = [])
+    public function search(array $query, array $columns = [])
     {
         $searchKey = config('url.keys.search');
         $this->checkURLQuery($query);
@@ -196,7 +234,7 @@ abstract class Repository implements RepositoryInterface
      * @param  array|string  $relations
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function searchWithRelations($query, $columns = [], $relations = [])
+    public function searchWithRelations(array $query, array $columns = [], $relations = [])
     {
         $searchKey = config('url.keys.search');
         $this->builder->with($relations);
@@ -234,7 +272,7 @@ abstract class Repository implements RepositoryInterface
      * @param  array $query
      * @return App\Repositories\Repository
      */
-    public function checkURLQuery($query)
+    public function checkURLQuery(array $query)
     {
         $limitKey = config('url.keys.limit');
         if (!empty($query[$limitKey])) {

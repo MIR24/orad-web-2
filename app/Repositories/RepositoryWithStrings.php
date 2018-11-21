@@ -16,7 +16,7 @@ abstract class RepositoryWithStrings extends Repository
      * @param  array|mixed  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function all($columns = ['*'])
+    public function all(array $columns = ['*'])
     {
         return load_strings(parent::all($columns));
     }
@@ -49,7 +49,7 @@ abstract class RepositoryWithStrings extends Repository
      * @param  int  $id
      * @return \Illuminate\Database\Eloquent\Model|$this
      */
-    public function update(array $attributes, $id)
+    public function update(array $attributes, int $id)
     {
         $model = $this->model->findOrFail($id);
 
@@ -86,7 +86,7 @@ abstract class RepositoryWithStrings extends Repository
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function findOrFail($id, $columns = ['*'])
+    public function findOrFail($id, array $columns = ['*'])
     {
         return load_strings(parent::findOrFail($id, $columns));
     }
@@ -101,7 +101,7 @@ abstract class RepositoryWithStrings extends Repository
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function findOrFailWithRelations($id, $columns = ['*'], $relations = [])
+    public function findOrFailWithRelations($id, array $columns = ['*'], $relations = [])
     {
         return load_strings(parent::findOrFailWithRelations($id, $columns, $relations));
     }
