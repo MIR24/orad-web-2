@@ -50,10 +50,30 @@ class Countdown extends BaseTab {
             </thead>
                <tbody id="${tableBodyId}">`;
        template += Object.keys(this.models).map(key => {
-           return this.makeBlock(key, this.models[key].title, this.models[key].happen_at, disabled, this.models[key].error);
+           if (this.edit.hasOwnProperty(key)) {
+               var errorModel = this.getMergedEditStateModel(key),
+                   errorValidation = this.validation[key] ? this.validation[key] : {};
+
+               delete this.validation[key];
+
+               return this.makeBlock(key, errorModel.title, errorModel.happen_at, disabled, errorValidation);
+           }
+           return this.makeBlock(key, this.models[key].title, this.models[key].happen_at, disabled, {});
        })
-       .join('')
-       .concat('</tbody></table>')
+       .join('');
+
+        if (this.validation.hasOwnProperty('new')) {
+           var errorModel = this.getMergedEditStateModel('new'),
+               errorValidation = this.validation.new ? this.validation.new : {};
+
+           delete this.validation.new;
+
+           template = template.concat(
+               this.makeBlock('new', errorModel.title, errorModel.happen_at, disabled, errorValidation)
+           );
+        }
+
+       template = template.concat('</tbody></table>')
        .concat(controlButtons);
        this.template = this.getBaseContainer(template);
     }
@@ -78,8 +98,8 @@ class Countdown extends BaseTab {
         }
 
         return `<tr id="${index}">
-            <td>${this.getRow(eventName.getTemplate(), error ? error.title : false)}</td>
-            <td>${this.getRow(dateTime.getTemplate(), error ? error.happen_at : false)}</td>
+            <td>${this.getRow(eventName.getTemplate(), error.title)}</td>
+            <td>${this.getRow(dateTime.getTemplate(), error.happen_at)}</td>
             ${controlButtons}
         </tr>`;
     }
@@ -98,7 +118,7 @@ class Countdown extends BaseTab {
     }
 
     getEmptyBlock () {
-        return this.makeBlock('new', '');
+        return this.makeBlock('new', '', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {
