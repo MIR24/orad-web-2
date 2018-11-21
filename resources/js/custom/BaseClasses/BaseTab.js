@@ -20,6 +20,7 @@ class BaseTab {
         this.additions = {};
         this.utilityBlocksInfo = {};
         this.validation = {};
+        this.searchOptions = {};
     }
 
     getModels () {
@@ -234,11 +235,19 @@ class BaseTab {
         this.template = this.template.concat(conformationModal.getTemplate());
     }
 
+    getMergedSearchOptions (offset, limit) {
+        if (offset !== undefined && limit !== undefined) {
+            return Object.assign({}, {
+                'offset': offset,
+                'limit': limit,
+            }, this.searchOptions);
+        } else {
+            return Object.assign({}, this.config.pagination.params, this.searchOptions)
+        }
+    }
+
     paginationMove (offset, limit) {
-        simpleAjaxPromise(apiMethods.get, this.config.api.base, {
-            'offset': offset,
-            'limit': limit,
-        })
+        simpleAjaxPromise(apiMethods.get, this.config.api.base, this.getMergedSearchOptions(offset, limit))
         .then((response) => {
             this.config.pagination.params.offset = offset;
             if (response.data.length != limit) {
@@ -254,11 +263,16 @@ class BaseTab {
     }
 
     searchModels (query) {
-        simpleAjaxPromise(apiMethods.get, this.config.api.base, {
-            'offset': this.config.pagination.params.offset,
-            'limit': this.config.pagination.params.limit,
-            'q': query,
-        })
+        if (query) {
+            this.config.pagination.params.offset = 0;
+            this.searchOptions = {
+                'q': query,
+            };
+        } else {
+            delete this.searchOptions.q;
+        }
+
+        simpleAjaxPromise(apiMethods.get, this.config.api.base, this.getMergedSearchOptions())
         .then((response) => {
             this.config.pagination.params.offset = 0;
             if (response.data.length != this.config.pagination.params.limit) {

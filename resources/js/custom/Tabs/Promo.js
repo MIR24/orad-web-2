@@ -19,7 +19,7 @@ class Promo extends BaseTab {
         var template = '',
             controlButtons = '',
             pagination = new Pagination(this.constructor.name, this.config.pagination),
-            searchInline = new SearchInline(this.constructor.name);
+            searchInline = new SearchInline(this.constructor.name, this.searchOptions);
 
         pagination.init();
         searchInline.init();
