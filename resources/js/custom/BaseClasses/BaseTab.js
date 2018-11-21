@@ -31,11 +31,11 @@ class BaseTab {
     }
 
     updateModels (models) {
-        return simpleAjaxPromise(apiMethods.update, this.config.api.update, models);
+        return simpleAjaxPromise(apiMethods.update, this.config.api.updateCreate, models);
     }
 
     createModels (models) {
-        return simpleAjaxPromise(apiMethods.create, this.config.api.base, models);
+        return simpleAjaxPromise(apiMethods.create, this.config.api.updateCreate, models);
     }
 
     deleteModel (modelId) {

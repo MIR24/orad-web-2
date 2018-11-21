@@ -4,7 +4,7 @@ const TabsConfig = {
     "Tops": {
         "api": {
             "base": "/api/tops",
-            "update": "/api/tops/multi",
+            "updateCreate": "/api/tops-collections",
             "delete": "/api/tops/",
         },
         "textMaxCharsPerLine": configFromDB.topsMaxCharsPerLine,
@@ -32,7 +32,7 @@ const TabsConfig = {
     "Newsbar": {
         "api": {
             "base": "/api/newsbars",
-            "update": "/api/newsbars/multi",
+            "updateCreate": "/api/newsbars-collections",
         },
         "textMaxCharsPerLine": configFromDB.newsbarMaxCharsPerLine,
         "defaultEditState": {
@@ -58,7 +58,7 @@ const TabsConfig = {
     "Expedited": {
         "api": {
             "base": "/api/hotnews",
-            "update": "/api/hotnews/multi",
+            "updateCreate": "/api/hotnews-collections",
             "delete": "/api/hotnews/",
         },
         "textMaxCharsPerLine": configFromDB.expeditedMaxCharsPerLine,
@@ -89,7 +89,7 @@ const TabsConfig = {
     "CurrencyValues": {
         "api": {
             "base": "/api/currencyrates",
-            "update": "/api/currencyrates/multi",
+            "updateCreate": "/api/currencyrates-collections",
             "delete": "/api/currencyrates/",
         },
         "defaultEditState": {
@@ -123,7 +123,7 @@ const TabsConfig = {
     "WeatherLive": {
         "api": {
             "base": "/api/weatherforecasts",
-            "update": "/api/weatherforecasts/multi",
+            "updateCreate": "/api/weatherforecasts-collections",
             "delete": "/api/weatherforecasts/",
         },
         "defaultEditState": {
@@ -159,7 +159,7 @@ const TabsConfig = {
     "TimeShift": {
         "api": {
             "base": "/api/citytimeshifts",
-            "update": "/api/citytimeshifts/multi",
+            "updateCreate": "/api/citytimeshifts-collections",
             "delete": "/api/citytimeshifts/",
         },
         "defaultEditState": {
@@ -179,7 +179,7 @@ const TabsConfig = {
     "Countdown": {
         "api": {
             "base": "/api/eventcountdowns",
-            "update": "/api/eventcountdowns/multi",
+            "updateCreate": "/api/eventcountdowns-collections",
             "delete": "/api/eventcountdowns/",
         },
         "defaultEditState": {
@@ -207,7 +207,7 @@ const TabsConfig = {
     "Promo": {
         "api": {
             "base": "/api/promos",
-            "update": "/api/promos/multi",
+            "updateCreate": "/api/promos-collections",
             "delete": "/api/promos/",
         },
         "defaultEditState": {
