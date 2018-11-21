@@ -14,12 +14,8 @@ class Newsbar extends BaseTab {
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
             if (this.validation.hasOwnProperty(key)) {
-                var errorModel = this.getMergedEditStateModel(key),
-                    errorValidation = this.validation[key] ? this.validation[key] : {};
-
-                delete this.validation[key];
-
-                return this.makeBlock(key, errorModel.text, errorModel.strings, errorValidation);
+                var tempModel = this.getValidatedObject(key);
+                return this.makeBlock(key, tempModel.errorModel.text, tempModel.errorModel.strings, tempModel.errorValidation);
             }
             return this.makeBlock(key, this.models[key].text, this.models[key].strings, {});
         })

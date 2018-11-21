@@ -65,8 +65,8 @@ class BaseModalEdit extends BaseModal {
         } else {
             initClass.validateEditState(this.modelId, initClass.getMergedEditStateModel(this.modelId));
         }
-        this.validationModel = initClass.getValidatedObject(this.modelId);
-        if (this.validationModel !== false) {
+        if (initClass.validation.hasOwnProperty(this.modelId)) {
+            this.validationModel = initClass.getValidatedObject(this.modelId);
             this.makeModalBody();
             $('#' + this.modalBodyId).empty().append(this.modalBody);
             initClass.addListeners(this.getListeners());

@@ -376,18 +376,15 @@ class BaseTab {
     }
 
     getValidatedObject (modelId) {
-        if (this.validation.hasOwnProperty(modelId)) {
-            var errorModel = this.getMergedEditStateModel(modelId),
-                errorValidation = this.validation[modelId];
+        var errorModel = this.getMergedEditStateModel(modelId),
+            errorValidation = this.validation[modelId];
 
-            delete this.validation[modelId];
+        delete this.validation[modelId];
 
-            return {
-                'errorModel': errorModel,
-                'errorValidation': errorValidation,
-            };
-        }
-        return false;
+        return {
+            'errorModel': errorModel,
+            'errorValidation': errorValidation,
+        };
     }
 
     getMergedEditStateModels () {

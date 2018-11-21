@@ -61,27 +61,19 @@ class CurrencyValues extends BaseTab {
                 </tr>
             </thead>
             <tbody id="${tableBodyId}">`;
-       template += Object.keys(this.models).map(key => {console.log(this.validation);
+       template += Object.keys(this.models).map(key => {
            if (this.edit.hasOwnProperty(key)) {
-               var errorModel = this.getMergedEditStateModel(key),
-                   errorValidation = this.validation[key] ? this.validation[key] : {};
-
-               delete this.validation[key];
-
-               return this.makeBlock(key, errorModel.val1, errorModel.val2, errorModel.value, errorModel.dir, disabled, errorValidation);
+               var tempModel = this.getValidatedObject(key);
+               return this.makeBlock(key, tempModel.errorModel.val1, tempModel.errorModel.val2, tempModel.errorModel.value, tempModel.errorModel.dir, disabled, tempModel.errorValidation);
            }
            return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled, {});
        })
        .join('');
 
        if (this.validation.hasOwnProperty('new')) {
-           var errorModel = this.getMergedEditStateModel('new'),
-               errorValidation = this.validation.new ? this.validation.new : {};
-
-           delete this.validation.new;
-
+           var tempModel = this.getValidatedObject('new');
            template = template.concat(
-               this.makeBlock('new', errorModel.val1, errorModel.val2, errorModel.value, errorModel.dir, disabled, errorValidation)
+               this.makeBlock('new', tempModel.errorModel.val1, tempModel.errorModel.val2, tempModel.errorModel.value, tempModel.errorModel.dir, disabled, tempModel.errorValidation)
            );
        }
 

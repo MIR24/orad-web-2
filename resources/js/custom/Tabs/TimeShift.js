@@ -50,25 +50,17 @@ class TimeShift extends BaseTab {
                <tbody id="${tableBodyId}">`;
         template += Object.keys(this.models).map(key => {
             if (this.edit.hasOwnProperty(key)) {
-                var errorModel = this.getMergedEditStateModel(key),
-                    errorValidation = this.validation[key] ? this.validation[key] : {};
-
-                delete this.validation[key];
-
-                return this.makeBlock(key, errorModel.city, errorModel.timeshift, disabled, errorValidation);
+                var tempModel = this.getValidatedObject(key);
+                return this.makeBlock(key, tempModel.errorModel.city, tempModel.errorModel.timeshift, disabled, tempModel.errorValidation);
             }
             return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, disabled, {});
         })
         .join('');
 
         if (this.validation.hasOwnProperty('new')) {
-            var errorModel = this.getMergedEditStateModel('new'),
-                errorValidation = this.validation.new ? this.validation.new : {};
-
-            delete this.validation.new;
-
+            var tempModel = this.getValidatedObject('new');
             template = template.concat(
-                this.makeBlock('new', errorModel.city, errorModel.timeshift, disabled, errorValidation)
+                this.makeBlock('new', tempModel.errorModel.city, tempModel.errorModel.timeshift, disabled, tempModel.errorValidation)
             );
         }
 

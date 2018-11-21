@@ -16,25 +16,17 @@ class Expedited extends BaseTab {
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
             if (this.edit.hasOwnProperty(key)) {
-                var errorModel = this.getMergedEditStateModel(key),
-                    errorValidation = this.validation[key] ? this.validation[key] : {};
-
-                delete this.validation[key];
-
-                return this.makeBlock(key, errorModel.text, errorModel.strings, errorValidation);
+                var tempModel = this.getValidatedObject(key);
+                return this.makeBlock(key, tempModel.errorModel.text, tempModel.errorModel.strings, tempModel.errorValidation);
             }
             return this.makeBlock(key, this.models[key].text, this.models[key].strings, {});
         })
         .join('');
 
         if (this.validation.hasOwnProperty('new')) {
-            var errorModel = this.getMergedEditStateModel('new'),
-                errorValidation = this.validation.new ? this.validation.new : {};
-
-            delete this.validation.new;
-
+            var tempModel = this.getValidatedObject('new');
             template = template.concat(
-                this.makeBlock('new', errorModel.text, errorModel.strings, errorValidation)
+                this.makeBlock('new', tempModel.errorModel.text, tempModel.errorModel.strings, tempModel.errorValidation)
             );
         }
 
@@ -86,7 +78,7 @@ class Expedited extends BaseTab {
 
             controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
         }
-console.log(error);
+
         return `<div id="${index}" class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
             <div class="m-portlet__head p-0">
                 <div class="row col align-items-center">

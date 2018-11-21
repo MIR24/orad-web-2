@@ -51,25 +51,17 @@ class Countdown extends BaseTab {
                <tbody id="${tableBodyId}">`;
        template += Object.keys(this.models).map(key => {
            if (this.edit.hasOwnProperty(key)) {
-               var errorModel = this.getMergedEditStateModel(key),
-                   errorValidation = this.validation[key] ? this.validation[key] : {};
-
-               delete this.validation[key];
-
-               return this.makeBlock(key, errorModel.title, errorModel.happen_at, disabled, errorValidation);
+               var tempModel = this.getValidatedObject(key);
+               return this.makeBlock(key, tempModel.errorModel.title, tempModel.errorModel.happen_at, disabled, tempModel.errorValidation);
            }
            return this.makeBlock(key, this.models[key].title, this.models[key].happen_at, disabled, {});
        })
        .join('');
 
         if (this.validation.hasOwnProperty('new')) {
-           var errorModel = this.getMergedEditStateModel('new'),
-               errorValidation = this.validation.new ? this.validation.new : {};
-
-           delete this.validation.new;
-
+           var tempModel = this.getValidatedObject('new');
            template = template.concat(
-               this.makeBlock('new', errorModel.title, errorModel.happen_at, disabled, errorValidation)
+               this.makeBlock('new', tempModel.errorModel.title, tempModel.errorModel.happen_at, disabled, tempModel.errorValidation)
            );
         }
 
