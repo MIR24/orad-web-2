@@ -1,6 +1,9 @@
 import { configFromDB, validationMessages } from "../Config/Constants"
 
 const TabsConfig = {
+    "default": {
+        "extraBlocks": [],
+    },
     "Tops": {
         "api": {
             "base": "/api/tops",
@@ -28,6 +31,9 @@ const TabsConfig = {
                 },
             },
         },
+        "extraBlocks": [
+            "confirmation-edit-next-model",
+        ],
     },
     "Newsbar": {
         "api": {
@@ -54,6 +60,9 @@ const TabsConfig = {
                 },
             },
         },
+        "extraBlocks": [
+            "confirmation-edit-next-model",
+        ],
     },
     "Expedited": {
         "api": {
@@ -85,6 +94,9 @@ const TabsConfig = {
         "getAdditions": {
             "orbits": "/api/orbits",
         },
+        "extraBlocks": [
+            "confirmation-edit-next-model",
+        ],
     },
     "CurrencyValues": {
         "api": {

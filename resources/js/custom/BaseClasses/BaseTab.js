@@ -9,7 +9,7 @@ import ConformationModal from "../Modals/ConformationModal.js"
 
 class BaseTab {
     constructor () {
-        this.config = TabsConfig[this.constructor.name];
+        this.config = Object.assign({}, TabsConfig["default"], TabsConfig[this.constructor.name]);
         this.template = '';
         this.listeners = {};
         this.edit = {
@@ -20,6 +20,7 @@ class BaseTab {
         this.additions = {};
         this.utilityBlocksInfo = {};
         this.validation = {};
+        this.searchOptions = {};
     }
 
     getModels () {
@@ -179,11 +180,22 @@ class BaseTab {
     }
 
     enterEditing (modelId) {
-        this.edit = {
-            'modelId': modelId,
-            'state': true,
+        if (this.config.extraBlocks.includes('confirmation-edit-next-model') && this.edit.state) {
+            this.utilityBlocksInfo['confirmation-edit-next-model'].continue = () => {
+                this.edit = {
+                    'modelId': modelId,
+                    'state': true,
+                }
+                this.rerender();
+            };
+            this.utilityBlocksInfo['confirmation-edit-next-model'].open();
+        } else {
+            this.edit = {
+                'modelId': modelId,
+                'state': true,
+            }
+            this.rerender();
         }
-        this.rerender();
     }
 
     cancelEditingModal () {
@@ -225,20 +237,41 @@ class BaseTab {
     }
 
     makeUtilityBlocks () {
-        var conformationModal = new ConformationModal(this.constructor.name, 'delete-model');
+        var conformationModalDelete = new ConformationModal(this.constructor.name, 'delete-model'),
+            extraBlocks = '';
 
-        conformationModal.init();
-        this.mergeUtilityBlocksInfo(conformationModal.getUtilityBlockInfo());
-        this.addListeners(conformationModal.getListeners());
+        conformationModalDelete.init();
+        this.mergeUtilityBlocksInfo(conformationModalDelete.getUtilityBlockInfo());
+        this.addListeners(conformationModalDelete.getListeners());
 
-        this.template = this.template.concat(conformationModal.getTemplate());
+        if (this.config.extraBlocks.includes('confirmation-edit-next-model')) {
+            var conformationModalEditNew = new ConformationModal(this.constructor.name, 'edit-next-model');
+
+            conformationModalEditNew.init();
+            this.mergeUtilityBlocksInfo(conformationModalEditNew.getUtilityBlockInfo());
+            this.addListeners(conformationModalEditNew.getListeners());
+            extraBlocks += conformationModalEditNew.getTemplate();
+        }
+
+        this.template = this.template.concat(`
+            ${conformationModalDelete.getTemplate()}
+            ${extraBlocks}
+        `);
+    }
+
+    getMergedSearchOptions (offset, limit) {
+        if (offset !== undefined && limit !== undefined) {
+            return Object.assign({}, {
+                'offset': offset,
+                'limit': limit,
+            }, this.searchOptions);
+        } else {
+            return Object.assign({}, this.config.pagination.params, this.searchOptions)
+        }
     }
 
     paginationMove (offset, limit) {
-        simpleAjaxPromise(apiMethods.get, this.config.api.base, {
-            'offset': offset,
-            'limit': limit,
-        })
+        simpleAjaxPromise(apiMethods.get, this.config.api.base, this.getMergedSearchOptions(offset, limit))
         .then((response) => {
             this.config.pagination.params.offset = offset;
             if (response.data.length != limit) {
@@ -254,11 +287,16 @@ class BaseTab {
     }
 
     searchModels (query) {
-        simpleAjaxPromise(apiMethods.get, this.config.api.base, {
-            'offset': this.config.pagination.params.offset,
-            'limit': this.config.pagination.params.limit,
-            'q': query,
-        })
+        if (query) {
+            this.config.pagination.params.offset = 0;
+            this.searchOptions = {
+                'q': query,
+            };
+        } else {
+            delete this.searchOptions.q;
+        }
+
+        simpleAjaxPromise(apiMethods.get, this.config.api.base, this.getMergedSearchOptions())
         .then((response) => {
             this.config.pagination.params.offset = 0;
             if (response.data.length != this.config.pagination.params.limit) {

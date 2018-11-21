@@ -3,13 +3,13 @@ import SimpleButton from "../Components/SimpleButton.js";
 import Input from "../Components/Input.js";
 
 class SearchInline extends BaseComponentGroup {
-    constructor (id) {
-        super(id, 'search-inline');
+    constructor (id, value) {
+        super(id, 'search-inline', value);
     }
 
     makeTemplate () {
         var searchBtn = new SimpleButton(this.id, 'search-inline', 'btn', false),
-            searchInput = new Input(this.id, 'input', '', false, 'Поиск...');
+            searchInput = new Input(this.id, 'input', this.value.q, false, 'Поиск...');
 
         searchBtn.init();
         searchInput.init();
