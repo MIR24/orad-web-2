@@ -61,11 +61,31 @@ class CurrencyValues extends BaseTab {
                 </tr>
             </thead>
             <tbody id="${tableBodyId}">`;
-       template += Object.keys(this.models).map(key => {
-           return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled, this.models[key].error);
+       template += Object.keys(this.models).map(key => {console.log(this.validation);
+           if (this.edit.hasOwnProperty(key)) {
+               var errorModel = this.getMergedEditStateModel(key),
+                   errorValidation = this.validation[key] ? this.validation[key] : {};
+
+               delete this.validation[key];
+
+               return this.makeBlock(key, errorModel.val1, errorModel.val2, errorModel.value, errorModel.dir, disabled, errorValidation);
+           }
+           return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled, {});
        })
-       .join('')
-       .concat('</tbody></table>')
+       .join('');
+
+       if (this.validation.hasOwnProperty('new')) {
+           var errorModel = this.getMergedEditStateModel('new'),
+               errorValidation = this.validation.new ? this.validation.new : {};
+
+           delete this.validation.new;
+
+           template = template.concat(
+               this.makeBlock('new', errorModel.val1, errorModel.val2, errorModel.value, errorModel.dir, disabled, errorValidation)
+           );
+       }
+
+       template = template.concat('</tbody></table>')
        .concat(controlButtons);
         this.template = this.getBaseContainer(template);
     }
@@ -101,29 +121,29 @@ class CurrencyValues extends BaseTab {
         }
 
         return `<tr id="${index}">
-            <td>${this.getRow(leftValNameInput.getTemplate(), error ? error.val1 : false)}</td>
-            <td>${this.getRow(spinnerButton.getTemplate(), error ? error.dir : false)}</td>
-            <td>${this.getRow(valueInput.getTemplate(), error ? error.value : false)}</td>
-            <td>${this.getRow(rightValNameInput.getTemplate(), error ? error.val2 : false)}</td>
+            <td>${this.getRow(leftValNameInput.getTemplate(), error.val1)}</td>
+            <td>${this.getRow(spinnerButton.getTemplate(), error.dir)}</td>
+            <td>${this.getRow(valueInput.getTemplate(), error.value)}</td>
+            <td>${this.getRow(rightValNameInput.getTemplate(), error.val2)}</td>
             ${controlButtons}
         </tr>`;
     }
 
     getRow (elementTemplate, errorMessage) {
         if (errorMessage) {
-            return `<div class="form-group m-form__group row has-danger mb-0">
+            return `<div class="form-group m-form__group has-danger mb-0">
                 ${elementTemplate}
                 <label>${errorMessage}</label>
             </div>`;
         } else {
-            return `<div class="form-group m-form__group row">
+            return `<div class="form-group m-form__group ">
                 ${elementTemplate}
             </div>`;
         }
     }
 
     getEmptyBlock (event) {
-        return this.makeBlock('new');
+        return this.makeBlock('new', '', '', '', '', '', {});
     }
 
     saveModel (modelId) {
