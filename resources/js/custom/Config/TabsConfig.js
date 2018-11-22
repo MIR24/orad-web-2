@@ -251,5 +251,11 @@ const TabsConfig = {
             "hasMore": true,
         },
     },
+    "ConfigurationControl": {
+        "api": {
+            "base": "/test/configtextarea",
+            "updateCreate": "/test/configtextarea",
+        },
+    }
 }
 export default TabsConfig
