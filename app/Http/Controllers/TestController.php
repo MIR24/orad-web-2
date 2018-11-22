@@ -319,4 +319,7 @@ class TestController extends Controller
             ],
         ]];
     }
+    public function getHelpRedacting () {
+        return ['data'=>[]];
+    }
 }

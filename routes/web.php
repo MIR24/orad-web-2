@@ -26,5 +26,6 @@ Route::get('/test/countdown', 'TestController@getCountdown');
 Route::get('/test/promo', 'TestController@getPromo');
 Route::get('/test/icons', 'TestController@getIcons');
 Route::get('/test/configtextarea', 'TestController@getConfigTextArea');
+Route::get('/test/helpredacting', 'TestController@getHelpRedacting');
 
 Auth::routes();

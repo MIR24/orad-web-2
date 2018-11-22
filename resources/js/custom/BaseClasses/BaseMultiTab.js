@@ -48,8 +48,6 @@ class BaseMultiTab {
         if (event.target.id !== this.currentActiveTabId) {
             this.currentActiveTabId = event.target.id;
             this.initActiveTab();
-
-            console.log(event, this);
         }
     }
 

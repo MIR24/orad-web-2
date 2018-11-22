@@ -1,18 +1,19 @@
 import BaseMultiTab from "../BaseClasses/BaseMultiTab.js";
 import ConfigurationControl from "../Tabs/ConfigurationControl";
+import HelpRedacting from "../Tabs/HelpRedacting";
 
 class AdminControl extends BaseMultiTab {
     constructor () {
         super();
-        this.currentActiveTabId = 'configurationControl';
+        this.currentActiveTabId = 'ConfigurationControl';
         this.tabsFormatter = {
-            'configurationControl': {
+            'ConfigurationControl': {
                 'class': ConfigurationControl,
                 'tabName': 'Настройки предложения'
             },
-            'test1': {
-                'class': ConfigurationControl,
-                'tabName': 'Настройки предложения1'
+            'HelpRedacting': {
+                'class': HelpRedacting,
+                'tabName': 'Справка'
             },
         };
     }

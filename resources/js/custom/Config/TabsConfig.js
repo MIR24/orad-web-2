@@ -256,6 +256,12 @@ const TabsConfig = {
             "base": "/test/configtextarea",
             "updateCreate": "/test/configtextarea",
         },
-    }
+    },
+    "HelpRedacting": {
+        "api": {
+            "base": "/test/helpredacting",
+            "updateCreate": "/test/helpredacting",
+        },
+    },
 }
 export default TabsConfig
