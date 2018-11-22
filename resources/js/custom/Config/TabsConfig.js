@@ -256,6 +256,21 @@ const TabsConfig = {
             "base": "/test/configtextarea",
             "updateCreate": "/test/configtextarea",
         },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "maxChars",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+            "regexSuccess": {
+                "maxChars": {
+                    "regex": `^\d+$`,
+                    "flags": "g",
+                    "errorMsg": validationMessages.dataTimeAgain,
+                },
+            },
+        },
     },
     "HelpRedacting": {
         "api": {

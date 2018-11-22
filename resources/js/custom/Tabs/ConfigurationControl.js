@@ -45,14 +45,18 @@ class ConfigurationControl extends BaseMultiTabChild {
                    <tbody>`;
 
         this.template += Object.keys(this.models).map(key => {
-           return this.makeBlock(key, this.models[key].name, this.models[key].maxChars, disabled);
+            if (this.edit.hasOwnProperty(key)) {
+                var tempModel = this.getValidatedObject(key);
+                return this.makeBlock(key, this.models[key].name, tempModel.errorModel.maxChars, disabled, tempModel.errorValidation);
+            }
+           return this.makeBlock(key, this.models[key].name, this.models[key].maxChars, disabled, {});
         })
         .join('')
         .concat('</tbody></table></div>')
         .concat(controlButtons);
     }
 
-    makeBlock(index, name, maxChars, disabled) {
+    makeBlock(index, name, maxChars, disabled, error) {
         var maxChars = new Input(index, 'maxChars', maxChars, disabled, '0', 'number');
 
         maxChars.init();
@@ -67,10 +71,23 @@ class ConfigurationControl extends BaseMultiTabChild {
             </td>
             <td>
                 <div class="form-group m-form__group">
-                    ${maxChars.getTemplate()}
+                    ${this.getRow(maxChars.getTemplate(), error.maxChars)}
                 </div>
             </td>
         </tr>`;
+    }
+
+    getRow (elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group has-danger mb-0">
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group">
+                ${elementTemplate}
+            </div>`;
+        }
     }
 
     modelChange (modelId, valueName, newValue) {
