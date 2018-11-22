@@ -143,14 +143,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </button>
                                 <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light ">
                                     <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
-                                        @include('layouts.partials.tab-active', ['name' => 'Tops', 'translation' => __('Tops')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'Newsbar', 'translation' => __('Newsbar')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'Expedited', 'translation' => __('Expedited')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'CurrencyValues', 'translation' => __('CurrencyValues')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'WeatherLive', 'translation' => __('WeatherLive')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'TimeShift', 'translation' => __('TimeShift')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'Countdown', 'translation' => __('Countdown')])
-                                        @include('layouts.partials.tab-inactive', ['name' => 'Promo', 'translation' => __('Promo')])
+                                        @foreach (config('tabs.default') as $tabConfig)
+                                            @if (array_key_exists('active', $tabConfig))
+                                                @include('layouts.partials.tab-active', ['jsClass' => $tabConfig['jsClass'], 'translation' => __($tabConfig['jsClass'])])
+                                            @else
+                                                @include('layouts.partials.tab-inactive', ['jsClass' => $tabConfig['jsClass'], 'translation' => __($tabConfig['jsClass'])])
+                                            @endif
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
