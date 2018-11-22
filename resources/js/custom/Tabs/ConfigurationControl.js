@@ -35,10 +35,10 @@ class ConfigurationControl extends BaseMultiTabChild {
         controlButtons += '</div>';
 
         this.template = `<div class="row justify-content-center">
-            <table class="col-3 table m-table m-table--head-no-border text-center">
+            <table class="col-4 table m-table m-table--head-no-border text-center">
                 <thead>
                     <tr>
-                        <th>Название</th>
+                        <th class="w-75">Название</th>
                         <th>Номер</th>
                     </tr>
                 </thead>
