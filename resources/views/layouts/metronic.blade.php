@@ -118,9 +118,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
                                     <div class="m-stack__item m-topbar__nav-wrapper">
                                         <ul class="m-topbar__nav m-nav m-nav--inline ">
-                                            @include('layouts.partials.nav-link', ['name' => 'Controle', 'translation' => __('Controle')])
-                                            @include('layouts.partials.nav-link', ['name' => 'Options', 'translation' => __('Options')])
-                                            @include('layouts.partials.nav-link', ['name' => 'Reference', 'translation' => __('Reference')])
                                             @include('layouts.partials.user-profile')
                                         </ul>
                                     </div>
