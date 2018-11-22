@@ -222,6 +222,9 @@ const TabsConfig = {
             "updateCreate": "/api/promos-collections",
             "delete": "/api/promos/",
         },
+        "getAdditions": {
+            "category": "/api/promocategories",
+        },
         "defaultEditState": {
             "mir_id": 0,
             "mirhd_id": 0,

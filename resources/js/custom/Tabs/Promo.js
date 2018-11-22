@@ -29,10 +29,11 @@ class Promo extends BaseTab {
 
         // TO DO
         if (isSomeRoll) {
-            var createModal = new PromoEditModal('new', {}, 'create');
+            var createModal = new PromoEditModal('new', {}, 'create', {'category': this.additions.category});
             
             createModal.init();
             this.addListeners(createModal.getListeners());
+            this.mergeAdditionlClassesJQ(createModal.getAdditionlClassesJQ());
             controlButtons = `${createModal.getOpenButton()}${createModal.getTemplate()}`
         }
 
@@ -60,7 +61,7 @@ class Promo extends BaseTab {
 
         // TO DO
         if (isSomeRoll) {
-            var editModal = new PromoEditModal(index, this.models[index], 'edit'),
+            var editModal = new PromoEditModal(index, this.models[index], 'edit', {'category': this.additions.category}),
                 deleteModelBtn = new DeleteButton(index);
 
             editModal.init();
@@ -68,7 +69,9 @@ class Promo extends BaseTab {
 
             this.addListeners(editModal.getListeners());
             this.addListeners(deleteModelBtn.getListeners());
-            
+
+            this.mergeAdditionlClassesJQ(editModal.getAdditionlClassesJQ());
+
             controlButtons = `<div class="m-portlet__foot">
                 <div class="row m--valign-middle">
                     <div class="col m--align-right">

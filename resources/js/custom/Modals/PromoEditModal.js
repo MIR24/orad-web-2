@@ -1,16 +1,17 @@
 import BaseModalEdit from "../BaseClasses/BaseModalEdit.js";
 import Input from "../Components/Input.js";
+import Select2Custom from "../ExternalComponents/Select2Custom.js";
 
 class PromoEditModal extends BaseModalEdit {
-    constructor (id, model, type) {
-        super(id, type + '-promo', model);
+    constructor (id, model, type, additions) {
+        super(id, type + '-promo', model, additions);
     }
 
-    getModalBody () {
+    getModalBody () {console.log(this);
         if (jQuery.isEmptyObject(this.validationModel)) {
             var mirId = new Input(this.modelId, 'mir_id', this.model.mir_id, false, 'ID МИР'),
                 mirHdId = new Input(this.modelId, 'mirhd_id', this.model.mirhd_id, false, 'ID МИРHD'),
-                category = 'Категория',
+                category = new Select2Custom (this.modelId, 'category', this.additions.category, this.model.category_id),
                 name = new Input(this.modelId, 'name', this.model.name, false, 'Название'),
                 title = new Input(this.modelId, 'header', this.model.header, false, 'Заголовок'),
                 underTitle = new Input(this.modelId, 'subheader', this.model.subheader, false, 'Подзаголовок'),
@@ -20,7 +21,7 @@ class PromoEditModal extends BaseModalEdit {
         } else {
             var mirId = new Input(this.modelId, 'mir_id', this.validationModel.errorModel.mir_id, false, 'ID МИР'),
                 mirHdId = new Input(this.modelId, 'mirhd_id', this.validationModel.errorModel.mirhd_id, false, 'ID МИРHD'),
-                category = 'Категория',
+                category = new Select2Custom (this.modelId, 'category', this.additions.category, this.model.category_id),
                 name = new Input(this.modelId, 'name', this.validationModel.errorModel.name, false, 'Название'),
                 title = new Input(this.modelId, 'header', this.validationModel.errorModel.header, false, 'Заголовок'),
                 underTitle = new Input(this.modelId, 'subheader', this.validationModel.errorModel.subheader, false, 'Подзаголовок'),
@@ -31,6 +32,7 @@ class PromoEditModal extends BaseModalEdit {
 
         mirId.init();
         mirHdId.init();
+        category.init();
         name.init();
         title.init();
         underTitle.init();
@@ -38,13 +40,17 @@ class PromoEditModal extends BaseModalEdit {
 
         this.addListeners(mirId.getListeners());
         this.addListeners(mirHdId.getListeners());
+        this.addListeners(category.getListeners());
         this.addListeners(name.getListeners());
         this.addListeners(title.getListeners());
         this.addListeners(underTitle.getListeners());
         this.addListeners(ageRestriction.getListeners());
 
+        this.addAdditionlClassesJQ(this.modelId, category);
+
         return `${this.getRow('ID МИР', mirId.getTemplate(), error.mir_id)}
             ${this.getRow('ID МИРHD', mirHdId.getTemplate(), error.mirhd_id)}
+            ${this.getRow('Категория', category.getTemplate(), error.category)}
             ${this.getRow('Название', name.getTemplate(), error.name)}
             ${this.getRow('Заголовок', title.getTemplate(), error.header)}
             ${this.getRow('Подзаголовок', underTitle.getTemplate(), error.subheader)}

@@ -2,11 +2,14 @@ import BaseModal from "../BaseClasses/BaseModal.js";
 import ModalSaveEditButton from "../Components/ModalSaveEditButton.js";
 import ModalExitEditButton from "../Components/ModalExitEditButton.js";
 import ModalEnterEditButton from "../Components/ModalEnterEditButton.js";
+import AdditionlClassesJQ from "../Utils/AdditionlClassesJQ.js";
 
 class BaseModalEdit extends BaseModal {
-    constructor (id, type, model) {
+    constructor (id, type, model, additions) {
         super(id, type, model);
         this.validationModel = {};
+        this.additions = additions;
+        this.additionlClassesJQ = {};
     }
 
     getBaseTemplate () {
@@ -77,6 +80,15 @@ class BaseModalEdit extends BaseModal {
             $('#' + this.id).modal('toggle');
             initClass.saveModel(this.modelId);
         }
+    }
+
+    addAdditionlClassesJQ (modelId, classVar) {
+        AdditionlClassesJQ.add(this.additionlClassesJQ, modelId ,classVar);
+        this.addListeners(classVar.getListeners());
+    }
+
+    getAdditionlClassesJQ () {
+        return this.additionlClassesJQ;
     }
 }
 export default BaseModalEdit
