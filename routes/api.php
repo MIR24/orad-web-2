@@ -13,27 +13,29 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('citytimeshifts', 'API\CityTimeshiftController');
-Route::apiResource('currencyrates', 'API\CurrencyRateController');
-Route::apiResource('eventcountdowns', 'API\EventCountdownController');
+Route::group(['middleware' => ['auth']], function () {
+    Route::apiResource('citytimeshifts', 'API\CityTimeshiftController');
+    Route::apiResource('currencyrates', 'API\CurrencyRateController');
+    Route::apiResource('eventcountdowns', 'API\EventCountdownController');
 
-// Пары категория+строка
-Route::apiResource('hotnews', 'API\HotNewsController');
-Route::apiResource('newsbars', 'API\NewsbarController');
-Route::apiResource('tickers', 'API\TickerController');
-Route::apiResource('tops', 'API\TopController');
-//----------------------
+    // Пары категория+строка
+    Route::apiResource('hotnews', 'API\HotNewsController');
+    Route::apiResource('newsbars', 'API\NewsbarController');
+    Route::apiResource('tickers', 'API\TickerController');
+    Route::apiResource('tops', 'API\TopController');
+    //----------------------
 
-Route::apiResource('tabs', 'API\TabController');
-Route::apiResource('settings', 'API\SettingController');
-Route::apiResource('weatherforecasts', 'API\WeatherForecastController');
-Route::apiResource('weathertypes', 'API\WeatherTypeController');
-Route::apiResource('photos', 'API\PhotoController');
-Route::apiResource('photocategories', 'API\PhotoCategoryController');
-Route::apiResource('promos', 'API\PromoController');
-Route::apiResource('promocategories', 'API\PromoCategoryController');
-Route::apiResource('orbits', 'API\OrbitController');
+    Route::apiResource('tabs', 'API\TabController');
+    Route::apiResource('settings', 'API\SettingController');
+    Route::apiResource('weatherforecasts', 'API\WeatherForecastController');
+    Route::apiResource('weathertypes', 'API\WeatherTypeController');
+    Route::apiResource('photos', 'API\PhotoController');
+    Route::apiResource('photocategories', 'API\PhotoCategoryController');
+    Route::apiResource('promos', 'API\PromoController');
+    Route::apiResource('promocategories', 'API\PromoCategoryController');
+    Route::apiResource('orbits', 'API\OrbitController');
+});

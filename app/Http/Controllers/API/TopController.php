@@ -16,5 +16,6 @@ class TopController extends BaseController
     public function __construct(TopRepository $repository)
     {
         $this->repository = $repository;
+        $this->middleware(['can:update_tops'])->only('index');
     }
 }
