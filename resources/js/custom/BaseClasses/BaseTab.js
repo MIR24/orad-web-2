@@ -115,10 +115,10 @@ class BaseTab {
             arrayOfPromises.push(
                 this.updateModels(models)
                 .then((response) => {
-                    for (var responseId in response) {
+                    for (var responseId in response.data) {
                         for (var modelId in this.models) {
-                            if (response[responseId].id === this.models[modelId].id) {
-                                this.models[modelId] = response[responseId];
+                            if (response.data[responseId].id === this.models[modelId].id) {
+                                this.models[modelId] = response.data[responseId];
                                 continue;
                             }
                         }
