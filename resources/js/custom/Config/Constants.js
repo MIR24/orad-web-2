@@ -1,4 +1,5 @@
 export const csrf = $('meta[name="csrf-token"]').attr('content');
+export const tabContentIdJQ = '#tab-content';
 export const apiMethods = {
     'get': 'GET',
     'create': 'POST',

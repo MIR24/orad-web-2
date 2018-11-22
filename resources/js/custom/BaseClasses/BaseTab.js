@@ -1,10 +1,9 @@
 import Listeners from "../Utils/Listeners.js";
 import AdditionlClassesJQ from "../Utils/AdditionlClassesJQ.js";
 import UtilityBlocks from "../Utils/UtilityBlocks.js";
-import IdManipulation from "../Utils/IdManipulation.js";
 import TabsConfig from "../Config/TabsConfig.js";
 import { simpleAjaxPromise } from "../Api/Multi.js";
-import { apiMethods, toasterMessages } from "../Config/Constants.js";
+import { tabContentIdJQ, apiMethods, toasterMessages } from "../Config/Constants.js";
 import ConformationModal from "../Modals/ConformationModal.js"
 
 class BaseTab {
@@ -131,7 +130,7 @@ class BaseTab {
             );
         }
 
-        if (jQuery.isEmptyObject(this.validation)) {
+        if (arrayOfPromises.length > 0 && jQuery.isEmptyObject(this.validation)) {
             $.when.apply(null, arrayOfPromises).done(() => {
                 this.edit = {
                     'modelId': null,
@@ -139,8 +138,10 @@ class BaseTab {
                 };
                 this.rerender();
             });
-        } else {
+        } else if (!jQuery.isEmptyObject(this.validation)) {
             this.rerender();
+        } else {
+            toastr.warning(toasterMessages.warning.nothingToSave);
         }
     }
 
@@ -489,7 +490,7 @@ class BaseTab {
     }
 
     renderTemplate () {
-        $('#tab-content').html(this.template);
+        $(tabContentIdJQ).html(this.template);
     }
 
     init () {
