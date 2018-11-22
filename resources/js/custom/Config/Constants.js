@@ -47,4 +47,5 @@ export const validationMessages = {
     'followPattern': 'follow patter ',
     'noMoreThan5': 'Максимум 5 букв',
     'dataTimeAgain': 'Выберите еще раз дату и время',
+    'onlyInteger': 'Только целое число позволено ',
 }

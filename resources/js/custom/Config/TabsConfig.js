@@ -267,7 +267,7 @@ const TabsConfig = {
                 "maxChars": {
                     "regex": `^\d+$`,
                     "flags": "g",
-                    "errorMsg": validationMessages.dataTimeAgain,
+                    "errorMsg": validationMessages.onlyInteger,
                 },
             },
         },
