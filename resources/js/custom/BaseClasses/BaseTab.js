@@ -370,6 +370,18 @@ class BaseTab {
                             this.validationRemove(modelId, fieldName, this.config.validation.notNull.errorMsg);
                         }
                         break;
+                    case 'regexSuccess':
+                        if (this.config.validation.regexSuccess.hasOwnProperty(fieldName)) {
+                            var reg = new RegExp(this.config.validation.regexSuccess[fieldName].regex, this.config.validation.regexSuccess[fieldName].flags),
+                                match = reg.exec(model[fieldName]);
+
+                            if (!match) {
+                                this.validationAssigne(modelId, fieldName, this.config.validation.regexSuccess[fieldName].errorMsg);
+                            } else {
+                                this.validationRemove(modelId, fieldName, this.config.validation.regexSuccess[fieldName].errorMsg);
+                            }
+                        }
+                        break;
                     case 'regexFailed':
                         if (this.config.validation.regexFailed.hasOwnProperty(fieldName)) {
                             var reg = new RegExp(this.config.validation.regexFailed[fieldName].regex, this.config.validation.regexFailed[fieldName].flags),
