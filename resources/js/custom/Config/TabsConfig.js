@@ -253,19 +253,19 @@ const TabsConfig = {
     },
     "ConfigurationControl": {
         "api": {
-            "base": "/test/configtextarea",
-            "updateCreate": "/test/configtextarea",
+            "base": "/api/settings",
+            "updateCreate": "/api/settings-collections",
         },
         "validation": {
             "notNull": {
                 "fieldNames": [
-                    "maxChars",
+                    "value",
                 ],
                 'errorMsg': validationMessages.requiredField,
             },
             "regexSuccess": {
-                "maxChars": {
-                    "regex": `^\d+$`,
+                "value": {
+                    "regex": `^[0-9]+$`,
                     "flags": "g",
                     "errorMsg": validationMessages.onlyInteger,
                 },

@@ -38,8 +38,8 @@ class ConfigurationControl extends BaseMultiTabChild {
             <table class="col-3 table m-table m-table--head-no-border text-center">
                 <thead>
                     <tr>
-                        <th>Название раздела</th>
-                        <th>Максимальное количество символов</th>
+                        <th>Название</th>
+                        <th>Номер</th>
                     </tr>
                 </thead>
                    <tbody>`;
@@ -47,31 +47,31 @@ class ConfigurationControl extends BaseMultiTabChild {
         this.template += Object.keys(this.models).map(key => {
             if (this.edit.hasOwnProperty(key)) {
                 var tempModel = this.getValidatedObject(key);
-                return this.makeBlock(key, this.models[key].name, tempModel.errorModel.maxChars, disabled, tempModel.errorValidation);
+                return this.makeBlock(key, this.models[key].desc, tempModel.errorModel.value, disabled, tempModel.errorValidation);
             }
-           return this.makeBlock(key, this.models[key].name, this.models[key].maxChars, disabled, {});
+           return this.makeBlock(key, this.models[key].desc, this.models[key].value, disabled, {});
         })
         .join('')
         .concat('</tbody></table></div>')
         .concat(controlButtons);
     }
 
-    makeBlock(index, name, maxChars, disabled, error) {
-        var maxChars = new Input(index, 'maxChars', maxChars, disabled, '0', 'number');
+    makeBlock(index, desc, value, disabled, error) {
+        var value = new Input(index, 'value', value, disabled, '0', 'number');
 
-        maxChars.init();
+        value.init();
 
-        this.addListeners(maxChars.getListeners());
+        this.addListeners(value.getListeners());
 
         return `<tr id="${index}">
             <td>
                 <div class="form-group m-form__group row">
-                    <label class="col col-form-label">${name}</label>
+                    <label class="col col-form-label">${desc}</label>
                 </div>
             </td>
             <td>
                 <div class="form-group m-form__group">
-                    ${this.getRow(maxChars.getTemplate(), error.maxChars)}
+                    ${this.getRow(value.getTemplate(), error.value)}
                 </div>
             </td>
         </tr>`;
