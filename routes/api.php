@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group(['middleware' => ['auth']], function () {
     Route::get('users/{id}/permissions', 'API\UserController@showPermissions');
 
@@ -54,26 +50,29 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('orbits-collections', 'API\OrbitController@patchMultiple');
 
     Route::apiResources([
-        'citytimeshifts' => 'API\CityTimeshiftController',
-        'currencyrates' => 'API\CurrencyRateController',
-        'eventcountdowns' => 'API\EventCountdownController',
-
-        // Пары категория+строка
-        'hotnews' => 'API\HotNewsController',
-        'newsbars' => 'API\NewsbarController',
-        'tickers' => 'API\TickerController',
-        'tops' => 'API\TopController',
-        //----------------------
-
         'users' => 'API\UserController',
-        'tabs' => 'API\TabController',
         'settings' => 'API\SettingController',
-        'weatherforecasts' => 'API\WeatherForecastController',
-        'weathertypes' => 'API\WeatherTypeController',
-        'photos' => 'API\PhotoController',
-        'photocategories' => 'API\PhotoCategoryController',
-        'promos' => 'API\PromoController',
-        'promocategories' => 'API\PromoCategoryController',
-        'orbits' => 'API\OrbitController',
     ]);
+
 });
+
+Route::apiResources([
+    'citytimeshifts' => 'API\CityTimeshiftController',
+    'currencyrates' => 'API\CurrencyRateController',
+    'eventcountdowns' => 'API\EventCountdownController',
+    'tabs' => 'API\TabController',
+    'weatherforecasts' => 'API\WeatherForecastController',
+    'weathertypes' => 'API\WeatherTypeController',
+    'photos' => 'API\PhotoController',
+    'photocategories' => 'API\PhotoCategoryController',
+    'promos' => 'API\PromoController',
+    'promocategories' => 'API\PromoCategoryController',
+    'orbits' => 'API\OrbitController',
+
+    // Пары категория+строка
+    'hotnews' => 'API\HotNewsController',
+    'newsbars' => 'API\NewsbarController',
+    'tickers' => 'API\TickerController',
+    'tops' => 'API\TopController',
+    //----------------------
+]);
