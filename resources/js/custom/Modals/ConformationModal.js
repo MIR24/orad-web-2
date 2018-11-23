@@ -20,7 +20,7 @@ class ConformationModal extends BaseModalEdit {
         this.addListeners(noButton.getListeners());
 
         return `<div class="modal fade" id="${this.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div id=${this.modalBodyId} class="modal-body">
                         ${this.config.message}
