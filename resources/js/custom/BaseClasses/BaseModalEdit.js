@@ -1,7 +1,6 @@
 import BaseModal from "../BaseClasses/BaseModal.js";
-import ModalSaveEditButton from "../Components/ModalSaveEditButton.js";
-import ModalExitEditButton from "../Components/ModalExitEditButton.js";
 import ModalEnterEditButton from "../Components/ModalEnterEditButton.js";
+import SimpleButton from "../Components/SimpleButton.js";
 import AdditionlClassesJQ from "../Utils/AdditionlClassesJQ.js";
 
 class BaseModalEdit extends BaseModal {
@@ -14,9 +13,9 @@ class BaseModalEdit extends BaseModal {
 
     getBaseTemplate () {
         var openButton = new ModalEnterEditButton(this.modelId, this.config.enterEditBtn, this.id),
-            exitEditButton = new ModalExitEditButton(this.id),
-            exitEditButtonTop = new ModalExitEditButton(this.id, 'modal-exit-edit-top'),
-            saveButton = new ModalSaveEditButton(this.modelId);
+            exitEditButton = new SimpleButton(this.modelId, 'modal-exit-edit'),
+            exitEditButtonTop = new SimpleButton(this.modelId, 'modal-exit-edit-top'),
+            saveButton = new SimpleButton(this.modelId, 'modal-save-edit');
 
         openButton.init();
         exitEditButton.init();
