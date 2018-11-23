@@ -206,7 +206,7 @@ class BaseTab {
         }
     }
 
-    enterEditingModel (modelId) {
+    enterEditingModal (modelId) {
         this.edit = {
             'modelId': modelId,
             'state': true,
@@ -452,10 +452,6 @@ class BaseTab {
 
     getMergedEditStateModel (modelId) {
         return Object.assign({}, this.models[modelId], this.edit[modelId]);
-    }
-
-    getMergedEditStateModelFull (modelId) {
-        return Object.assign(this.models[modelId], this.edit[modelId]);
     }
 
     getNewEditStateModel () {

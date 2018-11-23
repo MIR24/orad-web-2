@@ -13,7 +13,7 @@ class BaseModalEdit extends BaseModal {
     }
 
     getBaseTemplate () {
-        var openButton = new ModalEnterEditButton(this.id, this.config.enterEditBtn),
+        var openButton = new ModalEnterEditButton(this.modelId, this.config.enterEditBtn, this.id),
             exitEditButton = new ModalExitEditButton(this.id),
             exitEditButtonTop = new ModalExitEditButton(this.id, 'modal-exit-edit-top'),
             saveButton = new ModalSaveEditButton(this.modelId);
@@ -62,6 +62,7 @@ class BaseModalEdit extends BaseModal {
     }
 
     exitEditHandle (initClass, props, event) {
+        this.validationModel = {};
         this.reInit(initClass);
         $('#' + this.id).modal('toggle');
         initClass.cancelEditingModal();
@@ -72,13 +73,10 @@ class BaseModalEdit extends BaseModal {
         if (this.modelId === 'new') {
             initClass.validateEditState(this.modelId, initClass.getNewEditStateModel());
         } else {
-            initClass.validateEditState(this.modelId, initClass.getMergedEditStateModelFull(this.modelId));
+            initClass.validateEditState(this.modelId, initClass.getMergedEditStateModel(this.modelId));
         }
         if (initClass.validation.hasOwnProperty(this.modelId)) {
             this.validationModel = initClass.getValidatedObject(this.modelId);
-            this.reInit(initClass);
-            this.validationModel = {};
-        } else if (!jQuery.isEmptyObject(this.validationModel)) {
             this.reInit(initClass);
         } else {
             $('#' + this.id).modal('toggle');
