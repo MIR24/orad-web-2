@@ -12,7 +12,7 @@ class PhotoController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  PhotoRepository  $repository
      * @return void
      */
     public function __construct(PhotoRepository $repository)
@@ -30,8 +30,7 @@ class PhotoController extends BaseController
     {
         return new CommonCollectionResource(
             $this->repository->search(
-                $request->input('data'),
-                config('search.photo.columns')
+                $request->query()
             )
         );
     }

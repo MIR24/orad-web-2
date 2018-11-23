@@ -20,7 +20,10 @@ class DateTime extends BaseComponentGroup {
         this.addAdditionlClassesJQ(this.modelId, date);
         this.addAdditionlClassesJQ(this.modelId, time);
 
-        this.template = `${date.getTemplate()}${time.getTemplate()}`;
+        this.template = `<div class="input-group">
+            ${date.getTemplate()}
+            ${time.getTemplate()}
+        </div>`;
     }
 
     handle (initClass, props, event) {

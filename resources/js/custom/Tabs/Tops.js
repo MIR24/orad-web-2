@@ -15,9 +15,20 @@ class Tops extends BaseTab {
 
     makeTemplate () {
         var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].text, this.models[key].strings);
+            if (this.validation.hasOwnProperty(key)) {
+                var tempModel = this.getValidatedObject(key);
+                return this.makeBlock(key, tempModel.errorModel.text, tempModel.errorModel.strings, tempModel.errorValidation);
+            }
+            return this.makeBlock(key, this.models[key].text, this.models[key].strings, {});
         })
         .join('');
+
+        if (this.validation.hasOwnProperty('new')) {
+            var tempModel = this.getValidatedObject('new');
+            template = template.concat(
+                this.makeBlock('new', tempModel.errorModel.text, tempModel.errorModel.strings, tempModel.errorValidation)
+            );
+        }
 
         if (!this.edit.state) {
             var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
@@ -25,10 +36,10 @@ class Tops extends BaseTab {
             this.addListeners(addEmptyBlockButton.getListeners());
             template = template.concat(addEmptyBlockButton.getTemplate());
         }
-        this.template = this.getBaseContainer(template);
+        this.template = this.getBaseContainerFullWidth(template);
     }
 
-    makeBlock (index, title, text) {
+    makeBlock (index, title, text, error) {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             title = new Input(index, 'text', title, disabled, 'Заголовок'),
             textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
@@ -64,27 +75,45 @@ class Tops extends BaseTab {
             controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
         }
 
-        return `<div id="${index}" class="col-12 mb-5 p-5 bg-secondary rounded">
-            <div class="text-right">
-                ${controlButtons}
-            </div>
-            <form class="m-form m-form--fit m-form--label-align-right">
-                <div class="form-group m-form__group">
-                    <label>Заголовок</label>
-                    ${title.getTemplate()}
-                    <label>Текст</label>
-                    ${textarea.getTemplate()}
+        return `<div id="${index}" class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
+            <div class="m-portlet__head p-0">
+                <div class="row col align-items-center">
+                    <div class="col-6"></div>
+                    <div class="col-6 m--align-right">
+                        ${controlButtons}
+                    </div>
                 </div>
-            </form>
+            </div>
+            <div class="m-portlet__body">
+                <form class="m-form m-form--fit m-form--label-align-right">
+                    ${this.getRow('Заголовок', title.getTemplate(), error.text)}
+                    ${this.getRow('Текст', textarea.getTemplate(), error.strings)}
+                </form>
+            </div>
         </div>`
     }
-    
+
+    getRow (label, elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group row has-danger">
+                <label>${label}</label>
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group row">
+                <label>${label}</label>
+                ${elementTemplate}
+            </div>`;
+        }
+    }
+
     getEmptyBlock () {
-        this.eidting = {
+        this.edit = {
             'modelId': 'new',
             'state': true,
-        }
-        return this.makeBlock('new', '', '');
+        };
+        return this.makeBlock('new', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {
@@ -92,44 +121,7 @@ class Tops extends BaseTab {
     }
 
     saveModel (modelId) {
-        if (modelId === 'new') {
-            this.createModels(this.edit.new)
-            .then((response) => {
-                this.edit = {
-                    'modelId': null,
-                    'state': false,
-                };
-                this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                this.rerender();
-            });
-        } else {
-            var models = this.getMergedEditStateModels();
-            if (models.length > 0) {
-                this.updateModels(models)
-                .then((response) => {
-                    this.edit = {
-                        'modelId': null,
-                        'state': false,
-                    };
-                    this.models[modelId] = Object.assign(this.models[modelId], response[0]);
-                    this.rerender();
-                });
-            } else {
-                alert('no changes made');
-            }
-        }
-    }
-
-    removeModel (modelId) {
-        this.deleteModel(this.models[modelId].id)
-        .then((response) => {
-            if (this.edit.hasOwnProperty(modelId)) {
-                delete this.edit[modelId];
-            }
-            $('#' + modelId).remove();
-            delete this.models[modelId];
-            this.rerender();
-        });
+        this.saveOneModel(modelId);
     }
 }
 export default Tops

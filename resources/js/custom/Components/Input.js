@@ -16,6 +16,7 @@ class Input extends BaseComponent {
                 class="form-control"
                 value="${this.value}" 
                 placeholder="${this.placeholder}"
+                autocomplete="off"
             >`;
     }
 

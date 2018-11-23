@@ -10,7 +10,7 @@ class TabController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  TabRepository  $repository
      * @return void
      */
     public function __construct(TabRepository $repository)

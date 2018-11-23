@@ -10,7 +10,7 @@ class NewsbarController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  NewsbarRepository  $repository
      * @return void
      */
     public function __construct(NewsbarRepository $repository)

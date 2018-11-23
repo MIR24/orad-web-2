@@ -10,7 +10,7 @@ class TickerController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  TickerRepository  $repository
      * @return void
      */
     public function __construct(TickerRepository $repository)

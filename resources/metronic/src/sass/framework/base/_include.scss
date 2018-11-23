@@ -3,3 +3,27 @@
 //
 
 @import "mixins";
+
+$font-size-base: 1.3rem;
+
+body {
+    font-size: $font-size-base !important;
+}
+
+label {
+    font-size: $font-size-base !important;
+}
+
+.select2 {
+    font-size: $font-size-base;
+}
+
+.select2-container {
+    font-size: $font-size-base;
+}
+
+.textarea-vertical-line {
+    position: absolute;
+    border-left: 1.2px solid red;
+    height: 100%;
+}

@@ -10,7 +10,7 @@ class CurrencyRateController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  CurrencyRateRepository  $repository
      * @return void
      */
     public function __construct(CurrencyRateRepository $repository)

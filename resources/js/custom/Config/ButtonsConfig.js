@@ -12,17 +12,9 @@ const ButtonsConfig = {
         "text": "Сохранить",
         "cssClass": "btn-success",
     },
-    "save-model-CurrencyValues-new": {
-        "text": "Сохранить",
-        "cssClass": "btn-success ml-2",
-    },
     "remove-model": {
         "text": "Удалить",
         "cssClass": "btn-danger",
-    },
-    "delete-button-CurrencyValues": {
-        "text": "Удалить",
-        "cssClass": "btn-danger ml-2",
     },
     "cancel-model-redacting": {
         "text": "Отменить",
@@ -37,22 +29,22 @@ const ButtonsConfig = {
         "options": {
             0: {
                 "text": "-",
-                "cssClass": "btn-dark",
+                "cssClass": "btn-dark col-xl",
                 "newModelValue": "stay",
             },
             1: {
                 "text": "↗",
-                "cssClass": "btn-success",
+                "cssClass": "btn-success col-xl",
                 "newModelValue": "rise",
             },
             2: {
                 "text": "↘",
-                "cssClass": "btn-danger",
+                "cssClass": "btn-danger col-xl",
                 "newModelValue": "fall",
             },
             3: {
                 "text": "→",
-                "cssClass": "btn-secondary",
+                "cssClass": "btn-secondary col-xl",
                 "newModelValue": "stay",
             }
         },
@@ -83,6 +75,26 @@ const ButtonsConfig = {
     'modal-save-edit': {
         "text": "Сохранить",
         "cssClass": "btn-success",
+    },
+    'pagination-forward': {
+        "text": "Вперед",
+        "cssClass": "btn-outline-primary m-btn--wide",
+    },
+    'pagination-back': {
+        "text": "Назад",
+        "cssClass": "btn-outline-primary m-btn--wide",
+    },
+    'confirmation-modal-ok': {
+        "text": "Да",
+        "cssClass": "btn-success m-btn--wide",
+    },
+    'confirmation-modal-no': {
+        "text": "Нет",
+        "cssClass": "btn-danger m-btn--wide",
+    },
+    'search-inline': {
+        "text": '<i class="la la-search"></i>',
+        "cssClass": "btn-primary",
     },
 }
 export default ButtonsConfig

@@ -14,12 +14,13 @@ class Countdown extends BaseTab {
 
     makeTemplate () {
         var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '';
+            controlButtons = '',
+            tableBodyId = 'table-body-' + this.constructor.name;;
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
                 cancelEditBtn = new CancelEditingButton('all'),
-                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
 
             saveBtn.init();
             cancelEditBtn.init();
@@ -39,15 +40,37 @@ class Countdown extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
 
-        var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].title, this.models[key].happen_at, disabled);
-        })
-        .join('')
-        .concat(controlButtons);
-        this.template = this.getBaseContainer(template);
+        var template = `<table class="table m-table m-table--head-no-border text-center">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Дата и время</th>
+                    ${ !disabled ? '<th></th>' : '' }
+                </tr>
+            </thead>
+               <tbody id="${tableBodyId}">`;
+       template += Object.keys(this.models).map(key => {
+           if (this.edit.hasOwnProperty(key)) {
+               var tempModel = this.getValidatedObject(key);
+               return this.makeBlock(key, tempModel.errorModel.title, tempModel.errorModel.happen_at, disabled, tempModel.errorValidation);
+           }
+           return this.makeBlock(key, this.models[key].title, this.models[key].happen_at, disabled, {});
+       })
+       .join('');
+
+        if (this.validation.hasOwnProperty('new')) {
+           var tempModel = this.getValidatedObject('new');
+           template = template.concat(
+               this.makeBlock('new', tempModel.errorModel.title, tempModel.errorModel.happen_at, disabled, tempModel.errorValidation)
+           );
+        }
+
+       template = template.concat('</tbody></table>')
+       .concat(controlButtons);
+       this.template = this.getBaseContainer(template);
     }
 
-    makeBlock (index, eventName, eventDateTime, disabled) {
+    makeBlock (index, eventName, eventDateTime, disabled, error) {
         var controlButtons = '',
             eventName = new Input(index, 'title', eventName, disabled, 'Название события'),
             dateTime = new DateTime(index, 'happen_at', eventDateTime, disabled);
@@ -60,23 +83,34 @@ class Countdown extends BaseTab {
         this.mergeAdditionlClassesJQ(dateTime.getAdditionlClassesJQ());
 
         if (!disabled) {
-            var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
+            var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
-            controlButtons = rmBtn.getTemplate();
+            controlButtons = `<td>${rmBtn.getTemplate()}</td>`;
         }
 
-        return `<div id="${index}" class="col-12 row justify-content-center">
-            <div class="row input-group bootstrap-touchspin mb-2">
-                ${eventName.getTemplate()}
-                ${dateTime.getTemplate()}
-                ${controlButtons}
-            </div>
-        </div>`;
+        return `<tr id="${index}">
+            <td>${this.getRow(eventName.getTemplate(), error.title)}</td>
+            <td>${this.getRow(dateTime.getTemplate(), error.happen_at)}</td>
+            ${controlButtons}
+        </tr>`;
+    }
+
+    getRow (elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group has-danger mb-0">
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="input-group">
+                ${elementTemplate}
+            </div>`;
+        }
     }
 
     getEmptyBlock () {
-        return this.makeBlock('new', '');
+        return this.makeBlock('new', '', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {
@@ -84,57 +118,7 @@ class Countdown extends BaseTab {
     }
 
     saveModel (modelId) {
-        var arrayOfPromises = [],
-            models = this.getMergedEditStateModels();
-
-        if (this.edit.hasOwnProperty('new')) {
-            arrayOfPromises.push(
-                this.createModels(this.getNewEditStateModel())
-                .then((response) => {
-                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                })
-            );
-        }
-
-        if (models.length > 0) {
-            arrayOfPromises.push(
-                this.updateModels(models)
-                .then((response) => {
-                    for (var responseId in response) {
-                        for (var modelId in this.models) {
-                            if (response[responseId].id === this.models[modelId].id) {
-                                this.models[modelId] = response[responseId];
-                                continue;
-                            }
-                        }
-                    }
-                })
-            );
-        }
-
-        $.when.apply(null, arrayOfPromises).done(() => {
-            this.edit = {
-                'modelId': null,
-                'state': false,
-            };
-            this.rerender();
-        });
-    }
-
-    removeModel (modelId) {
-        if (this.models.hasOwnProperty(modelId)) {
-            this.deleteModel(this.models[modelId].id)
-            .then((response) => {
-                if (this.edit.hasOwnProperty(modelId)) {
-                    delete this.edit[modelId];
-                }
-                $('#' + modelId).remove();
-                delete this.models[modelId];
-                this.rerender();
-            });
-        } else {
-            $('#' + modelId).remove();
-        }
+        this.saveAllModels();
     }
 }
 export default Countdown

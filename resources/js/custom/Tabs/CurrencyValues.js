@@ -18,7 +18,8 @@ class CurrencyValues extends BaseTab {
 
     makeTemplate () {
         var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '';
+            controlButtons = '',
+            tableBodyId = 'table-body-' + this.constructor.name;
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
@@ -32,7 +33,7 @@ class CurrencyValues extends BaseTab {
 
             // TO DO
             if (isAdmin) {
-                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
                 addEmptyBlockButton.init();
                 this.addListeners(addEmptyBlockButton.getListeners());
                 controlButtons = addEmptyBlockButton.getTemplate();
@@ -48,11 +49,36 @@ class CurrencyValues extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
 
-        var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled);
-        })
-        .join('')
-        .concat(controlButtons);
+
+        var template = `<table class="table m-table m-table--head-no-border text-center">
+            <thead>
+                <tr>
+                    <th>Валюта</th>
+                    <th>Динамика</th>
+                    <th>Курс</th>
+                    <th>Валюта</th>
+                    ${ !disabled && isAdmin ? '<th></th>' : '' }
+                </tr>
+            </thead>
+            <tbody id="${tableBodyId}">`;
+       template += Object.keys(this.models).map(key => {
+           if (this.edit.hasOwnProperty(key)) {
+               var tempModel = this.getValidatedObject(key);
+               return this.makeBlock(key, tempModel.errorModel.val1, tempModel.errorModel.val2, tempModel.errorModel.value, tempModel.errorModel.dir, disabled, tempModel.errorValidation);
+           }
+           return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled, {});
+       })
+       .join('');
+
+       if (this.validation.hasOwnProperty('new')) {
+           var tempModel = this.getValidatedObject('new');
+           template = template.concat(
+               this.makeBlock('new', tempModel.errorModel.val1, tempModel.errorModel.val2, tempModel.errorModel.value, tempModel.errorModel.dir, disabled, tempModel.errorValidation)
+           );
+       }
+
+       template = template.concat('</tbody></table>')
+       .concat(controlButtons);
         this.template = this.getBaseContainer(template);
     }
 
@@ -60,131 +86,60 @@ class CurrencyValues extends BaseTab {
         this.updateEditState(modelId, valueName, newValue);
     }
 
-    makeBlock (index, leftValName, rightValName, inputValue, direction, disabled) {
-        var spinnerButton = new SpinnerButton(index, 'direction', disabled, direction),
+    makeBlock (index, leftValName, rightValName, inputValue, direction, disabled, error) {
+        var allowUsage = (!disabled && isAdmin) ? '' : 'disabled',
+            spinnerButton = new SpinnerButton(index, 'dir', disabled, direction),
+            leftValNameInput = new Input(index, 'val1', leftValName, allowUsage, 'Валюта'),
+            rightValNameInput = new Input(index, 'val2', rightValName, allowUsage, 'Валюта'),
             valueInput = new Input(index, 'value', inputValue, disabled, '0.0', 'number'),
-            controlButtons = '';
-
-        // TO DO
-        if (!disabled && isAdmin) {
-            var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
-            rmBtn.init();
-            this.addListeners(rmBtn.getListeners());
-            controlButtons = rmBtn.getTemplate();
-        }
-
-        spinnerButton.init();
-        valueInput.init();
-
-        this.addListeners(spinnerButton.getListeners());
-        this.addListeners(valueInput.getListeners());
-
-        return `<div id="${index}" class="col-12 row justify-content-center">
-            <div class="col-6">
-                <div class="row input-group bootstrap-touchspin mb-2">
-                    <span class="input-group-addon">${leftValName}</span>
-                    ${spinnerButton.getTemplate()}
-                    ${valueInput.getTemplate()}
-                    <span class="input-group-addon bootstrap-touchspin-prefix">${rightValName}</span>
-                    ${controlButtons}
-                </div>
-            </div>
-        </div>`
-    }
-
-    makeEmptyBlock () {
-        var spinnerButton = new SpinnerButton('new'),
-            leftValNameInput = new Input('new', 'val1', '', false, 'Валюта'),
-            rightValNameInput = new Input('new', 'val2', '', false, 'Валюта'),
-            valueInput = new Input('new', 'value', '', false, '0.0', 'number'),
             controlButtons = '';
 
         spinnerButton.init();
         leftValNameInput.init();
         rightValNameInput.init();
         valueInput.init();
+
         this.addListeners(spinnerButton.getListeners());
         this.addListeners(leftValNameInput.getListeners());
         this.addListeners(rightValNameInput.getListeners());
         this.addListeners(valueInput.getListeners());
 
         // TO DO
-        if (isAdmin) {
-            var rmBtn = new DeleteButton('new', 'delete-button-CurrencyValues');
+        if (!disabled && isAdmin) {
+            var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
-            controlButtons = rmBtn.getTemplate();
+            controlButtons = `<td>${rmBtn.getTemplate()}</td>`;
         }
 
-        return `<div id="new" class="col-12 row justify-content-center">
-            <div class="col-6">
-                <div class="row input-group bootstrap-touchspin mb-3">
-                    ${leftValNameInput.getTemplate()}
-                    ${spinnerButton.getTemplate()}
-                    ${valueInput.getTemplate()}
-                    ${rightValNameInput.getTemplate()}
-                    ${controlButtons}
-                </div>
-            </div>
-        </div>`
+        return `<tr id="${index}">
+            <td>${this.getRow(leftValNameInput.getTemplate(), error.val1)}</td>
+            <td>${this.getRow(spinnerButton.getTemplate(), error.dir)}</td>
+            <td>${this.getRow(valueInput.getTemplate(), error.value)}</td>
+            <td>${this.getRow(rightValNameInput.getTemplate(), error.val2)}</td>
+            ${controlButtons}
+        </tr>`;
+    }
+
+    getRow (elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group has-danger mb-0">
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group ">
+                ${elementTemplate}
+            </div>`;
+        }
     }
 
     getEmptyBlock (event) {
-        return this.makeEmptyBlock();
+        return this.makeBlock('new', '', '', '', '', '', {});
     }
 
     saveModel (modelId) {
-        var arrayOfPromises = [],
-            models = this.getMergedEditStateModels();
-
-        if (this.edit.hasOwnProperty('new')) {
-            arrayOfPromises.push(
-                this.createModels(this.getNewEditStateModel())
-                .then((response) => {
-                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                })
-            );
-        }
-
-        if (models.length > 0) {
-            arrayOfPromises.push(
-                this.updateModels(models)
-                .then((response) => {
-                    for (var responseId in response) {
-                        for (var modelId in this.models) {
-                            if (response[responseId].id === this.models[modelId].id) {
-                                this.models[modelId] = response[responseId];
-                                continue;
-                            }
-                        }
-                    }
-                })
-            );
-        }
-
-        $.when.apply(null, arrayOfPromises).done(() => {
-            this.edit = {
-                'modelId': null,
-                'state': false,
-            };
-            this.rerender();
-        });
-    }
-
-    removeModel (modelId) {
-        if (this.models.hasOwnProperty(modelId)) {
-            this.deleteModel(this.models[modelId].id)
-            .then((response) => {
-                if (this.edit.hasOwnProperty(modelId)) {
-                    delete this.edit[modelId];
-                }
-                $('#' + modelId).remove();
-                delete this.models[modelId];
-                this.rerender();
-            });
-        } else {
-            $('#' + modelId).remove();
-        }
+        this.saveAllModels();
     }
 }
 export default CurrencyValues

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Common as CommonResource;
 use App\Http\Resources\Common as CommonCollectionResource;
-use App\Repositories\BaseRepository;
 use App\Contracts\Repository;
 
 abstract class BaseController extends Controller
@@ -19,7 +18,7 @@ abstract class BaseController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  Repository  $repository
      * @return void
      */
     public function __construct(Repository $repository)
@@ -50,14 +49,36 @@ abstract class BaseController extends Controller
     }
 
     /**
+     * Creates or Updates one or more items in specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function patchMultiple(Request $request)
+    {
+        return new CommonCollectionResource($this->repository->patchMultiple($request->input('data')));
+    }
+
+    /**
+     * Store multiple newly created resources in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeMultiple(Request $request)
+    {
+        return new CommonCollectionResource($this->repository->createMultiple($request->input('data')));
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        return new CommonResource($this->repository->with('category')->findOrFail($id));
+        return new CommonResource($this->repository->findOrFail($id));
     }
 
     /**
@@ -67,13 +88,15 @@ abstract class BaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        $response = [];
-        foreach ($request->input('data') as $dataValue) {
-            $response[] = new CommonResource($this->repository->update($dataValue, $dataValue['id']));
+        $result = $this->repository->update($request->input('data'), intval($id));
+
+        if (is_numeric($id)) {
+            return new CommonResource($result);
+        } else {
+            return new CommonCollectionResource($result);
         }
-        return $response;
     }
 
     /**
@@ -82,7 +105,7 @@ abstract class BaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         return new CommonResource(['model' => $this->repository->delete($id)]);
     }

@@ -13,12 +13,13 @@ class TimeShift extends BaseTab {
 
     makeTemplate () {
         var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '';
+            controlButtons = '',
+            tableBodyId = 'table-body-' + this.constructor.name;
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
                 cancelEditBtn = new CancelEditingButton('all'),
-                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
 
             saveBtn.init();
             cancelEditBtn.init();
@@ -38,19 +39,37 @@ class TimeShift extends BaseTab {
             controlButtons = enterRedactingBtn.getTemplate();
         }
 
-        var template = `<div class="row col-12 mb-2">
-            <lable class="col-6">Город</lable>
-            <lable class="col-6">Отступ</lable>
-        </div>`;
+        var template = `<table class="table m-table m-table--head-no-border text-center">
+            <thead>
+                <tr>
+                    <th>Город</th>
+                    <th>Отступ</th>
+                    ${ !disabled ? '<th></th>' : '' }
+                </tr>
+            </thead>
+               <tbody id="${tableBodyId}">`;
         template += Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, disabled);
+            if (this.edit.hasOwnProperty(key)) {
+                var tempModel = this.getValidatedObject(key);
+                return this.makeBlock(key, tempModel.errorModel.city, tempModel.errorModel.timeshift, disabled, tempModel.errorValidation);
+            }
+            return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, disabled, {});
         })
-        .join('')
+        .join('');
+
+        if (this.validation.hasOwnProperty('new')) {
+            var tempModel = this.getValidatedObject('new');
+            template = template.concat(
+                this.makeBlock('new', tempModel.errorModel.city, tempModel.errorModel.timeshift, disabled, tempModel.errorValidation)
+            );
+        }
+
+        template = template.concat('</tbody></table>')
         .concat(controlButtons);
         this.template = this.getBaseContainer(template);
     }
 
-    makeBlock (index, cityName, timeshift, disabled) {
+    makeBlock (index, cityName, timeshift, disabled, error) {
         var controlButtons = '',
             cityName = new Input(index, 'city', cityName, disabled, 'City'),
             timeshift = new Input(index, 'timeshift', timeshift, disabled, '0', 'number');
@@ -62,23 +81,34 @@ class TimeShift extends BaseTab {
         this.addListeners(timeshift.getListeners());
 
         if (!disabled) {
-            var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
+            var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
-            controlButtons = rmBtn.getTemplate();
+            controlButtons = `<td>${rmBtn.getTemplate()}</td>`;
         }
 
-        return `<div id="${index}" class="col-12 row justify-content-center">
-            <div class="row input-group bootstrap-touchspin mb-2">
-                ${cityName.getTemplate()}
-                ${timeshift.getTemplate()}
-                ${controlButtons}
-            </div>
-        </div>`;
+        return `<tr id="${index}">
+            <td>${this.getRow(cityName.getTemplate(), error.city)}</td>
+            <td>${this.getRow(timeshift.getTemplate(), error.timeshift)}</td>
+            ${controlButtons}
+        </tr>`;
+    }
+
+    getRow (elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group has-danger mb-0">
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group">
+                ${elementTemplate}
+            </div>`;
+        }
     }
 
     getEmptyBlock () {
-        return this.makeBlock('new', '');
+        return this.makeBlock('new', '', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {
@@ -86,57 +116,7 @@ class TimeShift extends BaseTab {
     }
 
     saveModel (modelId) {
-        var arrayOfPromises = [],
-            models = this.getMergedEditStateModels();
-
-        if (this.edit.hasOwnProperty('new')) {
-            arrayOfPromises.push(
-                this.createModels(this.getNewEditStateModel())
-                .then((response) => {
-                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                })
-            );
-        }
-
-        if (models.length > 0) {
-            arrayOfPromises.push(
-                this.updateModels(models)
-                .then((response) => {
-                    for (var responseId in response) {
-                        for (var modelId in this.models) {
-                            if (response[responseId].id === this.models[modelId].id) {
-                                this.models[modelId] = response[responseId];
-                                continue;
-                            }
-                        }
-                    }
-                })
-            );
-        }
-
-        $.when.apply(null, arrayOfPromises).done(() => {
-            this.edit = {
-                'modelId': null,
-                'state': false,
-            };
-            this.rerender();
-        });
-    }
-
-    removeModel (modelId) {
-        if (this.models.hasOwnProperty(modelId)) {
-            this.deleteModel(this.models[modelId].id)
-            .then((response) => {
-                if (this.edit.hasOwnProperty(modelId)) {
-                    delete this.edit[modelId];
-                }
-                $('#' + modelId).remove();
-                delete this.models[modelId];
-                this.rerender();
-            });
-        } else {
-            $('#' + modelId).remove();
-        }
+        this.saveAllModels();
     }
 }
 export default TimeShift

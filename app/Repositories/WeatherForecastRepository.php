@@ -25,7 +25,7 @@ class WeatherForecastRepository extends Repository
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function findOrFail($id, $columns = ['*'])
+    public function findOrFail($id, array $columns = ['*'])
     {
         return $this->findOrFailWithRelations($id, $columns, ['weatherType']);
     }
@@ -37,7 +37,7 @@ class WeatherForecastRepository extends Repository
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function search($query, $columns = [])
+    public function search(array $query, array $columns = [])
     {
         return $this->searchWithRelations($query, $columns, ['weatherType']);
     }

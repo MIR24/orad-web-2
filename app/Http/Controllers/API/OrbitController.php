@@ -10,7 +10,7 @@ class OrbitController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  OrbitRepository  $repository
      * @return void
      */
     public function __construct(OrbitRepository $repository)

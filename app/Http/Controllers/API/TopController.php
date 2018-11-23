@@ -10,7 +10,7 @@ class TopController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  TopRepository  $repository
      * @return void
      */
     public function __construct(TopRepository $repository)

@@ -4,7 +4,7 @@ import Checkbox from "../Components/Checkbox.js";
 class ExpeditedCheckbox extends BaseComponentGroup {
     constructor (id, valueName, value, disabled) {
         super(id, valueName, value, disabled);
-        this.checkboxesIds = [];console.log(this);
+        this.checkboxesIds = [];
     }
 
     makeTemplate () {

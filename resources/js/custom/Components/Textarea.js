@@ -11,7 +11,19 @@ class Textarea extends BaseComponent {
     }
 
     makeTemplate () {
-        this.template = `<textarea ${this.disabled} class="form-control m-input m-input--air" id="${this.id}" rows="3" placeholder="${this.placeholder}">${this.value}</textarea>`;
+        this.template = `<div class="w-100 position-relative">
+            <div class="textarea-vertical-line"
+                style="margin-left:${(this.maxCharsPerLine + 1) * 10 + 17}px">
+            </div>
+            <textarea
+            ${this.disabled}
+            class="form-control m-input m-input--air"
+            id="${this.id}"
+            rows="${this.value.split(/\r\n|\r|\n/).length + 1}"
+            placeholder="${this.placeholder}"
+            style="font-family: monospace;"
+            >${this.value}</textarea>
+        </div>`;
     }
 
     checkDisallowedCharacters (value) {
@@ -25,38 +37,10 @@ class Textarea extends BaseComponent {
         return value;
     }
 
-    textAreaSplitLines (value, inputType) {
-        const regexMaxChars = new RegExp(`.{${this.maxCharsPerLine}}`, 'gm'),
-            curVal = value.toUpperCase();
-
-        if (inputType === "deleteContentBackward" || inputType === "deleteContentForward") {
-            return false;
-        }
-
-        return curVal.replace(regexMaxChars, function (match) {
-            return match + '\n';
-        });
-    }
-
-    deleteEmptyLines (string) {
-        return string.replace(/^\s*$(?:\r\n?|\n)/gm,"");
-    }
-
     handle (initClass, event) {
-        var val = this.checkDisallowedCharacters(event.target.value),
-            newVal = this.textAreaSplitLines(val, event.originalEvent.inputType),
-            newSectionEnd = event.target.selectionEnd;
-
-        if (newVal !== false) {
-            event.target.value = this.deleteEmptyLines(newVal);
-            if (newVal.charAt(newSectionEnd) == '\n') {
-                event.target.selectionEnd = newSectionEnd + 1;
-            } else {
-                event.target.selectionEnd = newSectionEnd;
-            }
-        } else {
-            event.target.value = this.deleteEmptyLines(val);
-        }
+        event.target.value = this.checkDisallowedCharacters(event.target.value.toUpperCase());
+        event.target.style.height = '1px';
+        event.target.style.height = (20 + event.target.scrollHeight) + 'px';
         initClass.modelChange(this.modelId, this.valueName, event.target.value);
     }
 }

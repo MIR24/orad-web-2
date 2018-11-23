@@ -300,4 +300,26 @@ class TestController extends Controller
             ],
         ]];
     }
+    public function getConfigTextArea () {
+        return ['data' => [
+            0 => [
+                'id' => 0,
+                'name' => 'test0',
+                'maxChars' => 70,
+            ],
+            1 => [
+                'id' => 1,
+                'name' => 'test1',
+                'maxChars' => 71,
+            ],
+            2 => [
+                'id' => 2,
+                'name' => 'test2',
+                'maxChars' => 72,
+            ],
+        ]];
+    }
+    public function getHelpRedacting () {
+        return ['data'=>[]];
+    }
 }

@@ -1,7 +1,10 @@
+import { toasterMessages } from "../Config/Constants.js";
 import BaseTab from "../BaseClasses/BaseTab.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import PromoEditModal from "../Modals/PromoEditModal.js"
 import DeleteButton from "../Components/DeleteButton.js";
+import Pagination from "../Groups/Pagination.js";
+import SearchInline from "../Groups/SearchInline.js";
 
 // TO DO
 const isSomeRoll = true,
@@ -14,14 +17,23 @@ class Promo extends BaseTab {
 
     makeTemplate () {
         var template = '',
-            controlButtons = '';
+            controlButtons = '',
+            pagination = new Pagination(this.constructor.name, this.config.pagination),
+            searchInline = new SearchInline(this.constructor.name, this.searchOptions);
+
+        pagination.init();
+        searchInline.init();
+
+        this.addListeners(pagination.getListeners());
+        this.addListeners(searchInline.getListeners());
 
         // TO DO
         if (isSomeRoll) {
-            var createModal = new PromoEditModal('new', {}, 'create');
+            var createModal = new PromoEditModal('new', {}, 'create', {'category': this.additions.category, 'mode': this.config.configModel.mode});
             
             createModal.init();
             this.addListeners(createModal.getListeners());
+            this.mergeAdditionlClassesJQ(createModal.getAdditionlClassesJQ());
             controlButtons = `${createModal.getOpenButton()}${createModal.getTemplate()}`
         }
 
@@ -32,12 +44,7 @@ class Promo extends BaseTab {
 
         this.template = `<div class="row pb-5">
             <div class="input-group col-4">
-				<input type="text" class="form-control" placeholder="Поиск...">
-				<div class="input-group-append">
-					<button class="btn btn-primary" type="button">
-                        <i class="la la-search"></i>
-                    </button>
-				</div>
+				${searchInline.getTemplate()}
 			</div>
             <div class="coll">
                 ${controlButtons}
@@ -45,7 +52,8 @@ class Promo extends BaseTab {
         </div>
         <div  class="row justify-content">
             ${template}
-        </div>`;
+        </div>
+        ${pagination.getTemplate()}`;
     }
 
     makeBlock (index) {
@@ -53,7 +61,7 @@ class Promo extends BaseTab {
 
         // TO DO
         if (isSomeRoll) {
-            var editModal = new PromoEditModal(index, this.models[index], 'edit'),
+            var editModal = new PromoEditModal(index, this.models[index], 'edit', {'category': this.additions.category, 'mode': this.config.configModel.mode}),
                 deleteModelBtn = new DeleteButton(index);
 
             editModal.init();
@@ -61,7 +69,9 @@ class Promo extends BaseTab {
 
             this.addListeners(editModal.getListeners());
             this.addListeners(deleteModelBtn.getListeners());
-            
+
+            this.mergeAdditionlClassesJQ(editModal.getAdditionlClassesJQ());
+
             controlButtons = `<div class="m-portlet__foot">
                 <div class="row m--valign-middle">
                     <div class="col m--align-right">
@@ -89,7 +99,7 @@ class Promo extends BaseTab {
                         <div class="col">
                             <div class="container p-0">
                                 <img width="250" src="${testImg}">
-                                <h4 class="position-absolute ml-4 mt-1 fixed-top text-light">${this.models[index].age ? '+' + this.models[index].age: '-'}</h4>
+                                <h4 class="position-absolute ml-4 mt-1 fixed-top text-light">${this.models[index].age ? this.models[index].age + '+' : '-'}</h4>
                             </div>
                         </div>
                         <div class="col mt-2 mr-4">
@@ -103,11 +113,11 @@ class Promo extends BaseTab {
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">Программа</lable>
-                                <lable class="col text-right">${this.models[index].category.text}</lable>
+                                <lable class="col text-right">${this.models[index].category ? this.models[index].category.text : '-'}</lable>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">Режим</lable>
-                                <lable class="col text-right">${this.models[index].mode ? this.models[index].mode : '-'}</lable>
+                                <lable class="col text-right">${this.models[index].mode !== undefined ? this.models[index].mode : '-'}</lable>
                             </div>
                         </div>
                     </div>
@@ -122,48 +132,7 @@ class Promo extends BaseTab {
     }
 
     saveModel (modelId) {
-        if (modelId === 'new') {
-            this.createModels(this.getNewEditStateModel())
-            .then((response) => {
-                this.edit = {
-                    'modelId': null,
-                    'state': false,
-                };
-                this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                $('body').css('padding-right','0px')
-                $('.modal-backdrop').remove();
-                this.rerender();
-            });
-        } else {
-            var models = this.getMergedEditStateModels();
-            if (models.length > 0) {
-                this.updateModels(models)
-                .then((response) => {
-                    this.edit = {
-                        'modelId': null,
-                        'state': false,
-                    };
-                    this.models[modelId] = Object.assign(this.models[modelId], response[0]);
-                    $('body').css('padding-right','0px')
-                    $('.modal-backdrop').remove();
-                    this.rerender();
-                });
-            } else {
-                alert('no changes made');
-            }
-        }
-    }
-
-    removeModel (modelId) {
-        this.deleteModel(this.models[modelId].id)
-        .then((response) => {
-            if (this.edit.hasOwnProperty(modelId)) {
-                delete this.edit[modelId];
-            }
-            $('#' + modelId).remove();
-            delete this.models[modelId];
-            this.rerender();
-        });
+        this.saveOneModel(modelId);
     }
 }
 export default Promo

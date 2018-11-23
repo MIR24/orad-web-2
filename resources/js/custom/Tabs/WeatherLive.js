@@ -18,7 +18,8 @@ class WeatherLive extends BaseTab {
 
     makeTemplate () {
         var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '';
+            controlButtons = '',
+            tableBodyId = 'table-body-' + this.constructor.name;
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
@@ -32,7 +33,7 @@ class WeatherLive extends BaseTab {
 
             // TO DO
             if (isAdmin) {
-                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
+                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
                 addEmptyBlockButton.init();
                 this.addListeners(addEmptyBlockButton.getListeners());
                 controlButtons = addEmptyBlockButton.getTemplate();
@@ -47,22 +48,47 @@ class WeatherLive extends BaseTab {
 
             controlButtons = enterRedactingBtn.getTemplate();
         }
-        
-        var template = Object.keys(this.models).map(key => {
-            return this.makeBlock(key, this.models[key].city, this.models[key].morning, this.models[key].evening, this.models[key].status, this.models[key].weather_type_id, disabled);
+
+        var template = `<table class="table m-table m-table--head-no-border text-center">
+            <thead>
+                <tr>
+                    <th>Город</th>
+                    <th>Температура утром</th>
+                    <th>Температура вечером</th>
+                    <th>Иконка</th>
+                    <th></th>
+                    ${ !disabled ? '<th></th>' : '' }
+                </tr>
+            </thead>
+               <tbody id="${tableBodyId}">`;
+        template += Object.keys(this.models).map(key => {
+            if (this.edit.hasOwnProperty(key)) {
+                var tempModel = this.getValidatedObject(key);
+                return this.makeBlock(key, tempModel.errorModel.city, tempModel.errorModel.morning, tempModel.errorModel.evening, tempModel.errorModel.status, tempModel.errorModel.weather_type_id, disabled, tempModel.errorValidation);
+            }
+           return this.makeBlock(key, this.models[key].city, this.models[key].morning, this.models[key].evening, this.models[key].status, this.models[key].weather_type_id, disabled, {});
         })
-        .join('')
+        .join('');
+
+        if (this.validation.hasOwnProperty('new')) {
+            var tempModel = this.getValidatedObject('new');
+            template = template.concat(
+                this.makeBlock('new', tempModel.errorModel.city, tempModel.errorModel.morning, tempModel.errorModel.evening, tempModel.errorModel.status, tempModel.errorModel.weather_type_id, disabled, tempModel.errorValidation)
+            );
+        }
+
+        template = template.concat('</tbody></table>')
         .concat(controlButtons);
-        this.template = this.getBaseContainer(template);
+        this.template = this.getBaseContainerFullWidth(template);
     }
 
-    makeBlock (index, cityName, tempMorning, tempEvening, status, weather_type_id, disabled) {
+    makeBlock (index, cityName, tempMorning, tempEvening, status, weather_type_id, disabled, error) {
         var controlButtons = '',
             cityName = new Input(index, 'city', cityName, disabled, 'City'),
             tempMorning = new Input(index, 'morning', tempMorning, disabled, '+0', 'number'),
             tempEvening = new Input(index, 'evening', tempEvening, disabled, '+0', 'number'),
-            status = new Checkbox(index, 'status', status === 'active' ? true : false, disabled, 'Send to...'),
-            selectWeather = new Select2Custom (index, 'weather_type_id', this.additions.weatherTypes, weather_type_id, !this.edit.state);
+            status = new Checkbox(index, 'status', status === 'active' ? true : false, disabled, 'Активно'),
+            selectWeather = new Select2Custom (index, 'weather_type_id', this.additions.weatherTypes, weather_type_id, !this.edit.state, this.constructor.name);
 
         cityName.init();
         tempMorning.init();
@@ -78,28 +104,43 @@ class WeatherLive extends BaseTab {
 
         // TO DO
         if (!disabled && isAdmin) {
-            var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
+            var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
-            controlButtons = rmBtn.getTemplate();
+            controlButtons = `<td>${rmBtn.getTemplate()}</td>`;
         }
 
-        return `<div id="${index}" class="col-12 row justify-content-center">
-            <div class="row input-group bootstrap-touchspin mb-2">
-                ${cityName.getTemplate()}
-                ${tempMorning.getTemplate()}
-                ${tempEvening.getTemplate()}
-                ${selectWeather.getTemplate()}
+        return `<tr id="${index}">
+            <td>${this.getRow(cityName.getTemplate(), error.city)}</td>
+            <td>${this.getRow(tempMorning.getTemplate(), error.morning)}</td>
+            <td>${this.getRow(tempEvening.getTemplate(), error.evening)}</td>
+            <td>
+                    ${selectWeather.getTemplate()}
+            </td>
+            <td>
                 <div class="form-control">
                     ${status.getTemplate()}
                 </div>
-                ${controlButtons}
-            </div>
-        </div>`;
+            </td>
+            ${controlButtons}
+        </tr>`;
+    }
+
+    getRow (elementTemplate, errorMessage) {
+        if (errorMessage) {
+            return `<div class="form-group m-form__group has-danger mb-0">
+                ${elementTemplate}
+                <label>${errorMessage}</label>
+            </div>`;
+        } else {
+            return `<div class="form-group m-form__group">
+                ${elementTemplate}
+            </div>`;
+        }
     }
 
     getEmptyBlock () {
-        return this.makeBlock('new', '');
+        return this.makeBlock('new', '', '', '', '', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {
@@ -110,57 +151,7 @@ class WeatherLive extends BaseTab {
     }
 
     saveModel (modelId) {
-        var arrayOfPromises = [],
-            models = this.getMergedEditStateModels();
-
-        if (this.edit.hasOwnProperty('new')) {
-            arrayOfPromises.push(
-                this.createModels(this.getNewEditStateModel())
-                .then((response) => {
-                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
-                })
-            );
-        }
-
-        if (models.length > 0) {
-            arrayOfPromises.push(
-                this.updateModels(models)
-                .then((response) => {
-                    for (var responseId in response) {
-                        for (var modelId in this.models) {
-                            if (response[responseId].id === this.models[modelId].id) {
-                                this.models[modelId] = response[responseId];
-                                continue;
-                            }
-                        }
-                    }
-                })
-            );
-        }
-
-        $.when.apply(null, arrayOfPromises).done(() => {
-            this.edit = {
-                'modelId': null,
-                'state': false,
-            };
-            this.rerender();
-        });
-    }
-
-    removeModel (modelId) {
-        if (this.models.hasOwnProperty(modelId)) {
-            this.deleteModel(this.models[modelId].id)
-            .then((response) => {
-                if (this.edit.hasOwnProperty(modelId)) {
-                    delete this.edit[modelId];
-                }
-                $('#' + modelId).remove();
-                delete this.models[modelId];
-                this.rerender();
-            });
-        } else {
-            $('#' + modelId).remove();
-        }
+        this.saveAllModels();
     }
 }
 export default WeatherLive
