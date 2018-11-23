@@ -86,11 +86,11 @@ const ButtonsConfig = {
     },
     'pagination-forward': {
         "text": "Вперед",
-        "cssClass": "btn-outline-info m-btn--wide",
+        "cssClass": "btn-outline-primary m-btn--wide",
     },
     'pagination-back': {
         "text": "Назад",
-        "cssClass": "btn-outline-info m-btn--wide",
+        "cssClass": "btn-outline-primary m-btn--wide",
     },
     'confirmation-modal-ok': {
         "text": "Да",

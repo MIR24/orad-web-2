@@ -253,7 +253,7 @@ const TabsConfig = {
         "pagination": {
             "params": {
                 "offset": 0,
-                "limit": 51,
+                "limit": 21,
             },
             "hasMore": true,
         },
