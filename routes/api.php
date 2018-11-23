@@ -18,6 +18,8 @@ Route::middleware('auth')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('users/{id}/permissions', 'API\UserController@showPermissions');
+
     Route::post('citytimeshifts-collections', 'API\CityTimeshiftController@storeMultiple');
     Route::patch('citytimeshifts-collections', 'API\CityTimeshiftController@patchMultiple');
     Route::post('currencyrates-collections', 'API\CurrencyRateController@storeMultiple');
@@ -63,6 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
         'tops' => 'API\TopController',
         //----------------------
 
+        'users' => 'API\UserController',
         'tabs' => 'API\TabController',
         'settings' => 'API\SettingController',
         'weatherforecasts' => 'API\WeatherForecastController',
