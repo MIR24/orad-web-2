@@ -10,20 +10,17 @@ class BaseMultiTab {
         this.currentTabClassVar = null;
         this.currentActiveTabId = '';
         this.tabsFormatter = {};
+        this.tabActiveCss = 'bg-secondary active';
     }
 
     getTabTemplates () {
         return Object.keys(this.tabsFormatter).map(tabId => {
             this.addTabSwitchListeners(tabId);
-            if (this.currentActiveTabId === tabId) {
-                return `<li class="nav-item">
-                    <a id="${tabId}" class="nav-link active show" data-toggle="tab" href="">${this.tabsFormatter[tabId].tabName}</a>
-                </li>`;
-            } else {
-                return `<li class="nav-item">
-                    <a id="${tabId}" class="nav-link" data-toggle="tab" href="">${this.tabsFormatter[tabId].tabName}</a>
-                </li>`;
-            }
+            return `<li class="nav-item">
+                <span id="${tabId}" class="btn nav-link ${this.currentActiveTabId === tabId ? this.tabActiveCss : ''}">
+                    ${this.tabsFormatter[tabId].tabName}
+                </span>
+            </li>`;
         })
         .join('')
     }
@@ -32,7 +29,7 @@ class BaseMultiTab {
         this.template = `<ul class="nav nav-tabs nav-fill m-0" role="tablist">
             ${this.getTabTemplates()}
         </ul>
-        <div id="${this.multiTabContentId}" class="border border-top-0 m-0 pt-5"></div>`;
+        <div id="${this.multiTabContentId}" class="bg-secondary border border-top-0 m-0 pt-5"></div>`;
     }
 
     renderTemplate () {
@@ -46,6 +43,8 @@ class BaseMultiTab {
 
     activateNewTab (event) {
         if (event.target.id !== this.currentActiveTabId) {
+            $('#' + this.currentActiveTabId).removeClass(this.tabActiveCss);
+            $(event.target).addClass(this.tabActiveCss);
             this.currentActiveTabId = event.target.id;
             this.initActiveTab();
         }

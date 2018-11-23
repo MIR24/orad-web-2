@@ -39,7 +39,7 @@ class ConfigurationControl extends BaseMultiTabChild {
                 <thead>
                     <tr>
                         <th class="w-75">Название</th>
-                        <th>Номер</th>
+                        <th>Значение</th>
                     </tr>
                 </thead>
                    <tbody>`;
@@ -65,7 +65,7 @@ class ConfigurationControl extends BaseMultiTabChild {
 
         return `<tr id="${index}">
             <td>
-                <div class="form-group m-form__group row">
+                <div class="text-left form-group m-form__group row">
                     <label class="col col-form-label">${desc}</label>
                 </div>
             </td>
