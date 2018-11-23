@@ -1,9 +1,8 @@
 import BaseExternalComponent from "../BaseClasses/BaseExternalComponent.js";
-
-const icon = 'https://png.pngtree.com/svg/20170227/test_356816.png';
+import Select2Config from "../Config/Select2Config.js";
 
 class Select2Custom extends BaseExternalComponent {
-    constructor (id, type, selectOptions, defaultVal, disabled) {
+    constructor (id, type, selectOptions, defaultVal, disabled, configType) {
         super(id, type, 'change');
         this.options = Object.assign(this.options, {
             'function': 'select2',
@@ -17,6 +16,7 @@ class Select2Custom extends BaseExternalComponent {
         });
         this.selectOptions = selectOptions;
         this.defaultVal = defaultVal;
+        this.config = Select2Config[configType + '-' + type];
     }
 
     formatData (data) {
@@ -34,10 +34,10 @@ class Select2Custom extends BaseExternalComponent {
     makeOptions () {
         var options = '';
         for (var one in this.selectOptions) {
-            if (this.selectOptions[one].id == this.defaultVal) {
-                options = options.concat(`<option data-image="${icon}" value="${this.selectOptions[one].id}" selected="selected">${this.selectOptions[one].type}</option>`);
+            if (this.selectOptions[one][this.config.id] == this.defaultVal) {
+                options = options.concat(`<option data-image="${this.config.icon}" value="${this.selectOptions[one][this.config.id]}" selected="selected">${this.selectOptions[one][this.config.text]}</option>`);
             } else {
-                options = options.concat(`<option data-image="${icon}" value="${this.selectOptions[one].id}">${this.selectOptions[one].type}</option>`);
+                options = options.concat(`<option data-image="${this.config.icon}" value="${this.selectOptions[one][this.config.id]}">${this.selectOptions[one][this.config.text]}</option>`);
             }
         }
         return options;

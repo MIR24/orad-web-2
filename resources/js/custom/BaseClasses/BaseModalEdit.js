@@ -52,12 +52,18 @@ class BaseModalEdit extends BaseModal {
         </div>`;
     }
 
-    exitEditHandle (initClass, props, event) {
+    reInit (initClass) {
         this.makeModalBody();
         $('#' + this.modalBodyId).empty().append(this.modalBody);
-        $('#' + this.id).modal('toggle');
         initClass.addListeners(this.getListeners());
         initClass.initListeners();
+        initClass.mergeAdditionlClassesJQ(this.getAdditionlClassesJQ());
+        initClass.initAdditionlClassesJQ();
+    }
+
+    exitEditHandle (initClass, props, event) {
+        this.reInit(initClass);
+        $('#' + this.id).modal('toggle');
         initClass.cancelEditingModal();
     }
 
@@ -66,20 +72,19 @@ class BaseModalEdit extends BaseModal {
         if (this.modelId === 'new') {
             initClass.validateEditState(this.modelId, initClass.getNewEditStateModel());
         } else {
-            initClass.validateEditState(this.modelId, initClass.getMergedEditStateModel(this.modelId));
+            initClass.validateEditState(this.modelId, initClass.getMergedEditStateModelFull(this.modelId));
         }
         if (initClass.validation.hasOwnProperty(this.modelId)) {
             this.validationModel = initClass.getValidatedObject(this.modelId);
-            this.makeModalBody();
-            $('#' + this.modalBodyId).empty().append(this.modalBody);
-            initClass.addListeners(this.getListeners());
-            initClass.initListeners();
+            this.reInit(initClass);
             this.validationModel = {};
-            $(this.config.loader.jqClassName).remove();
+        } else if (!jQuery.isEmptyObject(this.validationModel)) {
+            this.reInit(initClass);
         } else {
             $('#' + this.id).modal('toggle');
             initClass.saveModel(this.modelId);
         }
+        $(this.config.loader.jqClassName).remove();
     }
 
     addAdditionlClassesJQ (modelId, classVar) {

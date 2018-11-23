@@ -7,26 +7,26 @@ class PromoEditModal extends BaseModalEdit {
         super(id, type + '-promo', model, additions);
     }
 
-    getModalBody () {console.log(this);
+    getModalBody () {
         if (jQuery.isEmptyObject(this.validationModel)) {
             var mirId = new Input(this.modelId, 'mir_id', this.model.mir_id, false, 'ID МИР'),
                 mirHdId = new Input(this.modelId, 'mirhd_id', this.model.mirhd_id, false, 'ID МИРHD'),
-                category = new Select2Custom (this.modelId, 'category', this.additions.category, this.model.category_id),
+                category = new Select2Custom (this.modelId, 'category_id', this.additions.category, this.model.category_id, false, this.constructor.name),
                 name = new Input(this.modelId, 'name', this.model.name, false, 'Название'),
                 title = new Input(this.modelId, 'header', this.model.header, false, 'Заголовок'),
                 underTitle = new Input(this.modelId, 'subheader', this.model.subheader, false, 'Подзаголовок'),
                 ageRestriction = new Input(this.modelId, 'age', this.model.age, false, '0', 'number'),
-                mode = 'Режим',
+                mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.model.mode, false, this.constructor.name),
                 error = {};
         } else {
             var mirId = new Input(this.modelId, 'mir_id', this.validationModel.errorModel.mir_id, false, 'ID МИР'),
                 mirHdId = new Input(this.modelId, 'mirhd_id', this.validationModel.errorModel.mirhd_id, false, 'ID МИРHD'),
-                category = new Select2Custom (this.modelId, 'category', this.additions.category, this.model.category_id),
+                category = new Select2Custom (this.modelId, 'category_id', this.additions.category, this.validationModel.category_id, false, this.constructor.name),
                 name = new Input(this.modelId, 'name', this.validationModel.errorModel.name, false, 'Название'),
                 title = new Input(this.modelId, 'header', this.validationModel.errorModel.header, false, 'Заголовок'),
                 underTitle = new Input(this.modelId, 'subheader', this.validationModel.errorModel.subheader, false, 'Подзаголовок'),
                 ageRestriction = new Input(this.modelId, 'age', this.validationModel.errorModel.age, false, '0', 'number'),
-                mode = 'Режим'
+                mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.validationModel.mode, false, this.constructor.name),
                 error = this.validationModel.errorValidation;
         }
 
@@ -37,6 +37,7 @@ class PromoEditModal extends BaseModalEdit {
         title.init();
         underTitle.init();
         ageRestriction.init();
+        mode.init();
 
         this.addListeners(mirId.getListeners());
         this.addListeners(mirHdId.getListeners());
@@ -45,8 +46,10 @@ class PromoEditModal extends BaseModalEdit {
         this.addListeners(title.getListeners());
         this.addListeners(underTitle.getListeners());
         this.addListeners(ageRestriction.getListeners());
+        this.addListeners(mode.getListeners());
 
         this.addAdditionlClassesJQ(this.modelId, category);
+        this.addAdditionlClassesJQ(this.modelId, mode);
 
         return `${this.getRow('ID МИР', mirId.getTemplate(), error.mir_id)}
             ${this.getRow('ID МИРHD', mirHdId.getTemplate(), error.mirhd_id)}
@@ -56,12 +59,13 @@ class PromoEditModal extends BaseModalEdit {
             ${this.getRow('Подзаголовок', underTitle.getTemplate(), error.subheader)}
             ${this.getRow('Ограничение по возрасту', `
                 <div class="input-group">
-                    <div class="input-group-prepend">
+                    ${ageRestriction.getTemplate()}
+                    <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon1">+</span>
                     </div>
-                    ${ageRestriction.getTemplate()}
                 </div>`,
             error.age)}
+            ${this.getRow('Режим', mode.getTemplate(), error.mode)}
         `;
     }
 

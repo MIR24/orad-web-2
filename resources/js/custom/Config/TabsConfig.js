@@ -228,20 +228,24 @@ const TabsConfig = {
         "defaultEditState": {
             "mir_id": 0,
             "mirhd_id": 0,
+            "category_id": 0,
             "name": "",
             "header": "",
             "subheader": "",
             "age": 0,
+            "mode": 0,
         },
         "validation": {
             "notNull": {
                 "fieldNames": [
                     "mir_id",
                     "mirhd_id",
+                    "category_id",
                     "name",
                     "header",
                     "subheader",
-                    "age"
+                    "age",
+                    "mode",
                 ],
                 'errorMsg': validationMessages.requiredField,
             },
@@ -253,6 +257,16 @@ const TabsConfig = {
             },
             "hasMore": true,
         },
+        "configModel": {
+            "mode": {
+                0: {
+                    'type': 0,
+                },
+                1: {
+                    'type': 1,
+                },
+            }
+        }
     },
     "ConfigurationControl": {
         "api": {

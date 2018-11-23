@@ -364,7 +364,7 @@ class BaseTab {
             for (var validationIndex in this.config.validation) {
                 switch (validationIndex) {
                     case 'notNull':
-                        if (this.config.validation.notNull.fieldNames.includes(fieldName) && !model[fieldName]) {
+                        if (this.config.validation.notNull.fieldNames.includes(fieldName) && (model[fieldName] !== 0 && !model[fieldName])) {
                             this.validationAssigne(modelId, fieldName, this.config.validation.notNull.errorMsg);
                         } else {
                             this.validationRemove(modelId, fieldName, this.config.validation.notNull.errorMsg);
@@ -452,6 +452,10 @@ class BaseTab {
 
     getMergedEditStateModel (modelId) {
         return Object.assign({}, this.models[modelId], this.edit[modelId]);
+    }
+
+    getMergedEditStateModelFull (modelId) {
+        return Object.assign(this.models[modelId], this.edit[modelId]);
     }
 
     getNewEditStateModel () {

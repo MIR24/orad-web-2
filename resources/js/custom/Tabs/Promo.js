@@ -29,7 +29,7 @@ class Promo extends BaseTab {
 
         // TO DO
         if (isSomeRoll) {
-            var createModal = new PromoEditModal('new', {}, 'create', {'category': this.additions.category});
+            var createModal = new PromoEditModal('new', {}, 'create', {'category': this.additions.category, 'mode': this.config.configModel.mode});
             
             createModal.init();
             this.addListeners(createModal.getListeners());
@@ -61,7 +61,7 @@ class Promo extends BaseTab {
 
         // TO DO
         if (isSomeRoll) {
-            var editModal = new PromoEditModal(index, this.models[index], 'edit', {'category': this.additions.category}),
+            var editModal = new PromoEditModal(index, this.models[index], 'edit', {'category': this.additions.category, 'mode': this.config.configModel.mode}),
                 deleteModelBtn = new DeleteButton(index);
 
             editModal.init();
@@ -99,7 +99,7 @@ class Promo extends BaseTab {
                         <div class="col">
                             <div class="container p-0">
                                 <img width="250" src="${testImg}">
-                                <h4 class="position-absolute ml-4 mt-1 fixed-top text-light">${this.models[index].age ? '+' + this.models[index].age: '-'}</h4>
+                                <h4 class="position-absolute ml-4 mt-1 fixed-top text-light">${this.models[index].age ? this.models[index].age + '+' : '-'}</h4>
                             </div>
                         </div>
                         <div class="col mt-2 mr-4">
@@ -117,7 +117,7 @@ class Promo extends BaseTab {
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">Режим</lable>
-                                <lable class="col text-right">${this.models[index].mode ? this.models[index].mode : '-'}</lable>
+                                <lable class="col text-right">${this.models[index].mode !== undefined ? this.models[index].mode : '-'}</lable>
                             </div>
                         </div>
                     </div>

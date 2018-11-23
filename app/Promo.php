@@ -25,7 +25,7 @@ class Promo extends Model implements SearchableInterface
      *
      * @var array
      */
-    protected $fillable = ['age', 'name', 'header', 'subheader', 'mode'];
+    protected $fillable = ['mir_id', 'mirhd_id', 'age', 'name', 'header', 'subheader', 'mode', 'category_id'];
 
     /**
      * The table associated with the model.
