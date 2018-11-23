@@ -12,17 +12,9 @@ const ButtonsConfig = {
         "text": "Сохранить",
         "cssClass": "btn-success",
     },
-    "save-model-CurrencyValues-new": {
-        "text": "Сохранить",
-        "cssClass": "btn-success ml-2",
-    },
     "remove-model": {
         "text": "Удалить",
         "cssClass": "btn-danger",
-    },
-    "delete-button-CurrencyValues": {
-        "text": "Удалить",
-        "cssClass": "btn-danger ml-2",
     },
     "cancel-model-redacting": {
         "text": "Отменить",

@@ -104,7 +104,7 @@ class WeatherLive extends BaseTab {
 
         // TO DO
         if (!disabled && isAdmin) {
-            var rmBtn = new DeleteButton(index, 'delete-button-CurrencyValues');
+            var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
             controlButtons = `<td>${rmBtn.getTemplate()}</td>`;
