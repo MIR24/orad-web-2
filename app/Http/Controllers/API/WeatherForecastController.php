@@ -18,5 +18,8 @@ class WeatherForecastController extends BaseController
     public function __construct(WeatherForecastRepository $repository)
     {
         $this->repository = $repository;
+        $this->middleware(['can:create_weatherforecasts'])->only(['store', 'storeMultiple']);
+        $this->middleware(['can:update_weatherforecasts'])->only(['update', 'patchMultiple']);
+        $this->middleware(['can:delete_weatherforecasts'])->only(['destroy']);
     }
 }

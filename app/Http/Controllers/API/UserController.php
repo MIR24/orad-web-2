@@ -17,6 +17,9 @@ class UserController extends BaseController
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
+        $this->middleware(['can:create_users'])->only(['store', 'storeMultiple']);
+        $this->middleware(['can:update_users'])->only(['update', 'patchMultiple']);
+        $this->middleware(['can:delete_users'])->only(['destroy']);
     }
 
     /**

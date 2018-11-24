@@ -16,5 +16,8 @@ class EventCountdownController extends BaseController
     public function __construct(EventCountdownRepository $repository)
     {
         $this->repository = $repository;
+        $this->middleware(['can:create_eventcountdowns'])->only(['store', 'storeMultiple']);
+        $this->middleware(['can:update_eventcountdowns'])->only(['update', 'patchMultiple']);
+        $this->middleware(['can:delete_eventcountdowns'])->only(['destroy']);
     }
 }

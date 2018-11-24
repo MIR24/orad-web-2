@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Common as CommonResource;
-use App\Http\Resources\Common as CommonCollectionResource;
 use App\Contracts\Repository;
 
 abstract class BaseController extends Controller
@@ -34,7 +33,7 @@ abstract class BaseController extends Controller
      */
     public function index(Request $request)
     {
-        return new CommonCollectionResource($this->repository->all());
+        return new CommonResource($this->repository->all());
     }
 
     /**
@@ -56,7 +55,7 @@ abstract class BaseController extends Controller
      */
     public function patchMultiple(Request $request)
     {
-        return new CommonCollectionResource($this->repository->patchMultiple($request->input('data')));
+        return new CommonResource($this->repository->patchMultiple($request->input('data')));
     }
 
     /**
@@ -67,7 +66,7 @@ abstract class BaseController extends Controller
      */
     public function storeMultiple(Request $request)
     {
-        return new CommonCollectionResource($this->repository->createMultiple($request->input('data')));
+        return new CommonResource($this->repository->createMultiple($request->input('data')));
     }
 
     /**
@@ -90,13 +89,7 @@ abstract class BaseController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $result = $this->repository->update($request->input('data'), intval($id));
-
-        if (is_numeric($id)) {
-            return new CommonResource($result);
-        } else {
-            return new CommonCollectionResource($result);
-        }
+        return new CommonResource($this->repository->update($request->input('data'), $id));
     }
 
     /**

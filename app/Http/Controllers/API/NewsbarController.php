@@ -16,5 +16,8 @@ class NewsbarController extends BaseController
     public function __construct(NewsbarRepository $repository)
     {
         $this->repository = $repository;
+        $this->middleware(['can:create_newsbars'])->only(['store', 'storeMultiple']);
+        $this->middleware(['can:update_newsbars'])->only(['update', 'patchMultiple']);
+        $this->middleware(['can:delete_newsbars'])->only(['destroy']);
     }
 }
