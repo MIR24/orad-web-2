@@ -43,5 +43,8 @@ const ModalsConfig = {
         "okButton": "confirmation-modal-ok",
         "noButton": "confirmation-modal-no",
     },
+    "info-show-help-model": {
+        "closeButton": "close",
+    },
 }
 export default ModalsConfig

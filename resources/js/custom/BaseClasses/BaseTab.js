@@ -4,11 +4,12 @@ import UtilityBlocks from "../Utils/UtilityBlocks.js";
 import TabsConfig from "../Config/TabsConfig.js";
 import { simpleAjaxPromise } from "../Api/Multi.js";
 import { tabContentIdJQ, apiMethods, toasterMessages } from "../Config/Constants.js";
-import ConformationModal from "../Modals/ConformationModal.js"
+import ConformationModal from "../Modals/ConformationModal.js";
+import InfoModal from "../Modals/InfoModal.js"
 
 class BaseTab {
     constructor () {
-        this.config = Object.assign({}, TabsConfig["default"], TabsConfig[this.constructor.name]);
+        this.config = TabsConfig[this.constructor.name];
         this.template = '';
         this.listeners = {};
         this.edit = {
@@ -238,26 +239,38 @@ class BaseTab {
     }
 
     makeUtilityBlocks () {
-        var conformationModalDelete = new ConformationModal(this.constructor.name, 'delete-model'),
-            extraBlocks = '';
+        var extraBlocks = '',
+            block = null;
 
-        conformationModalDelete.init();
-        this.mergeUtilityBlocksInfo(conformationModalDelete.getUtilityBlockInfo());
-        this.addListeners(conformationModalDelete.getListeners());
-
-        if (this.config.extraBlocks.includes('confirmation-edit-next-model')) {
-            var conformationModalEditNew = new ConformationModal(this.constructor.name, 'edit-next-model');
-
-            conformationModalEditNew.init();
-            this.mergeUtilityBlocksInfo(conformationModalEditNew.getUtilityBlockInfo());
-            this.addListeners(conformationModalEditNew.getListeners());
-            extraBlocks += conformationModalEditNew.getTemplate();
+        for (var extraBlockName in this.config.extraBlocks) {
+            switch (this.config.extraBlocks[extraBlockName]) {
+                case 'info-show-help-model':
+                    block = new InfoModal(this.constructor.name, 'show-help-model', 'help');
+                    block.init();
+                    this.mergeUtilityBlocksInfo(block.getUtilityBlockInfo());
+                    this.addListeners(block.getListeners());
+                    break;
+                case 'confirmation-delete-model':
+                    block = new ConformationModal(this.constructor.name, 'delete-model');
+                    block.init();
+                    this.mergeUtilityBlocksInfo(block.getUtilityBlockInfo());
+                    this.addListeners(block.getListeners());
+                    break;
+                case 'confirmation-edit-next-model':
+                    var block = new ConformationModal(this.constructor.name, 'edit-next-model');
+                    block.init();
+                    this.mergeUtilityBlocksInfo(block.getUtilityBlockInfo());
+                    this.addListeners(block.getListeners());
+                    break;
+            }
+            extraBlocks += block.getTemplate();
         }
 
-        this.template = this.template.concat(`
-            ${conformationModalDelete.getTemplate()}
-            ${extraBlocks}
-        `);
+        this.template = this.template.concat(extraBlocks);
+    }
+
+    showHelp () {
+        this.utilityBlocksInfo['info-show-help-model'].open();
     }
 
     getMergedSearchOptions (offset, limit) {

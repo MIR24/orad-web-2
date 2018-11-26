@@ -17,5 +17,9 @@ class AdminControl extends BaseMultiTab {
             },
         };
     }
+
+    showHelp () {
+        toastr.info('Таб упражнения')
+    }
 }
 export default AdminControl

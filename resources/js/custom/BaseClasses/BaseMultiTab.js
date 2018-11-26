@@ -13,6 +13,8 @@ class BaseMultiTab {
         this.tabActiveCss = 'bg-secondary active';
     }
 
+    showHelp () {}
+
     getTabTemplates () {
         return Object.keys(this.tabsFormatter).map(tabId => {
             this.addTabSwitchListeners(tabId);

@@ -1,9 +1,6 @@
 import { configFromDB, validationMessages } from "../Config/Constants"
 
 const TabsConfig = {
-    "default": {
-        "extraBlocks": [],
-    },
     "Tops": {
         "api": {
             "base": "/api/tops",
@@ -32,6 +29,8 @@ const TabsConfig = {
             },
         },
         "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
             "confirmation-edit-next-model",
         ],
     },
@@ -61,6 +60,8 @@ const TabsConfig = {
             },
         },
         "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
             "confirmation-edit-next-model",
         ],
     },
@@ -95,6 +96,8 @@ const TabsConfig = {
             "orbits": "/api/orbits",
         },
         "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
             "confirmation-edit-next-model",
         ],
     },
@@ -131,6 +134,10 @@ const TabsConfig = {
                 },
             },
         },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
     },
     "WeatherLive": {
         "api": {
@@ -167,6 +174,10 @@ const TabsConfig = {
         "getAdditions": {
             "weatherTypes": "/api/weathertypes",
         },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
     },
     "TimeShift": {
         "api": {
@@ -187,6 +198,10 @@ const TabsConfig = {
                 'errorMsg': validationMessages.requiredField,
             },
         },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
     },
     "Countdown": {
         "api": {
@@ -215,6 +230,10 @@ const TabsConfig = {
                 },
             },
         },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
     },
     "Promo": {
         "api": {
@@ -266,7 +285,11 @@ const TabsConfig = {
                     'type': 1,
                 },
             }
-        }
+        },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
     },
     "ConfigurationControl": {
         "api": {
@@ -288,12 +311,14 @@ const TabsConfig = {
                 },
             },
         },
+        "extraBlocks": [],
     },
     "HelpRedacting": {
         "api": {
             "base": "/test/helpredacting",
             "updateCreate": "/test/helpredacting",
         },
+        "extraBlocks": [],
     },
 }
 export default TabsConfig

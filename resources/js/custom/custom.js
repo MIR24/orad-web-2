@@ -33,6 +33,10 @@ window.addEventListener('DOMContentLoaded', () => {
             currentTab = new formatters[this.attributes['data-tab-name'].value]();
             currentTab.init();
         });
-    })
+    });
+
+    $('#show-help-btn').click(function(event) {
+        currentTab.showHelp();
+    });
 });
 
