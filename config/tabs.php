@@ -16,7 +16,7 @@ return [
     'default' => [
         [
             'jsClass' => 'Tops',
-            //'active' => true,
+            'active' => true,
         ],
         [
             'jsClass' => 'Newsbar',
@@ -31,6 +31,9 @@ return [
             'jsClass' => 'WeatherLive',
         ],
         [
+            'jsClass' => 'WeatherLiveLiner',
+        ],
+        [
             'jsClass' => 'TimeShift',
         ],
         [
@@ -41,7 +44,6 @@ return [
         ],
         [
             'jsClass' => 'PhotoUpload',
-            'active' => true,
         ],
         [
             'jsClass' => 'AdminControl',

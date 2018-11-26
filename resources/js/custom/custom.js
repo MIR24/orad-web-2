@@ -3,6 +3,7 @@ import Newsbar from "./Tabs/Newsbar.js";
 import Expedited from "./Tabs/Expedited.js";
 import CurrencyValues from "./Tabs/CurrencyValues.js";
 import WeatherLive from "./Tabs/WeatherLive.js";
+import WeatherLiveLiner from "./Tabs/WeatherLiveLiner.js";
 import TimeShift from "./Tabs/TimeShift.js";
 import Countdown from "./Tabs/Countdown.js";
 import Promo from "./Tabs/Promo.js";
@@ -19,6 +20,7 @@ window.addEventListener('DOMContentLoaded', () => {
               'Expedited': Expedited,
               'CurrencyValues': CurrencyValues,
               'WeatherLive': WeatherLive,
+              'WeatherLiveLiner': WeatherLiveLiner,
               'TimeShift': TimeShift,
               'Countdown': Countdown,
               'Promo': Promo,

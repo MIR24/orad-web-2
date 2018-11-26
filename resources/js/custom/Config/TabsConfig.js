@@ -179,6 +179,47 @@ const TabsConfig = {
             "confirmation-delete-model",
         ],
     },
+    "WeatherLiveLiner": {
+        "api": {
+            "base": "/api/weatherforecastsliner",
+            "updateCreate": "/api/weatherforecastsliner-collections",
+            "delete": "/api/weatherforecastsliner/",
+        },
+        "defaultEditState": {
+            "status": "inactive",
+            "city": "",
+            "morning": 0,
+            "now": 0,
+            "evening": 0,
+            "weather_type_id": 0,
+        },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "status",
+                    "city",
+                    "now",
+                    "morning",
+                    "evening",
+                    "weather_type_id",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+        },
+        "switchValue": {
+            "status": {
+                "true": "active",
+                "false": "inactive"
+            }
+        },
+        "getAdditions": {
+            "weatherTypes": "/api/weathertypes",
+        },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
+    },
     "TimeShift": {
         "api": {
             "base": "/api/citytimeshifts",
