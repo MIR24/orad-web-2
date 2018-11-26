@@ -4,6 +4,7 @@ npm-debug.log
 
 #Build
 /public/assets
+/public/vendor
 
 # Laravel 4 specific
 bootstrap/compiled.php

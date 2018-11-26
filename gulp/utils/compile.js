@@ -91,8 +91,8 @@ gulp.task('build-bundle', function (cb) {
 });
 
 
-gulp.task('copy-vendor-to-public-custom', () => {console.log(vendorToPublicCustom);
-	for (var one in vendorToPublicCustom) {console.log(vendorToPublicCustom[one]);
+gulp.task('copy-vendor-to-public-custom', () => {
+	for (var one in vendorToPublicCustom) {
 	    gulp.src('./vendor'+ vendorToPublicCustom[one].vendor +'/**/*')
 	        .pipe(gulp.dest('./public/vendor'+  vendorToPublicCustom[one].public));
 	}
