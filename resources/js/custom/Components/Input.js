@@ -3,7 +3,7 @@ import BaseComponent from "../BaseClasses/BaseComponent.js";
 class Input extends BaseComponent {
     constructor (id, valueName, value, disabled, placeholder, type) {
         super(id, valueName, 'input', disabled);
-        this.value = (value === null || value === undefined || !value) ? '' : value;
+        this.value = (value === null || value === undefined || (!value && value !=0)) ? '' : value;
         this.placeholder = placeholder ? placeholder : '';
         this.type = type ? type : 'text';
     }

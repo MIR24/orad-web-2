@@ -27,7 +27,7 @@ class Textarea extends BaseComponent {
     }
 
     checkDisallowedCharacters (value) {
-        const regexNotAllowed = new RegExp(/[^a-zA-Zа-яА-ЯёЁ0-9\.\,\!\?\:\;\`\'\"\+\-\/\*\=\%\^\№\~\#\&\(\)\[\]\<\>\s]/),
+        const regexNotAllowed = new RegExp(/[^a-zA-Zа-яА-ЯёЁ0-9\.\,\!\?\:\;\`\'\"\+\-\*\=\%\^\№\~\#\&\(\)\[\]\<\>\s]/),
          matches = regexNotAllowed.exec(value);
         if (matches) {
             var error = 'Chars not allowed: ' + matches[0];

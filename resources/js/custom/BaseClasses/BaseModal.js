@@ -18,6 +18,10 @@ class BaseModal {
     getModalBody () {};
     getBaseTemplate () {};
 
+    toggleModal () {
+        $('#' + this.id).modal('toggle');
+    }
+
     makeModalBody () {
         this.modalBody = this.getModalBody();
     }

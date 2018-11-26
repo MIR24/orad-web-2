@@ -37,6 +37,12 @@ Route::get('weatherforecasts/{id}', 'API\WeatherForecastController@show')
     ->where(['id' => '[0-9]+'])
     ->name('weatherforecasts.show');
 
+Route::get('weatherforecastsliners', 'API\WeatherForecastLinerController@index')
+    ->name('weatherforecastsliners.index');
+Route::get('weatherforecastsliners/{id}', 'API\WeatherForecastLinerController@show')
+    ->where(['id' => '[0-9]+'])
+    ->name('weatherforecastsliners.show');
+
 Route::get('weathertypes', 'API\WeatherTypeController@index')
     ->name('weathertypes.index');
 Route::get('weathertypes/{id}', 'API\WeatherTypeController@show')
@@ -135,6 +141,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('weatherforecasts/{id}', 'API\WeatherForecastController@destroy')
         ->where(['id' => '[0-9]+'])
         ->name('weatherforecasts.destroy');
+
+    Route::post('weatherforecastsliners', 'API\WeatherForecastLinerController@store')
+        ->name('weatherforecastsliners.store');
+    Route::put('weatherforecastsliners/{id}', 'APIWeatherForecastLinerController@update')
+        ->where(['id' => '[0-9]+'])
+        ->name('weatherforecastsliners.update');
+    Route::delete('weatherforecastsliners/{id}', 'API\WeatherForecastLinerController@destroy')
+        ->where(['id' => '[0-9]+'])
+        ->name('weatherforecastsliners.destroy');
 
     Route::post('weathertypes', 'API\WeatherTypeController@store')
         ->name('weathertypes.store');
@@ -277,6 +292,11 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('weatherforecasts-collections.storeMultiple');
     Route::patch('weatherforecasts-collections', 'API\WeatherForecastController@patchMultiple')
         ->name('weatherforecasts-collections.patchMultiple');
+
+    Route::post('weatherforecastsliners-collections', 'API\WeatherForecastLinerController@storeMultiple')
+        ->name('weatherforecastsliners-collections.storeMultiple');
+    Route::patch('weatherforecastsliners-collections', 'API\WeatherForecastLinerController@patchMultiple')
+        ->name('weatherforecastsliners-collections.patchMultiple');
 
     Route::post('weathertypes-collections', 'API\WeatherTypeController@storeMultiple')
         ->name('weathertypes-collections.storeMultiple');

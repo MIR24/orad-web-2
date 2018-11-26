@@ -43,8 +43,10 @@
     "Expedited": "Срочно",
     "CurrencyValues": "Курс валют",
     "WeatherLive": "Погода для эфира",
+    "WeatherLiveLiner": "Погода для подводки",
     "TimeShift": "Время",
     "Countdown": "Счетчик события",
     "Promo": "Промо",
+    "PhotoUpload": "Сейчас далее потом",
     "AdminControl": "Управление"
 }

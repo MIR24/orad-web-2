@@ -1,9 +1,6 @@
 import { configFromDB, validationMessages } from "../Config/Constants"
 
 const TabsConfig = {
-    "default": {
-        "extraBlocks": [],
-    },
     "Tops": {
         "api": {
             "base": "/api/tops",
@@ -12,8 +9,8 @@ const TabsConfig = {
         },
         "textMaxCharsPerLine": configFromDB.topsMaxCharsPerLine,
         "defaultEditState": {
-            "text": "",
-            "strings": "",
+            "text": null,
+            "strings": null,
         },
         "validation": {
             "notNull": {
@@ -32,6 +29,8 @@ const TabsConfig = {
             },
         },
         "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
             "confirmation-edit-next-model",
         ],
     },
@@ -42,8 +41,8 @@ const TabsConfig = {
         },
         "textMaxCharsPerLine": configFromDB.newsbarMaxCharsPerLine,
         "defaultEditState": {
-            "text": "",
-            "strings": "",
+            "text": null,
+            "strings": null,
         },
         "validation": {
             "notNull": {
@@ -61,6 +60,8 @@ const TabsConfig = {
             },
         },
         "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
             "confirmation-edit-next-model",
         ],
     },
@@ -72,8 +73,8 @@ const TabsConfig = {
         },
         "textMaxCharsPerLine": configFromDB.expeditedMaxCharsPerLine,
         "defaultEditState": {
-            "text": "",
-            "strings": "",
+            "text": null,
+            "strings": null,
         },
         "validation": {
             "notNull": {
@@ -95,6 +96,8 @@ const TabsConfig = {
             "orbits": "/api/orbits",
         },
         "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
             "confirmation-edit-next-model",
         ],
     },
@@ -105,8 +108,8 @@ const TabsConfig = {
             "delete": "/api/currencyrates/",
         },
         "defaultEditState": {
-            "val1": "",
-            "val2": "",
+            "val1": null,
+            "val2": null,
             "dir": "stay",
             "value": 0,
         },
@@ -131,6 +134,10 @@ const TabsConfig = {
                 },
             },
         },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
     },
     "WeatherLive": {
         "api": {
@@ -140,10 +147,9 @@ const TabsConfig = {
         },
         "defaultEditState": {
             "status": "inactive",
-            "city": "",
-            "morning": 0,
-            "now": 0,
-            "evening": 0,
+            "city": null,
+            "morning": null,
+            "evening": null,
             "weather_type_id": 0,
         },
         "validation": {
@@ -167,6 +173,51 @@ const TabsConfig = {
         "getAdditions": {
             "weatherTypes": "/api/weathertypes",
         },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
+    },
+    "WeatherLiveLiner": {
+        "api": {
+            "base": "/api/weatherforecastsliners",
+            "updateCreate": "/api/weatherforecastsliners-collections",
+            "delete": "/api/weatherforecastsliners/",
+        },
+        "defaultEditState": {
+            "status": "inactive",
+            "city": null,
+            "morning": null,
+            "now": null,
+            "evening": null,
+            "weather_type_id": 0,
+        },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "status",
+                    "city",
+                    "now",
+                    "morning",
+                    "evening",
+                    "weather_type_id",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+        },
+        "switchValue": {
+            "status": {
+                "true": "active",
+                "false": "inactive"
+            }
+        },
+        "getAdditions": {
+            "weatherTypes": "/api/weathertypes",
+        },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
     },
     "TimeShift": {
         "api": {
@@ -175,8 +226,8 @@ const TabsConfig = {
             "delete": "/api/citytimeshifts/",
         },
         "defaultEditState": {
-            "city": "",
-            "timeshift": 0,
+            "city": null,
+            "timeshift": null,
         },
         "validation": {
             "notNull": {
@@ -187,6 +238,10 @@ const TabsConfig = {
                 'errorMsg': validationMessages.requiredField,
             },
         },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
     },
     "Countdown": {
         "api": {
@@ -195,9 +250,9 @@ const TabsConfig = {
             "delete": "/api/eventcountdowns/",
         },
         "defaultEditState": {
-            "title": "",
+            "title": null,
             "description": "test",
-            "happen_at": "",
+            "happen_at": null,
         },
         "validation": {
             "notNull": {
@@ -215,6 +270,10 @@ const TabsConfig = {
                 },
             },
         },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
     },
     "Promo": {
         "api": {
@@ -226,14 +285,14 @@ const TabsConfig = {
             "category": "/api/promocategories",
         },
         "defaultEditState": {
-            "mir_id": 0,
-            "mirhd_id": 0,
-            "category_id": 0,
-            "name": "",
-            "header": "",
-            "subheader": "",
-            "age": 0,
-            "mode": 0,
+            "mir_id": null,
+            "mirhd_id": null,
+            "category_id": null,
+            "name": null,
+            "header": null,
+            "subheader": null,
+            "age": null,
+            "mode": null,
         },
         "validation": {
             "notNull": {
@@ -266,7 +325,44 @@ const TabsConfig = {
                     'type': 1,
                 },
             }
-        }
+        },
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
+    },
+    "PhotoUpload": {
+        "api": {
+            "base": "/test/photoUpload",
+            "updateCreate": "/api/photoUpload",
+            "delete": "/api/photoUpload/",
+        },
+        "defaultEditState": {
+            "customId": null,
+            "name": null,
+            "img": null,
+        },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "customId",
+                    "name",
+                    "img",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+        },
+        /*"pagination": {
+            "params": {
+                "offset": 0,
+                "limit": 21,
+            },
+            "hasMore": true,
+        },*/
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
     },
     "ConfigurationControl": {
         "api": {
@@ -288,12 +384,14 @@ const TabsConfig = {
                 },
             },
         },
+        "extraBlocks": [],
     },
     "HelpRedacting": {
         "api": {
             "base": "/test/helpredacting",
             "updateCreate": "/test/helpredacting",
         },
+        "extraBlocks": [],
     },
 }
 export default TabsConfig

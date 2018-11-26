@@ -1,8 +1,8 @@
 <li class="m-nav__item m-topbar__quick-actions">
-    <a href="#" class="m-nav__link">
-        <span class="m-nav__link-text">
-            <span class="m-menu__link h3">
-                {{ $translation }}
+    <a id="{{ $idJs }}" class="m-nav__link">
+        <span class="m-nav__link-icon">
+            <span href="#" class="btn {{ $cssClass }} m-btn m-btn--icon m-btn--pill">
+                {!! $text !!}
             </span>
         </span>
     </a>

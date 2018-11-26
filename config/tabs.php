@@ -31,6 +31,9 @@ return [
             'jsClass' => 'WeatherLive',
         ],
         [
+            'jsClass' => 'WeatherLiveLiner',
+        ],
+        [
             'jsClass' => 'TimeShift',
         ],
         [
@@ -38,6 +41,9 @@ return [
         ],
         [
             'jsClass' => 'Promo',
+        ],
+        [
+            'jsClass' => 'PhotoUpload',
         ],
         [
             'jsClass' => 'AdminControl',

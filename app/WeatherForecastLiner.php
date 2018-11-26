@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class WeatherForecast extends Model
+class WeatherForecastLiner extends Model
 {
     use SoftDeletes;
 
@@ -21,14 +21,14 @@ class WeatherForecast extends Model
      *
      * @var array
      */
-    protected $fillable = ['status', 'city', 'morning', 'evening', 'weather_type_id'];
+    protected $fillable = ['status', 'city', 'morning', 'now', 'evening', 'weather_type_id'];
 
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'WeatherForecasts';
+    protected $table = 'WeatherForecastsLiner';
 
     /**
      * Get the weather type for the forecast.

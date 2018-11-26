@@ -96,5 +96,9 @@ const ButtonsConfig = {
         "text": '<i class="la la-search"></i>',
         "cssClass": "btn-primary",
     },
+    'close': {
+        "text": 'Закрыть',
+        "cssClass": "btn-danger",
+    }
 }
 export default ButtonsConfig
