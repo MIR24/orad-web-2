@@ -118,16 +118,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
                                     <div class="m-stack__item m-topbar__nav-wrapper">
                                         <ul class="m-topbar__nav m-nav m-nav--inline ">
-                                            <li class="m-nav__item m-topbar__quick-actions">
-                                                <a id="show-help-btn" class="m-nav__link">
-                                                    <span class="m-nav__link-icon">
-                                                        <span href="#" class="btn btn-outline-info m-btn m-btn--icon m-btn--pill">
-                                                            <i class="fa flaticon-questions-circular-button"></i>
-                                                            {{ __('Reference') }}
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
+                                            @include('layouts.partials.nav-link',[
+                                                'idJs' => 'show-help-btn',
+                                                'cssClass' => 'btn-outline-info',
+                                                'text' => '<i class="fa flaticon-questions-circular-button"></i> ' . __('Reference')
+                                            ])
                                             @include('layouts.partials.user-profile')
                                         </ul>
                                     </div>
