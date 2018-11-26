@@ -9,8 +9,8 @@ const TabsConfig = {
         },
         "textMaxCharsPerLine": configFromDB.topsMaxCharsPerLine,
         "defaultEditState": {
-            "text": "",
-            "strings": "",
+            "text": null,
+            "strings": null,
         },
         "validation": {
             "notNull": {
@@ -41,8 +41,8 @@ const TabsConfig = {
         },
         "textMaxCharsPerLine": configFromDB.newsbarMaxCharsPerLine,
         "defaultEditState": {
-            "text": "",
-            "strings": "",
+            "text": null,
+            "strings": null,
         },
         "validation": {
             "notNull": {
@@ -73,8 +73,8 @@ const TabsConfig = {
         },
         "textMaxCharsPerLine": configFromDB.expeditedMaxCharsPerLine,
         "defaultEditState": {
-            "text": "",
-            "strings": "",
+            "text": null,
+            "strings": null,
         },
         "validation": {
             "notNull": {
@@ -108,8 +108,8 @@ const TabsConfig = {
             "delete": "/api/currencyrates/",
         },
         "defaultEditState": {
-            "val1": "",
-            "val2": "",
+            "val1": null,
+            "val2": null,
             "dir": "stay",
             "value": 0,
         },
@@ -147,10 +147,10 @@ const TabsConfig = {
         },
         "defaultEditState": {
             "status": "inactive",
-            "city": "",
-            "morning": 0,
-            "now": 0,
-            "evening": 0,
+            "city": null,
+            "morning": null,
+            "now": null,
+            "evening": null,
             "weather_type_id": 0,
         },
         "validation": {
@@ -187,10 +187,10 @@ const TabsConfig = {
         },
         "defaultEditState": {
             "status": "inactive",
-            "city": "",
-            "morning": 0,
-            "now": 0,
-            "evening": 0,
+            "city": null,
+            "morning": null,
+            "now": null,
+            "evening": null,
             "weather_type_id": 0,
         },
         "validation": {
@@ -227,8 +227,8 @@ const TabsConfig = {
             "delete": "/api/citytimeshifts/",
         },
         "defaultEditState": {
-            "city": "",
-            "timeshift": 0,
+            "city": null,
+            "timeshift": null,
         },
         "validation": {
             "notNull": {
@@ -251,9 +251,9 @@ const TabsConfig = {
             "delete": "/api/eventcountdowns/",
         },
         "defaultEditState": {
-            "title": "",
+            "title": null,
             "description": "test",
-            "happen_at": "",
+            "happen_at": null,
         },
         "validation": {
             "notNull": {
@@ -286,14 +286,14 @@ const TabsConfig = {
             "category": "/api/promocategories",
         },
         "defaultEditState": {
-            "mir_id": 0,
-            "mirhd_id": 0,
-            "category_id": 0,
-            "name": "",
-            "header": "",
-            "subheader": "",
-            "age": 0,
-            "mode": 0,
+            "mir_id": null,
+            "mirhd_id": null,
+            "category_id": null,
+            "name": null,
+            "header": null,
+            "subheader": null,
+            "age": null,
+            "mode": null,
         },
         "validation": {
             "notNull": {
@@ -339,9 +339,9 @@ const TabsConfig = {
             "delete": "/api/photoUpload/",
         },
         "defaultEditState": {
-            "customId": 0,
-            "name": '',
-            "img": '',
+            "customId": null,
+            "name": null,
+            "img": null,
         },
         "validation": {
             "notNull": {
