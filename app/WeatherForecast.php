@@ -21,7 +21,7 @@ class WeatherForecast extends Model
      *
      * @var array
      */
-    protected $fillable = ['status', 'city', 'morning', 'now', 'evening', 'weather_type_id'];
+    protected $fillable = ['status', 'city', 'morning', 'evening', 'weather_type_id'];
 
     /**
      * The table associated with the model.

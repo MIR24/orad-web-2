@@ -149,7 +149,6 @@ const TabsConfig = {
             "status": "inactive",
             "city": null,
             "morning": null,
-            "now": null,
             "evening": null,
             "weather_type_id": 0,
         },
