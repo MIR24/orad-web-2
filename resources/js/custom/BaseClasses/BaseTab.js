@@ -101,9 +101,9 @@ class BaseTab {
             this.validateEditState('new', this.edit.new);
             if (jQuery.isEmptyObject(this.validation)) {
                 arrayOfPromises.push(
-                    this.createModels(this.edit.new)
+                    this.createModels({0 : this.edit.new})
                     .then((response) => {
-                        this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                        this.models = Object.assign(this.models, {[response.data.id]: response.data[0]});
                         toastr.success(toasterMessages.success.save);
                     }, function (error) {
                         toastr.error(toasterMessages.error.save);
