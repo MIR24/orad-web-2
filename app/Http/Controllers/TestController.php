@@ -322,4 +322,32 @@ class TestController extends Controller
     public function getHelpRedacting () {
         return ['data'=>[]];
     }
+    public function getPhotoUpload () {
+        return ['data'=>[
+            0 => [
+                'id' => 0,
+                'customId' => 0,
+                'name' => 'test0',
+                'img' => '',
+            ],
+            1 => [
+                'id' => 1,
+                'customId' => 1,
+                'name' => 'test1',
+                'img' => '',
+            ],
+            2 => [
+                'id' => 2,
+                'customId' => 2,
+                'name' => 'test2',
+                'img' => '',
+            ],
+            3 => [
+                'id' => 3,
+                'customId' => 3,
+                'name' => 'test3',
+                'img' => '',
+            ],
+        ]];
+    }
 }
