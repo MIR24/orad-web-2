@@ -37,6 +37,8 @@ Route::post('settings-collections', 'API\SettingController@storeMultiple');
 Route::patch('settings-collections', 'API\SettingController@patchMultiple');
 Route::post('weatherforecasts-collections', 'API\WeatherForecastController@storeMultiple');
 Route::patch('weatherforecasts-collections', 'API\WeatherForecastController@patchMultiple');
+Route::post('weatherforecastsliner-collections', 'API\WeatherForecastLinerController@storeMultiple');
+Route::patch('weatherforecastsliner-collections', 'API\WeatherForecastLinerController@patchMultiple');
 Route::post('weathertypes-collections', 'API\WeatherTypeController@storeMultiple');
 Route::patch('weathertypes-collections', 'API\WeatherTypeController@patchMultiple');
 Route::post('photos-collections', 'API\PhotoController@storeMultiple');
@@ -65,6 +67,7 @@ Route::apiResources([
     'tabs' => 'API\TabController',
     'settings' => 'API\SettingController',
     'weatherforecasts' => 'API\WeatherForecastController',
+    'weatherforecastsliner' => 'API\WeatherForecastLinerController',
     'weathertypes' => 'API\WeatherTypeController',
     'photos' => 'API\PhotoController',
     'photocategories' => 'API\PhotoCategoryController',
