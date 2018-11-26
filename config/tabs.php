@@ -16,7 +16,7 @@ return [
     'default' => [
         [
             'jsClass' => 'Tops',
-            'active' => true,
+            //'active' => true,
         ],
         [
             'jsClass' => 'Newsbar',
@@ -38,6 +38,10 @@ return [
         ],
         [
             'jsClass' => 'Promo',
+        ],
+        [
+            'jsClass' => 'PhotoUpload',
+            'active' => true,
         ],
         [
             'jsClass' => 'AdminControl',

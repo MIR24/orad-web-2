@@ -291,6 +291,39 @@ const TabsConfig = {
             "confirmation-delete-model",
         ],
     },
+    "PhotoUpload": {
+        "api": {
+            "base": "/test/photoUpload",
+            "updateCreate": "/api/photoUpload",
+            "delete": "/api/photoUpload/",
+        },
+        "defaultEditState": {
+            "customId": 0,
+            "name": '',
+            "img": '',
+        },
+        "validation": {
+            "notNull": {
+                "fieldNames": [
+                    "customId",
+                    "name",
+                    "img",
+                ],
+                'errorMsg': validationMessages.requiredField,
+            },
+        },
+        /*"pagination": {
+            "params": {
+                "offset": 0,
+                "limit": 21,
+            },
+            "hasMore": true,
+        },*/
+        "extraBlocks": [
+            "info-show-help-model",
+            "confirmation-delete-model",
+        ],
+    },
     "ConfigurationControl": {
         "api": {
             "base": "/api/settings",

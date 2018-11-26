@@ -6,6 +6,7 @@ import WeatherLive from "./Tabs/WeatherLive.js";
 import TimeShift from "./Tabs/TimeShift.js";
 import Countdown from "./Tabs/Countdown.js";
 import Promo from "./Tabs/Promo.js";
+import PhotoUpload from "./Tabs/PhotoUpload.js";
 import AdminControl from "./MultiTabs/AdminControl.js";
 
 var currentTab = null;
@@ -21,6 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
               'TimeShift': TimeShift,
               'Countdown': Countdown,
               'Promo': Promo,
+              'PhotoUpload': PhotoUpload,
               'AdminControl': AdminControl,
         };
 
