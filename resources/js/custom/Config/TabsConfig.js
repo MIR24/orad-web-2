@@ -180,9 +180,9 @@ const TabsConfig = {
     },
     "WeatherLiveLiner": {
         "api": {
-            "base": "/api/weatherforecastsliner",
-            "updateCreate": "/api/weatherforecastsliner-collections",
-            "delete": "/api/weatherforecastsliner/",
+            "base": "/api/weatherforecastsliners",
+            "updateCreate": "/api/weatherforecastsliners-collections",
+            "delete": "/api/weatherforecastsliners/",
         },
         "defaultEditState": {
             "status": "inactive",

@@ -16,5 +16,8 @@ class CityTimeshiftController extends BaseController
     public function __construct(CityTimeshiftRepository $repository)
     {
         $this->repository = $repository;
+        $this->middleware(['can:create_citytimeshifts'])->only(['store', 'storeMultiple']);
+        $this->middleware(['can:update_citytimeshifts'])->only(['update', 'patchMultiple']);
+        $this->middleware(['can:delete_citytimeshifts'])->only(['destroy']);
     }
 }
