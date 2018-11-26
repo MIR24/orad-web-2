@@ -13,6 +13,12 @@ var babel = require('gulp-babel');
 var rollup = require('rollup-stream');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
+var vendorToPublicCustom = [
+	{
+		vendor: '/almasaeed2010/adminlte',
+		public: '/adminlte'
+	},
+];
 
 // merge with default parameters
 var args = Object.assign({'prod': false, 'rtl': '', 'metronic': false, 'keen': false}, yargs.argv);
@@ -79,9 +85,18 @@ gulp.task('build-bundle', function (cb) {
 		}
 	});
 
+	gulp.start('copy-vendor-to-public-custom');
+
 	cb();
 });
 
+
+gulp.task('copy-vendor-to-public-custom', () => {console.log(vendorToPublicCustom);
+	for (var one in vendorToPublicCustom) {console.log(vendorToPublicCustom[one]);
+	    gulp.src('./vendor'+ vendorToPublicCustom[one].vendor +'/**/*')
+	        .pipe(gulp.dest('./public/vendor'+  vendorToPublicCustom[one].public));
+	}
+});
 
 var tasks = ['clean'];
 if ((/true/i).test(build.config.compile.rtl.enabled)) {
