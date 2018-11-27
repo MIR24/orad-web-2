@@ -8,9 +8,6 @@ import Input from "../Components/Input.js";
 import Checkbox from "../Components/Checkbox.js";
 import Select2Custom from "../ExternalComponents/Select2Custom.js";
 
-// TO DO
-const isAdmin = true;
-
 class WeatherLive extends BaseTab {
     constructor () {
         super();
@@ -31,8 +28,7 @@ class WeatherLive extends BaseTab {
             this.addListeners(saveBtn.getListeners());
             this.addListeners(cancelEditBtn.getListeners());
 
-            // TO DO
-            if (isAdmin) {
+            if (this.premisions.isRollAdmin) {
                 var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
                 addEmptyBlockButton.init();
                 this.addListeners(addEmptyBlockButton.getListeners());
@@ -102,8 +98,7 @@ class WeatherLive extends BaseTab {
         this.addListeners(status.getListeners());
         this.addAdditionlClassesJQ(index, selectWeather);
 
-        // TO DO
-        if (!disabled && isAdmin) {
+        if (!disabled && this.premisions.isRollAdmin) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

@@ -28,7 +28,7 @@ class PhotoUpload extends BaseTab {
         this.addListeners(searchInline.getListeners());
 
         // TO DO
-        if (isSomeRoll) {
+        if (this.premisions.isLoggedIn && isSomeRoll) {
             var createModal = new PhotoUploadEdit('new', {}, 'create');
             
             createModal.init();
@@ -59,7 +59,7 @@ class PhotoUpload extends BaseTab {
         var controlButtons = '';
 
         // TO DO
-        if (isSomeRoll) {
+        if (this.premisions.isLoggedIn && isSomeRoll) {
             var editModal = new PhotoUploadEdit(index, this.models[index], 'edit'),
                 deleteModelBtn = new DeleteButton(index);
 

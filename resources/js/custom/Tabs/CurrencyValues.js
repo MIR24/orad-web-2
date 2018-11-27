@@ -8,9 +8,6 @@ import EnterEditingButton from "../Components/EnterEditingButton.js";
 import CancelEditingButton from "../Components/CancelEditingButton.js";
 import Input from "../Components/Input.js";
 
-// TO DO
-const isAdmin = true;
-
 class CurrencyValues extends BaseTab {
     constructor () {
         super();
@@ -31,8 +28,7 @@ class CurrencyValues extends BaseTab {
             this.addListeners(saveBtn.getListeners());
             this.addListeners(cancelEditBtn.getListeners());
 
-            // TO DO
-            if (isAdmin) {
+            if (this.premisions.isRollAdmin) {
                 var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
                 addEmptyBlockButton.init();
                 this.addListeners(addEmptyBlockButton.getListeners());
@@ -40,7 +36,7 @@ class CurrencyValues extends BaseTab {
             }
 
             controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else {
+        } else if (this.premisions.isLoggedIn) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
             enterRedactingBtn.init();
@@ -57,7 +53,7 @@ class CurrencyValues extends BaseTab {
                     <th>Динамика</th>
                     <th>Курс</th>
                     <th>Валюта</th>
-                    ${ !disabled && isAdmin ? '<th></th>' : '' }
+                    ${ !disabled && this.premisions.isRollAdmin ? '<th></th>' : '' }
                 </tr>
             </thead>
             <tbody id="${tableBodyId}">`;
@@ -87,7 +83,7 @@ class CurrencyValues extends BaseTab {
     }
 
     makeBlock (index, leftValName, rightValName, inputValue, direction, disabled, error) {
-        var allowUsage = (!disabled && isAdmin) ? '' : 'disabled',
+        var allowUsage = (!disabled && this.premisions.isRollAdmin) ? '' : 'disabled',
             spinnerButton = new SpinnerButton(index, 'dir', disabled, direction),
             leftValNameInput = new Input(index, 'val1', leftValName, allowUsage, 'Валюта'),
             rightValNameInput = new Input(index, 'val2', rightValName, allowUsage, 'Валюта'),
@@ -104,8 +100,7 @@ class CurrencyValues extends BaseTab {
         this.addListeners(rightValNameInput.getListeners());
         this.addListeners(valueInput.getListeners());
 
-        // TO DO
-        if (!disabled && isAdmin) {
+        if (!disabled && this.premisions.isRollAdmin) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

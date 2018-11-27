@@ -30,7 +30,7 @@ class Tops extends BaseTab {
             );
         }
 
-        if (!this.edit.state) {
+        if (this.premisions.isRollAdmin && !this.edit.state) {
             var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
             addEmptyBlockButton.init();
             this.addListeners(addEmptyBlockButton.getListeners());
@@ -43,7 +43,7 @@ class Tops extends BaseTab {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             title = new Input(index, 'text', title, disabled, 'Заголовок'),
             textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
-            controlButtons = '';
+            headTemplate = '';
 
         title.init();
         textarea.init();
@@ -51,39 +51,45 @@ class Tops extends BaseTab {
         this.addListeners(textarea.getListeners());
         this.addListeners(title.getListeners());
 
-        if (!disabled) {
-            var saveBtn = new SaveButton(index),
-                cancelEditBtn = new CancelEditingButton(index);
+        if (this.premisions.isLoggedIn) {
+            var controlButtons = '';
 
-            saveBtn.init();
-            cancelEditBtn.init();
+            if (!disabled) {
+                var saveBtn = new SaveButton(index),
+                    cancelEditBtn = new CancelEditingButton(index);
 
-            this.addListeners(saveBtn.getListeners());
-            this.addListeners(cancelEditBtn.getListeners());
+                saveBtn.init();
+                cancelEditBtn.init();
 
-            controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else {
-            var rmBtn = new DeleteButton(index),
-                enterRedactingBtn = new EnterEditingButton(index);
+                this.addListeners(saveBtn.getListeners());
+                this.addListeners(cancelEditBtn.getListeners());
 
-            rmBtn.init();
-            enterRedactingBtn.init();
+                controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+            } else {
+                var rmBtn = new DeleteButton(index),
+                    enterRedactingBtn = new EnterEditingButton(index);
 
-            this.addListeners(rmBtn.getListeners());
-            this.addListeners(enterRedactingBtn.getListeners());
+                rmBtn.init();
+                enterRedactingBtn.init();
 
-            controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
-        }
+                this.addListeners(rmBtn.getListeners());
+                this.addListeners(enterRedactingBtn.getListeners());
 
-        return `<div id="${index}" class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
-            <div class="m-portlet__head p-0">
+                controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
+            }
+
+            headTemplate = `<div class="m-portlet__head p-0">
                 <div class="row col align-items-center">
                     <div class="col-6"></div>
                     <div class="col-6 m--align-right">
                         ${controlButtons}
                     </div>
                 </div>
-            </div>
+            </div>`;
+        }
+
+        return `<div id="${index}" class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
+            ${headTemplate}
             <div class="m-portlet__body">
                 <form class="m-form m-form--fit m-form--label-align-right">
                     ${this.getRow('Заголовок', title.getTemplate(), error.text)}

@@ -5,7 +5,8 @@ import TabsConfig from "../Config/TabsConfig.js";
 import { simpleAjaxPromise } from "../Api/Multi.js";
 import { tabContentIdJQ, apiMethods, toasterMessages } from "../Config/Constants.js";
 import ConformationModal from "../Modals/ConformationModal.js";
-import InfoModal from "../Modals/InfoModal.js"
+import InfoModal from "../Modals/InfoModal.js";
+import User from "../Utils/User.js";
 
 class BaseTab {
     constructor () {
@@ -21,6 +22,10 @@ class BaseTab {
         this.utilityBlocksInfo = {};
         this.validation = {};
         this.searchOptions = {};
+        this.premisions = {
+            isRollAdmin: User.isRollAdmin(),
+            isLoggedIn: User.isLoggedIn(),
+        }
     }
 
     getModels () {
