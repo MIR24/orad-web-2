@@ -16,6 +16,8 @@ class CreatePermissionsForUpdateAndCreateModels extends Migration
     {
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
+        DB::table('permissions')->delete();
+
         $actions = [
             'see',
             'create',
@@ -62,6 +64,5 @@ class CreatePermissionsForUpdateAndCreateModels extends Migration
     public function down()
     {
         DB::table('permissions')->delete();
-
     }
 }
