@@ -16,6 +16,7 @@ class PhotoCategoryController extends BaseController
     public function __construct(PhotoCategoryRepository $repository)
     {
         $this->repository = $repository;
+        $this->middleware(['can:see_photocategories']);
         $this->middleware(['can:create_photocategories'])->only(['store', 'storeMultiple']);
         $this->middleware(['can:update_photocategories'])->only(['update', 'patchMultiple']);
         $this->middleware(['can:delete_photocategories'])->only(['destroy']);

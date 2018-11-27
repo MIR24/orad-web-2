@@ -16,6 +16,7 @@ class WeatherTypeController extends BaseController
     public function __construct(WeatherTypeRepository $repository)
     {
         $this->repository = $repository;
+        $this->middleware(['can:see_weathertypes']);
         $this->middleware(['can:create_weathertypes'])->only(['store', 'storeMultiple']);
         $this->middleware(['can:update_weathertypes'])->only(['update', 'patchMultiple']);
         $this->middleware(['can:delete_weathertypes'])->only(['destroy']);

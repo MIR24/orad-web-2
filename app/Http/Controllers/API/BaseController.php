@@ -44,7 +44,10 @@ abstract class BaseController extends Controller
      */
     public function store(Request $request)
     {
-        return new CommonResource($this->repository->create($request->input('data')));
+        $validatedData = $request->validate([
+            'data' => 'required|array'
+        ]);
+        return new CommonResource($this->repository->create($validatedData['data']));
     }
 
     /**
@@ -89,7 +92,10 @@ abstract class BaseController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        return new CommonResource($this->repository->update($request->input('data'), $id));
+        $validatedData = $request->validate([
+            'data' => 'required|array'
+        ]);
+        return new CommonResource($this->repository->update($validatedData['data'], $id));
     }
 
     /**
