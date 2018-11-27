@@ -28,7 +28,7 @@ class Promo extends BaseTab {
         this.addListeners(searchInline.getListeners());
 
         // TO DO
-        if (isSomeRoll) {
+        if (this.premisions.isLoggedIn && isSomeRoll) {
             var createModal = new PromoEditModal('new', {}, 'create', {'category': this.additions.category, 'mode': this.config.configModel.mode});
             
             createModal.init();
@@ -60,7 +60,7 @@ class Promo extends BaseTab {
         var controlButtons = '';
 
         // TO DO
-        if (isSomeRoll) {
+        if (this.premisions.isLoggedIn && isSomeRoll) {
             var editModal = new PromoEditModal(index, this.models[index], 'edit', {'category': this.additions.category, 'mode': this.config.configModel.mode}),
                 deleteModelBtn = new DeleteButton(index);
 

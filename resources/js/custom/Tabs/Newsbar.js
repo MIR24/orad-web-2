@@ -26,42 +26,48 @@ class Newsbar extends BaseTab {
     makeBlock (index, title, text, error) {
         var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
             textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
-            controlButtons = '';
+            headTemplate = '';
 
         textarea.init();
 
         this.addListeners(textarea.getListeners());
 
-        if (!disabled) {
-            var saveBtn = new SaveButton(index),
-                cancelEditBtn = new CancelEditingButton(index);
+        if (this.premisions.isLoggedIn) {
+            var controlButtons = '';
 
-            saveBtn.init();
-            cancelEditBtn.init();
+            if (!disabled) {
+                var saveBtn = new SaveButton(index),
+                    cancelEditBtn = new CancelEditingButton(index);
 
-            this.addListeners(saveBtn.getListeners());
-            this.addListeners(cancelEditBtn.getListeners());
+                saveBtn.init();
+                cancelEditBtn.init();
 
-            controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else {
-            var enterRedactingBtn = new EnterEditingButton(index);
+                this.addListeners(saveBtn.getListeners());
+                this.addListeners(cancelEditBtn.getListeners());
 
-            enterRedactingBtn.init();
+                controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+            } else {
+                var enterRedactingBtn = new EnterEditingButton(index);
 
-            this.addListeners(enterRedactingBtn.getListeners());
+                enterRedactingBtn.init();
 
-            controlButtons = `${enterRedactingBtn.getTemplate()}`;
-        }
+                this.addListeners(enterRedactingBtn.getListeners());
 
-        return `<div class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
-            <div class="m-portlet__head p-0">
+                controlButtons = `${enterRedactingBtn.getTemplate()}`;
+            }
+
+            headTemplate = `<div class="m-portlet__head p-0">
                 <div class="row col align-items-center">
                     <div class="col-6"></div>
                     <div class="col-6 m--align-right">
                         ${controlButtons}
                     </div>
                 </div>
-            </div>
+            </div>`;
+        }
+
+        return `<div class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
+            ${headTemplate}
             <div class="m-portlet__body">
                 ${ error && error.strings ? `<form class="m-form m-form--fit m-form--label-align-right  has-danger">
                     <div class="form-group m-form__group">
