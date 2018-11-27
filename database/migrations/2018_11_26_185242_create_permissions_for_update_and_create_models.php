@@ -40,7 +40,7 @@ class CreatePermissionsForUpdateAndCreateModels extends Migration
             'tops',
             'users',
             'weatherforecasts',
-            'weatherforecastliners',
+            'weatherforecastsliners',
             'weathertypes',
         ];
 
@@ -51,7 +51,7 @@ class CreatePermissionsForUpdateAndCreateModels extends Migration
             }
         }
         Permission::create(['name' => 'edit_status_weatherforecasts']);
-        Permission::create(['name' => 'edit_status_weatherforecastliners']);
+        Permission::create(['name' => 'edit_status_weatherforecastsliners']);
     }
 
     /**

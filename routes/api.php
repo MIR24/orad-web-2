@@ -144,7 +144,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('weatherforecastsliners', 'API\WeatherForecastLinerController@store')
         ->name('weatherforecastsliners.store');
-    Route::put('weatherforecastsliners/{id}', 'APIWeatherForecastLinerController@update')
+    Route::put('weatherforecastsliners/{id}', 'API\WeatherForecastLinerController@update')
         ->where(['id' => '[0-9]+'])
         ->name('weatherforecastsliners.update');
     Route::delete('weatherforecastsliners/{id}', 'API\WeatherForecastLinerController@destroy')
