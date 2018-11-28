@@ -28,7 +28,7 @@ class CurrencyValues extends BaseTab {
             this.addListeners(saveBtn.getListeners());
             this.addListeners(cancelEditBtn.getListeners());
 
-            if (this.premisions.isRollAdmin) {
+            if (this.checkPermissions('create')) {
                 var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
                 addEmptyBlockButton.init();
                 this.addListeners(addEmptyBlockButton.getListeners());
@@ -36,7 +36,7 @@ class CurrencyValues extends BaseTab {
             }
 
             controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else if (this.premisions.isLoggedIn) {
+        } else if (this.premisions.isLoggedIn && this.checkPermissions('update')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
             enterRedactingBtn.init();
@@ -53,7 +53,7 @@ class CurrencyValues extends BaseTab {
                     <th>Динамика</th>
                     <th>Курс</th>
                     <th>Валюта</th>
-                    ${ !disabled && this.premisions.isRollAdmin ? '<th></th>' : '' }
+                    ${ !disabled && this.checkPermissions('delete') ? '<th></th>' : '' }
                 </tr>
             </thead>
             <tbody id="${tableBodyId}">`;
@@ -83,7 +83,7 @@ class CurrencyValues extends BaseTab {
     }
 
     makeBlock (index, leftValName, rightValName, inputValue, direction, disabled, error) {
-        var allowUsage = (!disabled && this.premisions.isRollAdmin) ? '' : 'disabled',
+        var allowUsage = !disabled ? '' : 'disabled',
             spinnerButton = new SpinnerButton(index, 'dir', disabled, direction),
             leftValNameInput = new Input(index, 'val1', leftValName, allowUsage, 'Валюта'),
             rightValNameInput = new Input(index, 'val2', rightValName, allowUsage, 'Валюта'),
@@ -100,7 +100,7 @@ class CurrencyValues extends BaseTab {
         this.addListeners(rightValNameInput.getListeners());
         this.addListeners(valueInput.getListeners());
 
-        if (!disabled && this.premisions.isRollAdmin) {
+        if (!disabled && this.checkPermissions('delete')) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

@@ -28,7 +28,7 @@ class WeatherLiveLiner extends BaseTab {
             this.addListeners(saveBtn.getListeners());
             this.addListeners(cancelEditBtn.getListeners());
 
-            if (this.premisions.isRollAdmin) {
+            if (this.checkPermissions('create')) {
                 var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
                 addEmptyBlockButton.init();
                 this.addListeners(addEmptyBlockButton.getListeners());
@@ -36,7 +36,7 @@ class WeatherLiveLiner extends BaseTab {
             }
 
             controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else {
+        } else if (this.checkPermissions('update')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
             enterRedactingBtn.init();
@@ -102,7 +102,7 @@ class WeatherLiveLiner extends BaseTab {
         this.addListeners(status.getListeners());
         this.addAdditionlClassesJQ(index, selectWeather);
 
-        if (!disabled && this.premisions.isRollAdmin) {
+        if (!disabled && this.checkPermissions('delete')) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

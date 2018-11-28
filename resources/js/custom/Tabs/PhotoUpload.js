@@ -7,8 +7,7 @@ import Pagination from "../Groups/Pagination.js";
 import SearchInline from "../Groups/SearchInline.js";
 
 // TO DO
-const isSomeRoll = true,
-    testImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gull_portrait_ca_usa.jpg/300px-Gull_portrait_ca_usa.jpg';
+const testImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gull_portrait_ca_usa.jpg/300px-Gull_portrait_ca_usa.jpg';
 
 class PhotoUpload extends BaseTab {
     constructor () {
@@ -27,8 +26,7 @@ class PhotoUpload extends BaseTab {
         //this.addListeners(pagination.getListeners());
         this.addListeners(searchInline.getListeners());
 
-        // TO DO
-        if (this.premisions.isLoggedIn && isSomeRoll) {
+        if (this.premisions.isLoggedIn && this.checkPermissions('create')) {
             var createModal = new PhotoUploadEdit('new', {}, 'create');
             
             createModal.init();
@@ -58,25 +56,27 @@ class PhotoUpload extends BaseTab {
     makeBlock (index) {
         var controlButtons = '';
 
-        // TO DO
-        if (this.premisions.isLoggedIn && isSomeRoll) {
+        if (this.premisions.isLoggedIn && this.checkPermissions('update')) {
             var editModal = new PhotoUploadEdit(index, this.models[index], 'edit'),
-                deleteModelBtn = new DeleteButton(index);
+                btnTemplates = '';
 
             editModal.init();
-            deleteModelBtn.init();
-
             this.addListeners(editModal.getListeners());
-            this.addListeners(deleteModelBtn.getListeners());
-
             this.mergeAdditionlClassesJQ(editModal.getAdditionlClassesJQ());
+
+            if (this.checkPermissions('delete')) {
+                var deleteModelBtn = new DeleteButton(index);
+                deleteModelBtn.init();
+                this.addListeners(deleteModelBtn.getListeners());
+                btnTemplates = deleteModelBtn.getTemplate();
+            }
 
             controlButtons = `<div class="m-portlet__foot">
                 <div class="row m--valign-middle">
                     <div class="col m--align-right">
                         ${editModal.getOpenButton()}
                         ${editModal.getTemplate()}
-                        ${deleteModelBtn.getTemplate()}
+                        ${btnTemplates}
                     </div>
                 </div>
             </div>`;

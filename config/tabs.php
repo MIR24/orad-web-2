@@ -9,44 +9,54 @@ return [
     |
     | Tabs order - first -> last
     | jsClass (required) - used for translation and js initialization
-    | active (at least one required) - witch tab content should be loaded first
+    | seePremission (required) - see_TABNAME premission for tab
     |
     */
 
     'default' => [
         [
             'jsClass' => 'Tops',
-            'active' => true,
+            'seePremission' => 'see_tops',
         ],
         [
             'jsClass' => 'Newsbar',
+            'seePremission' => 'see_newsbars',
         ],
         [
             'jsClass' => 'Expedited',
+            'seePremission' => 'see_hotnews',
         ],
         [
             'jsClass' => 'CurrencyValues',
+            'seePremission' => 'see_currencyrates',
         ],
         [
             'jsClass' => 'WeatherLive',
+            'seePremission' => 'see_weatherforecasts',
         ],
         [
             'jsClass' => 'WeatherLiveLiner',
+            'seePremission' => 'see_weatherforecastliners',
         ],
         [
             'jsClass' => 'TimeShift',
+            'seePremission' => 'see_citytimeshifts',
         ],
         [
             'jsClass' => 'Countdown',
+            'seePremission' => 'see_eventcountdowns',
         ],
         [
             'jsClass' => 'Promo',
+            'seePremission' => 'see_promos',
         ],
         [
             'jsClass' => 'PhotoUpload',
+            'seePremission' => '',
         ],
         [
             'jsClass' => 'AdminControl',
+            'seePremission' => '',
         ],
     ]
 ];

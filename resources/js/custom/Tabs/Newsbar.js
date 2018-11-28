@@ -46,7 +46,7 @@ class Newsbar extends BaseTab {
                 this.addListeners(cancelEditBtn.getListeners());
 
                 controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-            } else {
+            } else if (this.checkPermissions('update')) {
                 var enterRedactingBtn = new EnterEditingButton(index);
 
                 enterRedactingBtn.init();

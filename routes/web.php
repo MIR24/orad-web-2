@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('dummy'); // return view('welcome');
+    if(Auth::check()){
+        return view('dummy');
+    } else {
+        return view('auth.login');
+    }
 });
 
 
