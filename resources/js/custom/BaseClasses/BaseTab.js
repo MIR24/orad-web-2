@@ -542,6 +542,7 @@ class BaseTab {
                 this.initListeners();
                 this.initAdditionlClassesJQ();
             }, (error) => {
+                $(tabContentIdJQ).empty();
                 toastr.error(toasterMessages.error.noData);
             })
             .then(function () {
