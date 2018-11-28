@@ -59,7 +59,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- end::Head -->
 
     <!-- begin::Body -->
-    <body style="background-color: #404658">
+    <body>
         <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page">
 
