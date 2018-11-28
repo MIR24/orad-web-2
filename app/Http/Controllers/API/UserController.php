@@ -30,7 +30,7 @@ class UserController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function showSelfPermissionsSelf(Request $request)
+    public function showSelfPermissions(Request $request)
     {
         return $this->showPermissions($request->user()->id);
     }

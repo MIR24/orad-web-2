@@ -104,7 +104,7 @@ Route::get('tops/{id}', 'API\TopController@show')
     ->name('tops.show');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('mypermissions', 'API\UserController@showSelfPermissionsSelf');
+    Route::get('mypermissions', 'API\UserController@showSelfPermissions');
     Route::get('users/{id}/permissions', 'API\UserController@showPermissions');
 
     Route::post('citytimeshifts', 'API\CityTimeshiftController@store')
