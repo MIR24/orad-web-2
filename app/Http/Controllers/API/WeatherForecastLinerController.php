@@ -18,10 +18,10 @@ class WeatherForecastLinerController extends BaseController
     public function __construct(WeatherForecastLinerRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_weatherforecastsliners']);
-        $this->middleware(['can:create_weatherforecastsliners'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_weatherforecastsliners'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_weatherforecastsliners'])->only(['destroy']);
+        $this->middleware(['can:see_weatherforecastliners']);
+        $this->middleware(['can:create_weatherforecastliners'])->only(['store', 'storeMultiple']);
+        $this->middleware(['can:update_weatherforecastliners'])->only(['update', 'patchMultiple']);
+        $this->middleware(['can:delete_weatherforecastliners'])->only(['destroy']);
     }
 
     /**
