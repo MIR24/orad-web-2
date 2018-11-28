@@ -9,7 +9,7 @@ export function simpleAjaxPromise (method, url, data) {
         dataTemp = data ? { data } : null;
     }
 
-    $('body').addClass('m-page--loading');
+    mApp.blockPage();
     return new Promise ((resolve, reject) => {
         $.ajax({
             headers: {

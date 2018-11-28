@@ -68,7 +68,8 @@ class BaseModalEdit extends BaseModal {
     }
 
     saveModelHandle (initClass, props, event) {
-        $('#' + this.modalContentId).append(this.config.loader.template);
+        var jqId = '#' + this.id;
+        mApp.block(jqId);
         if (this.modelId === 'new') {
             initClass.validateEditState(this.modelId, initClass.getNewEditStateModel());
         } else {
@@ -78,10 +79,10 @@ class BaseModalEdit extends BaseModal {
             this.validationModel = initClass.getValidatedObject(this.modelId);
             this.reInit(initClass);
         } else {
-            $('#' + this.id).modal('toggle');
+            $(jqId).modal('toggle');
             initClass.saveModel(this.modelId);
         }
-        $(this.config.loader.jqClassName).remove();
+        mApp.unblock(jqId);
     }
 
     addAdditionlClassesJQ (modelId, classVar) {

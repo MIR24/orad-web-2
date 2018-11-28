@@ -1,14 +1,4 @@
 const ModalsConfig = {
-    "default": {
-        "loader": {
-            "template": `<div class="blockUI" style="display:none"></div>
-                <div class="blockUI blockOverlay" style="z-index: 10; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(0, 0, 0); opacity: 0.1; cursor: wait; position: absolute;"></div>
-                <div class="blockUI blockMsg blockElement" style="z-index: 1011; position: absolute; padding: 0px; margin: 0px; width: auto; top: 194.5px; left: 250px; text-align: center; color: rgb(0, 0, 0); border: 0px; cursor: wait;">
-                    <div class="m-loader  m-loader--brand m-loader--lg"></div>
-                </div>`,
-            "jqClassName": ".blockUI",
-        },
-    },
     "edit-promo": {
         "modalTitle": "Редактировать промо",
         "enterEditBtn": "modal-enter-edit",
