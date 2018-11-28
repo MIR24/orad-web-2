@@ -69,6 +69,7 @@ class Tops extends BaseTab {
                 if (this.checkPermissions('update')) {
                     var enterRedactingBtn = new EnterEditingButton(index);
                     enterRedactingBtn.init();
+                    this.addListeners(enterRedactingBtn.getListeners());
                     controlButtons = enterRedactingBtn.getTemplate();
                 }
 
