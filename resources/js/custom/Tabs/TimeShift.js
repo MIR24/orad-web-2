@@ -33,7 +33,7 @@ class TimeShift extends BaseTab {
                 controlButtons = addEmptyBlockButton.getTemplate();
             }
 
-            controlButtons += `${addEmptyBlockButton.getTemplate()}${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+            controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
         } else if (this.premisions.isLoggedIn && this.checkPermissions('update')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
