@@ -80,7 +80,7 @@ class BaseModalEdit extends BaseModal {
             this.reInit(initClass);
         } else {
             $(jqId).modal('toggle');
-            initClass.saveModel(this.modelId);
+            initClass.saveOneModel(this.modelId);
         }
         mApp.unblock(jqId);
     }
