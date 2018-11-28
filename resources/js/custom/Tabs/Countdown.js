@@ -19,19 +19,23 @@ class Countdown extends BaseTab {
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
-                cancelEditBtn = new CancelEditingButton('all'),
-                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
+                cancelEditBtn = new CancelEditingButton('all');
 
             saveBtn.init();
             cancelEditBtn.init();
-            addEmptyBlockButton.init();
 
             this.addListeners(saveBtn.getListeners());
             this.addListeners(cancelEditBtn.getListeners());
-            this.addListeners(addEmptyBlockButton.getListeners());
 
-            controlButtons = `${addEmptyBlockButton.getTemplate()}${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else if (this.premisions.isLoggedIn) {
+            if (this.checkPermissions('create')) {
+                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
+                addEmptyBlockButton.init();
+                this.addListeners(addEmptyBlockButton.getListeners());
+                controlButtons = addEmptyBlockButton.getTemplate();
+            }
+
+            controlButtons += `${addEmptyBlockButton.getTemplate()}${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+        } else if (this.premisions.isLoggedIn && this.checkPermissions('update')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
             enterRedactingBtn.init();
@@ -82,7 +86,7 @@ class Countdown extends BaseTab {
         this.addListeners(dateTime.getListeners());
         this.mergeAdditionlClassesJQ(dateTime.getAdditionlClassesJQ());
 
-        if (!disabled) {
+        if (!disabled && this.checkPermissions('delete')) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

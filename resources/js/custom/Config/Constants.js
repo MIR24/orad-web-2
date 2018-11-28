@@ -25,15 +25,20 @@ export const toasterMessages = {
         'save': 'Сохранено',
         'update': 'Обновлено',
         'delete': 'Удалено',
+        'authPassed': 'Успешная аутентификация',
     },
     'error': {
         'save': 'Ошибка сохранения',
         'update': 'Ошибка обновления',
         'noData': 'Ошибка получения данных',
         'delete': 'Ошибка удаления',
+        'errorAuth': 'Ошибка авторизации'
     },
     'warning': {
         'nothingToSave': 'Нет изменений',
+    },
+    'info': {
+        'notAuth': 'Не зарегистрирован пользователь'
     },
 };
 export const configFromDB = {

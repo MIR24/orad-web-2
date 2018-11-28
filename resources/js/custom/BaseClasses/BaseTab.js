@@ -23,9 +23,17 @@ class BaseTab {
         this.validation = {};
         this.searchOptions = {};
         this.premisions = {
-            isRollAdmin: User.isRollAdmin(),
-            isLoggedIn: User.isLoggedIn(),
+            isLoggedIn: User.isLoggedIn,
         }
+    }
+
+    checkPermissions (action) {
+        if (!this.premisions.hasOwnProperty(action)) {
+            this.premisions = Object.assign(this.premisions, {
+                [action]: User.checkPermissions(action + '_' + this.config.backendPremissionModelName)
+            });
+        }
+        return this.premisions[action];
     }
 
     getModels () {

@@ -12,38 +12,44 @@ import PhotoUpload from "./Tabs/PhotoUpload.js";
 import AdminControl from "./MultiTabs/AdminControl.js";
 
 window.addEventListener('DOMContentLoaded', () => {
-    var currentTab = null;
+    var currentTab = null,
+        arrayOfInitPromises = [
+            User.getPremissions(),
+        ];
 
-    User.getPremissions();
+    $.when.apply(null, arrayOfInitPromises).done(() => {
+        var tabCounter = 0;
+        Array.from(document.querySelectorAll('a[id^=TabSwitch]')).forEach(tab => {
+            const formatters = {
+                  'Tops': Tops,
+                  'Newsbar': Newsbar,
+                  'Expedited': Expedited,
+                  'CurrencyValues': CurrencyValues,
+                  'WeatherLive': WeatherLive,
+                  'WeatherLiveLiner': WeatherLiveLiner,
+                  'TimeShift': TimeShift,
+                  'Countdown': Countdown,
+                  'Promo': Promo,
+                  'PhotoUpload': PhotoUpload,
+                  'AdminControl': AdminControl,
+            };
 
-    Array.from(document.querySelectorAll('a[id^=TabSwitch]')).forEach(tab => {
-        const formatters = {
-              'Tops': Tops,
-              'Newsbar': Newsbar,
-              'Expedited': Expedited,
-              'CurrencyValues': CurrencyValues,
-              'WeatherLive': WeatherLive,
-              'WeatherLiveLiner': WeatherLiveLiner,
-              'TimeShift': TimeShift,
-              'Countdown': Countdown,
-              'Promo': Promo,
-              'PhotoUpload': PhotoUpload,
-              'AdminControl': AdminControl,
-        };
+            if (tabCounter === 0) {
+                tab.parentElement.className += ' m-menu__item--hover';
+                currentTab = new formatters[tab.attributes['data-tab-name'].value]();
+                currentTab.init();
+            }
 
-        if (tab.attributes['data-tab-active'].value == 'true') {
-            currentTab = new formatters[tab.attributes['data-tab-name'].value]();
-            currentTab.init();
-        }
-
-        tab.addEventListener('click', function(event) {
-            currentTab = new formatters[this.attributes['data-tab-name'].value]();
-            currentTab.init();
+            tab.addEventListener('click', function(event) {
+                currentTab = new formatters[this.attributes['data-tab-name'].value]();
+                currentTab.init();
+            });
+            tabCounter++;
         });
-    });
 
-    $('#show-help-btn').click(function(event) {
-        currentTab.showHelp();
+        $('#show-help-btn').click(function(event) {
+            currentTab.showHelp();
+        });
     });
 });
 
