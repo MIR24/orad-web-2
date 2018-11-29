@@ -1,22 +1,34 @@
+import { simpleAjaxPromise } from "../Api/Multi.js";
+import { apiMethods , toasterMessages } from "../Config/Constants.js";
+
 const User = {
-    isLoggedInBool: true,
-    premisions: {
-        'role': 'admin',
-    },
+    isLoggedIn: false,
+    premisions: {},
     
     getPremissions () {
-        console.log('test');
+        return simpleAjaxPromise(apiMethods.get, '/api/mypermissions')
+        .then((response) => {
+            this.premisions = response.data;
+            this.isLoggedIn = true;
+            toastr.success(toasterMessages.success.authPassed);
+        }, (error) => {
+            if (error.statusText == 'Unauthorized') {
+                this.isLoggedIn = false;
+                this.premisions = {};
+                toastr.info(toasterMessages.info.notAuth);
+            } else {
+                toastr.error(toasterMessages.error.errorAuth);
+            }
+        });
     },
 
-    isRollAdmin () {
-        if (this.premisions.role == 'admin') {
-            return true;
+    checkPermissions (action) {
+        for (var one in this.premisions) {
+            if (this.premisions[one].name == action) {
+                return true;
+            }
         }
         return false;
-    },
-
-    isLoggedIn () {
-        return this.isLoggedInBool;
     },
 }
 export default User

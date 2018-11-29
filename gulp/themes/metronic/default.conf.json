@@ -114,6 +114,11 @@
                             "scripts": [
                                 "{$config.path.node_modules}/toastr/build/toastr.min.js"
                             ]
+                        },
+                        "block-ui": {
+                            "scripts": [
+                                "{$config.path.node_modules}/block-ui/jquery.blockUI.js"
+                            ]
                         }
                     },
                     "optional": {
@@ -136,11 +141,6 @@
                                 "{$config.path.node_modules}/tether/dist/css/tether.css"
                             ],
                             "scripts": []
-                        },
-                        "block-ui": {
-                            "scripts": [
-                                "{$config.path.node_modules}/block-ui/jquery.blockUI.js"
-                            ]
                         },
                         "bootstrap-datepicker": {
                             "styles": [

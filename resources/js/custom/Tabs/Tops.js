@@ -30,7 +30,7 @@ class Tops extends BaseTab {
             );
         }
 
-        if (this.premisions.isRollAdmin && !this.edit.state) {
+        if (!this.edit.state && this.checkPermissions('create')) {
             var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name);
             addEmptyBlockButton.init();
             this.addListeners(addEmptyBlockButton.getListeners());
@@ -66,16 +66,19 @@ class Tops extends BaseTab {
 
                 controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
             } else {
-                var rmBtn = new DeleteButton(index),
-                    enterRedactingBtn = new EnterEditingButton(index);
+                if (this.checkPermissions('update')) {
+                    var enterRedactingBtn = new EnterEditingButton(index);
+                    enterRedactingBtn.init();
+                    this.addListeners(enterRedactingBtn.getListeners());
+                    controlButtons = enterRedactingBtn.getTemplate();
+                }
 
-                rmBtn.init();
-                enterRedactingBtn.init();
-
-                this.addListeners(rmBtn.getListeners());
-                this.addListeners(enterRedactingBtn.getListeners());
-
-                controlButtons = `${enterRedactingBtn.getTemplate()}${rmBtn.getTemplate()}`;
+                if (this.checkPermissions('delete')) {
+                    var rmBtn = new DeleteButton(index);
+                    rmBtn.init();
+                    this.addListeners(rmBtn.getListeners());
+                    controlButtons += rmBtn.getTemplate();
+                }
             }
 
             headTemplate = `<div class="m-portlet__head p-0">

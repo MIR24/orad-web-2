@@ -59,20 +59,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- end::Head -->
 
     <!-- begin::Body -->
-    <body style="background-color: #404658" class="m-page--loading-enabled m-page--loading m-footer--push m-aside--offcanvas-default">
-
-        <!-- begin::Page loader -->
-        <div class="m-page-loader m-page-loader--base">
-            <div class="m-blockui">
-                <span>Please wait...</span>
-                <span>
-                    <div class="m-loader m-loader--brand"></div>
-                </span>
-            </div>
-        </div>
-
-        <!-- end::Page Loader -->
-
+    <body>
         <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page">
 
@@ -146,11 +133,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light ">
                                     <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
                                         @foreach (config('tabs.default') as $tabConfig)
-                                            @if (array_key_exists('active', $tabConfig))
-                                                @include('layouts.partials.tab-active', ['jsClass' => $tabConfig['jsClass'], 'translation' => __($tabConfig['jsClass'])])
-                                            @else
+                                            @can($tabConfig['seePremission'])
                                                 @include('layouts.partials.tab-inactive', ['jsClass' => $tabConfig['jsClass'], 'translation' => __($tabConfig['jsClass'])])
-                                            @endif
+                                            @endcan
                                         @endforeach
                                     </ul>
                                 </div>

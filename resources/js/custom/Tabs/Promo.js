@@ -7,8 +7,7 @@ import Pagination from "../Groups/Pagination.js";
 import SearchInline from "../Groups/SearchInline.js";
 
 // TO DO
-const isSomeRoll = true,
-    testImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gull_portrait_ca_usa.jpg/300px-Gull_portrait_ca_usa.jpg';
+const testImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gull_portrait_ca_usa.jpg/300px-Gull_portrait_ca_usa.jpg';
 
 class Promo extends BaseTab {
     constructor () {
@@ -27,8 +26,7 @@ class Promo extends BaseTab {
         this.addListeners(pagination.getListeners());
         this.addListeners(searchInline.getListeners());
 
-        // TO DO
-        if (this.premisions.isLoggedIn && isSomeRoll) {
+        if (this.premisions.isLoggedIn && this.checkPermissions('create')) {
             var createModal = new PromoEditModal('new', {}, 'create', {'category': this.additions.category, 'mode': this.config.configModel.mode});
             
             createModal.init();
@@ -59,25 +57,27 @@ class Promo extends BaseTab {
     makeBlock (index) {
         var controlButtons = '';
 
-        // TO DO
-        if (this.premisions.isLoggedIn && isSomeRoll) {
+        if (this.premisions.isLoggedIn && this.checkPermissions('update')) {
             var editModal = new PromoEditModal(index, this.models[index], 'edit', {'category': this.additions.category, 'mode': this.config.configModel.mode}),
-                deleteModelBtn = new DeleteButton(index);
+                btnTemplates = '';
 
             editModal.init();
-            deleteModelBtn.init();
-
             this.addListeners(editModal.getListeners());
-            this.addListeners(deleteModelBtn.getListeners());
-
             this.mergeAdditionlClassesJQ(editModal.getAdditionlClassesJQ());
+            
+            if (this.checkPermissions('delete')) {
+                var deleteModelBtn = new DeleteButton(index);
+                deleteModelBtn.init();
+                this.addListeners(deleteModelBtn.getListeners());
+                btnTemplates = deleteModelBtn.getTemplate();
+            }
 
             controlButtons = `<div class="m-portlet__foot">
                 <div class="row m--valign-middle">
                     <div class="col m--align-right">
                         ${editModal.getOpenButton()}
                         ${editModal.getTemplate()}
-                        ${deleteModelBtn.getTemplate()}
+                        ${btnTemplates}
                     </div>
                 </div>
             </div>`;
@@ -105,11 +105,11 @@ class Promo extends BaseTab {
                         <div class="col mt-2 mr-4">
                             <div class="row border-bottom mb-3">
                                 <lable class="col">ID МИР</lable>
-                                <lable class="col text-right">${this.models[index].mir_id !== undefined ? this.models[index].mir_id : '-'}</lable>
+                                <lable class="col text-right">${(this.models[index].mir_id !== undefined || this.models[index].mir_id !== null) ? this.models[index].mir_id : '-'}</lable>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">ID МИРHD</lable>
-                                <lable class="col text-right">${this.models[index].mirhd_id !== undefined ? this.models[index].mirhd_id : '-'}</lable>
+                                <lable class="col text-right">${(this.models[index].mirhd_id !== undefined || this.models[index].mir_id !== null) ? this.models[index].mirhd_id : '-'}</lable>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">Программа</lable>

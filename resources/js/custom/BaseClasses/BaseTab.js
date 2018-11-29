@@ -23,9 +23,17 @@ class BaseTab {
         this.validation = {};
         this.searchOptions = {};
         this.premisions = {
-            isRollAdmin: User.isRollAdmin(),
-            isLoggedIn: User.isLoggedIn(),
+            isLoggedIn: User.isLoggedIn,
         }
+    }
+
+    checkPermissions (action) {
+        if (!this.premisions.hasOwnProperty(action)) {
+            this.premisions = Object.assign(this.premisions, {
+                [action]: User.checkPermissions(action + '_' + this.config.backendPremissionModelName)
+            });
+        }
+        return this.premisions[action];
     }
 
     getModels () {
@@ -534,18 +542,18 @@ class BaseTab {
                 this.initListeners();
                 this.initAdditionlClassesJQ();
             }, (error) => {
+                $(tabContentIdJQ).empty();
                 toastr.error(toasterMessages.error.noData);
             })
             .then(function () {
-                $('body').removeClass('m-page--loading');
+                mApp.unblockPage();
             });
         });
     }
 
     rerender () {
-        var bodySelect = $('body');
-        bodySelect.addClass('m-page--loading')
-            .css('padding-right','0px')
+        mApp.blockPage();
+        $('body').css('padding-right','0px')
         $('.modal-backdrop').remove();
         new Promise((resolve) => {
             this.makeTemplate();
@@ -555,7 +563,7 @@ class BaseTab {
             this.initAdditionlClassesJQ();
             resolve();
         }).then(function () {
-            bodySelect.removeClass('m-page--loading');
+            mApp.unblockPage();
         });
     }
 }

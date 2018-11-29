@@ -2,6 +2,7 @@ import { configFromDB, validationMessages } from "../Config/Constants"
 
 const TabsConfig = {
     "Tops": {
+        "backendPremissionModelName": "tops",
         "api": {
             "base": "/api/tops",
             "updateCreate": "/api/tops-collections",
@@ -35,6 +36,7 @@ const TabsConfig = {
         ],
     },
     "Newsbar": {
+        "backendPremissionModelName": "newsbars",
         "api": {
             "base": "/api/newsbars",
             "updateCreate": "/api/newsbars-collections",
@@ -66,6 +68,7 @@ const TabsConfig = {
         ],
     },
     "Expedited": {
+        "backendPremissionModelName": "hotnews",
         "api": {
             "base": "/api/hotnews",
             "updateCreate": "/api/hotnews-collections",
@@ -102,6 +105,7 @@ const TabsConfig = {
         ],
     },
     "CurrencyValues": {
+        "backendPremissionModelName": "currencyrates",
         "api": {
             "base": "/api/currencyrates",
             "updateCreate": "/api/currencyrates-collections",
@@ -140,6 +144,7 @@ const TabsConfig = {
         ],
     },
     "WeatherLive": {
+        "backendPremissionModelName": "weatherforecasts",
         "api": {
             "base": "/api/weatherforecasts",
             "updateCreate": "/api/weatherforecasts-collections",
@@ -179,6 +184,7 @@ const TabsConfig = {
         ],
     },
     "WeatherLiveLiner": {
+        "backendPremissionModelName": "weatherforecastliners",
         "api": {
             "base": "/api/weatherforecastsliners",
             "updateCreate": "/api/weatherforecastsliners-collections",
@@ -220,6 +226,7 @@ const TabsConfig = {
         ],
     },
     "TimeShift": {
+        "backendPremissionModelName": "citytimeshifts",
         "api": {
             "base": "/api/citytimeshifts",
             "updateCreate": "/api/citytimeshifts-collections",
@@ -244,6 +251,7 @@ const TabsConfig = {
         ],
     },
     "Countdown": {
+        "backendPremissionModelName": "eventcountdowns",
         "api": {
             "base": "/api/eventcountdowns",
             "updateCreate": "/api/eventcountdowns-collections",
@@ -276,6 +284,7 @@ const TabsConfig = {
         ],
     },
     "Promo": {
+        "backendPremissionModelName": "promos",
         "api": {
             "base": "/api/promos",
             "updateCreate": "/api/promos-collections",
@@ -332,6 +341,7 @@ const TabsConfig = {
         ],
     },
     "PhotoUpload": {
+        "backendPremissionModelName": "",
         "api": {
             "base": "/test/photoUpload",
             "updateCreate": "/api/photoUpload",
@@ -365,6 +375,7 @@ const TabsConfig = {
         ],
     },
     "ConfigurationControl": {
+        "backendPremissionModelName": "",
         "api": {
             "base": "/api/settings",
             "updateCreate": "/api/settings-collections",
@@ -387,6 +398,7 @@ const TabsConfig = {
         "extraBlocks": [],
     },
     "HelpRedacting": {
+        "backendPremissionModelName": "",
         "api": {
             "base": "/test/helpredacting",
             "updateCreate": "/test/helpredacting",
