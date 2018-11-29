@@ -36,7 +36,7 @@ return [
         ],
         [
             'jsClass' => 'WeatherLiveLiner',
-            'seePremission' => 'see_weatherforecastliners',
+            'seePremission' => 'see_weatherforecastsliners',
         ],
         [
             'jsClass' => 'TimeShift',

@@ -187,7 +187,7 @@ const TabsConfig = {
                 ],
             },
             "WeatherLiveLiner": {
-                "backendPremissionModelName": "weatherforecastliners",
+                "backendPremissionModelName": "weatherforecastsliners",
                 "api": {
                     "base": "/api/weatherforecastsliners",
                     "updateCreate": "/api/weatherforecastsliners-collections",
