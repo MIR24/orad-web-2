@@ -105,11 +105,11 @@ class Promo extends BaseTab {
                         <div class="col mt-2 mr-4">
                             <div class="row border-bottom mb-3">
                                 <lable class="col">ID МИР</lable>
-                                <lable class="col text-right">${(this.models[index].mir_id !== undefined || this.models[index].mir_id !== null) ? this.models[index].mir_id : '-'}</lable>
+                                <lable class="col text-right">${(this.models[index].mir_id !== undefined && this.models[index].mir_id !== null) ? this.models[index].mir_id : '-'}</lable>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">ID МИРHD</lable>
-                                <lable class="col text-right">${(this.models[index].mirhd_id !== undefined || this.models[index].mir_id !== null) ? this.models[index].mirhd_id : '-'}</lable>
+                                <lable class="col text-right">${(this.models[index].mirhd_id !== undefined && this.models[index].mirhd_id !== null) ? this.models[index].mirhd_id : '-'}</lable>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">Программа</lable>
