@@ -10,7 +10,7 @@ import User from "../Utils/User.js";
 
 class BaseTab {
     constructor () {
-        this.config = TabsConfig[this.constructor.name];
+        this.config = TabsConfig.values[this.constructor.name];
         this.template = '';
         this.listeners = {};
         this.edit = {

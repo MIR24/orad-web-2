@@ -1,4 +1,6 @@
 import User  from "./Utils/User.js";
+import SettingsDB from "./Utils/SettingsDB";
+import TabsConfig from "./Config/TabsConfig.js";
 import Tops from "./Tabs/Tops.js";
 import Newsbar from "./Tabs/Newsbar.js";
 import Expedited from "./Tabs/Expedited.js";
@@ -15,9 +17,12 @@ window.addEventListener('DOMContentLoaded', () => {
     var currentTab = null,
         arrayOfInitPromises = [
             User.getPremissions(),
+            SettingsDB.getSettings(),
         ];
 
     $.when.apply(null, arrayOfInitPromises).done(() => {
+        TabsConfig.init();
+
         var tabCounter = 0;
         Array.from(document.querySelectorAll('a[id^=TabSwitch]')).forEach(tab => {
             const formatters = {

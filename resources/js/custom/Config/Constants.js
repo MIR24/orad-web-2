@@ -41,11 +41,6 @@ export const toasterMessages = {
         'notAuth': 'Не зарегистрирован пользователь'
     },
 };
-export const configFromDB = {
-    'topsMaxCharsPerLine': 70,
-    'newsbarMaxCharsPerLine': 70,
-    'expeditedMaxCharsPerLine': 70,
-}
 export const validationMessages = {
     'requiredField': 'Обязательное поле',
     'toManyChars': 'chars error',
@@ -53,4 +48,5 @@ export const validationMessages = {
     'noMoreThan5': 'Максимум 5 букв',
     'dataTimeAgain': 'Выберите еще раз дату и время',
     'onlyInteger': 'Только целое число позволено ',
-}
+};
+export const settingsDBUrlBase = '/api/settings';
