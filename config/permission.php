@@ -40,7 +40,7 @@ return [
         |
          */
 
-        'role' => Backpack\PermissionManager\app\Models\Role::class,
+        'role' => App\Role::class,
 
     ],
 
@@ -140,4 +140,14 @@ return [
      * the default setting is false here for optimum safety.
      */
     'display_permission_in_exception' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Super-admin role name
+    |--------------------------------------------------------------------------
+    |
+    | Super-admin role have all permissions.
+    |
+    */
+    'super-admin-name' => env('PERMISSION_SUPER_ADMIN_NAME', 'Super-admin'),
 ];

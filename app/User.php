@@ -40,4 +40,27 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Guard, used to protect this model.
+     *
+     * @var string
+     */
+    protected $guard_name = 'web';
+
+    /**
+     * Determine if the entity has a given ability.
+     *
+     * @param  string  $ability
+     * @param  array|mixed  $arguments
+     * @return bool
+     */
+    public function can($ability, $arguments = [])
+    {
+        if ($this->hasAnyRole(config('permission.super-admin-name'))) {
+            return true;
+        }
+
+        return parent::can($ability, $arguments);
+    }
 }
