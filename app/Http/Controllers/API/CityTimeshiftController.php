@@ -18,10 +18,10 @@ class CityTimeshiftController extends BaseController
     public function __construct(CityTimeshiftRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_citytimeshifts']);
-        $this->middleware(['can:create_citytimeshifts'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_citytimeshifts'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_citytimeshifts'])->only(['destroy']);
+        $this->middleware(['permission:see_citytimeshifts']);
+        $this->middleware(['permission:create_citytimeshifts'])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_citytimeshifts'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_citytimeshifts'])->only(['destroy']);
     }
 
     /**
@@ -35,7 +35,6 @@ class CityTimeshiftController extends BaseController
         $validatedData = $request->validate([
             'data.city' => 'required|string|max:255',
             'data.timeshift' => 'required|integer',
-            'data.deleted_at' => 'date|nullable',
         ]);
         return new CommonResource($this->repository->create($validatedData['data']));
     }
@@ -52,7 +51,6 @@ class CityTimeshiftController extends BaseController
         $validatedData = $request->validate([
             'data.city' => 'required|string|max:255',
             'data.timeshift' => 'required|integer',
-            'data.deleted_at' => 'date|nullable',
             'data.id' => 'integer',
         ]);
         return new CommonResource($this->repository->update($validatedData['data'], $id));

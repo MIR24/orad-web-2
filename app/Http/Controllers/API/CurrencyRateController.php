@@ -18,10 +18,10 @@ class CurrencyRateController extends BaseController
     public function __construct(CurrencyRateRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_currencyrates']);
-        $this->middleware(['can:create_currencyrates'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_currencyrates'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_currencyrates'])->only(['destroy']);
+        $this->middleware(['permission:see_currencyrates']);
+        $this->middleware(['permission:create_currencyrates'])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_currencyrates'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_currencyrates'])->only(['destroy']);
     }
 
     /**
@@ -37,7 +37,6 @@ class CurrencyRateController extends BaseController
             'data.val2' => 'required|string|max:255',
             'data.dir' => 'required|integer',
             'data.value' => 'required|numeric',
-            'data.deleted_at' => 'date|nullable',
         ]);
         return new CommonResource($this->repository->create($validatedData['data']));
     }
@@ -56,7 +55,6 @@ class CurrencyRateController extends BaseController
             'data.val2' => 'required|string|max:255',
             'data.dir' => 'required|integer',
             'data.value' => 'required|numeric',
-            'data.deleted_at' => 'date|nullable',
             'data.id' => 'integer',
         ]);
         return new CommonResource($this->repository->update($validatedData['data'], $id));

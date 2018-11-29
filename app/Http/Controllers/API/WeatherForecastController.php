@@ -18,10 +18,10 @@ class WeatherForecastController extends BaseController
     public function __construct(WeatherForecastRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_weatherforecasts']);
-        $this->middleware(['can:create_weatherforecasts'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_weatherforecasts'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_weatherforecasts'])->only(['destroy']);
+        $this->middleware(['permission:see_weatherforecasts']);
+        $this->middleware(['permission:create_weatherforecasts'])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_weatherforecasts|update_status_weatherforecasts|update_city_weatherforecasts|update_morning_weatherforecasts|update_evening_weatherforecasts|update_weather_type_id_weatherforecasts'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_weatherforecasts'])->only(['destroy']);
     }
 
     /**
@@ -32,17 +32,37 @@ class WeatherForecastController extends BaseController
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'data.city' => 'required|string|max:70',
-            'data.evening' => 'required|integer',
-            'data.morning' => 'required|integer',
-            'data.status' => 'required|string|max:70',
-            'data.weather_type_id' => 'required|integer',
-            'data.deleted_at' => 'date|nullable',
-        ]);
-        if (!$request->user()->can('edit_status_weatherforecasts')) {
-            unset($validatedData['data']['status']);
+        $user = $request->user();
+        $validationRules = [];
+
+        if ($user->can('update_weatherforecasts')) {
+            $validationRules = [
+                'data.city' => 'required|string|max:70',
+                'data.evening' => 'required|integer',
+                'data.morning' => 'required|integer',
+                'data.status' => 'required|string|max:70',
+                'data.weather_type_id' => 'required|integer'
+            ];
+        } else {
+            if ($user->can('update_status_weatherforecasts')) {
+                $validationRules['data.status'] = 'required|string|max:70';
+            }
+            if ($user->can('update_city_weatherforecasts')) {
+                $validationRules['data.city'] = 'required|string|max:70';
+            }
+            if ($user->can('update_morning_weatherforecasts')) {
+                $validationRules['data.morning'] = 'required|integer';
+            }
+            if ($user->can('update_evening_weatherforecasts')) {
+                $validationRules['data.evening'] = 'required|integer';
+            }
+            if ($user->can('update_weather_type_id_weatherforecasts')) {
+                $validationRules['data.weather_type_id'] = 'required|integer';
+            }
         }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->create($validatedData['data']));
     }
 
@@ -55,18 +75,38 @@ class WeatherForecastController extends BaseController
      */
     public function update(Request $request, int $id)
     {
-        $validatedData = $request->validate([
-            'data.city' => 'required|string|max:70',
-            'data.evening' => 'required|integer',
-            'data.morning' => 'required|integer',
-            'data.status' => 'required|string|max:70',
-            'data.weather_type_id' => 'required|integer',
-            'data.deleted_at' => 'date|nullable',
-            'data.id' => 'integer',
-        ]);
-        if (!$request->user()->can('edit_status_weatherforecasts')) {
-            unset($validatedData['data']['status']);
+        $user = $request->user();
+        $validationRules = ['data.id' => 'integer'];
+
+        if ($user->can('update_weatherforecasts')) {
+            $validationRules = [
+                'data.city' => 'required|string|max:70',
+                'data.evening' => 'required|integer',
+                'data.morning' => 'required|integer',
+                'data.status' => 'required|string|max:70',
+                'data.weather_type_id' => 'required|integer',
+                'data.id' => 'integer',
+            ];
+        } else {
+            if ($user->can('update_status_weatherforecasts')) {
+                $validationRules['data.status'] = 'required|string|max:70';
+            }
+            if ($user->can('update_city_weatherforecasts')) {
+                $validationRules['data.city'] = 'required|string|max:70';
+            }
+            if ($user->can('update_morning_weatherforecasts')) {
+                $validationRules['data.morning'] = 'required|integer';
+            }
+            if ($user->can('update_evening_weatherforecasts')) {
+                $validationRules['data.evening'] = 'required|integer';
+            }
+            if ($user->can('update_weather_type_id_weatherforecasts')) {
+                $validationRules['data.weather_type_id'] = 'required|integer';
+            }
         }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->update($validatedData['data'], $id));
     }
 }

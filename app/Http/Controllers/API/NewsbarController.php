@@ -18,10 +18,10 @@ class NewsbarController extends BaseController
     public function __construct(NewsbarRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_newsbars']);
-        $this->middleware(['can:create_newsbars'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_newsbars'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_newsbars'])->only(['destroy']);
+        $this->middleware(['permission:see_newsbars']);
+        $this->middleware(['permission:create_newsbars'])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_newsbars'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_newsbars'])->only(['destroy']);
     }
 
     /**
@@ -35,7 +35,6 @@ class NewsbarController extends BaseController
         $validatedData = $request->validate([
             'data.text' => 'required|string|max:255',
             'data.strings' => 'required|string',
-            'data.deleted_at' => 'date|nullable',
         ]);
         return new CommonResource($this->repository->create($validatedData['data']));
     }
@@ -52,7 +51,6 @@ class NewsbarController extends BaseController
         $validatedData = $request->validate([
             'data.text' => 'required|string|max:255',
             'data.strings' => 'required|string',
-            'data.deleted_at' => 'date|nullable',
             'data.id' => 'integer',
         ]);
         return new CommonResource($this->repository->update($validatedData['data'], $id));

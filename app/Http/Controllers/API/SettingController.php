@@ -16,9 +16,9 @@ class SettingController extends BaseController
     public function __construct(SettingRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_settings']);
-        $this->middleware(['can:create_settings'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_settings'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_settings'])->only(['destroy']);
+        $this->middleware(['permission:see_settings']);
+        $this->middleware(['permission:create_settings'])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_settings'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_settings'])->only(['destroy']);
     }
 }

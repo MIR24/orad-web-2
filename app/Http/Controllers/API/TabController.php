@@ -16,9 +16,9 @@ class TabController extends BaseController
     public function __construct(TabRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_tabs']);
-        $this->middleware(['can:create_tabs'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_tabs'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_tabs'])->only(['destroy']);
+        $this->middleware(['permission:see_tabs']);
+        $this->middleware(['permission:create_tabs'])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_tabs'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_tabs'])->only(['destroy']);
     }
 }

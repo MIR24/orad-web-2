@@ -18,10 +18,10 @@ class OrbitController extends BaseController
     public function __construct(OrbitRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_orbits']);
-        $this->middleware(['can:create_orbits'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_orbits'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_orbits'])->only(['destroy']);
+        $this->middleware(['permission:see_orbits']);
+        $this->middleware(['permission:create_orbits'])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_orbits'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_orbits'])->only(['destroy']);
     }
 
     /**
@@ -34,7 +34,6 @@ class OrbitController extends BaseController
     {
         $validatedData = $request->validate([
             'data.name' => 'required|string|max:255',
-            'data.deleted_at' => 'date|nullable',
         ]);
         return new CommonResource($this->repository->create($validatedData['data']));
     }
@@ -50,7 +49,6 @@ class OrbitController extends BaseController
     {
         $validatedData = $request->validate([
             'data.name' => 'required|string|max:255',
-            'data.deleted_at' => 'date|nullable',
             'data.id' => 'integer',
         ]);
         return new CommonResource($this->repository->update($validatedData['data'], $id));

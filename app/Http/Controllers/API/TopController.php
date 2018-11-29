@@ -16,9 +16,9 @@ class TopController extends BaseController
     public function __construct(TopRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_tops']);
-        $this->middleware(['can:create_tops'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_tops'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_tops'])->only(['destroy']);
+        $this->middleware(['permission:see_tops']);
+        $this->middleware(['permission:create_tops'])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_tops'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_tops'])->only(['destroy']);
     }
 }

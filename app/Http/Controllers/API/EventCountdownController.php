@@ -18,10 +18,10 @@ class EventCountdownController extends BaseController
     public function __construct(EventCountdownRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_eventcountdowns']);
-        $this->middleware(['can:create_eventcountdowns'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_eventcountdowns'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_eventcountdowns'])->only(['destroy']);
+        $this->middleware(['permission:see_eventcountdowns']);
+        $this->middleware(['permission:create_eventcountdowns'])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_eventcountdowns'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_eventcountdowns'])->only(['destroy']);
     }
 
     /**
@@ -36,7 +36,6 @@ class EventCountdownController extends BaseController
             'data.title' => 'required|string|max:255',
             'data.description' => 'required|string',
             'data.happen_at' => 'required|integer',
-            'data.deleted_at' => 'date|nullable',
         ]);
         return new CommonResource($this->repository->create($validatedData['data']));
     }
@@ -54,7 +53,6 @@ class EventCountdownController extends BaseController
             'data.title' => 'required|string|max:255',
             'data.description' => 'required|string',
             'data.happen_at' => 'required|integer',
-            'data.deleted_at' => 'date|nullable',
             'data.id' => 'integer',
         ]);
         return new CommonResource($this->repository->update($validatedData['data'], $id));

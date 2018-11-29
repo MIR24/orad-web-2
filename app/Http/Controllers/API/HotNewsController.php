@@ -18,10 +18,10 @@ class HotNewsController extends BaseController
     public function __construct(HotNewsRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(['can:see_hotnews']);
-        $this->middleware(['can:create_hotnews'])->only(['store', 'storeMultiple']);
-        $this->middleware(['can:update_hotnews'])->only(['update', 'patchMultiple']);
-        $this->middleware(['can:delete_hotnews'])->only(['destroy']);
+        $this->middleware(['permission:see_hotnews']);
+        $this->middleware(['permission:create_hotnews'])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_hotnews'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_hotnews'])->only(['destroy']);
     }
 
     /**
@@ -35,7 +35,6 @@ class HotNewsController extends BaseController
         $validatedData = $request->validate([
             'data.text' => 'required|string|max:255',
             'data.strings' => 'required|string',
-            'data.deleted_at' => 'date|nullable',
         ]);
         return new CommonResource($this->repository->create($validatedData['data']));
     }
@@ -52,7 +51,6 @@ class HotNewsController extends BaseController
         $validatedData = $request->validate([
             'data.text' => 'required|string|max:255',
             'data.strings' => 'required|string',
-            'data.deleted_at' => 'date|nullable',
             'data.id' => 'integer',
         ]);
         return new CommonResource($this->repository->update($validatedData['data'], $id));
