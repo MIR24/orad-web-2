@@ -20,6 +20,7 @@ const AdditionlClassesJQ = {
         for (var modelId in initObject) {
             for (var elementId in initObject[modelId]) {
                 $(initObject[modelId][elementId].selectString)[initObject[modelId][elementId].function](initObject[modelId][elementId].options);
+                delete initObject[modelId][elementId];
             }
         }
     }

@@ -1,6 +1,7 @@
 import BaseModalEdit from "../BaseClasses/BaseModalEdit.js";
 import Input from "../Components/Input.js";
 import Select2Custom from "../ExternalComponents/Select2Custom.js";
+import DropZoneCustom from "../ExternalComponents/DropZoneCustom.js";
 
 class PromoEditModal extends BaseModalEdit {
     constructor (id, model, type, additions) {
@@ -17,6 +18,7 @@ class PromoEditModal extends BaseModalEdit {
                 underTitle = new Input(this.modelId, 'subheader', this.model.subheader, false, 'Подзаголовок'),
                 ageRestriction = new Input(this.modelId, 'age', this.model.age, false, '0', 'number'),
                 mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.model.mode, false, this.constructor.name),
+                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, false),
                 error = {};
         } else {
             var mirId = new Input(this.modelId, 'mir_id', this.validationModel.errorModel.mir_id, false, 'ID МИР'),
@@ -27,6 +29,7 @@ class PromoEditModal extends BaseModalEdit {
                 underTitle = new Input(this.modelId, 'subheader', this.validationModel.errorModel.subheader, false, 'Подзаголовок'),
                 ageRestriction = new Input(this.modelId, 'age', this.validationModel.errorModel.age, false, '0', 'number'),
                 mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.validationModel.mode, false, this.constructor.name),
+                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, false),
                 error = this.validationModel.errorValidation;
         }
 
@@ -38,6 +41,7 @@ class PromoEditModal extends BaseModalEdit {
         underTitle.init();
         ageRestriction.init();
         mode.init();
+        imageDrop.init();
 
         this.addListeners(mirId.getListeners());
         this.addListeners(mirHdId.getListeners());
@@ -50,8 +54,10 @@ class PromoEditModal extends BaseModalEdit {
 
         this.addAdditionlClassesJQ(this.modelId, category);
         this.addAdditionlClassesJQ(this.modelId, mode);
+        this.addAdditionlClassesJQ(this.modelId, imageDrop);
 
-        return `${this.getRow('ID МИР', mirId.getTemplate(), error.mir_id)}
+        return `${this.getRow('Файл промо', imageDrop.getTemplate(), error.img)}
+            ${this.getRow('ID МИР', mirId.getTemplate(), error.mir_id)}
             ${this.getRow('ID МИРHD', mirHdId.getTemplate(), error.mirhd_id)}
             ${this.getRow('Категория', category.getTemplate(), error.category)}
             ${this.getRow('Название', name.getTemplate(), error.name)}

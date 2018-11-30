@@ -1,9 +1,20 @@
-import { settingsDBUrlBase, validationMessages } from "../Config/Constants"
+import {
+    settingsDBUrlBase,
+    validationMessages,
+    weatherTypesUrlBase,
+    orbitsUrlBase,
+} from "../Config/Constants"
 import SettingsDB from "../Utils/SettingsDB";
 
 const TabsConfig = {
     init () {
         this.values = {
+            "default": {
+                "doNotMergeAfterOneSave": [
+                    "Promo",
+                    "PhotoUpload",
+                ],
+            },
             "Tops": {
                 "backendPremissionModelName": "tops",
                 "api": {
@@ -99,7 +110,7 @@ const TabsConfig = {
                     },
                 },
                 "getAdditions": {
-                    "orbits": "/api/orbits",
+                    "orbits": orbitsUrlBase,
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -179,7 +190,7 @@ const TabsConfig = {
                     }
                 },
                 "getAdditions": {
-                    "weatherTypes": "/api/weathertypes",
+                    "weatherTypes": weatherTypesUrlBase,
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -221,7 +232,7 @@ const TabsConfig = {
                     }
                 },
                 "getAdditions": {
-                    "weatherTypes": "/api/weathertypes",
+                    "weatherTypes": weatherTypesUrlBase,
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -299,12 +310,12 @@ const TabsConfig = {
                 "defaultEditState": {
                     "mir_id": null,
                     "mirhd_id": null,
-                    "category_id": null,
+                    "category_id": 1,
                     "name": null,
                     "header": null,
                     "subheader": null,
                     "age": null,
-                    "mode": null,
+                    "mode": 0,
                 },
                 "validation": {
                     "notNull": {
@@ -405,6 +416,45 @@ const TabsConfig = {
                 "api": {
                     "base": "/test/helpredacting",
                     "updateCreate": "/test/helpredacting",
+                },
+                "extraBlocks": [],
+            },
+            "WeatherTypes": {
+                "backendPremissionModelName": "",
+                "api": {
+                    "base": weatherTypesUrlBase,
+                    "updateCreate": "/api/weathertypes-collections",
+                    "delete": "/api/weathertypes/",
+                },
+                "defaultEditState": {
+                    "name": null,
+                    "icon": 'test',
+                },
+                "validation": {
+                    "notNull": {
+                        "fieldNames": [
+                            "type",
+                        ],
+                        'errorMsg': validationMessages.requiredField,
+                    },
+                },
+                "extraBlocks": [
+                    "confirmation-delete-model",
+                ],
+            },
+            "Orbits": {
+                "backendPremissionModelName": "",
+                "api": {
+                    "base": orbitsUrlBase,
+                    "updateCreate": "/api/orbits-collections",
+                },
+                "validation": {
+                    "notNull": {
+                        "fieldNames": [
+                            "name",
+                        ],
+                        'errorMsg': validationMessages.requiredField,
+                    },
                 },
                 "extraBlocks": [],
             },

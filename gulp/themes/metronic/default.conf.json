@@ -119,6 +119,14 @@
                             "scripts": [
                                 "{$config.path.node_modules}/block-ui/jquery.blockUI.js"
                             ]
+                        },
+                        "dropzone": {
+                            "styles": [
+                                "{$config.path.node_modules}/dropzone/dist/dropzone.css"
+                            ],
+                            "scripts": [
+                                "{$config.path.node_modules}/dropzone/dist/dropzone.js"
+                            ]
                         }
                     },
                     "optional": {
@@ -259,14 +267,6 @@
                             ],
                             "images": [
                                 "{$config.path.node_modules}/ion-rangeslider/img/sprite-skin-flat.png"
-                            ]
-                        },
-                        "dropzone": {
-                            "styles": [
-                                "{$config.path.node_modules}/dropzone/dist/dropzone.css"
-                            ],
-                            "scripts": [
-                                "{$config.path.node_modules}/dropzone/dist/dropzone.js"
                             ]
                         },
                         "summernote": {

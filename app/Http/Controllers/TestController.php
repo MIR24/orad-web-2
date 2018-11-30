@@ -350,4 +350,7 @@ class TestController extends Controller
             ],
         ]];
     }
+    public function uploadImg () {
+        return response()->json([], 200);
+    }
 }
