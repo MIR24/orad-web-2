@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Repositories\Repository;
+use Backpack\PermissionManager\app\Models\Permission;
 
 class UserRepository extends Repository
 {
@@ -25,6 +26,10 @@ class UserRepository extends Repository
     public function getPermissions(int $id)
     {
         $model = $this->model->findOrFail($id);
+
+        if ($model->hasAnyRole(config('permission.super-admin-name'))) {
+            return Permission::all();
+        }
 
         return $model->getAllPermissions();
     }
