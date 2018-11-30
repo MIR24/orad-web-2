@@ -304,12 +304,12 @@ const TabsConfig = {
                 "defaultEditState": {
                     "mir_id": null,
                     "mirhd_id": null,
-                    "category_id": null,
+                    "category_id": 1,
                     "name": null,
                     "header": null,
                     "subheader": null,
                     "age": null,
-                    "mode": null,
+                    "mode": 0,
                 },
                 "validation": {
                     "notNull": {

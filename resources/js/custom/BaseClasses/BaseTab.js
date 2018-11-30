@@ -65,13 +65,13 @@ class BaseTab {
             if (this.validation.hasOwnProperty('new')) {
                 this.rerender();
             } else {
-                this.createModels(this.edit.new)
+                this.createModels({0: this.edit.new})
                 .then((response) => {
                     this.edit = {
                         'modelId': null,
                         'state': false,
                     };
-                    this.models = Object.assign(this.models, {[response.data.id]: response.data});
+                    this.models = Object.assign(this.models, {[response.data[0].id]: response.data[0]});
                     toastr.success(toasterMessages.success.save);
                 }, function (error) {
                     toastr.error(toasterMessages.error.save);
@@ -116,7 +116,7 @@ class BaseTab {
                 arrayOfPromises.push(
                     this.createModels({0 : this.edit.new})
                     .then((response) => {
-                        this.models = Object.assign(this.models, {[response.data.id]: response.data[0]});
+                        this.models = Object.assign(this.models, {[response.data[0].id]: response.data[0]});
                         toastr.success(toasterMessages.success.save);
                     }, function (error) {
                         toastr.error(toasterMessages.error.save);
