@@ -2,6 +2,7 @@ import {
     settingsDBUrlBase,
     validationMessages,
     weatherTypesUrlBase,
+    orbitsUrlBase,
 } from "../Config/Constants"
 import SettingsDB from "../Utils/SettingsDB";
 
@@ -103,7 +104,7 @@ const TabsConfig = {
                     },
                 },
                 "getAdditions": {
-                    "orbits": "/api/orbits",
+                    "orbits": orbitsUrlBase,
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -422,6 +423,22 @@ const TabsConfig = {
                     "notNull": {
                         "fieldNames": [
                             "type",
+                        ],
+                        'errorMsg': validationMessages.requiredField,
+                    },
+                },
+                "extraBlocks": [],
+            },
+            "Orbits": {
+                "backendPremissionModelName": "",
+                "api": {
+                    "base": orbitsUrlBase,
+                    "updateCreate": "/api/orbits-collections",
+                },
+                "validation": {
+                    "notNull": {
+                        "fieldNames": [
+                            "name",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },

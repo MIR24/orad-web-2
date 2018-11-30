@@ -58,3 +58,4 @@ export const validationMessages = {
 };
 export const settingsDBUrlBase = '/api/settings';
 export const weatherTypesUrlBase = '/api/weathertypes';
+export const orbitsUrlBase = '/api/orbits';
