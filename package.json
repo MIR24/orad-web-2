@@ -52,6 +52,7 @@
         "bootstrap-datetimepicker-npm": "^4.17.37-npm",
         "bootstrap-timepicker": "^0.5.2",
         "browserify": "^16.2.3",
+        "dropzone": "^5.5.1",
         "rollup-stream": "^1.24.1",
         "select2": "^4.0.6-rc.1",
         "toastr": "^2.1.4",

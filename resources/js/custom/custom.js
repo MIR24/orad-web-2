@@ -1,3 +1,4 @@
+import { currentActive } from "./Config/Constants";
 import User  from "./Utils/User.js";
 import SettingsDB from "./Utils/SettingsDB";
 import TabsConfig from "./Config/TabsConfig.js";
@@ -14,8 +15,7 @@ import PhotoUpload from "./Tabs/PhotoUpload.js";
 import AdminControl from "./MultiTabs/AdminControl.js";
 
 window.addEventListener('DOMContentLoaded', () => {
-    var currentTab = null,
-        arrayOfInitPromises = [
+    var arrayOfInitPromises = [
             User.getPremissions(),
             SettingsDB.getSettings(),
         ];
@@ -41,19 +41,19 @@ window.addEventListener('DOMContentLoaded', () => {
 
             if (tabCounter === 0) {
                 tab.parentElement.className += ' m-menu__item--hover';
-                currentTab = new formatters[tab.attributes['data-tab-name'].value]();
-                currentTab.init();
+                currentActive.init(new formatters[tab.attributes['data-tab-name'].value]());
+                currentActive.tab.init();
             }
 
             tab.addEventListener('click', function(event) {
-                currentTab = new formatters[this.attributes['data-tab-name'].value]();
-                currentTab.init();
+                currentActive.init(new formatters[this.attributes['data-tab-name'].value]());
+                currentActive.tab.init();
             });
             tabCounter++;
         });
 
         $('#show-help-btn').click(function(event) {
-            currentTab.showHelp();
+            currentActive.tab.showHelp();
         });
     });
 });

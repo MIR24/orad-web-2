@@ -1,3 +1,9 @@
+export const currentActive = {
+    tab: null,
+    init (classVar) {
+        this.tab = classVar;
+    }
+};
 export const csrf = $('meta[name="csrf-token"]').attr('content');
 export const tabContentIdJQ = '#tab-content';
 export const apiMethods = {
@@ -32,7 +38,8 @@ export const toasterMessages = {
         'update': 'Ошибка обновления',
         'noData': 'Ошибка получения данных',
         'delete': 'Ошибка удаления',
-        'errorAuth': 'Ошибка авторизации'
+        'errorAuth': 'Ошибка авторизации',
+        'maxNumFiles': 'Максимальное количество файлов превышено',
     },
     'warning': {
         'nothingToSave': 'Нет изменений',
