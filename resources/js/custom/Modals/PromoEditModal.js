@@ -18,7 +18,7 @@ class PromoEditModal extends BaseModalEdit {
                 underTitle = new Input(this.modelId, 'subheader', this.model.subheader, false, 'Подзаголовок'),
                 ageRestriction = new Input(this.modelId, 'age', this.model.age, false, '0', 'number'),
                 mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.model.mode, false, this.constructor.name),
-                imageDrop = new DropZoneCustom(this.modelId, 'img', false, false),
+                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, false),
                 error = {};
         } else {
             var mirId = new Input(this.modelId, 'mir_id', this.validationModel.errorModel.mir_id, false, 'ID МИР'),
@@ -29,6 +29,7 @@ class PromoEditModal extends BaseModalEdit {
                 underTitle = new Input(this.modelId, 'subheader', this.validationModel.errorModel.subheader, false, 'Подзаголовок'),
                 ageRestriction = new Input(this.modelId, 'age', this.validationModel.errorModel.age, false, '0', 'number'),
                 mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.validationModel.mode, false, this.constructor.name),
+                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, false),
                 error = this.validationModel.errorValidation;
         }
 

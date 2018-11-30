@@ -1,14 +1,21 @@
 import BaseExternalComponent from "../BaseClasses/BaseExternalComponent.js";
 import { currentActive, csrf, toasterMessages } from "../Config/Constants.js";
-import Select2Config from "../Config/Select2Config.js";
+import DropZoneConfig from "../Config/DropZoneConfig.js";
 
 class DropZoneCustom extends BaseExternalComponent {
-    constructor (id, type, disabled, configType) {
-        super(id, type);
+    constructor (id, type, value, configType, disabled) {
+        super(id, type, false, disabled);
+        this.config = DropZoneConfig[configType];
+        // TO DO
+        this.img = {
+            id: 1,
+            url: '/svg/403.svg',
+            name: 'test',
+        };
         this.options = Object.assign(this.options, {
             function: 'dropzone',
             options: {
-                url: '/test/uploadImg',
+                url: this.config.url,
                 headers: {
                     'X-CSRF-Token': csrf
                 },
@@ -16,11 +23,7 @@ class DropZoneCustom extends BaseExternalComponent {
                 addRemoveLinks: true,
                 dictRemoveFile: 'Удалить',
                 custom: {
-                    img: {
-                        id: 1,
-                        url: '/svg/403.svg',
-                        name: 'test',
-                    },
+                    img: this.img,
                 },
                 init: function () {
                     var mockFile = {
@@ -37,9 +40,10 @@ class DropZoneCustom extends BaseExternalComponent {
                         this.emit("complete", mockFile);
                     }
                 },
-                complete: function (file) {
+                // TO DO
+                /*complete: function (file) {
                     console.log(this, file, currentActive);
-                },
+                },*/
                 removedfile: function (file) {
                     file.previewElement.remove();
                 },
@@ -52,11 +56,15 @@ class DropZoneCustom extends BaseExternalComponent {
     }
 
     makeTemplate () {
-        this.template = `<div id="${this.id}" class="m-dropzone dropzone dz-clickable">
-            <div class="m-dropzone__msg dz-message needsclick">
-                <span>Перетащите сюда файл или нажмите, чтобы загрузить.</span>
-            </div>
-        </div>`;
+        if (this.disabled) {
+            this.template = `<img src="${this.img.url}" class="img-thumbnail">`;
+        } else {
+            this.template = `<div id="${this.id}" class="m-dropzone dropzone dz-clickable">
+                <div class="m-dropzone__msg dz-message needsclick">
+                    <span>Перетащите сюда файл или нажмите, чтобы загрузить.</span>
+                </div>
+            </div>`;
+        }
     }
 }
 export default DropZoneCustom
