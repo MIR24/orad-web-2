@@ -11,7 +11,7 @@ class AdminControl extends BaseMultiTab {
         this.tabsFormatter = {
             'ConfigurationControl': {
                 'class': ConfigurationControl,
-                'tabName': 'Настройки предложения'
+                'tabName': 'Настройки приложения'
             },
             'HelpRedacting': {
                 'class': HelpRedacting,
@@ -19,17 +19,17 @@ class AdminControl extends BaseMultiTab {
             },
             'WeatherTypes': {
                 'class': WeatherTypes,
-                'tabName': 'Тип погоде'
+                'tabName': 'Погода'
             },
             'Orbits': {
                 'class': Orbits,
-                'tabName': 'Орбите'
+                'tabName': 'Орбиты'
             },
         };
     }
 
     showHelp () {
-        toastr.info('Таб упражнения')
+        toastr.info('Вы находитесь на закладке управления');
     }
 }
 export default AdminControl

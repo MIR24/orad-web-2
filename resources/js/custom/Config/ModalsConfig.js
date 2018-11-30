@@ -21,7 +21,7 @@ const ModalsConfig = {
                             <i class="flaticon-danger"></i>
                         </div>
                         <div class="m-alert__text">
-                            <strong>Вы действительно хотите удалить?</strong>
+                            <strong>Вы действительно хотите удалить запись?</strong>
                         </div>
                     </div>`,
         "okButton": "confirmation-modal-ok",
@@ -33,9 +33,9 @@ const ModalsConfig = {
                             <i class="flaticon-danger"></i>
                         </div>
                         <div class="m-alert__text">
-                            <strong>Вы действительно хотите покинуть редактирование записи?</strong>
+                            <strong>Вы действительно хотите перейти к редактированию другой записи?</strong>
                             <br>
-                            Изменения потеряются.
+                            Изменения, сделанные для этой записи не будут сохранены!
                         </div>
                     </div>`,
         "okButton": "confirmation-modal-ok",

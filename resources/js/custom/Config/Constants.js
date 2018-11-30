@@ -31,7 +31,7 @@ export const toasterMessages = {
         'save': 'Сохранено',
         'update': 'Обновлено',
         'delete': 'Удалено',
-        'authPassed': 'Успешная аутентификация',
+        'authPassed': 'Вход выполнен',
     },
     'error': {
         'save': 'Ошибка сохранения',
@@ -39,22 +39,22 @@ export const toasterMessages = {
         'noData': 'Ошибка получения данных',
         'delete': 'Ошибка удаления',
         'errorAuth': 'Ошибка авторизации',
-        'maxNumFiles': 'Максимальное количество файлов превышено',
+        'maxNumFiles': 'Превышено максимальное количество изображений',
     },
     'warning': {
-        'nothingToSave': 'Нет изменений',
+        'nothingToSave': 'Изменения не произведены',
     },
     'info': {
-        'notAuth': 'Не зарегистрирован пользователь'
+        'notAuth': 'Пользователь не зарегистрирован'
     },
 };
 export const validationMessages = {
-    'requiredField': 'Обязательное поле',
-    'toManyChars': 'chars error',
+    'requiredField': 'Обязательно для заполнения',
+    'toManyChars': 'Превышено максимальное количество символов в строке',
     'followPattern': 'follow patter ',
-    'noMoreThan5': 'Максимум 5 букв',
-    'dataTimeAgain': 'Выберите еще раз дату и время',
-    'onlyInteger': 'Только целое число позволено ',
+    'noMoreThan5': 'Максимальное количество символов: ',
+    'dataTimeAgain': 'Повторите ввод даты и времени',
+    'onlyInteger': 'Введите целое число',
 };
 export const settingsDBUrlBase = '/api/settings';
 export const weatherTypesUrlBase = '/api/weathertypes';
