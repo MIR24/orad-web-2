@@ -5,6 +5,7 @@ import BootstrapTimeCustom from "../ExternalComponents/BootstrapTimeCustom.js";
 class DateTime extends BaseComponentGroup {
     constructor (id, valueName, value, disabled) {
         super(id, valueName, value, disabled);
+        this.isNotInit = false;
     }
 
     makeTemplate () {
@@ -34,8 +35,10 @@ class DateTime extends BaseComponentGroup {
         } else {
             this.value = currentValue.format('YYYY-MM-DD') + ' ' + props.childClass.getNewValue() + ':00';
         }
-
-        initClass.modelChange(this.modelId, this.valueName, this.value);
+        if (this.isNotInit) {
+            initClass.modelChange(this.modelId, this.valueName, this.value);
+        }
+        this.isNotInit = true;
     }
 }
 export default DateTime
