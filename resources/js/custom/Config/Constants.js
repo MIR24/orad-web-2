@@ -57,3 +57,4 @@ export const validationMessages = {
     'onlyInteger': 'Только целое число позволено ',
 };
 export const settingsDBUrlBase = '/api/settings';
+export const weatherTypesUrlBase = '/api/weathertypes';

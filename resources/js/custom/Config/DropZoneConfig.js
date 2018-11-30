@@ -5,5 +5,8 @@ const DropZoneConfig = {
     'PhotoUploadEdit': {
         'url': '/test/uploadImg',
     },
+    'WeatherTypes': {
+        'url': '/test/uploadImg',
+    },
 }
 export default DropZoneConfig

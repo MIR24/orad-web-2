@@ -1,4 +1,8 @@
-import { settingsDBUrlBase, validationMessages } from "../Config/Constants"
+import {
+    settingsDBUrlBase,
+    validationMessages,
+    weatherTypesUrlBase,
+} from "../Config/Constants"
 import SettingsDB from "../Utils/SettingsDB";
 
 const TabsConfig = {
@@ -179,7 +183,7 @@ const TabsConfig = {
                     }
                 },
                 "getAdditions": {
-                    "weatherTypes": "/api/weathertypes",
+                    "weatherTypes": weatherTypesUrlBase,
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -221,7 +225,7 @@ const TabsConfig = {
                     }
                 },
                 "getAdditions": {
-                    "weatherTypes": "/api/weathertypes",
+                    "weatherTypes": weatherTypesUrlBase,
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -405,6 +409,22 @@ const TabsConfig = {
                 "api": {
                     "base": "/test/helpredacting",
                     "updateCreate": "/test/helpredacting",
+                },
+                "extraBlocks": [],
+            },
+            "WeatherTypes": {
+                "backendPremissionModelName": "",
+                "api": {
+                    "base": weatherTypesUrlBase,
+                    "updateCreate": "/api/weathertypes-collections",
+                },
+                "validation": {
+                    "notNull": {
+                        "fieldNames": [
+                            "type",
+                        ],
+                        'errorMsg': validationMessages.requiredField,
+                    },
                 },
                 "extraBlocks": [],
             },
