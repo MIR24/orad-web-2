@@ -9,10 +9,10 @@ import SettingsDB from "../Utils/SettingsDB";
 const TabsConfig = {
     init () {
         this.values = {
-            default: {
-                doNotMergeAfterOneSave: [
-                    'Promo',
-                    'PhotoUpload'
+            "default": {
+                "doNotMergeAfterOneSave": [
+                    "Promo",
+                    "PhotoUpload",
                 ],
             },
             "Tops": {
