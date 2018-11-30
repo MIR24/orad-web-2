@@ -4,6 +4,8 @@ import SaveButton from "../Components/SaveButton.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import CancelEditingButton from "../Components/CancelEditingButton.js";
 import DropZoneCustom from "../ExternalComponents/DropZoneCustom.js";
+import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
+import DeleteButton from "../Components/DeleteButton.js";
 
 class WeatherTypes extends BaseMultiTabChild {
     constructor (newContanerId) {
@@ -12,19 +14,23 @@ class WeatherTypes extends BaseMultiTabChild {
 
     makeTemplate () {
         var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '<div class="row justify-content-center mb-5">';
+            controlButtons = '<div class="row justify-content-center mb-5">',
+            tableBodyId = 'table-body-' + this.constructor.name;
 
         if (!disabled) {
             var saveBtn = new SaveButton('all'),
-                cancelEditBtn = new CancelEditingButton('all');
+                cancelEditBtn = new CancelEditingButton('all'),
+                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
 
             saveBtn.init();
             cancelEditBtn.init();
+            addEmptyBlockButton.init();
 
             this.addListeners(saveBtn.getListeners());
             this.addListeners(cancelEditBtn.getListeners());
+            this.addListeners(addEmptyBlockButton.getListeners());
 
-            controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+            controlButtons += `${addEmptyBlockButton.getTemplate()}${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
         } else {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
@@ -41,9 +47,10 @@ class WeatherTypes extends BaseMultiTabChild {
                     <tr>
                         <th class="w-75">Название</th>
                         <th>Иконка</th>
+                        ${ !disabled ? '<th></th>' : '' }
                     </tr>
                 </thead>
-                   <tbody>`;
+                   <tbody id="${tableBodyId}">`;
 
         this.template += Object.keys(this.models).map(key => {
             if (this.edit.hasOwnProperty(key)) {
@@ -59,7 +66,8 @@ class WeatherTypes extends BaseMultiTabChild {
 
     makeBlock(index, type, icon, disabled, error) {
         var type = new Input(index, 'type', type, disabled, 'Название'),
-            iconDrop = new DropZoneCustom(index, 'icon', false, this.constructor.name, disabled);
+            iconDrop = new DropZoneCustom(index, 'icon', false, this.constructor.name, disabled),
+            controlButtons = '';
 
         type.init();
         iconDrop.init();
@@ -67,9 +75,17 @@ class WeatherTypes extends BaseMultiTabChild {
         this.addListeners(type.getListeners());
         this.addAdditionlClassesJQ(index, iconDrop);
 
+        if (!disabled) {
+            var rmBtn = new DeleteButton(index);
+            rmBtn.init();
+            this.addListeners(rmBtn.getListeners());
+            controlButtons = `<td>${rmBtn.getTemplate()}</td>`;
+        }
+
         return `<tr id="${index}">
             ${this.getRow(type.getTemplate(), error.type)}
             ${this.getRow(iconDrop.getTemplate(), error.value)}
+            ${controlButtons}
         </tr>`;
     }
 
@@ -88,6 +104,10 @@ class WeatherTypes extends BaseMultiTabChild {
                     </div>
             </td>`;
         }
+    }
+
+    getEmptyBlock (event) {
+        return this.makeBlock('new', '', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {

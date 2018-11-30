@@ -418,6 +418,11 @@ const TabsConfig = {
                 "api": {
                     "base": weatherTypesUrlBase,
                     "updateCreate": "/api/weathertypes-collections",
+                    "delete": "/api/weathertypes/",
+                },
+                "defaultEditState": {
+                    "name": null,
+                    "icon": 'test',
                 },
                 "validation": {
                     "notNull": {
@@ -427,7 +432,9 @@ const TabsConfig = {
                         'errorMsg': validationMessages.requiredField,
                     },
                 },
-                "extraBlocks": [],
+                "extraBlocks": [
+                    "confirmation-delete-model",
+                ],
             },
             "Orbits": {
                 "backendPremissionModelName": "",
