@@ -9,6 +9,12 @@ import SettingsDB from "../Utils/SettingsDB";
 const TabsConfig = {
     init () {
         this.values = {
+            default: {
+                doNotMergeAfterOneSave: [
+                    'Promo',
+                    'PhotoUpload'
+                ],
+            },
             "Tops": {
                 "backendPremissionModelName": "tops",
                 "api": {

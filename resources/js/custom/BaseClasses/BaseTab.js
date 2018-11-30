@@ -10,7 +10,7 @@ import User from "../Utils/User.js";
 
 class BaseTab {
     constructor () {
-        this.config = TabsConfig.values[this.constructor.name];
+        this.config = Object.assign({}, TabsConfig.values[this.constructor.name], TabsConfig.values.default);
         this.template = '';
         this.listeners = {};
         this.edit = {
@@ -71,7 +71,9 @@ class BaseTab {
                         'modelId': null,
                         'state': false,
                     };
-                    this.models = Object.assign(this.models, {[response.data[0].id]: response.data[0]});
+                    if (!this.config.doNotMergeAfterOneSave.includes(this.constructor.name)) {
+                        this.models = Object.assign(this.models, {[response.data[0].id]: response.data[0]});
+                    }
                     toastr.success(toasterMessages.success.save);
                 }, function (error) {
                     toastr.error(toasterMessages.error.save);
@@ -91,7 +93,9 @@ class BaseTab {
                             'modelId': null,
                             'state': false,
                         };
-                        this.models[modelId] = response.data[0];
+                        if (!this.config.doNotMergeAfterOneSave.includes(this.constructor.name)) {
+                            this.models[modelId] = response.data[0];
+                        }
                         toastr.success(toasterMessages.success.update);
                     }, function (error) {
                         toastr.error(toasterMessages.error.update);
