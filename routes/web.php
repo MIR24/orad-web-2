@@ -12,12 +12,12 @@
 */
 
 Route::get('/', function () {
-    if(Auth::check()){
+    if (Auth::check()) {
         return view('dummy');
     } else {
         return view('auth.login');
     }
-});
+})->name('front');
 
 
 Route::get('/test/tops', 'TestController@getTops');

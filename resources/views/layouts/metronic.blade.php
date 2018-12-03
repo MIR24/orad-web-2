@@ -105,6 +105,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
                                     <div class="m-stack__item m-topbar__nav-wrapper">
                                         <ul class="m-topbar__nav m-nav m-nav--inline ">
+                                            @can('see_admin_interface')
+                                                @include('layouts.partials.nav-link',[
+                                                    'link' => route('backpack.dashboard'),
+                                                    'cssClass' => 'btn-outline-warning',
+                                                    'text' => '<i class="fa flaticon-user-settings"></i> ' . __('Административный интерфейс')
+                                                ])
+                                            @endcan
                                             @include('layouts.partials.nav-link',[
                                                 'idJs' => 'show-help-btn',
                                                 'cssClass' => 'btn-outline-info',
