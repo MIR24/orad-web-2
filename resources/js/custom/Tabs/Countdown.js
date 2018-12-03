@@ -49,7 +49,7 @@ class Countdown extends BaseTab {
                 <tr>
                     <th>Название</th>
                     <th>Дата и время</th>
-                    ${ !disabled ? '<th></th>' : '' }
+                    ${ disabled && this.checkPermissions('delete') ? '<th></th>' : '' }
                 </tr>
             </thead>
                <tbody id="${tableBodyId}">`;
@@ -86,7 +86,7 @@ class Countdown extends BaseTab {
         this.addListeners(dateTime.getListeners());
         this.mergeAdditionlClassesJQ(dateTime.getAdditionlClassesJQ());
 
-        if (!disabled && this.checkPermissions('delete')) {
+        if (disabled && this.checkPermissions('delete')) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

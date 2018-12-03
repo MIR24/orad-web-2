@@ -53,7 +53,7 @@ class CurrencyValues extends BaseTab {
                     <th>Динамика</th>
                     <th>Курс</th>
                     <th>Валюта</th>
-                    ${ !disabled && this.checkPermissions('delete') ? '<th></th>' : '' }
+                    ${ disabled && this.checkPermissions('delete') ? '<th></th>' : '' }
                 </tr>
             </thead>
             <tbody id="${tableBodyId}">`;
@@ -100,7 +100,7 @@ class CurrencyValues extends BaseTab {
         this.addListeners(rightValNameInput.getListeners());
         this.addListeners(valueInput.getListeners());
 
-        if (!disabled && this.checkPermissions('delete')) {
+        if (disabled && this.checkPermissions('delete')) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
