@@ -53,7 +53,7 @@ class WeatherLive extends BaseTab {
                     <th>Температура вечером</th>
                     <th>Иконка</th>
                     <th></th>
-                    ${ !disabled ? '<th></th>' : '' }
+                    ${ disabled && this.checkPermissions('delete') ? '<th></th>' : '' }
                 </tr>
             </thead>
                <tbody id="${tableBodyId}">`;
@@ -98,7 +98,7 @@ class WeatherLive extends BaseTab {
         this.addListeners(status.getListeners());
         this.addAdditionlClassesJQ(index, selectWeather);
 
-        if (!disabled && this.checkPermissions('delete')) {
+        if (disabled && this.checkPermissions('delete')) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

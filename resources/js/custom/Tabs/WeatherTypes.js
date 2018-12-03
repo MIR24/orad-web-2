@@ -47,7 +47,7 @@ class WeatherTypes extends BaseMultiTabChild {
                     <tr>
                         <th class="w-75">Название</th>
                         <th>Иконка</th>
-                        ${ !disabled ? '<th></th>' : '' }
+                        ${ disabled ? '<th></th>' : '' }
                     </tr>
                 </thead>
                    <tbody id="${tableBodyId}">`;
@@ -75,7 +75,7 @@ class WeatherTypes extends BaseMultiTabChild {
         this.addListeners(type.getListeners());
         this.addAdditionlClassesJQ(index, iconDrop);
 
-        if (!disabled) {
+        if (disabled) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
