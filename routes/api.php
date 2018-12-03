@@ -103,6 +103,12 @@ Route::get('tops/{id}', 'API\TopController@show')
     ->where(['id' => '[0-9]+'])
     ->name('tops.show');
 
+Route::get('tabs', 'API\TabController@index')
+    ->name('tabs.index');
+Route::get('tabs/{id}', 'API\TabController@show')
+    ->where(['id' => '[0-9]+'])
+    ->name('tabs.show');
+
 Route::group(['middleware' => ['auth']], function () {
     Route::get('mypermissions', 'API\UserController@showSelfPermissions');
     Route::get('users/{id}/permissions', 'API\UserController@showPermissions');
@@ -243,6 +249,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('tops/{id}', 'API\TopController@destroy')
         ->where(['id' => '[0-9]+'])
         ->name('tops.destroy');
+
+    Route::post('tabs', 'API\TabController@store')
+        ->name('tabs.store');
+    Route::put('tabs/{id}', 'API\TabController@update')
+        ->where(['id' => '[0-9]+'])
+        ->name('tabs.update');
+    Route::delete('tabs/{id}', 'API\TabController@destroy')
+        ->where(['id' => '[0-9]+'])
+        ->name('tabs.destroy');
 
     Route::post('citytimeshifts-collections', 'API\CityTimeshiftController@storeMultiple')
         ->name('citytimeshifts-collections.storeMultiple');
