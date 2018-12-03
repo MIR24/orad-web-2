@@ -17,8 +17,13 @@ class CheckIfSuperAdmin
     public function handle($request, Closure $next)
     {
         $user = $request->user();
-        if (empty($user) || (!$user->hasAnyRole(config('permission.super-admin-name')) && !$user->can('see_users'))) {
-            throw UnauthorizedException::forRoles([config('permission.super-admin-name')]);
+        if (empty($user)
+            || (
+                !$user->hasAnyRole(config('permission.super-admin-name'))
+                && !$user->hasAnyPermission('see_admin_interface')
+            )
+        ) {
+            throw UnauthorizedException::forRolesOrPermissions([config('permission.super-admin-name'), 'see_admin_interface']);
         }
 
         return $next($request);
