@@ -48,7 +48,7 @@ class BaseTab {
     getUpdateFieldPremissions () {
         if (this.config.premissions) {
             for (var index in this.config.premissions.update) {
-                this.premissions.allUpdateFieldPremissions[this.config.premissions.update[index]] = this.checkPermissionsField(this.config.premissions.update[index]);
+                this.premissions.allUpdateFieldPremissions[this.config.premissions.update[index]] = this.checkPermissions('update_' + this.config.premissions.update[index]);
             }
         }
     }
