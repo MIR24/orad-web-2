@@ -437,7 +437,18 @@ const TabsConfig = {
                     "base": "/test/helpredacting",
                     "updateCreate": "/test/helpredacting",
                 },
-                "extraBlocks": [],
+                "extraBlocks": [
+                    "confirmation-edit-next-model",
+                ],
+                "validation": {
+                    "notNull": {
+                        "fieldNames": [
+                            "name",
+                            "text",
+                        ],
+                        'errorMsg': validationMessages.requiredField,
+                    },
+                },
             },
             "WeatherTypes": {
                 "backendPremissionModelName": "",
