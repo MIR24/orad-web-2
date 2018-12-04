@@ -27,18 +27,25 @@ class Textarea extends BaseComponent {
         </div>`;
     }
 
-    checkDisallowedCharacters (value) {
-        const regexNotAllowed = new RegExp(editTextLineAllowedChars),
-         matches = regexNotAllowed.exec(value);
-        if (matches) {
-            toastr.error(toasterMessages.error.charNotAllowed + matches[0]);
-            return value.replace(regexNotAllowed, "");
-        }
-        return value;
-    }
+    handle (initClass, event) {console.log(event.target.selectionStart);
+        const regexNotAllowed = new RegExp(editTextLineAllowedChars, 'g'),
+            matches = event.target.value.match(regexNotAllowed),
+            upperCased = event.target.value.toUpperCase();
 
-    handle (initClass, event) {
-        event.target.value = this.checkDisallowedCharacters(event.target.value.toUpperCase());
+        if (matches) {
+            var selectionStartTemp = event.target.selectionStart;
+
+            for (var index in matches) {
+                toastr.error(toasterMessages.error.charNotAllowed + matches[index]);
+            }
+
+            event.target.value = upperCased.replace(regexNotAllowed, "");
+            event.target.selectionStart = selectionStartTemp - matches.length;
+            event.target.selectionEnd = event.target.selectionStart;
+        } else {
+            event.target.value = upperCased;
+        }
+
         event.target.style.height = '1px';
         event.target.style.height = (20 + event.target.scrollHeight) + 'px';
         initClass.modelChange(this.modelId, this.valueName, event.target.value);
