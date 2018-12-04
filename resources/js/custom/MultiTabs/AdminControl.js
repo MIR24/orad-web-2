@@ -10,20 +10,24 @@ class AdminControl extends BaseMultiTab {
         this.currentActiveTabId = 'ConfigurationControl';
         this.tabsFormatter = {
             'ConfigurationControl': {
+                "seePremission": "see_settings",
                 'class': ConfigurationControl,
-                'tabName': 'Настройки приложения'
+                'tabName': 'Настройки приложения',
             },
             'HelpRedacting': {
+                "seePremission": "",
                 'class': HelpRedacting,
                 'tabName': 'Справка'
             },
             'WeatherTypes': {
+                "seePremission": "see_weathertypes",
                 'class': WeatherTypes,
-                'tabName': 'Погода'
+                'tabName': 'Погода',
             },
             'Orbits': {
+                "seePremission": "see_orbits",
                 'class': Orbits,
-                'tabName': 'Орбиты'
+                'tabName': 'Орбиты',
             },
         };
     }

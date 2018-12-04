@@ -21,7 +21,7 @@ class HelpRedacting extends BaseMultiTabChild {
     }
 
     makeBlock (index, name, text, error) {
-        var text = new Textarea(index, 'text', text, this.edit.state),
+        var text = new Textarea(index, 'text', text, this.checkPermissionsField('text')),
             controlButtons = '',
             headTemplate = '';
 
@@ -39,7 +39,7 @@ class HelpRedacting extends BaseMultiTabChild {
             this.addListeners(cancelEditBtn.getListeners());
 
             controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else {
+        } else if (this.checkPermissions('update')) {
             var enterRedactingBtn = new EnterEditingButton(index);
             enterRedactingBtn.init();
             this.addListeners(enterRedactingBtn.getListeners());

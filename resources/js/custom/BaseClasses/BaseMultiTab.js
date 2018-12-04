@@ -1,6 +1,7 @@
 import { tabContentIdJQ } from "../Config/Constants.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import Listeners from "../Utils/Listeners.js";
+import User from "../Utils/User.js";
 
 class BaseMultiTab {
     constructor () {
@@ -17,12 +18,14 @@ class BaseMultiTab {
 
     getTabTemplates () {
         return Object.keys(this.tabsFormatter).map(tabId => {
-            this.addTabSwitchListeners(tabId);
-            return `<li class="nav-item">
-                <span id="${tabId}" class="btn nav-link ${this.currentActiveTabId === tabId ? this.tabActiveCss : ''}">
-                    ${this.tabsFormatter[tabId].tabName}
-                </span>
-            </li>`;
+            if (User.checkPermissions(this.tabsFormatter[tabId].seePremission)) {
+                this.addTabSwitchListeners(tabId);
+                return `<li class="nav-item">
+                    <span id="${tabId}" class="btn nav-link ${this.currentActiveTabId === tabId ? this.tabActiveCss : ''}">
+                        ${this.tabsFormatter[tabId].tabName}
+                    </span>
+                </li>`;
+            }
         })
         .join('')
     }

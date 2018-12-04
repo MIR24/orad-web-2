@@ -23,7 +23,7 @@ class ConfigurationControl extends BaseMultiTabChild {
             this.addListeners(cancelEditBtn.getListeners());
 
             controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else {
+        } else if (this.checkPermissions('update')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
             enterRedactingBtn.init();
@@ -56,7 +56,7 @@ class ConfigurationControl extends BaseMultiTabChild {
     }
 
     makeBlock(index, desc, value, error) {
-        var value = new Input(index, 'value', value, this.edit.state, '0', 'number');
+        var value = new Input(index, 'value', value, this.checkPermissionsField('value'), '0', 'number');
 
         value.init();
 

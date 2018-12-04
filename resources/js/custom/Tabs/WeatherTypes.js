@@ -30,7 +30,7 @@ class WeatherTypes extends BaseMultiTabChild {
             this.addListeners(addEmptyBlockButton.getListeners());
 
             controlButtons += `${addEmptyBlockButton.getTemplate()}${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else {
+        } else if (this.checkPermissions('update') || this.checkPermissions('create')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
             enterRedactingBtn.init();
@@ -46,7 +46,7 @@ class WeatherTypes extends BaseMultiTabChild {
                     <tr>
                         <th class="w-75">Название</th>
                         <th>Иконка</th>
-                        ${ !this.edit.state ? '<th></th>' : '' }
+                        ${ !this.edit.state && this.checkPermissions('delete') ? '<th></th>' : '' }
                     </tr>
                 </thead>
                    <tbody id="${tableBodyId}">`;
@@ -64,8 +64,8 @@ class WeatherTypes extends BaseMultiTabChild {
     }
 
     makeBlock(index, type, icon, error) {
-        var type = new Input(index, 'type', type, this.edit.state, 'Название'),
-            iconDrop = new DropZoneCustom(index, 'icon', false, this.constructor.name, this.edit.state),
+        var type = new Input(index, 'type', type, this.checkPermissionsField('type'), 'Название'),
+            iconDrop = new DropZoneCustom(index, 'icon', false, this.constructor.name, this.checkPermissionsField('icon')),
             controlButtons = '';
 
         type.init();
@@ -74,7 +74,7 @@ class WeatherTypes extends BaseMultiTabChild {
         this.addListeners(type.getListeners());
         this.addAdditionlClassesJQ(index, iconDrop);
 
-        if (!this.edit.state) {
+        if (!this.edit.state && this.checkPermissions('delete')) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

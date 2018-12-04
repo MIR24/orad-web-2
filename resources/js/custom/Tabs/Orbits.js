@@ -24,7 +24,7 @@ class Orbits extends BaseMultiTabChild {
             this.addListeners(cancelEditBtn.getListeners());
 
             controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else {
+        } else if (this.checkPermissions('update')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
             enterRedactingBtn.init();
@@ -56,7 +56,7 @@ class Orbits extends BaseMultiTabChild {
     }
 
     makeBlock(index, name, error) {
-        var name = new Input(index, 'name', name, this.edit.state, 'Название');
+        var name = new Input(index, 'name', name, this.checkPermissionsField('name'), 'Название');
 
         name.init();
 
