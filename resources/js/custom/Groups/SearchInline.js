@@ -26,7 +26,7 @@ class SearchInline extends BaseComponentGroup {
         </div>`;
     }
 
-    setValue (initClass, props, event) {console.log(event);
+    setValue (initClass, props, event) {
         this.value = event.target.value;
         if (event.originalEvent.charCode === 13) {
             initClass.searchModels(this.value);
