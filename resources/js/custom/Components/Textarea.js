@@ -27,7 +27,7 @@ class Textarea extends BaseComponent {
         </div>`;
     }
 
-    handle (initClass, event) {console.log(event.target.selectionStart);
+    handle (initClass, event) {
         const regexNotAllowed = new RegExp(editTextLineAllowedChars, 'g'),
             matches = event.target.value.match(regexNotAllowed),
             upperCased = event.target.value.toUpperCase();
