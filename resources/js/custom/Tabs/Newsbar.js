@@ -1,5 +1,5 @@
 import BaseTab from "../BaseClasses/BaseTab.js";
-import Textarea from "../Components/Textarea.js";
+import TextEditor from "../Components/TextEditor.js";
 import SpinnerButton from "../Utils/IdManipulation.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import SaveButton from "../Components/SaveButton.js";
@@ -24,7 +24,7 @@ class Newsbar extends BaseTab {
     }
 
     makeBlock (index, title, text, error) {
-        var textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
+        var textarea = new TextEditor(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
             controlButtons = '',
             headTemplate = '';
 

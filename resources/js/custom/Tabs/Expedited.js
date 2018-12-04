@@ -1,7 +1,7 @@
 import BaseTab from "../BaseClasses/BaseTab.js";
 import ExpeditedCheckbox from "../Groups/ExpeditedCheckbox.js";
 import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
-import Textarea from "../Components/Textarea.js";
+import TextEditor from "../Components/TextEditor.js";
 import SaveButton from "../Components/SaveButton.js";
 import DeleteButton from "../Components/DeleteButton.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
@@ -42,7 +42,7 @@ class Expedited extends BaseTab {
 
     makeBlock (index, title, text, error) {
         var title = new Input(index, 'text', title, this.checkPermissionsField('text'), 'Заголовок'),
-            textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
+            textarea = new TextEditor(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
             checkboxes = new ExpeditedCheckbox(index, 'orbits', this.additions.orbits, this.checkPermissionsField('orbits')),
             controlButtons = '',
             headTemplate = '';

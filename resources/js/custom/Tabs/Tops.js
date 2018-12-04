@@ -2,7 +2,7 @@ import BaseTab from "../BaseClasses/BaseTab.js";
 import AddEmptyBlockButton from "../Components/AddEmptyBlockButton.js";
 import SaveButton from "../Components/SaveButton.js";
 import DeleteButton from "../Components/DeleteButton.js";
-import Textarea from "../Components/Textarea.js";
+import TextEditor from "../Components/TextEditor.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import CancelEditingButton from "../Components/CancelEditingButton.js";
@@ -41,7 +41,7 @@ class Tops extends BaseTab {
 
     makeBlock (index, title, text, error) {
         var title = new Input(index, 'text', title, this.checkPermissionsField('text'), 'Заголовок'),
-            textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
+            textarea = new TextEditor(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
             controlButtons = '',
             headTemplate = '';
 
