@@ -44,8 +44,7 @@ class Expedited extends BaseTab {
         var title = new Input(index, 'text', title, this.checkPermissionsField('text'), 'Заголовок'),
             textarea = new TextEditor(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
             checkboxes = new ExpeditedCheckbox(index, 'orbits', this.additions.orbits, this.checkPermissionsField('orbits')),
-            controlButtons = '',
-            headTemplate = '';
+            controlButtons = '';
 
         title.init();
         textarea.init()

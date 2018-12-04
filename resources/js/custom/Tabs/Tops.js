@@ -42,8 +42,7 @@ class Tops extends BaseTab {
     makeBlock (index, title, text, error) {
         var title = new Input(index, 'text', title, this.checkPermissionsField('text'), 'Заголовок'),
             textarea = new TextEditor(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
-            controlButtons = '',
-            headTemplate = '';
+            controlButtons = '';
 
         title.init();
         textarea.init();
