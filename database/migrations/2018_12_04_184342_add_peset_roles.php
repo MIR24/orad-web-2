@@ -28,7 +28,8 @@ class AddPesetRoles extends Migration
             'see_tops',
             'update_tops',
             'update_text_tops',
-            'update_strings_tops'
+            'update_strings_tops',
+            'see_settings'
         );
 
         $role = Role::create(['guard_name' => 'web', 'name' => 'Tops-admin']);
@@ -38,7 +39,8 @@ class AddPesetRoles extends Migration
             'delete_tops',
             'update_tops',
             'update_text_tops',
-            'update_strings_tops'
+            'update_strings_tops',
+            'see_settings'
         );
 
         $role = Role::create(['guard_name' => 'web', 'name' => 'Newsbars-editor']);
@@ -46,7 +48,8 @@ class AddPesetRoles extends Migration
             'see_newsbars',
             'update_newsbars',
             'update_text_newsbars',
-            'update_strings_newsbars'
+            'update_strings_newsbars',
+            'see_settings'
         );
 
         $role = Role::create(['guard_name' => 'web', 'name' => 'Newsbars-admin']);
@@ -56,7 +59,8 @@ class AddPesetRoles extends Migration
             'delete_newsbars',
             'update_newsbars',
             'update_text_newsbars',
-            'update_strings_newsbars'
+            'update_strings_newsbars',
+            'see_settings'
         );
 
         $role = Role::create(['guard_name' => 'web', 'name' => 'Hotnews-editor']);
@@ -66,7 +70,8 @@ class AddPesetRoles extends Migration
             'delete_hotnews',
             'update_hotnews',
             'update_text_hotnews',
-            'update_strings_hotnews'
+            'update_strings_hotnews',
+            'see_settings'
         );
 
         $role = Role::create(['guard_name' => 'web', 'name' => 'Hotnews-admin']);
@@ -76,7 +81,8 @@ class AddPesetRoles extends Migration
             'delete_hotnews',
             'update_hotnews',
             'update_text_hotnews',
-            'update_strings_hotnews'
+            'update_strings_hotnews',
+            'see_settings'
         );
 
         $role = Role::create(['guard_name' => 'web', 'name' => 'Currencyrates-editor']);
