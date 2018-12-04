@@ -20,40 +20,41 @@ window.addEventListener('DOMContentLoaded', () => {
         ];
 
     $.when.apply(null, arrayOfInitPromises).done(() => {
-        SettingsDB.getSettings();
-        TabsConfig.init();
+        $.when.apply(null, [SettingsDB.getSettings()]).done(() => {
+            TabsConfig.init();
 
-        var tabCounter = 0;
-        Array.from(document.querySelectorAll('a[id^=TabSwitch]')).forEach(tab => {
-            const formatters = {
-                  'Tops': Tops,
-                  'Newsbar': Newsbar,
-                  'Expedited': Expedited,
-                  'CurrencyValues': CurrencyValues,
-                  'WeatherLive': WeatherLive,
-                  'WeatherLiveLiner': WeatherLiveLiner,
-                  'TimeShift': TimeShift,
-                  'Countdown': Countdown,
-                  'Promo': Promo,
-                  'PhotoUpload': PhotoUpload,
-                  'AdminControl': AdminControl,
-            };
+            var tabCounter = 0;
+            Array.from(document.querySelectorAll('a[id^=TabSwitch]')).forEach(tab => {
+                const formatters = {
+                      'Tops': Tops,
+                      'Newsbar': Newsbar,
+                      'Expedited': Expedited,
+                      'CurrencyValues': CurrencyValues,
+                      'WeatherLive': WeatherLive,
+                      'WeatherLiveLiner': WeatherLiveLiner,
+                      'TimeShift': TimeShift,
+                      'Countdown': Countdown,
+                      'Promo': Promo,
+                      'PhotoUpload': PhotoUpload,
+                      'AdminControl': AdminControl,
+                };
 
-            if (tabCounter === 0) {
-                tab.parentElement.className += ' m-menu__item--hover';
-                currentActive.init(new formatters[tab.attributes['data-tab-name'].value]());
-                currentActive.tab.init();
-            }
+                if (tabCounter === 0) {
+                    tab.parentElement.className += ' m-menu__item--hover';
+                    currentActive.init(new formatters[tab.attributes['data-tab-name'].value]());
+                    currentActive.tab.init();
+                }
 
-            tab.addEventListener('click', function(event) {
-                currentActive.init(new formatters[this.attributes['data-tab-name'].value]());
-                currentActive.tab.init();
+                tab.addEventListener('click', function(event) {
+                    currentActive.init(new formatters[this.attributes['data-tab-name'].value]());
+                    currentActive.tab.init();
+                });
+                tabCounter++;
             });
-            tabCounter++;
-        });
 
-        $('#show-help-btn').click(function(event) {
-            currentActive.tab.showHelp();
+            $('#show-help-btn').click(function(event) {
+                currentActive.tab.showHelp();
+            });
         });
     });
 });
