@@ -27,23 +27,23 @@ class TextEditor extends BaseComponent {
 
     handle (initClass, event) {
         const regexNotAllowed = new RegExp(editTextLineAllowedChars, 'g'),
-            matches = event.target.value.match(regexNotAllowed),
-            upperCased = event.target.value.toUpperCase();
+            selectionStartTemp = event.target.selectionStart,
+            newValue = event.target.value.toUpperCase(),
+            matches = newValue.match(regexNotAllowed);
 
         if (matches) {
-            var selectionStartTemp = event.target.selectionStart;
-
             for (var index in matches) {
                 toastr.error(toasterMessages.error.charNotAllowed + matches[index]);
             }
 
-            event.target.value = upperCased.replace(regexNotAllowed, "");
+            event.target.value = newValue.replace(regexNotAllowed, "");
             event.target.selectionStart = selectionStartTemp - matches.length;
-            event.target.selectionEnd = event.target.selectionStart;
         } else {
-            event.target.value = upperCased;
+            event.target.value = newValue;
+            event.target.selectionStart = selectionStartTemp;
         }
 
+        event.target.selectionEnd = event.target.selectionStart;
         event.target.style.height = '1px';
         event.target.style.height = (20 + event.target.scrollHeight) + 'px';
         initClass.modelChange(this.modelId, this.valueName, event.target.value);
