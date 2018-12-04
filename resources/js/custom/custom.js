@@ -17,10 +17,10 @@ import AdminControl from "./MultiTabs/AdminControl.js";
 window.addEventListener('DOMContentLoaded', () => {
     var arrayOfInitPromises = [
             User.getPremissions(),
-            SettingsDB.getSettings(),
         ];
 
     $.when.apply(null, arrayOfInitPromises).done(() => {
+        SettingsDB.getSettings();
         TabsConfig.init();
 
         var tabCounter = 0;

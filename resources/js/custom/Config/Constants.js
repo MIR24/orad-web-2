@@ -58,6 +58,7 @@ export const validationMessages = {
     'onlyInteger': 'Введите целое число',
 };
 export const settingsDBUrlBase = '/api/settings';
+export const settingsSeePremission = 'see_settings';
 export const weatherTypesUrlBase = '/api/weathertypes';
 export const orbitsUrlBase = '/api/orbits';
 export const editTextLineAllowedChars = /[^a-zA-Zа-яА-ЯёЁ0-9\.\,\!\?\:\;\`\'\"\+\-\*\=\%\^\№\~\#\&\(\)\[\]\<\>\$\s]/;
