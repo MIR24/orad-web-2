@@ -71,7 +71,8 @@ class AddPesetRoles extends Migration
             'update_hotnews',
             'update_text_hotnews',
             'update_strings_hotnews',
-            'see_settings'
+            'see_settings',
+            'see_orbits'
         );
 
         $role = Role::create(['guard_name' => 'web', 'name' => 'Hotnews-admin']);
@@ -82,7 +83,8 @@ class AddPesetRoles extends Migration
             'update_hotnews',
             'update_text_hotnews',
             'update_strings_hotnews',
-            'see_settings'
+            'see_settings',
+            'see_orbits'
         );
 
         $role = Role::create(['guard_name' => 'web', 'name' => 'Currencyrates-editor']);
