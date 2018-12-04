@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Repositories\PhotoRepository;
 use App\Http\Controllers\API\BaseController;
-use App\Http\Resources\Common as CommonCollectionResource;
+use App\Http\Resources\Common as CommonResource;
 use Illuminate\Http\Request;
 
 class PhotoController extends BaseController
@@ -32,7 +32,7 @@ class PhotoController extends BaseController
      */
     public function index(Request $request)
     {
-        return new CommonCollectionResource(
+        return new CommonResource(
             $this->repository->search(
                 $request->query()
             )
