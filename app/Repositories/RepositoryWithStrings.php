@@ -27,7 +27,7 @@ abstract class RepositoryWithStrings extends Repository
     public function create(array $attributes = [])
     {
         $model = $this->model->create($attributes);
-        $strings = explode(config('strings.eol_symbol'), $attributes['strings']);
+        $strings = explode(config('strings.eol_symbol'), mb_strtoupper($attributes['strings']));
         $convertedStrings = [];
 
         foreach ($strings as $string) {
@@ -50,7 +50,7 @@ abstract class RepositoryWithStrings extends Repository
     {
         $model = $this->model->findOrFail($id);
 
-        $strings = explode(config('strings.eol_symbol'), $attributes['strings']);
+        $strings = explode(config('strings.eol_symbol'), mb_strtoupper($attributes['strings']));
 
         foreach ($model->strings as $key => $oldString) {
             if (!empty($strings[$key])) {

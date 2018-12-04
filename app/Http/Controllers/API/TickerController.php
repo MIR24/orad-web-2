@@ -33,13 +33,27 @@ class TickerController extends BaseController
      */
     public function store(Request $request)
     {
-        $setting = Setting::where('PARAM', 'NB_TOP_LENGTH')->first();
+        $setting = Setting::where('PARAM', 'NB_BEG_LENGTH')->first();
         $length = $setting->value+1;
+        $user = $request->user();
+        $validationRules = [];
 
-        $validatedData = $request->validate([
-            'data.text' => 'required|string|max:255',
-            'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
-        ]);
+        if ($user->can('update_tickers')) {
+            $validationRules = [
+                'data.text' => 'required|string|max:255',
+                'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
+            ];
+        } else {
+            if ($user->can('update_text_tickers')) {
+                $validationRules['data.text'] = 'required|string|max:255';
+            }
+            if ($user->can('update_strings_tickers')) {
+                $validationRules['data.strings'] = 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->create($validatedData['data']));
     }
 
@@ -52,14 +66,28 @@ class TickerController extends BaseController
      */
     public function update(Request $request, int $id)
     {
-        $setting = Setting::where('PARAM', 'NB_TOP_LENGTH')->first();
+        $setting = Setting::where('PARAM', 'NB_BEG_LENGTH')->first();
         $length = $setting->value+1;
+        $user = $request->user();
+        $validationRules = ['data.id' => 'integer'];
 
-        $validatedData = $request->validate([
-            'data.text' => 'required|string|max:255',
-            'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
-            'data.id' => 'integer',
-        ]);
+        if ($user->can('update_tickers')) {
+            $validationRules = [
+                'data.text' => 'required|string|max:255',
+                'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
+                'data.id' => 'integer',
+            ];
+        } else {
+            if ($user->can('update_text_tickers')) {
+                $validationRules['data.text'] = 'required|string|max:255';
+            }
+            if ($user->can('update_strings_tickers')) {
+                $validationRules['data.strings'] = 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->update($validatedData['data'], $id));
     }
 }

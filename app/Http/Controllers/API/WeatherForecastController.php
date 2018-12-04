@@ -20,7 +20,7 @@ class WeatherForecastController extends BaseController
         $this->repository = $repository;
         $this->middleware(['permission:see_weatherforecasts']);
         $this->middleware(['permission:create_weatherforecasts'])->only(['store', 'storeMultiple']);
-        $this->middleware(['permission:update_weatherforecasts|update_status_weatherforecasts|update_city_weatherforecasts|update_morning_weatherforecasts|update_evening_weatherforecasts|update_weather_type_id_weatherforecasts'])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:update_weatherforecasts'])->only(['update', 'patchMultiple']);
         $this->middleware(['permission:delete_weatherforecasts'])->only(['destroy']);
     }
 
