@@ -32,12 +32,33 @@ class CurrencyRateController extends BaseController
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'data.val1' => 'required|string|max:255',
-            'data.val2' => 'required|string|max:255',
-            'data.dir' => 'required|integer',
-            'data.value' => 'required|numeric',
-        ]);
+        $user = $request->user();
+        $validationRules = [];
+
+        if ($user->can('update_currencyrates')) {
+            $validationRules = [
+                'data.val1' => 'required|string|max:255',
+                'data.val2' => 'required|string|max:255',
+                'data.dir' => 'required|integer',
+                'data.value' => 'required|numeric',
+            ];
+        } else {
+            if ($user->can('update_val1_currencyrates')) {
+                $validationRules['data.val1'] = 'required|string|max:255';
+            }
+            if ($user->can('update_val2_currencyrates')) {
+                $validationRules['data.val2'] = 'required|string|max:255';
+            }
+            if ($user->can('update_dir_currencyrates')) {
+                $validationRules['data.dir'] = 'required|integer';
+            }
+            if ($user->can('update_value_currencyrates')) {
+                $validationRules['data.value'] = 'required|numeric';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->create($validatedData['data']));
     }
 
@@ -50,13 +71,34 @@ class CurrencyRateController extends BaseController
      */
     public function update(Request $request, int $id)
     {
-        $validatedData = $request->validate([
-            'data.val1' => 'required|string|max:255',
-            'data.val2' => 'required|string|max:255',
-            'data.dir' => 'required|integer',
-            'data.value' => 'required|numeric',
-            'data.id' => 'integer',
-        ]);
+        $user = $request->user();
+        $validationRules = ['data.id' => 'integer'];
+
+        if ($user->can('update_currencyrates')) {
+            $validationRules = [
+                'data.val1' => 'required|string|max:255',
+                'data.val2' => 'required|string|max:255',
+                'data.dir' => 'required|integer',
+                'data.value' => 'required|numeric',
+                'data.id' => 'integer',
+            ];
+        } else {
+            if ($user->can('update_val1_currencyrates')) {
+                $validationRules['data.val1'] = 'required|string|max:255';
+            }
+            if ($user->can('update_val2_currencyrates')) {
+                $validationRules['data.val2'] = 'required|string|max:255';
+            }
+            if ($user->can('update_dir_currencyrates')) {
+                $validationRules['data.dir'] = 'required|integer';
+            }
+            if ($user->can('update_value_currencyrates')) {
+                $validationRules['data.value'] = 'required|numeric';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->update($validatedData['data'], $id));
     }
 }
