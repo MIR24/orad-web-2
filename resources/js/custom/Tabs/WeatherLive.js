@@ -35,7 +35,7 @@ class WeatherLive extends BaseTab {
             }
 
             controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else if (this.checkPermissions('update')) {
+        } else if (this.checkPermissions('update') || this.checkPermissions('create')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
             enterRedactingBtn.init();

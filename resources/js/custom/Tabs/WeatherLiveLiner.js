@@ -27,7 +27,7 @@ class WeatherLiveLiner extends BaseTab {
             this.addListeners(saveBtn.getListeners());
             this.addListeners(cancelEditBtn.getListeners());
 
-            if (this.checkPermissions('create')) {
+            if (this.checkPermissions('create') || this.checkPermissions('create')) {
                 var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
                 addEmptyBlockButton.init();
                 this.addListeners(addEmptyBlockButton.getListeners());
