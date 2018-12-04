@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Repositories\PromoCategoryRepository;
 use App\Http\Controllers\API\BaseController;
+use App\Http\Resources\Common as CommonResource;
+use Illuminate\Http\Request;
 
 class PromoCategoryController extends BaseController
 {
