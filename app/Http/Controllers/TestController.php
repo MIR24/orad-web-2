@@ -320,7 +320,28 @@ class TestController extends Controller
         ]];
     }
     public function getHelpRedacting () {
-        return ['data'=>[]];
+        return ['data'=>[
+            0 => [
+                'id' => '0',
+                'name' => 'name0',
+                'text' => 'text0',
+            ],
+            1 => [
+                'id' => '1',
+                'name' => 'name1',
+                'text' => 'text1',
+            ],
+            2 => [
+                'id' => '2',
+                'name' => 'name2',
+                'text' => 'text2',
+            ],
+            3 => [
+                'id' => '3',
+                'name' => 'name3',
+                'text' => 'text3',
+            ],
+        ]];
     }
     public function getPhotoUpload () {
         return ['data'=>[

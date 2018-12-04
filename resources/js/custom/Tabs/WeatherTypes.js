@@ -13,11 +13,10 @@ class WeatherTypes extends BaseMultiTabChild {
     }
 
     makeTemplate () {
-        var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '<div class="row justify-content-center mb-5">',
+        var controlButtons = '<div class="row justify-content-center mb-5">',
             tableBodyId = 'table-body-' + this.constructor.name;
 
-        if (!disabled) {
+        if (this.edit.state) {
             var saveBtn = new SaveButton('all'),
                 cancelEditBtn = new CancelEditingButton('all'),
                 addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
@@ -47,7 +46,7 @@ class WeatherTypes extends BaseMultiTabChild {
                     <tr>
                         <th class="w-75">Название</th>
                         <th>Иконка</th>
-                        ${ disabled ? '<th></th>' : '' }
+                        ${ !this.edit.state ? '<th></th>' : '' }
                     </tr>
                 </thead>
                    <tbody id="${tableBodyId}">`;
@@ -55,18 +54,18 @@ class WeatherTypes extends BaseMultiTabChild {
         this.template += Object.keys(this.models).map(key => {
             if (this.edit.hasOwnProperty(key)) {
                 var tempModel = this.getValidatedObject(key);
-                return this.makeBlock(key, this.models[key].type, tempModel.errorModel.icon, disabled, tempModel.errorValidation);
+                return this.makeBlock(key, this.models[key].type, tempModel.errorModel.icon, tempModel.errorValidation);
             }
-           return this.makeBlock(key, this.models[key].type, this.models[key].icon, disabled, {});
+           return this.makeBlock(key, this.models[key].type, this.models[key].icon, {});
         })
         .join('')
         .concat('</tbody></table></div>')
         .concat(controlButtons);
     }
 
-    makeBlock(index, type, icon, disabled, error) {
-        var type = new Input(index, 'type', type, disabled, 'Название'),
-            iconDrop = new DropZoneCustom(index, 'icon', false, this.constructor.name, disabled),
+    makeBlock(index, type, icon, error) {
+        var type = new Input(index, 'type', type, this.edit.state, 'Название'),
+            iconDrop = new DropZoneCustom(index, 'icon', false, this.constructor.name, this.edit.state),
             controlButtons = '';
 
         type.init();
@@ -75,7 +74,7 @@ class WeatherTypes extends BaseMultiTabChild {
         this.addListeners(type.getListeners());
         this.addAdditionlClassesJQ(index, iconDrop);
 
-        if (disabled) {
+        if (!this.edit.state) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
@@ -107,7 +106,7 @@ class WeatherTypes extends BaseMultiTabChild {
     }
 
     getEmptyBlock (event) {
-        return this.makeBlock('new', '', '', '', {});
+        return this.makeBlock('new', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {

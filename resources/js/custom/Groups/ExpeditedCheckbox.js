@@ -8,9 +8,9 @@ class ExpeditedCheckbox extends BaseComponentGroup {
     }
 
     makeTemplate () {
-        var checkboxAll = new Checkbox(this.id + '-all', 'all', false, this.disabledString, 'Выбрать все'),
+        var checkboxAll = new Checkbox(this.id + '-all', 'all', false, this.disabled, 'Выбрать все'),
             checkboxesTemplate = Object.keys(this.value).map(key => {
-                var checkbox = new Checkbox(this.id + '-' + key, key, this.value[key].checked, this.disabledString, this.value[key].name);
+                var checkbox = new Checkbox(this.id + '-' + key, key, this.value[key].checked, this.disabled, this.value[key].name);
 
                 this.checkboxesIds.push('#' + checkbox.id);
 

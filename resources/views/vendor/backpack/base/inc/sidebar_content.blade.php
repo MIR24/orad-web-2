@@ -3,5 +3,7 @@
 <li><a href="{{ backpack_url('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ __('backpack::base.dashboard') }}</span></a></li>
 <!-- Users, Roles Permissions -->
 <li><a href="{{ backpack_url('user') }}"><i class="fa fa-user"></i> <span>{{ __('Users') }}</span></a></li>
+@role(config('permission.super-admin-name'))
 <li><a href="{{ backpack_url('role') }}"><i class="fa fa-group"></i> <span>{{ __('Roles') }}</span></a></li>
 <li><a href="{{ backpack_url('permission') }}"><i class="fa fa-key"></i> <span>{{ __('Permissions') }}</span></a></li>
+@endrole

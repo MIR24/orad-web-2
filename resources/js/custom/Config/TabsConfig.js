@@ -317,6 +317,19 @@ const TabsConfig = {
                     "age": null,
                     "mode": 0,
                 },
+                'premissions': {
+                    'update': [
+                        "mir_id",
+                        "mirhd_id",
+                        "category_id",
+                        "name",
+                        "header",
+                        "subheader",
+                        "age",
+                        "mode",
+                        "img",
+                    ],
+                },
                 "validation": {
                     "notNull": {
                         "fieldNames": [
@@ -365,6 +378,13 @@ const TabsConfig = {
                     "customId": null,
                     "name": null,
                     "img": null,
+                },
+                'premissions': {
+                    'update': [
+                        "customId",
+                        "name",
+                        "img",
+                    ],
                 },
                 "validation": {
                     "notNull": {
@@ -417,7 +437,18 @@ const TabsConfig = {
                     "base": "/test/helpredacting",
                     "updateCreate": "/test/helpredacting",
                 },
-                "extraBlocks": [],
+                "extraBlocks": [
+                    "confirmation-edit-next-model",
+                ],
+                "validation": {
+                    "notNull": {
+                        "fieldNames": [
+                            "name",
+                            "text",
+                        ],
+                        'errorMsg': validationMessages.requiredField,
+                    },
+                },
             },
             "WeatherTypes": {
                 "backendPremissionModelName": "",

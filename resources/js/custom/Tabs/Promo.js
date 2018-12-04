@@ -1,4 +1,4 @@
-import { toasterMessages } from "../Config/Constants.js";
+import { toastrMessages } from "../Config/Constants.js";
 import BaseTab from "../BaseClasses/BaseTab.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import PromoEditModal from "../Modals/PromoEditModal.js"
@@ -26,8 +26,12 @@ class Promo extends BaseTab {
         this.addListeners(pagination.getListeners());
         this.addListeners(searchInline.getListeners());
 
-        if (this.premisions.isLoggedIn && this.checkPermissions('create')) {
-            var createModal = new PromoEditModal('new', {}, 'create', {'category': this.additions.category, 'mode': this.config.configModel.mode});
+        if (this.checkPermissions('create')) {
+            var createModal = new PromoEditModal('new', {}, 'create', {
+                'category': this.additions.category,
+                'mode': this.config.configModel.mode,
+                'premissions': this.premissions.allUpdateFieldPremissions,
+            });
             
             createModal.init();
             this.addListeners(createModal.getListeners());
@@ -57,30 +61,26 @@ class Promo extends BaseTab {
     makeBlock (index) {
         var controlButtons = '';
 
-        if (this.premisions.isLoggedIn && this.checkPermissions('update')) {
-            var editModal = new PromoEditModal(index, this.models[index], 'edit', {'category': this.additions.category, 'mode': this.config.configModel.mode}),
-                btnTemplates = '';
+        if (this.checkPermissions('update')) {
+            var editModal = new PromoEditModal(index, this.models[index], 'edit', {
+                'category': this.additions.category,
+                'mode': this.config.configModel.mode,
+                'premissions': this.premissions.allUpdateFieldPremissions,
+            });
 
             editModal.init();
             this.addListeners(editModal.getListeners());
             this.mergeAdditionlClassesJQ(editModal.getAdditionlClassesJQ());
-            
-            if (this.checkPermissions('delete')) {
-                var deleteModelBtn = new DeleteButton(index);
-                deleteModelBtn.init();
-                this.addListeners(deleteModelBtn.getListeners());
-                btnTemplates = deleteModelBtn.getTemplate();
-            }
 
-            controlButtons = `<div class="m-portlet__foot">
-                <div class="row m--valign-middle">
-                    <div class="col m--align-right">
-                        ${editModal.getOpenButton()}
-                        ${editModal.getTemplate()}
-                        ${btnTemplates}
-                    </div>
-                </div>
-            </div>`;
+            controlButtons = `${editModal.getOpenButton()}
+                ${editModal.getTemplate()}`;
+        }
+
+        if (this.checkPermissions('delete')) {
+            var deleteModelBtn = new DeleteButton(index);
+            deleteModelBtn.init();
+            this.addListeners(deleteModelBtn.getListeners());
+            controlButtons += deleteModelBtn.getTemplate();
         }
 
         return `<div id="${index}" class="col-4">
@@ -122,7 +122,13 @@ class Promo extends BaseTab {
                         </div>
                     </div>
                 </div>
-                ${controlButtons}
+                ${ controlButtons ? `<div class="m-portlet__foot">
+                    <div class="row m--valign-middle">
+                        <div class="col m--align-right">
+                        ${controlButtons}
+                        </div>
+                    </div>
+                </div>` : ''}
             </div>
         </div>`;
     }

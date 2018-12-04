@@ -1,8 +1,8 @@
 import BaseComponent from "../BaseClasses/BaseComponent.js";
 
 class Input extends BaseComponent {
-    constructor (id, valueName, value, disabled, placeholder, type) {
-        super(id, valueName, 'input', disabled);
+    constructor (id, valueName, value, disabled, placeholder, type, listener) {
+        super(id, valueName, listener ? listener : 'input', disabled);
         this.value = (value === null || value === undefined || (!value && value !=0)) ? '' : value;
         this.placeholder = placeholder ? placeholder : '';
         this.type = type ? type : 'text';
@@ -10,7 +10,7 @@ class Input extends BaseComponent {
 
     makeTemplate () {
         this.template = `<input
-                ${this.disabled} 
+                ${this.disabledString}
                 type=${this.type} 
                 id="${this.id}"
                 class="form-control"

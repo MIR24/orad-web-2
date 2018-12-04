@@ -21,4 +21,66 @@ class WeatherTypeController extends BaseController
         $this->middleware(['permission:update_weathertypes'])->only(['update', 'patchMultiple']);
         $this->middleware(['permission:delete_weathertypes'])->only(['destroy']);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $user = $request->user();
+        $validationRules = [];
+
+        if ($user->can('update_weathertypes')) {
+            $validationRules = [
+                'data.type' => 'required|string|max:255',
+                'data.icon' => 'required|string|max:255',
+            ];
+        } else {
+            if ($user->can('update_type_weathertypes')) {
+                $validationRules['data.status'] = 'required|string|max:70';
+            }
+            if ($user->can('update_icon_weathertypes')) {
+                $validationRules['data.city'] = 'required|string|max:70';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
+        return new CommonResource($this->repository->create($validatedData['data']));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, int $id)
+    {
+        $user = $request->user();
+        $validationRules = ['data.id' => 'integer'];
+
+        if ($user->can('update_weathertypes')) {
+            $validationRules = [
+                'data.type' => 'required|string|max:255',
+                'data.icon' => 'required|string|max:255',
+                'data.id' => 'integer',
+            ];
+        } else {
+            if ($user->can('update_type_weathertypes')) {
+                $validationRules['data.status'] = 'required|string|max:70';
+            }
+            if ($user->can('update_icon_weathertypes')) {
+                $validationRules['data.city'] = 'required|string|max:70';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
+        return new CommonResource($this->repository->update($validatedData['data'], $id));
+    }
 }

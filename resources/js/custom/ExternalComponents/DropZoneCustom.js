@@ -1,5 +1,5 @@
 import BaseExternalComponent from "../BaseClasses/BaseExternalComponent.js";
-import { currentActive, csrf, toasterMessages } from "../Config/Constants.js";
+import { currentActive, csrf, toastrMessages } from "../Config/Constants.js";
 import DropZoneConfig from "../Config/DropZoneConfig.js";
 
 class DropZoneCustom extends BaseExternalComponent {
@@ -48,7 +48,7 @@ class DropZoneCustom extends BaseExternalComponent {
                     file.previewElement.remove();
                 },
                 maxfilesexceeded: function (file) {
-                    toastr.error(toasterMessages.error.maxNumFiles)
+                    toastr.error(toastrMessages.error.maxNumFiles)
                     this.removeFile(file)
                 }
             },
@@ -56,7 +56,7 @@ class DropZoneCustom extends BaseExternalComponent {
     }
 
     makeTemplate () {
-        if (this.disabled) {
+        if (!this.disabled) {
             this.template = `<img src="${this.img.url}" class="img-thumbnail">`;
         } else {
             this.template = `<div id="${this.id}" class="m-dropzone dropzone dz-clickable">

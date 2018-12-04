@@ -10,7 +10,7 @@ class Checkbox extends BaseComponent {
     makeTemplate () {
         this.template = `<label class="m-checkbox">
             <input
-                ${this.disabled}
+                ${this.disabledString}
                 ${this.checked}
                 type="checkbox"
                 id="${this.id}"

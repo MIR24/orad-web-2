@@ -8,8 +8,8 @@ class SearchInline extends BaseComponentGroup {
     }
 
     makeTemplate () {
-        var searchBtn = new SimpleButton(this.id, 'search-inline', 'btn', false),
-            searchInput = new Input(this.id, 'input', this.value.q, false, 'Поиск...');
+        var searchBtn = new SimpleButton(this.id, 'search-inline', 'btn'),
+            searchInput = new Input(this.id, 'input', this.value.q, true, 'Поиск...', null, 'keypress');
 
         searchBtn.init();
         searchInput.init();
@@ -28,6 +28,9 @@ class SearchInline extends BaseComponentGroup {
 
     setValue (initClass, props, event) {
         this.value = event.target.value;
+        if (event.originalEvent.charCode === 13) {
+            initClass.searchModels(this.value);
+        }
     }
 
     searchHandle (initClass, props, event) {

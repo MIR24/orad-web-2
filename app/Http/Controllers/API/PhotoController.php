@@ -38,4 +38,82 @@ class PhotoController extends BaseController
             )
         );
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $user = $request->user();
+        $validationRules = [];
+
+        if ($user->can('update_photos')) {
+            $validationRules = [
+                'data.name' => 'required|string|max:255',
+                'data.title' => 'required|string|max:255',
+                'data.category_id' => 'required|integer',
+                'data.path' => 'required|string|max:17',
+            ];
+        } else {
+            if ($user->can('update_name_photos')) {
+                $validationRules['data.name'] = 'required|string|max:255';
+            }
+            if ($user->can('update_title_photos')) {
+                $validationRules['data.title'] = 'required|string|max:255';
+            }
+            if ($user->can('update_category_id_photos')) {
+                $validationRules['data.category_id'] = 'required|integer';
+            }
+            if ($user->can('update_path_photos')) {
+                $validationRules['data.path'] = 'required|string|max:17';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
+        return new CommonResource($this->repository->create($validatedData['data']));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, int $id)
+    {
+        $user = $request->user();
+        $validationRules = ['data.id' => 'integer'];
+
+        if ($user->can('update_photos')) {
+            $validationRules = [
+                'data.name' => 'required|string|max:255',
+                'data.title' => 'required|string|max:255',
+                'data.category_id' => 'required|integer',
+                'data.path' => 'required|string|max:17',
+                'data.id' => 'integer',
+            ];
+        } else {
+            if ($user->can('update_name_photos')) {
+                $validationRules['data.name'] = 'required|string|max:255';
+            }
+            if ($user->can('update_title_photos')) {
+                $validationRules['data.title'] = 'required|string|max:255';
+            }
+            if ($user->can('update_category_id_photos')) {
+                $validationRules['data.category_id'] = 'required|integer';
+            }
+            if ($user->can('update_path_photos')) {
+                $validationRules['data.path'] = 'required|string|max:17';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
+        return new CommonResource($this->repository->update($validatedData['data'], $id));
+    }
 }

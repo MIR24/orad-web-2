@@ -1,5 +1,5 @@
 import BaseTab from "../BaseClasses/BaseTab.js";
-import Textarea from "../Components/Textarea.js";
+import TextEditor from "../Components/TextEditor.js";
 import SpinnerButton from "../Utils/IdManipulation.js";
 import IdManipulation from "../Utils/IdManipulation.js";
 import SaveButton from "../Components/SaveButton.js";
@@ -24,50 +24,43 @@ class Newsbar extends BaseTab {
     }
 
     makeBlock (index, title, text, error) {
-        var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
-            textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
-            headTemplate = '';
+        var textarea = new TextEditor(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
+            controlButtons = '';
 
         textarea.init();
 
         this.addListeners(textarea.getListeners());
 
-        if (this.premisions.isLoggedIn) {
-            var controlButtons = '';
+        if (this.edit.modelId == index || index === 'new') {
+            var saveBtn = new SaveButton(index),
+                cancelEditBtn = new CancelEditingButton(index);
 
-            if (!disabled) {
-                var saveBtn = new SaveButton(index),
-                    cancelEditBtn = new CancelEditingButton(index);
+            saveBtn.init();
+            cancelEditBtn.init();
 
-                saveBtn.init();
-                cancelEditBtn.init();
+            this.addListeners(saveBtn.getListeners());
+            this.addListeners(cancelEditBtn.getListeners());
 
-                this.addListeners(saveBtn.getListeners());
-                this.addListeners(cancelEditBtn.getListeners());
+            controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+        } else if (this.checkPermissions('update')) {
+            var enterRedactingBtn = new EnterEditingButton(index);
 
-                controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-            } else if (this.checkPermissions('update')) {
-                var enterRedactingBtn = new EnterEditingButton(index);
+            enterRedactingBtn.init();
 
-                enterRedactingBtn.init();
+            this.addListeners(enterRedactingBtn.getListeners());
 
-                this.addListeners(enterRedactingBtn.getListeners());
+            controlButtons = `${enterRedactingBtn.getTemplate()}`;
+        }
 
-                controlButtons = `${enterRedactingBtn.getTemplate()}`;
-            }
-
-            headTemplate = `<div class="m-portlet__head p-0">
+        return `<div class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
+            ${ controlButtons ? `<div class="m-portlet__head p-0">
                 <div class="row col align-items-center">
                     <div class="col-6"></div>
                     <div class="col-6 m--align-right">
                         ${controlButtons}
                     </div>
                 </div>
-            </div>`;
-        }
-
-        return `<div class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
-            ${headTemplate}
+            </div>` : ''}
             <div class="m-portlet__body">
                 ${ error && error.strings ? `<form class="m-form m-form--fit m-form--label-align-right  has-danger">
                     <div class="form-group m-form__group">

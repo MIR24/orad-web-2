@@ -56,7 +56,7 @@ return [
         ],
         [
             'jsClass' => 'AdminControl',
-            'seePremission' => '',
+            'seePremission' => 'see_admin_interface',
         ],
     ]
 ];

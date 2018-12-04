@@ -9,14 +9,14 @@ class BaseButton extends BaseComponent {
             id,
             valueName,
             'click',
-            disabled,
+            disabled === undefined ? true : disabled,
             type,
         );
         this.config = Object.assign({}, ButtonsConfig['base'], ButtonsConfig[type]);
     }
 
     makeTemplate () {
-        this.template = `<button id="${this.id}" class="btn ${this.config.cssClass}" ${this.config.additions} ${this.disabled}>${this.config.text}</button>`;
+        this.template = `<button id="${this.id}" class="btn ${this.config.cssClass}" ${this.config.additions} ${this.disabledString}>${this.config.text}</button>`;
     }
 }
 export default BaseButton

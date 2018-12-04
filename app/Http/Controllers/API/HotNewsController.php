@@ -35,11 +35,25 @@ class HotNewsController extends BaseController
     {
         $setting = Setting::where('PARAM', 'SINGLE_HOT_LENGTH')->first();
         $length = $setting->value+1;
+        $user = $request->user();
+        $validationRules = [];
 
-        $validatedData = $request->validate([
-            'data.text' => 'required|string|max:255',
-            'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
-        ]);
+        if ($user->can('update_hotnews')) {
+            $validationRules = [
+                'data.text' => 'required|string|max:255',
+                'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
+            ];
+        } else {
+            if ($user->can('update_text_hotnews')) {
+                $validationRules['data.text'] = 'required|string|max:255';
+            }
+            if ($user->can('update_strings_hotnews')) {
+                $validationRules['data.strings'] = 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->create($validatedData['data']));
     }
 
@@ -54,12 +68,26 @@ class HotNewsController extends BaseController
     {
         $setting = Setting::where('PARAM', 'SINGLE_HOT_LENGTH')->first();
         $length = $setting->value+1;
+        $user = $request->user();
+        $validationRules = ['data.id' => 'integer'];
 
-        $validatedData = $request->validate([
-            'data.text' => 'required|string|max:255',
-            'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
-            'data.id' => 'integer',
-        ]);
+        if ($user->can('update_hotnews')) {
+            $validationRules = [
+                'data.text' => 'required|string|max:255',
+                'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
+                'data.id' => 'integer',
+            ];
+        } else {
+            if ($user->can('update_text_hotnews')) {
+                $validationRules['data.text'] = 'required|string|max:255';
+            }
+            if ($user->can('update_strings_hotnews')) {
+                $validationRules['data.strings'] = 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->update($validatedData['data'], $id));
     }
 }

@@ -35,11 +35,25 @@ class NewsbarController extends BaseController
     {
         $setting = Setting::where('PARAM', 'NB_BEG_LENGTH')->first();
         $length = $setting->value+1;
+        $user = $request->user();
+        $validationRules = [];
 
-        $validatedData = $request->validate([
-            'data.text' => 'required|string|max:255',
-            'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
-        ]);
+        if ($user->can('update_newsbars')) {
+            $validationRules = [
+                'data.text' => 'required|string|max:255',
+                'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
+            ];
+        } else {
+            if ($user->can('update_text_newsbars')) {
+                $validationRules['data.text'] = 'required|string|max:255';
+            }
+            if ($user->can('update_strings_newsbars')) {
+                $validationRules['data.strings'] = 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->create($validatedData['data']));
     }
 
@@ -54,12 +68,26 @@ class NewsbarController extends BaseController
     {
         $setting = Setting::where('PARAM', 'NB_BEG_LENGTH')->first();
         $length = $setting->value+1;
+        $user = $request->user();
+        $validationRules = ['data.id' => 'integer'];
 
-        $validatedData = $request->validate([
-            'data.text' => 'required|string|max:255',
-            'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
-            'data.id' => 'integer',
-        ]);
+        if ($user->can('update_newsbars')) {
+            $validationRules = [
+                'data.text' => 'required|string|max:255',
+                'data.strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu',
+                'data.id' => 'integer',
+            ];
+        } else {
+            if ($user->can('update_text_newsbars')) {
+                $validationRules['data.text'] = 'required|string|max:255';
+            }
+            if ($user->can('update_strings_newsbars')) {
+                $validationRules['data.strings'] = 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.$length.',}/mu';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->update($validatedData['data'], $id));
     }
 }

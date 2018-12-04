@@ -32,9 +32,21 @@ class PhotoCategoryController extends BaseController
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'data.text' => 'required|string|max:255',
-        ]);
+        $user = $request->user();
+        $validationRules = [];
+
+        if ($user->can('update_photocategories')) {
+            $validationRules = [
+                'data.text' => 'required|string|max:255',
+            ];
+        } else {
+            if ($user->can('update_text_photocategories')) {
+                $validationRules['data.text'] = 'required|string|max:255';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->create($validatedData['data']));
     }
 
@@ -47,10 +59,22 @@ class PhotoCategoryController extends BaseController
      */
     public function update(Request $request, int $id)
     {
-        $validatedData = $request->validate([
-            'data.text' => 'required|string|max:255',
-            'data.id' => 'integer',
-        ]);
+        $user = $request->user();
+        $validationRules = ['data.id' => 'integer'];
+
+        if ($user->can('update_photocategories')) {
+            $validationRules = [
+                'data.text' => 'required|string|max:255',
+                'data.id' => 'integer',
+            ];
+        } else {
+            if ($user->can('update_text_photocategories')) {
+                $validationRules['data.text'] = 'required|string|max:255';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
         return new CommonResource($this->repository->update($validatedData['data'], $id));
     }
 }

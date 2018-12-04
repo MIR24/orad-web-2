@@ -11,10 +11,9 @@ class Orbits extends BaseMultiTabChild {
     }
 
     makeTemplate () {
-        var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '<div class="row justify-content-center mb-5">';
+        var controlButtons = '<div class="row justify-content-center mb-5">';
 
-        if (!disabled) {
+        if (this.edit.state) {
             var saveBtn = new SaveButton('all'),
                 cancelEditBtn = new CancelEditingButton('all');
 
@@ -47,17 +46,17 @@ class Orbits extends BaseMultiTabChild {
         this.template += Object.keys(this.models).map(key => {
             if (this.edit.hasOwnProperty(key)) {
                 var tempModel = this.getValidatedObject(key);
-                return this.makeBlock(key, this.models[key].name, disabled, tempModel.errorValidation);
+                return this.makeBlock(key, this.models[key].name, tempModel.errorValidation);
             }
-           return this.makeBlock(key, this.models[key].name, disabled, {});
+           return this.makeBlock(key, this.models[key].name, {});
         })
         .join('')
         .concat('</tbody></table></div>')
         .concat(controlButtons);
     }
 
-    makeBlock(index, name, disabled, error) {
-        var name = new Input(index, 'name', name, disabled, 'Название');
+    makeBlock(index, name, error) {
+        var name = new Input(index, 'name', name, this.edit.state, 'Название');
 
         name.init();
 

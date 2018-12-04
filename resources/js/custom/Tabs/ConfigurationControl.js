@@ -10,10 +10,9 @@ class ConfigurationControl extends BaseMultiTabChild {
     }
 
     makeTemplate () {
-        var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '<div class="row justify-content-center mb-5">';
+        var controlButtons = '<div class="row justify-content-center mb-5">';
 
-        if (!disabled) {
+        if (this.edit.state) {
             var saveBtn = new SaveButton('all'),
                 cancelEditBtn = new CancelEditingButton('all');
 
@@ -47,17 +46,17 @@ class ConfigurationControl extends BaseMultiTabChild {
         this.template += Object.keys(this.models).map(key => {
             if (this.edit.hasOwnProperty(key)) {
                 var tempModel = this.getValidatedObject(key);
-                return this.makeBlock(key, this.models[key].desc, tempModel.errorModel.value, disabled, tempModel.errorValidation);
+                return this.makeBlock(key, this.models[key].desc, tempModel.errorModel.value, tempModel.errorValidation);
             }
-           return this.makeBlock(key, this.models[key].desc, this.models[key].value, disabled, {});
+           return this.makeBlock(key, this.models[key].desc, this.models[key].value, {});
         })
         .join('')
         .concat('</tbody></table></div>')
         .concat(controlButtons);
     }
 
-    makeBlock(index, desc, value, disabled, error) {
-        var value = new Input(index, 'value', value, disabled, '0', 'number');
+    makeBlock(index, desc, value, error) {
+        var value = new Input(index, 'value', value, this.edit.state, '0', 'number');
 
         value.init();
 
