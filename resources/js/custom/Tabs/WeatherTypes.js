@@ -65,7 +65,7 @@ class WeatherTypes extends BaseMultiTabChild {
 
     makeBlock(index, type, icon, error) {
         var type = new Input(index, 'type', type, this.edit.state, 'Название'),
-            iconDrop = new DropZoneCustom(index, 'icon', false, this.constructor.name, !this.edit.state),
+            iconDrop = new DropZoneCustom(index, 'icon', false, this.constructor.name, this.edit.state),
             controlButtons = '';
 
         type.init();

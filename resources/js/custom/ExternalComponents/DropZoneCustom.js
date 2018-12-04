@@ -56,7 +56,7 @@ class DropZoneCustom extends BaseExternalComponent {
     }
 
     makeTemplate () {
-        if (this.disabled) {
+        if (!this.disabled) {
             this.template = `<img src="${this.img.url}" class="img-thumbnail">`;
         } else {
             this.template = `<div id="${this.id}" class="m-dropzone dropzone dz-clickable">

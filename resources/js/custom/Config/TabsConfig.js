@@ -327,6 +327,7 @@ const TabsConfig = {
                         "subheader",
                         "age",
                         "mode",
+                        "img",
                     ],
                 },
                 "validation": {
