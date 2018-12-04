@@ -14,11 +14,10 @@ class CurrencyValues extends BaseTab {
     }
 
     makeTemplate () {
-        var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '',
+        var controlButtons = '',
             tableBodyId = 'table-body-' + this.constructor.name;
 
-        if (!disabled) {
+        if (this.edit.state) {
             var saveBtn = new SaveButton('all'),
                 cancelEditBtn = new CancelEditingButton('all');
 
@@ -36,7 +35,7 @@ class CurrencyValues extends BaseTab {
             }
 
             controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else if (this.premisions.isLoggedIn && this.checkPermissions('update')) {
+        } else if (this.checkPermissions('update')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
             enterRedactingBtn.init();
@@ -53,23 +52,23 @@ class CurrencyValues extends BaseTab {
                     <th>Динамика</th>
                     <th>Курс</th>
                     <th>Валюта</th>
-                    ${ disabled && this.checkPermissions('delete') ? '<th></th>' : '' }
+                    ${ !this.edit.state && this.checkPermissions('delete') ? '<th></th>' : '' }
                 </tr>
             </thead>
             <tbody id="${tableBodyId}">`;
        template += Object.keys(this.models).map(key => {
            if (this.edit.hasOwnProperty(key)) {
                var tempModel = this.getValidatedObject(key);
-               return this.makeBlock(key, tempModel.errorModel.val1, tempModel.errorModel.val2, tempModel.errorModel.value, tempModel.errorModel.dir, disabled, tempModel.errorValidation);
+               return this.makeBlock(key, tempModel.errorModel.val1, tempModel.errorModel.val2, tempModel.errorModel.value, tempModel.errorModel.dir, tempModel.errorValidation);
            }
-           return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, disabled, {});
+           return this.makeBlock(key, this.models[key].val1, this.models[key].val2, this.models[key].value, this.models[key].dir, {});
        })
        .join('');
 
        if (this.validation.hasOwnProperty('new')) {
            var tempModel = this.getValidatedObject('new');
            template = template.concat(
-               this.makeBlock('new', tempModel.errorModel.val1, tempModel.errorModel.val2, tempModel.errorModel.value, tempModel.errorModel.dir, disabled, tempModel.errorValidation)
+               this.makeBlock('new', tempModel.errorModel.val1, tempModel.errorModel.val2, tempModel.errorModel.value, tempModel.errorModel.dir, tempModel.errorValidation)
            );
        }
 
@@ -82,12 +81,11 @@ class CurrencyValues extends BaseTab {
         this.updateEditState(modelId, valueName, newValue);
     }
 
-    makeBlock (index, leftValName, rightValName, inputValue, direction, disabled, error) {
-        var allowUsage = !disabled ? '' : 'disabled',
-            spinnerButton = new SpinnerButton(index, 'dir', disabled, direction),
-            leftValNameInput = new Input(index, 'val1', leftValName, allowUsage, 'Валюта'),
-            rightValNameInput = new Input(index, 'val2', rightValName, allowUsage, 'Валюта'),
-            valueInput = new Input(index, 'value', inputValue, disabled, '0.0', 'number'),
+    makeBlock (index, leftValName, rightValName, inputValue, direction, error) {
+        var spinnerButton = new SpinnerButton(index, 'dir', this.checkPermissionsField('dir'), direction),
+            leftValNameInput = new Input(index, 'val1', leftValName, this.checkPermissionsField('val1'), 'Валюта'),
+            rightValNameInput = new Input(index, 'val2', rightValName, this.checkPermissionsField('val2'), 'Валюта'),
+            valueInput = new Input(index, 'value', inputValue, this.checkPermissionsField('value'), '0.0', 'number'),
             controlButtons = '';
 
         spinnerButton.init();
@@ -100,7 +98,7 @@ class CurrencyValues extends BaseTab {
         this.addListeners(rightValNameInput.getListeners());
         this.addListeners(valueInput.getListeners());
 
-        if (disabled && this.checkPermissions('delete')) {
+        if (!this.edit.state && this.checkPermissions('delete')) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
@@ -130,7 +128,7 @@ class CurrencyValues extends BaseTab {
     }
 
     getEmptyBlock (event) {
-        return this.makeBlock('new', '', '', '', '', '', {});
+        return this.makeBlock('new', '', '', '', '', {});
     }
 
     saveModel (modelId) {

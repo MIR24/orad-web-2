@@ -8,8 +8,8 @@ class Pagination extends BaseComponentGroup {
     }
 
     makeTemplate () {
-        var moveForward = new SimpleButton(this.id + '-forward', 'pagination-forward', 'forward', this.value.hasMore ? '' : 'disabled'),
-            moveBack = new SimpleButton(this.id + '-back', 'pagination-back', 'back', this.pageNumber == 1 ? 'disabled' : '');
+        var moveForward = new SimpleButton(this.id + '-forward', 'pagination-forward', 'forward', this.value.hasMore),
+            moveBack = new SimpleButton(this.id + '-back', 'pagination-back', 'back', this.pageNumber == 1 ? false : true);
 
         moveForward.init();
         moveBack.init();

@@ -10,7 +10,7 @@ class Input extends BaseComponent {
 
     makeTemplate () {
         this.template = `<input
-                ${this.disabled} 
+                ${this.disabledString}
                 type=${this.type} 
                 id="${this.id}"
                 class="form-control"

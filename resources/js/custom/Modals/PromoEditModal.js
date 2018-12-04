@@ -10,25 +10,25 @@ class PromoEditModal extends BaseModalEdit {
 
     getModalBody () {
         if (jQuery.isEmptyObject(this.validationModel)) {
-            var mirId = new Input(this.modelId, 'mir_id', this.model.mir_id, false, 'ID МИР'),
-                mirHdId = new Input(this.modelId, 'mirhd_id', this.model.mirhd_id, false, 'ID МИРHD'),
-                category = new Select2Custom (this.modelId, 'category_id', this.additions.category, this.model.category_id, false, this.constructor.name),
-                name = new Input(this.modelId, 'name', this.model.name, false, 'Название'),
-                title = new Input(this.modelId, 'header', this.model.header, false, 'Заголовок'),
-                underTitle = new Input(this.modelId, 'subheader', this.model.subheader, false, 'Подзаголовок'),
-                ageRestriction = new Input(this.modelId, 'age', this.model.age, false, '0', 'number'),
-                mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.model.mode, false, this.constructor.name),
+            var mirId = new Input(this.modelId, 'mir_id', this.model.mir_id, this.additions.premissions.mir_id, 'ID МИР'),
+                mirHdId = new Input(this.modelId, 'mirhd_id', this.model.mirhd_id, this.additions.premissions.mirhd_id, 'ID МИРHD'),
+                category = new Select2Custom (this.modelId, 'category_id', this.additions.category, this.model.category_id, this.additions.premissions.category_id, this.constructor.name),
+                name = new Input(this.modelId, 'name', this.model.name, this.additions.premissions.name, 'Название'),
+                title = new Input(this.modelId, 'header', this.model.header, this.additions.premissions.header, 'Заголовок'),
+                underTitle = new Input(this.modelId, 'subheader', this.model.subheader, this.additions.premissions.subheader, 'Подзаголовок'),
+                ageRestriction = new Input(this.modelId, 'age', this.model.age, this.additions.premissions.age, '0', 'number'),
+                mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.model.mode, this.additions.premissions.mode, this.constructor.name),
                 imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, false),
                 error = {};
         } else {
-            var mirId = new Input(this.modelId, 'mir_id', this.validationModel.errorModel.mir_id, false, 'ID МИР'),
-                mirHdId = new Input(this.modelId, 'mirhd_id', this.validationModel.errorModel.mirhd_id, false, 'ID МИРHD'),
-                category = new Select2Custom (this.modelId, 'category_id', this.additions.category, this.validationModel.category_id, false, this.constructor.name),
-                name = new Input(this.modelId, 'name', this.validationModel.errorModel.name, false, 'Название'),
-                title = new Input(this.modelId, 'header', this.validationModel.errorModel.header, false, 'Заголовок'),
-                underTitle = new Input(this.modelId, 'subheader', this.validationModel.errorModel.subheader, false, 'Подзаголовок'),
-                ageRestriction = new Input(this.modelId, 'age', this.validationModel.errorModel.age, false, '0', 'number'),
-                mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.validationModel.mode, false, this.constructor.name),
+            var mirId = new Input(this.modelId, 'mir_id', this.validationModel.errorModel.mir_id, this.additions.premissions.mir_id, 'ID МИР'),
+                mirHdId = new Input(this.modelId, 'mirhd_id', this.validationModel.errorModel.mirhd_id, this.additions.premissions.mirhd_id, 'ID МИРHD'),
+                category = new Select2Custom (this.modelId, 'category_id', this.additions.category, this.validationModel.category_id, this.additions.premissions.category, this.constructor.name),
+                name = new Input(this.modelId, 'name', this.validationModel.errorModel.name, this.additions.premissions.name, 'Название'),
+                title = new Input(this.modelId, 'header', this.validationModel.errorModel.header, this.additions.premissions.header, 'Заголовок'),
+                underTitle = new Input(this.modelId, 'subheader', this.validationModel.errorModel.subheader, this.additions.premissions.subheader, 'Подзаголовок'),
+                ageRestriction = new Input(this.modelId, 'age', this.validationModel.errorModel.age, this.additions.premissions.age, '0', 'number'),
+                mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.validationModel.mode, this.additions.premissions.mode, this.constructor.name),
                 imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, false),
                 error = this.validationModel.errorValidation;
         }

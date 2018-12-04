@@ -13,11 +13,10 @@ class Countdown extends BaseTab {
     }
 
     makeTemplate () {
-        var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '',
+        var controlButtons = '',
             tableBodyId = 'table-body-' + this.constructor.name;;
 
-        if (!disabled) {
+        if (this.edit.state) {
             var saveBtn = new SaveButton('all'),
                 cancelEditBtn = new CancelEditingButton('all');
 
@@ -35,7 +34,7 @@ class Countdown extends BaseTab {
             }
 
             controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-        } else if (this.premisions.isLoggedIn && this.checkPermissions('update')) {
+        } else if ( this.checkPermissions('update')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 
             enterRedactingBtn.init();
@@ -49,23 +48,23 @@ class Countdown extends BaseTab {
                 <tr>
                     <th>Название</th>
                     <th>Дата и время</th>
-                    ${ disabled && this.checkPermissions('delete') ? '<th></th>' : '' }
+                    ${ !this.edit.state && this.checkPermissions('delete') ? '<th></th>' : '' }
                 </tr>
             </thead>
                <tbody id="${tableBodyId}">`;
        template += Object.keys(this.models).map(key => {
            if (this.edit.hasOwnProperty(key)) {
                var tempModel = this.getValidatedObject(key);
-               return this.makeBlock(key, tempModel.errorModel.title, tempModel.errorModel.happen_at, disabled, tempModel.errorValidation);
+               return this.makeBlock(key, tempModel.errorModel.title, tempModel.errorModel.happen_at, tempModel.errorValidation);
            }
-           return this.makeBlock(key, this.models[key].title, this.models[key].happen_at, disabled, {});
+           return this.makeBlock(key, this.models[key].title, this.models[key].happen_at, {});
        })
        .join('');
 
         if (this.validation.hasOwnProperty('new')) {
            var tempModel = this.getValidatedObject('new');
            template = template.concat(
-               this.makeBlock('new', tempModel.errorModel.title, tempModel.errorModel.happen_at, disabled, tempModel.errorValidation)
+               this.makeBlock('new', tempModel.errorModel.title, tempModel.errorModel.happen_at, tempModel.errorValidation)
            );
         }
 
@@ -74,10 +73,10 @@ class Countdown extends BaseTab {
        this.template = this.getBaseContainer(template);
     }
 
-    makeBlock (index, eventName, eventDateTime, disabled, error) {
+    makeBlock (index, eventName, eventDateTime, error) {
         var controlButtons = '',
-            eventName = new Input(index, 'title', eventName, disabled, 'Название события'),
-            dateTime = new DateTime(index, 'happen_at', eventDateTime, disabled);
+            eventName = new Input(index, 'title', eventName, this.checkPermissionsField('title'), 'Название события'),
+            dateTime = new DateTime(index, 'happen_at', eventDateTime, this.checkPermissionsField('happen_at'));
 
         eventName.init();
         dateTime.init();
@@ -86,7 +85,7 @@ class Countdown extends BaseTab {
         this.addListeners(dateTime.getListeners());
         this.mergeAdditionlClassesJQ(dateTime.getAdditionlClassesJQ());
 
-        if (disabled && this.checkPermissions('delete')) {
+        if (!this.edit.state && this.checkPermissions('delete')) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
@@ -114,7 +113,7 @@ class Countdown extends BaseTab {
     }
 
     getEmptyBlock () {
-        return this.makeBlock('new', '', '', '', {});
+        return this.makeBlock('new', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {

@@ -17,7 +17,7 @@ class Textarea extends BaseComponent {
                 style="margin-left:${(this.maxCharsPerLine + 1) * 10 + 17}px">
             </div>
             <textarea
-            ${this.disabled}
+            ${this.disabledString}
             class="form-control m-input m-input--air"
             id="${this.id}"
             rows="${this.value.split(/\r\n|\r|\n/).length + 1}"

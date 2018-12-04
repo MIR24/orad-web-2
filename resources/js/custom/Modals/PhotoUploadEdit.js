@@ -9,13 +9,13 @@ class PhotoUploadEdit extends BaseModalEdit {
 
     getModalBody () {
         if (jQuery.isEmptyObject(this.validationModel)) {
-            var customId = new Input(this.modelId, 'customId', this.model.customId, false, 'ID'),
-                name = new Input(this.modelId, 'name', this.model.name, false, 'Название'),
+            var customId = new Input(this.modelId, 'customId', this.model.customId, this.additions.premissions.customId, 'ID'),
+                name = new Input(this.modelId, 'name', this.model.name, this.additions.premissions.name, 'Название'),
                 imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, false),
                 error = {};
         } else {
-            var customId = new Input(this.modelId, 'customId', this.validationModel.errorModel.customId, false, 'ID'),
-                name = new Input(this.modelId, 'name', this.validationModel.errorModel.name, false, 'Название'),
+            var customId = new Input(this.modelId, 'customId', this.validationModel.errorModel.customId, this.additions.premissions.customId, 'ID'),
+                name = new Input(this.modelId, 'name', this.validationModel.errorModel.name, this.additions.premissions.name, 'Название'),
                 imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, false),
                 error = this.validationModel.errorValidation;
         }

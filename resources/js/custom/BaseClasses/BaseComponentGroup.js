@@ -11,13 +11,7 @@ class BaseComponentGroup {
         this.id = IdManipulation.getPreparedId('group-' + this.valueName, id);
         this.modelId = id;
         this.value = Object.is(value, undefined) ? '' : value;
-        if (disabled) {
-            this.disabled = true;
-            this.disabledString = 'disabled'
-        } else {
-            this.disabled = false;
-            this.disabledString = ''
-        }
+        this.disabled = disabled;
     }
 
     makeTemplate () {};

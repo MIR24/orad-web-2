@@ -10,7 +10,7 @@ class Select2Custom extends BaseExternalComponent {
                 'minimumResultsForSearch': -1,
                 'templateResult': this.formatData,
                 'templateSelection': this.formatData,
-                'disabled': disabled,
+                'disabled': !disabled,
                 'width': '100%',
             },
         });

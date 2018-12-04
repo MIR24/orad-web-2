@@ -6,10 +6,9 @@ class BaseExternalComponent extends BaseComponent {
         super (
             id,
             type,
-            listener
+            listener,
+            disabled,
         );
-        this.disabled = disabled;
-        this.disabledString = disabled ? 'disabled' : '';
         this.options = {
             'selectString': '#' + this.id,
             'type': type,

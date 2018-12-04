@@ -41,10 +41,10 @@ class Expedited extends BaseTab {
     }
 
     makeBlock (index, title, text, error) {
-        var disabled = this.edit.modelId == index || index === 'new' ? '' : 'disabled',
-            title = new Input(index, 'text', title, disabled, 'Заголовок'),
-            textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, disabled),
-            checkboxes = new ExpeditedCheckbox(index, 'orbits', this.additions.orbits, disabled),
+        var title = new Input(index, 'text', title, this.checkPermissionsField('text'), 'Заголовок'),
+            textarea = new Textarea(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
+            checkboxes = new ExpeditedCheckbox(index, 'orbits', this.additions.orbits, this.checkPermissionsField('orbits')),
+            controlButtons = '',
             headTemplate = '';
 
         title.init();
@@ -55,48 +55,44 @@ class Expedited extends BaseTab {
         this.addListeners(textarea.getListeners());
         this.addListeners(checkboxes.getListeners());
 
-        if (this.premisions.isLoggedIn) {
-            if (!disabled) {
-                var controlButtons = '';
+        if (this.edit.modelId == index || index === 'new') {
+            var controlButtons = '';
 
-                var saveBtn = new SaveButton(index),
-                    cancelEditBtn = new CancelEditingButton(index);
+            var saveBtn = new SaveButton(index),
+                cancelEditBtn = new CancelEditingButton(index);
 
-                saveBtn.init();
-                cancelEditBtn.init();
+            saveBtn.init();
+            cancelEditBtn.init();
 
-                this.addListeners(saveBtn.getListeners());
-                this.addListeners(cancelEditBtn.getListeners());
+            this.addListeners(saveBtn.getListeners());
+            this.addListeners(cancelEditBtn.getListeners());
 
-                controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
-            } else {
-                if (this.checkPermissions('update')) {
-                    var enterRedactingBtn = new EnterEditingButton(index);
-                    enterRedactingBtn.init();
-                    this.addListeners(enterRedactingBtn.getListeners());
-                    controlButtons = enterRedactingBtn.getTemplate();
-                }
-
-                if (this.checkPermissions('delete')) {
-                    var rmBtn = new DeleteButton(index);
-                    rmBtn.init();
-                    this.addListeners(rmBtn.getListeners());
-                    controlButtons += rmBtn.getTemplate();
-                }
+            controlButtons = `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+        } else {
+            if (this.checkPermissions('update')) {
+                var enterRedactingBtn = new EnterEditingButton(index);
+                enterRedactingBtn.init();
+                this.addListeners(enterRedactingBtn.getListeners());
+                controlButtons = enterRedactingBtn.getTemplate();
             }
 
-            headTemplate = `<div class="m-portlet__head p-0">
+            if (this.checkPermissions('delete')) {
+                var rmBtn = new DeleteButton(index);
+                rmBtn.init();
+                this.addListeners(rmBtn.getListeners());
+                controlButtons += rmBtn.getTemplate();
+            }
+        }
+
+        return `<div id="${index}" class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
+            ${ controlButtons ? `<div class="m-portlet__head p-0">
                 <div class="row col align-items-center">
                     <div class="col-6"></div>
                     <div class="col-6 m--align-right">
                         ${controlButtons}
                     </div>
                 </div>
-            </div>`;
-        }
-
-        return `<div id="${index}" class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
-            ${headTemplate}
+            </div>` : '' }
             <div class="m-portlet__body">
                 <div class="row">
                     <form class="col-md-10 m-form m-form--fit m-form--label-align-right">

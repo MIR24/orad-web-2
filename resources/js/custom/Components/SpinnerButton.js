@@ -14,7 +14,7 @@ class SpinnerButton extends BaseButton {
     }
 
     makeTemplate () {
-        this.template = `<button ${this.disabled} id=${this.id} class="btn ${this.config.options[this.firstOption].cssClass}" data-option="${this.firstOption}" type="button">${this.config.options[this.firstOption].text}</button>`;
+        this.template = `<button ${this.disabledString} id=${this.id} class="btn ${this.config.options[this.firstOption].cssClass}" data-option="${this.firstOption}" type="button">${this.config.options[this.firstOption].text}</button>`;
     }
 
     handle (initClass, event) {

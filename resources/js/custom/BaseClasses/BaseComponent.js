@@ -11,7 +11,12 @@ class BaseComponent {
         this.id = IdManipulation.getPreparedId(valueName || type, id);
         this.modelId = id;
         this.valueName = valueName;
-        this.disabled = disabled ? disabled : '';
+        this.disabled = disabled;
+        if (this.disabled) {
+            this.disabledString = '';
+        } else {
+            this.disabledString = 'disabled';
+        }
         this.type = type;
     }
 

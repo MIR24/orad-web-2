@@ -12,11 +12,10 @@ class TimeShift extends BaseTab {
     }
 
     makeTemplate () {
-        var disabled = this.edit.state == true ? '' : 'disabled',
-            controlButtons = '',
+        var controlButtons = '',
             tableBodyId = 'table-body-' + this.constructor.name;
 
-        if (!disabled) {
+        if (this.edit.state) {
             var saveBtn = new SaveButton('all'),
                 cancelEditBtn = new CancelEditingButton('all');
 
@@ -48,23 +47,23 @@ class TimeShift extends BaseTab {
                 <tr>
                     <th>Город</th>
                     <th>Отступ</th>
-                    ${ disabled && this.checkPermissions('delete') ? '<th></th>' : '' }
+                    ${ !this.edit.state && this.checkPermissions('delete') ? '<th></th>' : '' }
                 </tr>
             </thead>
                <tbody id="${tableBodyId}">`;
         template += Object.keys(this.models).map(key => {
             if (this.edit.hasOwnProperty(key)) {
                 var tempModel = this.getValidatedObject(key);
-                return this.makeBlock(key, tempModel.errorModel.city, tempModel.errorModel.timeshift, disabled, tempModel.errorValidation);
+                return this.makeBlock(key, tempModel.errorModel.city, tempModel.errorModel.timeshift, tempModel.errorValidation);
             }
-            return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, disabled, {});
+            return this.makeBlock(key, this.models[key].city, this.models[key].timeshift, {});
         })
         .join('');
 
         if (this.validation.hasOwnProperty('new')) {
             var tempModel = this.getValidatedObject('new');
             template = template.concat(
-                this.makeBlock('new', tempModel.errorModel.city, tempModel.errorModel.timeshift, disabled, tempModel.errorValidation)
+                this.makeBlock('new', tempModel.errorModel.city, tempModel.errorModel.timeshift, tempModel.errorValidation)
             );
         }
 
@@ -73,10 +72,10 @@ class TimeShift extends BaseTab {
         this.template = this.getBaseContainer(template);
     }
 
-    makeBlock (index, cityName, timeshift, disabled, error) {
+    makeBlock (index, cityName, timeshift, error) {
         var controlButtons = '',
-            cityName = new Input(index, 'city', cityName, disabled, 'City'),
-            timeshift = new Input(index, 'timeshift', timeshift, disabled, '0', 'number');
+            cityName = new Input(index, 'city', cityName, this.checkPermissionsField('city'), 'City'),
+            timeshift = new Input(index, 'timeshift', timeshift, this.checkPermissionsField('timeshift'), '0', 'number');
 
         cityName.init();
         timeshift.init();
@@ -84,7 +83,7 @@ class TimeShift extends BaseTab {
         this.addListeners(cityName.getListeners());
         this.addListeners(timeshift.getListeners());
 
-        if (disabled && this.checkPermissions('delete')) {
+        if (!this.edit.state && this.checkPermissions('delete')) {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
@@ -112,7 +111,7 @@ class TimeShift extends BaseTab {
     }
 
     getEmptyBlock () {
-        return this.makeBlock('new', '', '', '', {});
+        return this.makeBlock('new', '', '', {});
     }
 
     modelChange (modelId, valueName, newValue) {

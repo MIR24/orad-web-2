@@ -24,6 +24,7 @@ class BaseTab {
         this.searchOptions = {};
         this.premisions = {
             isLoggedIn: User.isLoggedIn,
+            allUpdateFieldPremissions: {},
         }
     }
 
@@ -34,6 +35,22 @@ class BaseTab {
             });
         }
         return this.premisions[action];
+    }
+
+    checkPermissionsField (action) {
+        if (this.edit.state === true &&
+            this.checkPermissions('update_' + action) === true) {
+            return true;
+        }
+        return false;
+    }
+
+    getUpdateFieldPremissions () {
+        if (this.config.premissions) {
+            for (var index in this.config.premissions.update) {
+                this.premisions.allUpdateFieldPremissions[this.config.premissions.update[index]] = this.checkPermissionsField(this.config.premissions.update[index]);
+            }
+        }
     }
 
     getModels () {
@@ -537,9 +554,9 @@ class BaseTab {
 
     init () {
         $.when.apply(null, this.getAdditions()).done(() => {
-            this.getModels()
-            .then((response) => {
+            this.getModels().then((response) => {
                 this.setData(response.data);
+                this.getUpdateFieldPremissions();
                 this.makeTemplate();
                 this.makeUtilityBlocks();
                 this.renderTemplate();

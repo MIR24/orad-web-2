@@ -317,6 +317,18 @@ const TabsConfig = {
                     "age": null,
                     "mode": 0,
                 },
+                'premissions': {
+                    'update': [
+                        "mir_id",
+                        "mirhd_id",
+                        "category_id",
+                        "name",
+                        "header",
+                        "subheader",
+                        "age",
+                        "mode",
+                    ],
+                },
                 "validation": {
                     "notNull": {
                         "fieldNames": [
@@ -365,6 +377,13 @@ const TabsConfig = {
                     "customId": null,
                     "name": null,
                     "img": null,
+                },
+                'premissions': {
+                    'update': [
+                        "customId",
+                        "name",
+                        "img",
+                    ],
                 },
                 "validation": {
                     "notNull": {
