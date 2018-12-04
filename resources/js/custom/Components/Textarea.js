@@ -1,6 +1,7 @@
 import BaseComponent from "../BaseClasses/BaseComponent.js";
 import Listeners from "../Utils/Listeners.js";
 import IdManipulation from "../Utils/IdManipulation.js";
+import { editTextLineAllowedChars, toasterMessages } from "../Config/Constants.js";
 
 class Textarea extends BaseComponent {
     constructor (id, valueName, value, maxCharsPerLine, disabled, placeholder) {
@@ -27,11 +28,10 @@ class Textarea extends BaseComponent {
     }
 
     checkDisallowedCharacters (value) {
-        const regexNotAllowed = new RegExp(/[^a-zA-Zа-яА-ЯёЁ0-9\.\,\!\?\:\;\`\'\"\+\-\*\=\%\^\№\~\#\&\(\)\[\]\<\>\s]/),
+        const regexNotAllowed = new RegExp(editTextLineAllowedChars),
          matches = regexNotAllowed.exec(value);
         if (matches) {
-            var error = 'Chars not allowed: ' + matches[0];
-            alert(error);
+            toastr.error(toasterMessages.error.charNotAllowed + matches[0]);
             return value.replace(regexNotAllowed, "");
         }
         return value;

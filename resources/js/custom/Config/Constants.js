@@ -40,6 +40,7 @@ export const toasterMessages = {
         'delete': 'Ошибка удаления',
         'errorAuth': 'Ошибка авторизации',
         'maxNumFiles': 'Превышено максимальное количество изображений',
+        'charNotAllowed': 'Непозволение символ: ',
     },
     'warning': {
         'nothingToSave': 'Изменения не произведены',
@@ -59,3 +60,4 @@ export const validationMessages = {
 export const settingsDBUrlBase = '/api/settings';
 export const weatherTypesUrlBase = '/api/weathertypes';
 export const orbitsUrlBase = '/api/orbits';
+export const editTextLineAllowedChars = /[^a-zA-Zа-яА-ЯёЁ0-9\.\,\!\?\:\;\`\'\"\+\-\*\=\%\^\№\~\#\&\(\)\[\]\<\>\$\s]/;
