@@ -1,5 +1,5 @@
 import { simpleAjaxPromise } from "../Api/Multi.js";
-import { settingsDBUrlBase, apiMethods , toasterMessages } from "../Config/Constants.js";
+import { settingsDBUrlBase, apiMethods , toastrMessages } from "../Config/Constants.js";
 
 const SettingsDB = {
     values: {},
@@ -10,7 +10,7 @@ const SettingsDB = {
                 this.values[response.data[one].param] = parseInt(response.data[one].value);
             }
         }, (error) => {
-            toastr.error(toasterMessages.error.noData);
+            toastr.error(toastrMessages.error.noData);
         });
     }
 }

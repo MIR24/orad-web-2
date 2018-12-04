@@ -1,4 +1,4 @@
-import { toasterMessages } from "../Config/Constants.js";
+import { toastrMessages } from "../Config/Constants.js";
 import BaseTab from "../BaseClasses/BaseTab.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import PhotoUploadEdit from "../Modals/PhotoUploadEdit.js"
@@ -28,7 +28,7 @@ class PhotoUpload extends BaseTab {
 
         if (this.checkPermissions('create')) {
             var createModal = new PhotoUploadEdit('new', {}, 'create', {
-                'premissions': this.premisions.allUpdateFieldPremissions,
+                'premissions': this.premissions.allUpdateFieldPremissions,
             });
             
             createModal.init();
@@ -60,7 +60,7 @@ class PhotoUpload extends BaseTab {
 
         if (this.checkPermissions('update')) {
             var editModal = new PhotoUploadEdit(index, this.models[index], 'edit', {
-                'premissions': this.premisions.allUpdateFieldPremissions,
+                'premissions': this.premissions.allUpdateFieldPremissions,
             });
 
             editModal.init();

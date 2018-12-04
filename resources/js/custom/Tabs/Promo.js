@@ -1,4 +1,4 @@
-import { toasterMessages } from "../Config/Constants.js";
+import { toastrMessages } from "../Config/Constants.js";
 import BaseTab from "../BaseClasses/BaseTab.js";
 import EnterEditingButton from "../Components/EnterEditingButton.js";
 import PromoEditModal from "../Modals/PromoEditModal.js"
@@ -30,7 +30,7 @@ class Promo extends BaseTab {
             var createModal = new PromoEditModal('new', {}, 'create', {
                 'category': this.additions.category,
                 'mode': this.config.configModel.mode,
-                'premissions': this.premisions.allUpdateFieldPremissions,
+                'premissions': this.premissions.allUpdateFieldPremissions,
             });
             
             createModal.init();
@@ -65,7 +65,7 @@ class Promo extends BaseTab {
             var editModal = new PromoEditModal(index, this.models[index], 'edit', {
                 'category': this.additions.category,
                 'mode': this.config.configModel.mode,
-                'premissions': this.premisions.allUpdateFieldPremissions,
+                'premissions': this.premissions.allUpdateFieldPremissions,
             });
 
             editModal.init();

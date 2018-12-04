@@ -26,7 +26,7 @@ export const toastrOptions = {
       "showMethod": "fadeIn",
       "hideMethod": "fadeOut"
 };
-export const toasterMessages = {
+export const toastrMessages = {
     'success': {
         'save': 'Сохранено',
         'update': 'Обновлено',

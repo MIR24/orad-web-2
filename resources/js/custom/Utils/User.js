@@ -1,30 +1,30 @@
 import { simpleAjaxPromise } from "../Api/Multi.js";
-import { apiMethods , toasterMessages } from "../Config/Constants.js";
+import { apiMethods , toastrMessages } from "../Config/Constants.js";
 
 const User = {
     isLoggedIn: false,
-    premisions: {},
+    premissions: {},
     
     getPremissions () {
         return simpleAjaxPromise(apiMethods.get, '/api/mypermissions')
         .then((response) => {
-            this.premisions = response.data;
+            this.premissions = response.data;
             this.isLoggedIn = true;
-            toastr.success(toasterMessages.success.authPassed);
+            toastr.success(toastrMessages.success.authPassed);
         }, (error) => {
             if (error.statusText == 'Unauthorized') {
                 this.isLoggedIn = false;
-                this.premisions = {};
-                toastr.info(toasterMessages.info.notAuth);
+                this.premissions = {};
+                toastr.info(toastrMessages.info.notAuth);
             } else {
-                toastr.error(toasterMessages.error.errorAuth);
+                toastr.error(toastrMessages.error.errorAuth);
             }
         });
     },
 
     checkPermissions (action) {
-        for (var one in this.premisions) {
-            if (this.premisions[one].name == action) {
+        for (var one in this.premissions) {
+            if (this.premissions[one].name == action) {
                 return true;
             }
         }

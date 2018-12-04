@@ -3,7 +3,7 @@ import AdditionlClassesJQ from "../Utils/AdditionlClassesJQ.js";
 import UtilityBlocks from "../Utils/UtilityBlocks.js";
 import TabsConfig from "../Config/TabsConfig.js";
 import { simpleAjaxPromise } from "../Api/Multi.js";
-import { tabContentIdJQ, apiMethods, toasterMessages } from "../Config/Constants.js";
+import { tabContentIdJQ, apiMethods, toastrMessages } from "../Config/Constants.js";
 import ConformationModal from "../Modals/ConformationModal.js";
 import InfoModal from "../Modals/InfoModal.js";
 import User from "../Utils/User.js";
@@ -22,19 +22,19 @@ class BaseTab {
         this.utilityBlocksInfo = {};
         this.validation = {};
         this.searchOptions = {};
-        this.premisions = {
+        this.premissions = {
             isLoggedIn: User.isLoggedIn,
             allUpdateFieldPremissions: {},
         }
     }
 
     checkPermissions (action) {
-        if (!this.premisions.hasOwnProperty(action)) {
-            this.premisions = Object.assign(this.premisions, {
+        if (!this.premissions.hasOwnProperty(action)) {
+            this.premissions = Object.assign(this.premissions, {
                 [action]: User.checkPermissions(action + '_' + this.config.backendPremissionModelName)
             });
         }
-        return this.premisions[action];
+        return this.premissions[action];
     }
 
     checkPermissionsField (action) {
@@ -48,7 +48,7 @@ class BaseTab {
     getUpdateFieldPremissions () {
         if (this.config.premissions) {
             for (var index in this.config.premissions.update) {
-                this.premisions.allUpdateFieldPremissions[this.config.premissions.update[index]] = this.checkPermissionsField(this.config.premissions.update[index]);
+                this.premissions.allUpdateFieldPremissions[this.config.premissions.update[index]] = this.checkPermissionsField(this.config.premissions.update[index]);
             }
         }
     }
@@ -91,9 +91,9 @@ class BaseTab {
                     if (!this.config.doNotMergeAfterOneSave.includes(this.constructor.name)) {
                         this.models = Object.assign(this.models, {[response.data[0].id]: response.data[0]});
                     }
-                    toastr.success(toasterMessages.success.save);
+                    toastr.success(toastrMessages.success.save);
                 }, function (error) {
-                    toastr.error(toasterMessages.error.save);
+                    toastr.error(toastrMessages.error.save);
                 }).then(() => {
                     this.rerender();
                 });
@@ -113,14 +113,14 @@ class BaseTab {
                         if (!this.config.doNotMergeAfterOneSave.includes(this.constructor.name)) {
                             this.models[modelId] = response.data[0];
                         }
-                        toastr.success(toasterMessages.success.update);
+                        toastr.success(toastrMessages.success.update);
                     }, function (error) {
-                        toastr.error(toasterMessages.error.update);
+                        toastr.error(toastrMessages.error.update);
                     }).then(() => {
                         this.rerender();
                     });
                 } else {
-                    toastr.warning(toasterMessages.warning.nothingToSave);
+                    toastr.warning(toastrMessages.warning.nothingToSave);
                 }
             }
         }
@@ -138,9 +138,9 @@ class BaseTab {
                     this.createModels({0 : this.edit.new})
                     .then((response) => {
                         this.models = Object.assign(this.models, {[response.data[0].id]: response.data[0]});
-                        toastr.success(toasterMessages.success.save);
+                        toastr.success(toastrMessages.success.save);
                     }, function (error) {
-                        toastr.error(toasterMessages.error.save);
+                        toastr.error(toastrMessages.error.save);
                     })
                 );
             }
@@ -158,9 +158,9 @@ class BaseTab {
                             }
                         }
                     }
-                    toastr.success(toasterMessages.success.update);
+                    toastr.success(toastrMessages.success.update);
                 }, function (error) {
-                    toastr.error(toasterMessages.error.update);
+                    toastr.error(toastrMessages.error.update);
                 })
             );
         }
@@ -176,7 +176,7 @@ class BaseTab {
         } else if (!jQuery.isEmptyObject(this.validation)) {
             this.rerender();
         } else {
-            toastr.warning(toasterMessages.warning.nothingToSave);
+            toastr.warning(toastrMessages.warning.nothingToSave);
         }
     }
 
@@ -194,9 +194,9 @@ class BaseTab {
                     delete this.edit[modelId];
                     delete this.validation[modelId];
                     this.rerender();
-                    toastr.success(toasterMessages.success.delete);
+                    toastr.success(toastrMessages.success.delete);
                 }, function (error) {
-                    toastr.error(toasterMessages.error.delete);
+                    toastr.error(toastrMessages.error.delete);
                 });
             } else {
                 $('#' + modelId).remove();
@@ -330,7 +330,7 @@ class BaseTab {
             this.setData(response.data);
             this.rerender();
         }, (error) => {
-            toastr.error(toasterMessages.error.noData);
+            toastr.error(toastrMessages.error.noData);
         });
     }
 
@@ -355,7 +355,7 @@ class BaseTab {
             this.setData(response.data);
             this.rerender();
         }, (error) => {
-            toastr.error(toasterMessages.error.noData);
+            toastr.error(toastrMessages.error.noData);
         });
     }
 
@@ -540,7 +540,7 @@ class BaseTab {
                     .then((response) => {
                         this.additions[addition] = response.data;
                     }, function (error) {
-                        toastr.error(toasterMessages.error.noData);
+                        toastr.error(toastrMessages.error.noData);
                     })
                 );
             }
@@ -564,7 +564,7 @@ class BaseTab {
                 this.initAdditionlClassesJQ();
             }, (error) => {
                 $(tabContentIdJQ).empty();
-                toastr.error(toasterMessages.error.noData);
+                toastr.error(toastrMessages.error.noData);
             })
             .then(function () {
                 mApp.unblockPage();

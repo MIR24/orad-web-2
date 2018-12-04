@@ -1,5 +1,5 @@
 import BaseComponent from "../BaseClasses/BaseComponent.js";
-import { editTextLineAllowedChars, toasterMessages } from "../Config/Constants.js";
+import { editTextLineAllowedChars, toastrMessages } from "../Config/Constants.js";
 
 class TextEditor extends BaseComponent {
     constructor (id, valueName, value, maxCharsPerLine, disabled, placeholder) {
@@ -33,7 +33,7 @@ class TextEditor extends BaseComponent {
 
         if (matches) {
             for (var index in matches) {
-                toastr.error(toasterMessages.error.charNotAllowed + matches[index]);
+                toastr.error(toastrMessages.error.charNotAllowed + matches[index]);
             }
 
             event.target.value = newValue.replace(regexNotAllowed, "");
