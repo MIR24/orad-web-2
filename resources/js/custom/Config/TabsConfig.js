@@ -136,6 +136,7 @@ const TabsConfig = {
                         "fieldNames": [
                             "val1",
                             "val2",
+                            "value",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
