@@ -11,7 +11,7 @@ const SettingsDB = {
     getSettings () {
         if (User.checkPermissions(settingsSeePremission)) {
             return simpleAjaxPromise(apiMethods.get, settingsDBUrlBase)
-            .then((response) => {console.log(response);
+            .then((response) => {
                 for (var one in response.data) {
                     this.values[response.data[one].param] = parseInt(response.data[one].value);
                 }
