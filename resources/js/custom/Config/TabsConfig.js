@@ -410,7 +410,7 @@ const TabsConfig = {
                 ],
             },
             "ConfigurationControl": {
-                "backendPremissionModelName": "",
+                "backendPremissionModelName": "settings",
                 "api": {
                     "base": settingsDBUrlBase,
                     "updateCreate": "/api/settings-collections",
