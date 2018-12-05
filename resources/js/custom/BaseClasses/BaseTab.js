@@ -25,7 +25,8 @@ class BaseTab {
         this.premissions = {
             isLoggedIn: User.isLoggedIn,
             allUpdateFieldPremissions: {},
-        }
+        };
+        this.addEmptyBlockButtonId = null;
     }
 
     checkPermissions (action) {
@@ -203,6 +204,7 @@ class BaseTab {
                 delete this.edit[modelId];
                 delete this.validation[modelId];
             }
+            $('#' + this.addEmptyBlockButtonId).prop('disabled', false);
         };
         this.utilityBlocksInfo['confirmation-delete-model'].open();
     }

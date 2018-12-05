@@ -1,10 +1,12 @@
 import BaseButton from "../BaseClasses/BaseButton.js";
 
 class AddEmptyBlockButton extends BaseButton {
-    constructor (id, addToId, type) {
+    constructor (id, disabled, addToId, type) {
         super (
             id,
-            type ? type : 'add-empty-block'
+            type ? type : 'add-empty-block',
+            null,
+            disabled,
         );
         this.addToId = addToId;
     }

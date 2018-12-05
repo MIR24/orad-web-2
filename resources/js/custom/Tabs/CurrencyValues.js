@@ -28,7 +28,8 @@ class CurrencyValues extends BaseTab {
             this.addListeners(cancelEditBtn.getListeners());
 
             if (this.checkPermissions('create')) {
-                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
+                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, !this.edit.hasOwnProperty('new'), tableBodyId);
+                this.addEmptyBlockButtonId = addEmptyBlockButton.id;
                 addEmptyBlockButton.init();
                 this.addListeners(addEmptyBlockButton.getListeners());
                 controlButtons = addEmptyBlockButton.getTemplate();
@@ -98,7 +99,7 @@ class CurrencyValues extends BaseTab {
         this.addListeners(rightValNameInput.getListeners());
         this.addListeners(valueInput.getListeners());
 
-        if (!this.edit.state && this.checkPermissions('delete')) {
+        if (!this.edit.state && this.checkPermissions('delete') || index === 'new') {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
