@@ -411,40 +411,54 @@ class BaseTab {
     validateEditState (modelId, model) {console.log(model);
         for (var fieldName in model) {
             for (var validationIndex in this.config.validation) {
-                switch (validationIndex) {
-                    case 'notNull':
-                        if (this.config.validation.notNull.fieldNames.includes(fieldName) && (model[fieldName] !== 0 && !model[fieldName])) {
-                            this.validationAssigne(modelId, fieldName, this.config.validation.notNull.errorMsg);
-                        } else {
-                            this.validationRemove(modelId, fieldName, this.config.validation.notNull.errorMsg);
-                        }
-                        break;
-                    case 'regexSuccess':
-                        if (this.config.validation.regexSuccess.hasOwnProperty(fieldName)) {
-                            var reg = new RegExp(this.config.validation.regexSuccess[fieldName].regex, this.config.validation.regexSuccess[fieldName].flags),
-                                match = reg.exec(model[fieldName]);
-
-                            if (!match) {
-                                this.validationAssigne(modelId, fieldName, this.config.validation.regexSuccess[fieldName].errorMsg);
-                            } else {
-                                this.validationRemove(modelId, fieldName, this.config.validation.regexSuccess[fieldName].errorMsg);
-                            }
-                        }
-                        break;
-                    case 'regexFailed':
-                        if (this.config.validation.regexFailed.hasOwnProperty(fieldName)) {
-                            var reg = new RegExp(this.config.validation.regexFailed[fieldName].regex, this.config.validation.regexFailed[fieldName].flags),
-                                match = reg.exec(model[fieldName]);
-
-                            if (match) {
-                                this.validationAssigne(modelId, fieldName, this.config.validation.regexFailed[fieldName].errorMsg);
-                            } else {
-                                this.validationRemove(modelId, fieldName, this.config.validation.regexFailed[fieldName].errorMsg);
-                            }
-                        }
-                        break;
+                if (this.config.validationCheckById) {
+                    this.switchValidation(modelId, model, validationIndex, fieldName, true);
+                } else {
+                    this.switchValidation(modelId, model, validationIndex, fieldName, false);
                 }
             }
+        }
+    }
+
+    switchValidation (modelId, model, validationIndex, fieldName, checkById) {
+        var fieldNameFull = '';
+        if (checkById) {
+            fieldNameFull = modelId + fieldName;
+        } else {
+            fieldNameFull = fieldName;
+        }
+        switch (validationIndex) {
+            case 'notNull':
+                if (this.config.validation.notNull.fieldNames.includes(fieldNameFull) && (model[fieldName] !== 0 && !model[fieldName])) {
+                    this.validationAssigne(modelId, fieldName, this.config.validation.notNull.errorMsg);
+                } else {
+                    this.validationRemove(modelId, fieldName, this.config.validation.notNull.errorMsg);
+                }
+                break;
+            case 'regexSuccess':
+                if (this.config.validation.regexSuccess.hasOwnProperty(fieldNameFull)) {
+                    var reg = new RegExp(this.config.validation.regexSuccess[fieldNameFull].regex, this.config.validation.regexSuccess[fieldNameFull].flags),
+                        match = reg.exec(model[fieldName]);
+
+                    if (!match) {
+                        this.validationAssigne(modelId, fieldName, this.config.validation.regexSuccess[fieldNameFull].errorMsg);
+                    } else {
+                        this.validationRemove(modelId, fieldName, this.config.validation.regexSuccess[fieldNameFull].errorMsg);
+                    }
+                }
+                break;
+            case 'regexFailed':
+                if (this.config.validation.regexFailed.hasOwnProperty(fieldNameFull)) {
+                    var reg = new RegExp(this.config.validation.regexFailed[fieldNameFull].regex, this.config.validation.regexFailed[fieldNameFull].flags),
+                        match = reg.exec(model[fieldName]);
+
+                    if (match) {
+                        this.validationAssigne(modelId, fieldName, this.config.validation.regexFailed[fieldNameFull].errorMsg);
+                    } else {
+                        this.validationRemove(modelId, fieldName, this.config.validation.regexFailed[fieldNameFull].errorMsg);
+                    }
+                }
+                break;
         }
     }
 
