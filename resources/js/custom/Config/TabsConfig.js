@@ -451,7 +451,7 @@ const TabsConfig = {
                 },
             },
             "WeatherTypes": {
-                "backendPremissionModelName": "",
+                "backendPremissionModelName": "weathertypes",
                 "api": {
                     "base": weatherTypesUrlBase,
                     "updateCreate": "/api/weathertypes-collections",
@@ -474,7 +474,7 @@ const TabsConfig = {
                 ],
             },
             "Orbits": {
-                "backendPremissionModelName": "",
+                "backendPremissionModelName": "orbits",
                 "api": {
                     "base": orbitsUrlBase,
                     "updateCreate": "/api/orbits-collections",
@@ -488,6 +488,25 @@ const TabsConfig = {
                     },
                 },
                 "extraBlocks": [],
+            },
+            "PromoCategories": {
+                "backendPremissionModelName": "promocategories",
+                "api": {
+                    "base": "/api/promocategories",
+                    "updateCreate": "/api/promocategories-collections",
+                    "delete": "/api/promocategories/",
+                },
+                "validation": {
+                    "notNull": {
+                        "fieldNames": [
+                            "text",
+                        ],
+                        'errorMsg': validationMessages.requiredField,
+                    },
+                },
+                "extraBlocks": [
+                    "confirmation-delete-model",
+                ],
             },
         };
     },

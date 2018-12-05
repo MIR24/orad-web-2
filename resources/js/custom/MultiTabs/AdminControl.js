@@ -3,6 +3,7 @@ import ConfigurationControl from "../Tabs/ConfigurationControl";
 import HelpRedacting from "../Tabs/HelpRedacting";
 import WeatherTypes from "../Tabs/WeatherTypes";
 import Orbits from "../Tabs/Orbits";
+import PromoCategories from "../Tabs/PromoCategories";
 
 class AdminControl extends BaseMultiTab {
     constructor () {
@@ -28,6 +29,11 @@ class AdminControl extends BaseMultiTab {
                 "seePremission": "see_orbits",
                 'class': Orbits,
                 'tabName': 'Орбиты',
+            },
+            'PromoCategories': {
+                "seePremission": "see_promocategories",
+                'class': PromoCategories,
+                'tabName': 'Промо категории',
             },
         };
     }
