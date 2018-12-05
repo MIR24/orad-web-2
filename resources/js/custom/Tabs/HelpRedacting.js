@@ -47,7 +47,7 @@ class HelpRedacting extends BaseMultiTabChild {
         }
 
         return `<div class="mx-3">
-            <div id="${index}" class="col p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
+            <div id="${index}" class="col p-0 m-portlet bg-secondary m-portlet--bordered m-portlet--rounded">
                 ${ controlButtons ? `<div class="m-portlet__head p-0">
                     <div class="row col align-items-center">
                         <div class="col-6"></div>
