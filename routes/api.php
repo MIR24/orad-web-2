@@ -73,6 +73,12 @@ Route::get('promocategories/{id}', 'API\PromoCategoryController@show')
     ->where(['id' => '[0-9]+'])
     ->name('promocategories.show');
 
+Route::get('nowfurtherlaters', 'API\NowFurtherLaterController@index')
+    ->name('nowfurtherlaters.index');
+Route::get('nowfurtherlaters/{id}', 'API\NowFurtherLaterController@show')
+    ->where(['id' => '[0-9]+'])
+    ->name('nowfurtherlaters.show');
+
 Route::get('orbits', 'API\OrbitController@index')
     ->name('orbits.index');
 Route::get('orbits/{id}', 'API\OrbitController@show')
@@ -202,6 +208,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('promocategories/{id}', 'API\PromoCategoryController@destroy')
         ->where(['id' => '[0-9]+'])
         ->name('promocategories.destroy');
+
+    Route::post('nowfurtherlaters', 'API\NowFurtherLaterController@store')
+        ->name('nowfurtherlaters.store');
+    Route::put('nowfurtherlaters/{id}', 'API\NowFurtherLaterController@update')
+        ->where(['id' => '[0-9]+'])
+        ->name('nowfurtherlaters.update');
+    Route::delete('nowfurtherlaters/{id}', 'API\NowFurtherLaterController@destroy')
+        ->where(['id' => '[0-9]+'])
+        ->name('nowfurtherlaters.destroy');
 
     Route::post('orbits', 'API\OrbitController@store')
         ->name('orbits.store');
@@ -338,6 +353,11 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('promocategories-collections.storeMultiple');
     Route::patch('promocategories-collections', 'API\PromoCategoryController@patchMultiple')
         ->name('promocategories-collections.patchMultiple');
+
+    Route::post('nowfurtherlaters-collections', 'API\NowFurtherLaterController@storeMultiple')
+        ->name('nowfurtherlaters-collections.storeMultiple');
+    Route::patch('nowfurtherlaters-collections', 'API\NowFurtherLaterController@patchMultiple')
+        ->name('nowfurtherlaters-collections.patchMultiple');
 
     Route::post('orbits-collections', 'API\OrbitController@storeMultiple')
         ->name('orbits-collections.storeMultiple');
