@@ -89,7 +89,9 @@ class BaseTab {
                         'modelId': null,
                         'state': false,
                     };
-                    if (!this.config.doNotMergeAfterOneSave.includes(this.constructor.name)) {
+                    if (!this.config.doNotMergeAfterOneSave.includes(this.constructor.name) || (
+                        this.config.hasOwnProperty('pagination') &&
+                        this.models[this.config.pagination.params.limit - 1] == undefined)) {
                         this.models = Object.assign(this.models, {[response.data[0].id]: response.data[0]});
                     }
                     toastr.success(toastrMessages.success.save);
@@ -111,9 +113,7 @@ class BaseTab {
                             'modelId': null,
                             'state': false,
                         };
-                        if (!this.config.doNotMergeAfterOneSave.includes(this.constructor.name)) {
-                            this.models[modelId] = response.data[0];
-                        }
+                        this.models[modelId] = response.data[0];
                         toastr.success(toastrMessages.success.update);
                     }, function (error) {
                         toastr.error(toastrMessages.error.update);
@@ -251,6 +251,13 @@ class BaseTab {
     }
 
     setData (response) {
+        if (this.config.hasOwnProperty('pagination')) {
+            if (response.length != this.config.pagination.params.limit) {
+                this.config.pagination.hasMore = false;
+            } else {
+                this.config.pagination.hasMore = true;
+            }
+        }
         this.models = response;
     }
 
@@ -311,11 +318,14 @@ class BaseTab {
 
     getMergedSearchOptions (offset, limit) {
         if (offset !== undefined && limit !== undefined) {
+            this.config.pagination.params.offset = offset;
+            this.config.pagination.params.limit = limit;
             return Object.assign({}, {
                 'offset': offset,
                 'limit': limit,
             }, this.searchOptions);
         } else {
+            this.config.pagination.params.offset = 0;
             return Object.assign({}, this.config.pagination.params, this.searchOptions)
         }
     }
@@ -323,12 +333,6 @@ class BaseTab {
     paginationMove (offset, limit) {
         simpleAjaxPromise(apiMethods.get, this.config.api.base, this.getMergedSearchOptions(offset, limit))
         .then((response) => {
-            this.config.pagination.params.offset = offset;
-            if (response.data.length != limit) {
-                this.config.pagination.hasMore = false;
-            } else {
-                this.config.pagination.hasMore = true;
-            }
             this.setData(response.data);
             this.rerender();
         }, (error) => {
@@ -348,12 +352,6 @@ class BaseTab {
 
         simpleAjaxPromise(apiMethods.get, this.config.api.base, this.getMergedSearchOptions())
         .then((response) => {
-            this.config.pagination.params.offset = 0;
-            if (response.data.length != this.config.pagination.params.limit) {
-                this.config.pagination.hasMore = false;
-            } else {
-                this.config.pagination.hasMore = true;
-            }
             this.setData(response.data);
             this.rerender();
         }, (error) => {

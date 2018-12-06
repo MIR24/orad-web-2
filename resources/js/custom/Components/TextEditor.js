@@ -5,7 +5,7 @@ class TextEditor extends BaseComponent {
     constructor (id, valueName, value, maxCharsPerLine, disabled, placeholder) {
         super(id, valueName, 'input', disabled);
         this.placeholder = placeholder ? placeholder : 'Текст';
-        this.value = Object.is(value, undefined) ? '' : value;
+        this.value = Object.is(value, undefined) || Object.is(value, null) ? '' : value;
         this.maxCharsPerLine = maxCharsPerLine;
     }
 
@@ -18,7 +18,7 @@ class TextEditor extends BaseComponent {
             ${this.disabledString}
             class="p-3 form-control m-input m-input--air"
             id="${this.id}"
-            rows="${this.value.split(/\r\n|\r|\n/).length + 1}"
+            rows="${this.value ? this.value.split(/\r\n|\r|\n/).length + 1 : 3}"
             placeholder="${this.placeholder}"
             style="font-family: 'Courier New', Courier, monospace;"
             >${this.value}</textarea>

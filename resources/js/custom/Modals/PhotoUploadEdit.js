@@ -9,27 +9,27 @@ class PhotoUploadEdit extends BaseModalEdit {
 
     getModalBody () {
         if (jQuery.isEmptyObject(this.validationModel)) {
-            var customId = new Input(this.modelId, 'customId', this.model.customId, this.additions.premissions.customId, 'ID'),
+            var external_id = new Input(this.modelId, 'external_id', this.model.external_id, this.additions.premissions.external_id, 'ID'),
                 name = new Input(this.modelId, 'name', this.model.name, this.additions.premissions.name, 'Название'),
-                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, this.additions.premissions.img),
+                imageDrop = new DropZoneCustom(this.modelId, 'path', false, this.constructor.name, this.additions.premissions.path),
                 error = {};
         } else {
-            var customId = new Input(this.modelId, 'customId', this.validationModel.errorModel.customId, this.additions.premissions.customId, 'ID'),
+            var external_id = new Input(this.modelId, 'external_id', this.validationModel.errorModel.external_id, this.additions.premissions.external_id, 'ID'),
                 name = new Input(this.modelId, 'name', this.validationModel.errorModel.name, this.additions.premissions.name, 'Название'),
-                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, this.additions.premissions.img),
+                imageDrop = new DropZoneCustom(this.modelId, 'path', false, this.constructor.name, this.additions.premissions.path),
                 error = this.validationModel.errorValidation;
         }
 
-        customId.init();
+        external_id.init();
         name.init();
         imageDrop.init();
 
-        this.addListeners(customId.getListeners());
+        this.addListeners(external_id.getListeners());
         this.addListeners(name.getListeners());
         this.addAdditionlClassesJQ(this.modelId, imageDrop);
 
-        return `${this.getRow('Файл', imageDrop.getTemplate(), error.img)}
-            ${this.getRow('ID МИР', customId.getTemplate(), error.customId)}
+        return `${this.getRow('Файл', imageDrop.getTemplate(), error.path)}
+            ${this.getRow('ID МИР', external_id.getTemplate(), error.external_id)}
             ${this.getRow('Название', name.getTemplate(), error.name)}
         `;
     }
