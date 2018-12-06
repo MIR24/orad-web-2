@@ -377,41 +377,41 @@ const TabsConfig = {
                 ],
             },
             "PhotoUpload": {
-                "backendPremissionModelName": "",
+                "backendPremissionModelName": "nowfurtherlaters",
                 "api": {
-                    "base": "/test/photoUpload",
-                    "updateCreate": "/api/photoUpload",
-                    "delete": "/api/photoUpload/",
+                    "base": "/api/nowfurtherlaters",
+                    "updateCreate": "/api/nowfurtherlaters-collections",
+                    "delete": "/api/nowfurtherlaters/",
                 },
                 "defaultEditState": {
-                    "customId": null,
+                    "external_id": null,
                     "name": null,
-                    "img": null,
+                    "path": 'test',
                 },
                 'premissions': {
                     'update': [
-                        "customId",
+                        "external_id",
                         "name",
-                        "img",
+                        "path",
                     ],
                 },
                 "validation": {
                     "notNull": {
                         "fieldNames": [
-                            "customId",
+                            "external_id",
                             "name",
-                            "img",
+                            "path",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
                 },
-                /*"pagination": {
+                "pagination": {
                     "params": {
                         "offset": 0,
                         "limit": 21,
                     },
                     "hasMore": true,
-                },*/
+                },
                 "extraBlocks": [
                     "info-show-help-model",
                     "confirmation-delete-model",

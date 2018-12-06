@@ -17,13 +17,13 @@ class PhotoUpload extends BaseTab {
     makeTemplate () {
         var template = '',
             controlButtons = '',
-            //pagination = new Pagination(this.constructor.name, this.config.pagination),
+            pagination = new Pagination(this.constructor.name, this.config.pagination),
             searchInline = new SearchInline(this.constructor.name, this.searchOptions);
 
-        //pagination.init();
+        pagination.init();
         searchInline.init();
 
-        //this.addListeners(pagination.getListeners());
+        this.addListeners(pagination.getListeners());
         this.addListeners(searchInline.getListeners());
 
         if (this.checkPermissions('create')) {
@@ -52,7 +52,8 @@ class PhotoUpload extends BaseTab {
         </div>
         <div  class="row justify-content">
             ${template}
-        </div>`;
+        </div>
+        ${pagination.getTemplate()}`;
     }
 
     makeBlock (index) {
@@ -90,7 +91,7 @@ class PhotoUpload extends BaseTab {
                         <div class="col mt-2 mr-4">
                             <div class="row border-bottom mb-3">
                                 <lable class="col">ID</lable>
-                                <lable class="col text-right">${(this.models[index].customId !== undefined && this.models[index].customId !== null) ? this.models[index].customId : '-'}</lable>
+                                <lable class="col text-right">${(this.models[index].external_id !== undefined && this.models[index].external_id !== null) ? this.models[index].external_id : '-'}</lable>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <lable class="col">Название</lable>

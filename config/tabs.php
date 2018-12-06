@@ -52,7 +52,7 @@ return [
         ],
         [
             'jsClass' => 'PhotoUpload',
-            'seePremission' => '',
+            'seePremission' => 'see_nowfurtherlaters',
         ],
         [
             'jsClass' => 'AdminControl',
