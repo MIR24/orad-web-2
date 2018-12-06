@@ -165,11 +165,11 @@ abstract class Repository implements RepositoryInterface
      * Destroy the models for the given IDs.
      *
      * @param  array|int  $ids
-     * @return int
+     * @return array
      */
     public function delete($ids)
     {
-        return $this->model->destroy($ids);
+        return ['model' => $this->model->destroy($ids)];
     }
 
     /**
