@@ -12,15 +12,15 @@ class TextEditor extends BaseComponent {
     makeTemplate () {
         this.template = `<div class="w-100 position-relative">
             <div class="textarea-vertical-line"
-                style="margin-left:${(this.maxCharsPerLine + 1) * 10 + 17}px">
+                style="margin-left:${this.maxCharsPerLine * 10.15 + 13}px">
             </div>
             <textarea
             ${this.disabledString}
-            class="form-control m-input m-input--air"
+            class="p-3 form-control m-input m-input--air"
             id="${this.id}"
             rows="${this.value.split(/\r\n|\r|\n/).length + 1}"
             placeholder="${this.placeholder}"
-            style="font-family: monospace;"
+            style="font-family: 'Courier New', Courier, monospace;"
             >${this.value}</textarea>
         </div>`;
     }

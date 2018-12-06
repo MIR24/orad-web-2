@@ -55,21 +55,29 @@ const TabsConfig = {
                     "base": "/api/newsbars",
                     "updateCreate": "/api/newsbars-collections",
                 },
-                "textMaxCharsPerLine": SettingsDB.values.SINGLE_HOT_LENGTH,
+                "textMaxCharsPerLineHOT": SettingsDB.values.NB_TOP_LENGTH,
+                "textMaxCharsPerLineBEG": SettingsDB.values.NB_BEG_LENGTH,
                 "defaultEditState": {
                     "text": null,
                     "strings": null,
                 },
+                "validationCheckById": true,
                 "validation": {
                     "notNull": {
                         "fieldNames": [
-                            "strings",
+                            "0strings",
+                            "1strings",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
                     "regexFailed": {
-                        "strings": {
-                            "regex": `^.{${(SettingsDB.values.SINGLE_HOT_LENGTH + 1)},}$`,
+                        "0strings": {
+                            "regex": `^.{${(SettingsDB.values.NB_TOP_LENGTH + 1)},}$`,
+                            "flags": "gm",
+                            "errorMsg": validationMessages.toManyChars,
+                        },
+                        "1strings": {
+                            "regex": `^.{${(SettingsDB.values.NB_BEG_LENGTH + 1)},}$`,
                             "flags": "gm",
                             "errorMsg": validationMessages.toManyChars,
                         },
@@ -88,7 +96,7 @@ const TabsConfig = {
                     "updateCreate": "/api/hotnews-collections",
                     "delete": "/api/hotnews/",
                 },
-                "textMaxCharsPerLine": SettingsDB.values.NB_TOP_LENGTH,
+                "textMaxCharsPerLine": SettingsDB.values.SINGLE_HOT_LENGTH,
                 "defaultEditState": {
                     "text": null,
                     "strings": null,
@@ -103,7 +111,7 @@ const TabsConfig = {
                     },
                     "regexFailed": {
                         "strings": {
-                            "regex": `^.{${(SettingsDB.values.NB_TOP_LENGTH + 1)},}$`,
+                            "regex": `^.{${(SettingsDB.values.SINGLE_HOT_LENGTH + 1)},}$`,
                             "flags": "gm",
                             "errorMsg": validationMessages.toManyChars,
                         },
@@ -136,6 +144,7 @@ const TabsConfig = {
                         "fieldNames": [
                             "val1",
                             "val2",
+                            "value",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
@@ -409,7 +418,7 @@ const TabsConfig = {
                 ],
             },
             "ConfigurationControl": {
-                "backendPremissionModelName": "",
+                "backendPremissionModelName": "settings",
                 "api": {
                     "base": settingsDBUrlBase,
                     "updateCreate": "/api/settings-collections",

@@ -24,7 +24,7 @@ class Newsbar extends BaseTab {
     }
 
     makeBlock (index, title, text, error) {
-        var textarea = new TextEditor(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
+        var textarea = new TextEditor(index, 'strings', text, index == 0 ? this.config.textMaxCharsPerLineHOT : this.config.textMaxCharsPerLineBEG, this.checkPermissionsField('strings')),
             controlButtons = '';
 
         textarea.init();
@@ -52,7 +52,7 @@ class Newsbar extends BaseTab {
             controlButtons = `${enterRedactingBtn.getTemplate()}`;
         }
 
-        return `<div class="col-12 p-0 m-portlet bg-secondary m-portlet--skin-dark m-portlet--bordered m-portlet--rounded">
+        return `<div class="col-12 p-0 m-portlet bg-secondary m-portlet--bordered m-portlet--rounded">
             ${ controlButtons ? `<div class="m-portlet__head p-0">
                 <div class="row col align-items-center">
                     <div class="col-6"></div>

@@ -18,16 +18,21 @@ class WeatherTypes extends BaseMultiTabChild {
 
         if (this.edit.state) {
             var saveBtn = new SaveButton('all'),
-                cancelEditBtn = new CancelEditingButton('all'),
-                addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, tableBodyId);
+                cancelEditBtn = new CancelEditingButton('all');
 
             saveBtn.init();
             cancelEditBtn.init();
-            addEmptyBlockButton.init();
 
             this.addListeners(saveBtn.getListeners());
             this.addListeners(cancelEditBtn.getListeners());
-            this.addListeners(addEmptyBlockButton.getListeners());
+
+            if (this.checkPermissions('create')) {
+                var addEmptyBlockButton = new AddEmptyBlockButton(this.constructor.name, !this.edit.hasOwnProperty('new'), tableBodyId);
+                this.addEmptyBlockButtonId = addEmptyBlockButton.id;
+                addEmptyBlockButton.init();
+                this.addListeners(addEmptyBlockButton.getListeners());
+                controlButtons += addEmptyBlockButton.getTemplate();
+            }
 
             controlButtons += `${addEmptyBlockButton.getTemplate()}${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
         } else if (this.checkPermissions('update') || this.checkPermissions('create')) {
