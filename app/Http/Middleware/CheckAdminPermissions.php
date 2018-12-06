@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 
-class CheckIfSuperAdmin
+class CheckAdminPermissions
 {
     /**
      * Handle an incoming request.
