@@ -152,12 +152,12 @@ const TabsConfig = {
                         "val1": {
                             "regex": '^.{6,}$',
                             "flags": "g",
-                            "errorMsg": validationMessages.noMoreThan5,
+                            "errorMsg": validationMessages.noMoreThan + 5,
                         },
                         "val2": {
                             "regex": `^.{6,}$`,
                             "flags": "g",
-                            "errorMsg": validationMessages.noMoreThan5,
+                            "errorMsg": validationMessages.noMoreThan + 5,
                         },
                     },
                 },
