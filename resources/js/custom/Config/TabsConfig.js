@@ -136,7 +136,7 @@ const TabsConfig = {
                 "defaultEditState": {
                     "val1": null,
                     "val2": null,
-                    "dir": "stay",
+                    "dir": 0,
                     "value": 0,
                 },
                 "validation": {
