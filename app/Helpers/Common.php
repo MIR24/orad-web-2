@@ -35,3 +35,31 @@ if (! function_exists('load_strings')) {
         }
     }
 }
+
+if (! function_exists('get_settings')) {
+    /**
+     * Get app settings from cache or database.
+     *
+     * @return mixed
+     */
+    function get_settings_hash()
+    {
+        return Cache::remember('app_settings', config('cache.default_ttl'), function () {
+            return Illuminate\Support\Facades\Hash::make(
+                App\Setting::get()
+            );
+        });
+    }
+}
+
+if (! function_exists('forget_settings')) {
+    /**
+     * Get app settings from cache or database.
+     *
+     * @return bool
+     */
+    function forget_settings_hash()
+    {
+        return Cache::forget('app_settings');
+    }
+}

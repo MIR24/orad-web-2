@@ -29,4 +29,22 @@ class Setting extends Model
      * @var string
      */
     protected $table = 'Settings';
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        $func = function ($model) {
+            forget_settings_hash();
+        };
+
+        static::saved($func);
+        static::deleted($func);
+        static::restored($func);
+    }
 }
