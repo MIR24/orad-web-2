@@ -34,7 +34,7 @@ class WeatherTypes extends BaseMultiTabChild {
                 controlButtons += addEmptyBlockButton.getTemplate();
             }
 
-            controlButtons += `${addEmptyBlockButton.getTemplate()}${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
+            controlButtons += `${saveBtn.getTemplate()}${cancelEditBtn.getTemplate()}`;
         } else if (this.checkPermissions('update') || this.checkPermissions('create')) {
             var enterRedactingBtn = new EnterEditingButton(this.constructor.name);
 

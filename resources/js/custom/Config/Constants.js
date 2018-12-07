@@ -52,8 +52,8 @@ export const toastrMessages = {
 export const validationMessages = {
     'requiredField': 'Обязательно для заполнения',
     'toManyChars': 'Превышено максимальное количество символов в строке',
-    'followPattern': 'follow patter ',
-    'noMoreThan5': 'Максимальное количество символов: 5',
+    'noMoreThan': 'Максимальное количество символов: ',
+    'noMoreThanInt': 'Максимальное количество цифр: ',
     'dataTimeAgain': 'Повторите ввод даты и времени',
     'onlyInteger': 'Введите целое число',
 };
