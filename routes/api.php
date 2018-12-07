@@ -119,6 +119,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('mypermissions', 'API\UserController@showSelfPermissions');
     Route::get('users/{id}/permissions', 'API\UserController@showPermissions');
 
+    Route::post('images', 'API\ImageController@store')
+        ->name('images.store');
+
     Route::post('citytimeshifts', 'API\CityTimeshiftController@store')
         ->name('citytimeshifts.store');
     Route::put('citytimeshifts/{id}', 'API\CityTimeshiftController@update')
