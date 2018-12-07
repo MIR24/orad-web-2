@@ -53,6 +53,7 @@ export const validationMessages = {
     'requiredField': 'Обязательно для заполнения',
     'toManyChars': 'Превышено максимальное количество символов в строке',
     'noMoreThan': 'Максимальное количество символов: ',
+    'noMoreThanInt': 'Максимальное количество цифр: ',
     'dataTimeAgain': 'Повторите ввод даты и времени',
     'onlyInteger': 'Введите целое число',
 };

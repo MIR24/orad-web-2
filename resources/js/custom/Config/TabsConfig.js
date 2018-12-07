@@ -160,6 +160,13 @@ const TabsConfig = {
                             "errorMsg": validationMessages.noMoreThan + 5,
                         },
                     },
+                    "regexSuccess": {
+                        "value": {
+                            "regex": /^[\+\-]?\d{0,4}$|^[\+\-]?\d{0,4}\.[\d]{0,4}?$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThanInt + 4,
+                        },
+                    },
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -190,6 +197,25 @@ const TabsConfig = {
                             "weather_type_id",
                         ],
                         'errorMsg': validationMessages.requiredField,
+                    },
+                    "regexFailed": {
+                        "city": {
+                            "regex": '^.{71,}$',
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThan + 70,
+                        },
+                    },
+                    "regexSuccess": {
+                        "morning": {
+                            "regex": /^[\+|\-]?\d{0,3}$|^\d{0,3}$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThanInt + 3,
+                        },
+                        "evening": {
+                            "regex": /^[\+|\-]?\d{0,3}$|^\d{0,3}$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThanInt + 3,
+                        },
                     },
                 },
                 "switchValue": {
@@ -233,6 +259,30 @@ const TabsConfig = {
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
+                    "regexFailed": {
+                        "city": {
+                            "regex": '^.{71,}$',
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThan + 70,
+                        },
+                    },
+                    "regexSuccess": {
+                        "now": {
+                            "regex": /^[\+|\-]?\d{0,3}$|^\d{0,3}$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThan + 3,
+                        },
+                        "morning": {
+                            "regex": /^[\+|\-]?\d{0,3}$|^\d{0,3}$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThanInt + 3,
+                        },
+                        "evening": {
+                            "regex": /^[\+|\-]?\d{0,3}$|^\d{0,3}$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThanInt + 3,
+                        },
+                    },
                 },
                 "switchValue": {
                     "status": {
@@ -267,6 +317,20 @@ const TabsConfig = {
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
+                    "regexFailed": {
+                        "city": {
+                            "regex": '^.{71,}$',
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThan + 70,
+                        },
+                    },
+                    "regexSuccess": {
+                        "timeshift": {
+                            "regex": /^\d{0,10}$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThanInt + 10,
+                        },
+                    },
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -298,6 +362,11 @@ const TabsConfig = {
                             "regex": `^(0000-01-01|.+Invalid).+$`,
                             "flags": "g",
                             "errorMsg": validationMessages.dataTimeAgain,
+                        },
+                        "title": {
+                            "regex": '^.{201,}$',
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThan + 200,
                         },
                     },
                 },
@@ -353,6 +422,23 @@ const TabsConfig = {
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
+                    "regexSuccess": {
+                        "mir_id": {
+                            "regex": /^\d{0,10}$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThanInt + 10,
+                        },
+                        "mirhd_id": {
+                            "regex": /^\d{0,10}$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThanInt + 10,
+                        },
+                        "age": {
+                            "regex": /^\d{0,3}$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThanInt + 3,
+                        },
+                    },
                 },
                 "pagination": {
                     "params": {
@@ -403,6 +489,13 @@ const TabsConfig = {
                             "path",
                         ],
                         'errorMsg': validationMessages.requiredField,
+                    },
+                    "regexSuccess": {
+                        "external_id": {
+                            "regex": /^\d{0,10}$/,
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThanInt + 10,
+                        },
                     },
                 },
                 "pagination": {
@@ -494,6 +587,13 @@ const TabsConfig = {
                             "name",
                         ],
                         'errorMsg': validationMessages.requiredField,
+                    },
+                    "regexFailed": {
+                        "name": {
+                            "regex": '^.{46,}$',
+                            "flags": "g",
+                            "errorMsg": validationMessages.noMoreThan + 45,
+                        },
                     },
                 },
                 "extraBlocks": [],
