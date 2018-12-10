@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class EventCountdown extends Model
 {
@@ -14,7 +15,7 @@ class EventCountdown extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at', 'happen_at'];
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -29,4 +30,26 @@ class EventCountdown extends Model
      * @var string
      */
     protected $table = 'EventCountdowns';
+
+    /**
+     * Get the EventCountdown's happen_at.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getHappenAtAttribute($value)
+    {
+        return Carbon::createFromTimestamp($value)->toDateTimeString();
+    }
+
+    /**
+     * Set the EventCountdown's happen_at.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setHappenAtAttribute($value)
+    {
+        $this->attributes['happen_at'] = Carbon::parse($value)->timestamp;
+    }
 }

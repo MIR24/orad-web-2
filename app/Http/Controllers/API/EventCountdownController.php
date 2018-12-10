@@ -40,17 +40,17 @@ class EventCountdownController extends BaseController
             $validationRules = [
                 'data.title' => 'required|string|max:255',
                 'data.description' => 'required|string',
-                'data.happen_at' => 'required|integer',
+                'data.happen_at' => 'required|date',
             ];
         } else {
             if ($user->can('update_title_eventcountdowns')) {
-                $validationRules['data.val1'] = 'required|string|max:255';
+                $validationRules['data.title'] = 'required|string|max:255';
             }
             if ($user->can('update_description_eventcountdowns')) {
-                $validationRules['data.val2'] = 'required|string';
+                $validationRules['data.description'] = 'required|string';
             }
             if ($user->can('update_happen_at_eventcountdowns')) {
-                $validationRules['data.dir'] = 'required|integer';
+                $validationRules['data.happen_at'] = 'required|date';
             }
         }
 
@@ -75,23 +75,92 @@ class EventCountdownController extends BaseController
             $validationRules = [
                 'data.title' => 'required|string|max:255',
                 'data.description' => 'required|string',
-                'data.happen_at' => 'required|integer',
+                'data.happen_at' => 'required|date',
                 'data.id' => 'integer',
             ];
         } else {
             if ($user->can('update_title_eventcountdowns')) {
-                $validationRules['data.val1'] = 'required|string|max:255';
+                $validationRules['data.title'] = 'required|string|max:255';
             }
             if ($user->can('update_description_eventcountdowns')) {
-                $validationRules['data.val2'] = 'required|string';
+                $validationRules['data.description'] = 'required|string';
             }
             if ($user->can('update_happen_at_eventcountdowns')) {
-                $validationRules['data.dir'] = 'required|integer';
+                $validationRules['data.happen_at'] = 'required|date';
             }
         }
 
         $validatedData = $request->validate($validationRules);
 
         return new CommonResource($this->repository->update($validatedData['data'], $id));
+    }
+
+    /**
+     * Store multiple newly created resources in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeMultiple(Request $request)
+    {
+        $user = $request->user();
+        $validationRules = [];
+
+        if ($user->can('update_eventcountdowns')) {
+            $validationRules = [
+                'data.*.title' => 'required|string|max:255',
+                'data.*.description' => 'required|string',
+                'data.*.happen_at' => 'required|date',
+            ];
+        } else {
+            if ($user->can('update_title_eventcountdowns')) {
+                $validationRules['data.title'] = 'required|string|max:255';
+            }
+            if ($user->can('update_description_eventcountdowns')) {
+                $validationRules['data.description'] = 'required|string';
+            }
+            if ($user->can('update_happen_at_eventcountdowns')) {
+                $validationRules['data.happen_at'] = 'required|date';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
+        return new CommonResource($this->repository->createMultiple($request->input('data')));
+    }
+
+    /**
+     * Creates or Updates one or more items in specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function patchMultiple(Request $request)
+    {
+        $user = $request->user();
+        $validationRules = ['data.*.id' => 'integer'];
+
+        if ($user->can('update_eventcountdowns')) {
+            $validationRules = [
+                'data.*.title' => 'required|string|max:255',
+                'data.*.description' => 'required|string',
+                'data.*.happen_at' => 'required|date',
+                'data.*.id' => 'integer',
+            ];
+        } else {
+            if ($user->can('update_title_eventcountdowns')) {
+                $validationRules['data.title'] = 'required|string|max:255';
+            }
+            if ($user->can('update_description_eventcountdowns')) {
+                $validationRules['data.description'] = 'required|string';
+            }
+            if ($user->can('update_happen_at_eventcountdowns')) {
+                $validationRules['data.happen_at'] = 'required|date';
+            }
+        }
+
+        $validatedData = $request->validate($validationRules);
+
+        return new CommonResource($this->repository->patchMultiple($request->input('data')));
     }
 }
