@@ -73,9 +73,8 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="m-stack__item m-brand m-stack__item--left">
                                 <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
                                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                                        <a href="index.html" class="m-brand__logo-wrapper">
-                                            <img alt="{{ config('app.name', 'Laravel') }}" src="{{ auto_asset('assets/demo/demo8/media/img/logo/logo.png') }}" class="m-brand__logo-default" />
-                                            <img alt="{{ config('app.name', 'Laravel') }}" src="{{ auto_asset('assets/demo/demo8/media/img/logo/logo_inverse.png') }}" class="m-brand__logo-inverse" />
+                                        <a href="/" class="m-brand__logo-wrapper" style="text-decoration: none;">
+                                            <h1>{{ config('app.name', 'Laravel') }}</h1>
                                         </a>
                                     </div>
                                     <div class="m-stack__item m-stack__item--middle m-brand__tools">
