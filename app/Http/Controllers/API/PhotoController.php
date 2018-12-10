@@ -17,7 +17,8 @@ class PhotoController extends BaseController
      */
     public function __construct(PhotoRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:see_photos']);
         $this->middleware(['permission:create_photos'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_photos'])->only(['update', 'patchMultiple']);

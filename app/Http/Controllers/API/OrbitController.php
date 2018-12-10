@@ -17,7 +17,8 @@ class OrbitController extends BaseController
      */
     public function __construct(OrbitRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:see_orbits']);
         $this->middleware(['permission:create_orbits'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_orbits'])->only(['update', 'patchMultiple']);

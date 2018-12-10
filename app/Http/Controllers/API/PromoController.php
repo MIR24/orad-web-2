@@ -17,7 +17,8 @@ class PromoController extends BaseController
      */
     public function __construct(PromoRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:create_promos'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_promos'])->only(['update', 'patchMultiple']);
         $this->middleware(['permission:delete_promos'])->only(['destroy']);

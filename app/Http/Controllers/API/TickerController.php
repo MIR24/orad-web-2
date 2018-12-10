@@ -18,7 +18,8 @@ class TickerController extends BaseController
      */
     public function __construct(TickerRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:see_tickers']);
         $this->middleware(['permission:create_tickers'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_tickers'])->only(['update', 'patchMultiple']);

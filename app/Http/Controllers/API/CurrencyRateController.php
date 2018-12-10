@@ -17,7 +17,8 @@ class CurrencyRateController extends BaseController
      */
     public function __construct(CurrencyRateRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:see_currencyrates']);
         $this->middleware(['permission:create_currencyrates'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_currencyrates'])->only(['update', 'patchMultiple']);

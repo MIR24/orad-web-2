@@ -23,6 +23,8 @@ abstract class BaseController extends Controller
     public function __construct(Repository $repository)
     {
         $this->repository = $repository;
+
+        $this->middleware(['log_everything']);
     }
 
     /**

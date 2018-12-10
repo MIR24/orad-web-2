@@ -95,6 +95,7 @@ return [
         \Backpack\Base\app\Http\Middleware\CheckIfAdmin::class,
         App\Http\Middleware\CheckAdminPermissions::class,
         App\Http\Middleware\CheckIfSuperAdminCanBeAssigned::class,
+        \App\Http\Middleware\LogEverything::class,
     ],
 
     // Alias for that middleware

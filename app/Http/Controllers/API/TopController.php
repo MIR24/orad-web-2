@@ -18,7 +18,8 @@ class TopController extends BaseController
      */
     public function __construct(TopRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:see_tops']);
         $this->middleware(['permission:create_tops'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_tops'])->only(['update', 'patchMultiple']);

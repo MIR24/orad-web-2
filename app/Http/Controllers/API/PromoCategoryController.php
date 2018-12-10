@@ -17,7 +17,8 @@ class PromoCategoryController extends BaseController
      */
     public function __construct(PromoCategoryRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:create_promocategories'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_promocategories'])->only(['update', 'patchMultiple']);
         $this->middleware(['permission:delete_promocategories'])->only(['destroy']);

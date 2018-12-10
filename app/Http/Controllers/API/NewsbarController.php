@@ -18,7 +18,8 @@ class NewsbarController extends BaseController
      */
     public function __construct(NewsbarRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:see_newsbars']);
         $this->middleware(['permission:create_newsbars'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_newsbars'])->only(['update', 'patchMultiple']);

@@ -17,7 +17,8 @@ class NowFurtherLaterController extends BaseController
      */
     public function __construct(NowFurtherLaterRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:see_nowfurtherlaters']);
         $this->middleware(['permission:create_nowfurtherlaters'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_nowfurtherlaters'])->only(['update', 'patchMultiple']);

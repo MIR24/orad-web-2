@@ -18,7 +18,8 @@ class HotNewsController extends BaseController
      */
     public function __construct(HotNewsRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:see_hotnews']);
         $this->middleware(['permission:create_hotnews'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_hotnews'])->only(['update', 'patchMultiple']);

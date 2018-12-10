@@ -17,7 +17,8 @@ class WeatherForecastLinerController extends BaseController
      */
     public function __construct(WeatherForecastLinerRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository);
+
         $this->middleware(['permission:see_weatherforecastsliners']);
         $this->middleware(['permission:create_weatherforecastsliners'])->only(['store', 'storeMultiple']);
         $this->middleware(['permission:update_weatherforecastsliners'])->only(['update', 'patchMultiple']);
