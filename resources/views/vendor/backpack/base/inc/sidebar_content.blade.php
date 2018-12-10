@@ -6,4 +6,5 @@
 @role(config('permission.super-admin-name'))
 <li><a href="{{ backpack_url('role') }}"><i class="fa fa-group"></i> <span>{{ __('Roles') }}</span></a></li>
 <li><a href="{{ backpack_url('permission') }}"><i class="fa fa-key"></i> <span>{{ __('Permissions') }}</span></a></li>
+<li><a href="{{ route('log.index') }}"><i class="fa fa-book"></i> <span>{{ __('Logs') }}</span></a></li>
 @endrole

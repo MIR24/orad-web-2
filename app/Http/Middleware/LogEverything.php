@@ -19,7 +19,7 @@ class LogEverything
     {
         $response = $next($request);
 
-        if ($response->status() == 200) {
+        if ($response->status() == 200 && !$request->isMethod('GET')) {
             $route = Route::currentRouteName();
             if (empty($route)) {
                 $route = Route::currentRouteAction();
