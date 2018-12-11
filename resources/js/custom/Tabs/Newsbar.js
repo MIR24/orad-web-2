@@ -24,7 +24,7 @@ class Newsbar extends BaseTab {
     }
 
     makeBlock (index, title, text, error) {
-        var textarea = new TextEditor(index, 'strings', text, index == 0 ? this.config.textMaxCharsPerLineHOT : this.config.textMaxCharsPerLineBEG, this.checkPermissionsField('strings')),
+        var textarea = new TextEditor(index, 'strings', text, index == 0 ? this.config.textMaxCharsPerLineHOT : this.config.textMaxCharsPerLineBEG, this.checkPermissionsField('strings', index)),
             controlButtons = '';
 
         textarea.init();

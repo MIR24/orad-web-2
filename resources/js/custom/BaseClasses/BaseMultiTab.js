@@ -12,6 +12,9 @@ class BaseMultiTab {
         this.currentActiveTabId = '';
         this.tabsFormatter = {};
         this.tabActiveCss = 'bg-secondary active';
+        this.hashCheck = {
+            settings_hash: false,
+        };
     }
 
     showHelp () {}
@@ -74,7 +77,7 @@ class BaseMultiTab {
         this.renderTemplate();
         this.initListeners();
         this.initActiveTab();
-        $('body').removeClass('m-page--loading');
+        mApp.unblockPage();
     }
 }
 export default BaseMultiTab

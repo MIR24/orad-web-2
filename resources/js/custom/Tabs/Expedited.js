@@ -41,9 +41,9 @@ class Expedited extends BaseTab {
     }
 
     makeBlock (index, title, text, error) {
-        var title = new Input(index, 'text', title, this.checkPermissionsField('text'), 'Заголовок'),
-            textarea = new TextEditor(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings')),
-            checkboxes = new ExpeditedCheckbox(index, 'orbits', this.additions.orbits, this.checkPermissionsField('orbits')),
+        var title = new Input(index, 'text', title, this.checkPermissionsField('text', index), 'Заголовок'),
+            textarea = new TextEditor(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings', index)),
+            checkboxes = new ExpeditedCheckbox(index, 'orbits', this.additions.orbits, this.checkPermissionsField('orbits', index)),
             controlButtons = '';
 
         title.init();

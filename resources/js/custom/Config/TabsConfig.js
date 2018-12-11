@@ -3,6 +3,7 @@ import {
     validationMessages,
     weatherTypesUrlBase,
     orbitsUrlBase,
+    currentActive,
 } from "../Config/Constants"
 import SettingsDB from "../Utils/SettingsDB";
 
@@ -21,6 +22,9 @@ const TabsConfig = {
                     "base": "/api/tops",
                     "updateCreate": "/api/tops-collections",
                     "delete": "/api/tops/",
+                },
+                "getAdditions": {
+                    "help": '/api/tabs?q=Tops',
                 },
                 "textMaxCharsPerLine": SettingsDB.values.SINGLE_TOP_LENGTH,
                 "defaultEditState": {
@@ -54,6 +58,9 @@ const TabsConfig = {
                 "api": {
                     "base": "/api/newsbars",
                     "updateCreate": "/api/newsbars-collections",
+                },
+                "getAdditions": {
+                    "help": '/api/tabs?q=Newsbar',
                 },
                 "textMaxCharsPerLineHOT": SettingsDB.values.NB_TOP_LENGTH,
                 "textMaxCharsPerLineBEG": SettingsDB.values.NB_BEG_LENGTH,
@@ -119,6 +126,7 @@ const TabsConfig = {
                 },
                 "getAdditions": {
                     "orbits": orbitsUrlBase,
+                    "help": '/api/tabs?q=Expedited',
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -132,6 +140,9 @@ const TabsConfig = {
                     "base": "/api/currencyrates",
                     "updateCreate": "/api/currencyrates-collections",
                     "delete": "/api/currencyrates/",
+                },
+                "getAdditions": {
+                    "help": '/api/tabs?q=CurrencyValues',
                 },
                 "defaultEditState": {
                     "val1": null,
@@ -226,6 +237,7 @@ const TabsConfig = {
                 },
                 "getAdditions": {
                     "weatherTypes": weatherTypesUrlBase,
+                    "help": '/api/tabs?q=WeatherLive',
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -292,6 +304,7 @@ const TabsConfig = {
                 },
                 "getAdditions": {
                     "weatherTypes": weatherTypesUrlBase,
+                    "help": '/api/tabs?q=WeatherLiveLiner',
                 },
                 "extraBlocks": [
                     "info-show-help-model",
@@ -304,6 +317,9 @@ const TabsConfig = {
                     "base": "/api/citytimeshifts",
                     "updateCreate": "/api/citytimeshifts-collections",
                     "delete": "/api/citytimeshifts/",
+                },
+                "getAdditions": {
+                    "help": '/api/tabs?q=TimeShift',
                 },
                 "defaultEditState": {
                     "city": null,
@@ -343,6 +359,9 @@ const TabsConfig = {
                     "base": "/api/eventcountdowns",
                     "updateCreate": "/api/eventcountdowns-collections",
                     "delete": "/api/eventcountdowns/",
+                },
+                "getAdditions": {
+                    "help": '/api/tabs?q=Countdown',
                 },
                 "defaultEditState": {
                     "title": null,
@@ -384,6 +403,7 @@ const TabsConfig = {
                 },
                 "getAdditions": {
                     "category": "/api/promocategories",
+                    "help": '/api/tabs?q=Promo',
                 },
                 "defaultEditState": {
                     "mir_id": null,
@@ -469,6 +489,9 @@ const TabsConfig = {
                     "updateCreate": "/api/nowfurtherlaters-collections",
                     "delete": "/api/nowfurtherlaters/",
                 },
+                "getAdditions": {
+                    "help": '/api/tabs?q=PhotoUpload',
+                },
                 "defaultEditState": {
                     "external_id": null,
                     "name": null,
@@ -534,10 +557,10 @@ const TabsConfig = {
                 "extraBlocks": [],
             },
             "HelpRedacting": {
-                "backendPremissionModelName": "",
+                "backendPremissionModelName": "tabs",
                 "api": {
-                    "base": "/test/helpredacting",
-                    "updateCreate": "/test/helpredacting",
+                    "base": "/api/tabs",
+                    "updateCreate": "/api/tabs-collections",
                 },
                 "extraBlocks": [
                     "confirmation-edit-next-model",
@@ -618,6 +641,12 @@ const TabsConfig = {
                 ],
             },
         };
+
+        if (currentActive.tab.currentTabClassVar) {
+            currentActive.tab.currentTabClassVar.config = Object.assign({}, this.values[currentActive.tab.currentTabClassVar.constructor.name], this.values.default);
+        } else {
+            currentActive.tab.config = Object.assign({}, this.values[currentActive.tab.constructor.name], this.values.default);
+        }
     },
     values: {}
 }
