@@ -35,3 +35,8 @@ http://127.0.0.1:8000/
 ```bash
 git pull && composer update && php artisan migrate && npm install && gulp
 ```
+
+## Документация
+
+Api - https://oradweb2.docs.apiary.io/
+Docs - https://orad-web-2-docs.readthedocs.io
