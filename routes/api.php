@@ -116,7 +116,7 @@ Route::get('tabs/{id}', 'API\TabController@show')
     ->name('tabs.show');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('mypermissions', 'API\UserController@showSelfPermissions');
+    Route::get('mypermissions', 'API\MyPermissionController@index');
     Route::get('users/{id}/permissions', 'API\UserController@showPermissions');
 
     Route::post('images', 'API\ImageController@store')

@@ -10,6 +10,11 @@ use App\Contracts\Repository;
 abstract class BaseController extends Controller
 {
     /**
+     * The resource name.
+     */
+    protected $resource;
+
+    /**
      * The repository instance.
      */
     protected $repository;
@@ -18,13 +23,19 @@ abstract class BaseController extends Controller
      * Create a new controller instance.
      *
      * @param  Repository  $repository
+     * @param  string  $resource
      * @return void
      */
-    public function __construct(Repository $repository)
+    public function __construct(Repository $repository, string $resource)
     {
         $this->repository = $repository;
+        $this->resource = $resource;
 
         $this->middleware(['log_everything']);
+        $this->middleware(['permission:see_'.$this->resource]);
+        $this->middleware(['permission:create_'.$this->resource])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_'.$this->resource])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_'.$this->resource])->only(['destroy']);
     }
 
     /**
@@ -46,9 +57,8 @@ abstract class BaseController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'data' => 'required|array'
-        ]);
+        $validatedData = $this->validateResource($request);
+
         return new CommonResource($this->repository->create($validatedData['data']));
     }
 
@@ -60,7 +70,9 @@ abstract class BaseController extends Controller
      */
     public function patchMultiple(Request $request)
     {
-        return new CommonResource($this->repository->patchMultiple($request->input('data')));
+        $validatedData = $this->validateResource($request, true, true);
+
+        return new CommonResource($this->repository->patchMultiple($validatedData['data']));
     }
 
     /**
@@ -71,7 +83,9 @@ abstract class BaseController extends Controller
      */
     public function storeMultiple(Request $request)
     {
-        return new CommonResource($this->repository->createMultiple($request->input('data')));
+        $validatedData = $this->validateResource($request, false, true);
+
+        return new CommonResource($this->repository->createMultiple($validatedData['data']));
     }
 
     /**
@@ -94,9 +108,8 @@ abstract class BaseController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $validatedData = $request->validate([
-            'data' => 'required|array'
-        ]);
+        $validatedData = $this->validateResource($request, true);
+
         return new CommonResource($this->repository->update($validatedData['data'], $id));
     }
 
@@ -109,5 +122,45 @@ abstract class BaseController extends Controller
     public function destroy(int $id)
     {
         return new CommonResource($this->repository->delete($id));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  bool $withId
+     * @param  bool $multiple
+     * @return array
+     */
+    public function validateResource(Request $request, bool $withId = false, bool $multiple = false): array
+    {
+        if (empty($this->resource)) {
+            throw new Exception('Resource name is empty.');
+        }
+
+        $user = $request->user();
+        $validationRules = $withId ? ['data.id' => 'required|integer'] : [];
+        $config = config('validation.'.$this->resource);
+
+        if ($multiple) {
+            $config['prefix'] .= '*.';
+        }
+
+        if ($user->can('update_'.$this->resource)) {
+            foreach ($config['fields'] as $field => $rule) {
+                $validationRules[$config['prefix'].$field] = $rule;
+            }
+            if ($withId) {
+                $validationRules['data.id'] = 'required|integer';
+            }
+        } else {
+            foreach ($config['fields'] as $field => $rule) {
+                if ($user->can('update_'.$field.'_'.$this->resource)) {
+                    $validationRules[$config['prefix'].$field] = $rule;
+                }
+            }
+        }
+
+        return $request->validate($validationRules);
     }
 }

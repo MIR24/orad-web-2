@@ -41,6 +41,8 @@ class Setting extends Model
 
         $func = function ($model) {
             forget_settings_hash();
+
+            config([config('validation-settings')[$model->param] => intval($model->value)+1]);
         };
 
         static::saved($func);
