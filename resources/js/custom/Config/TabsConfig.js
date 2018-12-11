@@ -3,6 +3,7 @@ import {
     validationMessages,
     weatherTypesUrlBase,
     orbitsUrlBase,
+    currentActive,
 } from "../Config/Constants"
 import SettingsDB from "../Utils/SettingsDB";
 
@@ -618,6 +619,7 @@ const TabsConfig = {
                 ],
             },
         };
+        currentActive.tab.config = Object.assign({}, this.values[currentActive.tab.constructor.name], this.values.default);
     },
     values: {}
 }

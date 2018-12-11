@@ -1,4 +1,5 @@
 import { csrf } from "../Config/Constants.js";
+import SettingsDB from "../Utils/SettingsDB";
 import { apiMethods } from "../Config/Constants.js";
 
 export function simpleAjaxPromise (method, url, data) {
@@ -19,6 +20,7 @@ export function simpleAjaxPromise (method, url, data) {
             method: method,
             data: dataTemp,
             success: data => {
+                SettingsDB.checkHash(data.meta.settings_hash);
                 resolve(data);
             },
             error: e => {
