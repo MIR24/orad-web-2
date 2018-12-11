@@ -2,6 +2,7 @@ export const currentActive = {
     tab: null,
     init (classVar) {
         this.tab = classVar;
+        this.tab.init();
     }
 };
 export const csrf = $('meta[name="csrf-token"]').attr('content');

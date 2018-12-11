@@ -7,10 +7,11 @@ import { tabContentIdJQ, apiMethods, toastrMessages } from "../Config/Constants.
 import ConformationModal from "../Modals/ConformationModal.js";
 import InfoModal from "../Modals/InfoModal.js";
 import User from "../Utils/User.js";
+import SettingsDB from "../Utils/SettingsDB";
 
 class BaseTab {
     constructor () {
-        this.config = Object.assign({}, TabsConfig.values[this.constructor.name], TabsConfig.values.default);
+        this.config = {}
         this.template = '';
         this.listeners = {};
         this.edit = {
@@ -27,6 +28,9 @@ class BaseTab {
             allUpdateFieldPremissions: {},
         };
         this.addEmptyBlockButtonId = null;
+        this.hashCheck = {
+            settings_hash: false,
+        };
     }
 
     checkPermissions (action) {
@@ -567,21 +571,23 @@ class BaseTab {
     }
 
     init () {
-        $.when.apply(null, this.getAdditions()).done(() => {
-            this.getModels().then((response) => {
-                this.setData(response.data);
-                this.getUpdateFieldPremissions();
-                this.makeTemplate();
-                this.makeUtilityBlocks();
-                this.renderTemplate();
-                this.initListeners();
-                this.initAdditionlClassesJQ();
-            }, (error) => {
-                $(tabContentIdJQ).empty();
-                toastr.error(toastrMessages.error.noData);
-            })
-            .then(function () {
-                mApp.unblockPage();
+        SettingsDB.getSettings().then(() => {
+            $.when.apply(null, this.getAdditions()).done(() => {
+                this.getModels().then((response) => {
+                    this.setData(response.data);
+                    this.getUpdateFieldPremissions();
+                    this.makeTemplate();
+                    this.makeUtilityBlocks();
+                    this.renderTemplate();
+                    this.initListeners();
+                    this.initAdditionlClassesJQ();
+                }, (error) => {
+                    $(tabContentIdJQ).empty();
+                    toastr.error(toastrMessages.error.noData);
+                })
+                .then(function () {
+                    mApp.unblockPage();
+                });
             });
         });
     }
@@ -590,15 +596,17 @@ class BaseTab {
         mApp.blockPage();
         $('body').css('padding-right','0px')
         $('.modal-backdrop').remove();
-        new Promise((resolve) => {
-            this.makeTemplate();
-            this.makeUtilityBlocks();
-            this.renderTemplate();
-            this.initListeners();
-            this.initAdditionlClassesJQ();
-            resolve();
-        }).then(function () {
-            mApp.unblockPage();
+        $.when.apply(null, [SettingsDB.getSettings(true)]).done(() => {
+            new Promise((resolve) => {
+                this.makeTemplate();
+                this.makeUtilityBlocks();
+                this.renderTemplate();
+                this.initListeners();
+                this.initAdditionlClassesJQ();
+                resolve();
+            }).then(function () {
+                mApp.unblockPage();
+            });
         });
     }
 }

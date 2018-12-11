@@ -12,6 +12,9 @@ class BaseMultiTab {
         this.currentActiveTabId = '';
         this.tabsFormatter = {};
         this.tabActiveCss = 'bg-secondary active';
+        this.hashCheck = {
+            settings_hash: false,
+        };
     }
 
     showHelp () {}
