@@ -293,7 +293,7 @@ class BaseTab {
         for (var extraBlockName in this.config.extraBlocks) {
             switch (this.config.extraBlocks[extraBlockName]) {
                 case 'info-show-help-model':
-                    block = new InfoModal(this.constructor.name, 'show-help-model', this.additions.help ? this.additions.help[0].message.replace(/^.+$/gm, '<p>$&</p>') : '');
+                    block = new InfoModal(this.constructor.name, 'show-help-model', this.additions.help && this.additions.help[0].message ? this.additions.help[0].message.replace(/^.+$/gm, '<p>$&</p>') : '');
                     block.init();
                     this.mergeUtilityBlocksInfo(block.getUtilityBlockInfo());
                     this.addListeners(block.getListeners());
