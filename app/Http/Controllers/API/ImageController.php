@@ -37,8 +37,7 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'image' => 'required|image',
-            'name' => 'string|max:255',
+            'file' => 'required|image',
         ]);
 
         return new CommonResource($this->repository->create($validatedData));
