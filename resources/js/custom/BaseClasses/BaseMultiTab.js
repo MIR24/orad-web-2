@@ -77,7 +77,7 @@ class BaseMultiTab {
         this.renderTemplate();
         this.initListeners();
         this.initActiveTab();
-        $('body').removeClass('m-page--loading');
+        mApp.unblockPage();
     }
 }
 export default BaseMultiTab

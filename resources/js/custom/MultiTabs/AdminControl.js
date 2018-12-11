@@ -16,7 +16,7 @@ class AdminControl extends BaseMultiTab {
                 'tabName': 'Настройки приложения',
             },
             'HelpRedacting': {
-                "seePremission": "",
+                "seePremission": "see_tabs",
                 'class': HelpRedacting,
                 'tabName': 'Справка'
             },

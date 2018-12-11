@@ -11,22 +11,24 @@ class HelpRedacting extends BaseMultiTabChild {
 
     makeTemplate () {
         this.template = Object.keys(this.models).map(key => {
-            if (this.validation.hasOwnProperty(key)) {
-                var tempModel = this.getValidatedObject(key);
-                return this.makeBlock(key, tempModel.errorModel.name, tempModel.errorModel.text, tempModel.errorValidation);
+            if (this.models[key].jsClass !== 'AdminControl') {
+                if (this.validation.hasOwnProperty(key)) {
+                    var tempModel = this.getValidatedObject(key);
+                    return this.makeBlock(key, tempModel.errorModel.name, tempModel.errorModel.message, tempModel.errorValidation);
+                }
+                return this.makeBlock(key, this.models[key].name, this.models[key].message, {});
             }
-            return this.makeBlock(key, this.models[key].name, this.models[key].text, {});
         })
         .join('');
     }
 
-    makeBlock (index, name, text, error) {
-        var text = new Textarea(index, 'text', text, this.checkPermissionsField('text')),
+    makeBlock (index, name, message, error) {console.log(this.checkPermissionsField('message'), this.checkPermissions('update'));
+        var message = new Textarea(index, 'message', message, this.checkPermissionsField('message')),
             controlButtons = '',
             headTemplate = '';
 
-        text.init();
-        this.addListeners(text.getListeners());
+        message.init();
+        this.addListeners(message.getListeners());
 
         if (this.edit.modelId == index) {
             var saveBtn = new SaveButton(index),
@@ -58,7 +60,7 @@ class HelpRedacting extends BaseMultiTabChild {
                 </div>`: '' }
                 <div class="m-portlet__body">
                     <form class="m-form m-form--fit m-form--label-align-right">
-                        ${this.getRow(name, text.getTemplate(), error.text)}
+                        ${this.getRow(name, message.getTemplate(), error.message)}
                     </form>
                 </div>
             </div>

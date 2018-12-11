@@ -4,7 +4,7 @@ class Textarea extends BaseComponent {
     constructor (id, valueName, value, disabled, placeholder) {
         super(id, valueName, 'input', disabled);
         this.placeholder = placeholder ? placeholder : 'Текст';
-        this.value = Object.is(value, undefined) ? '' : value;
+        this.value = Object.is(value, undefined) || Object.is(value, null) ? '' : value;
     }
 
     makeTemplate () {
@@ -12,7 +12,7 @@ class Textarea extends BaseComponent {
             ${this.disabledString}
             class="form-control m-input m-input--air"
             id="${this.id}"
-            rows="${this.value.split(/\r\n|\r|\n/).length + 1}"
+            rows="${this.value ? this.value.split(/\r\n|\r|\n/).length + 1 : 3}"
             placeholder="${this.placeholder}"
             >${this.value}</textarea>`;
     }

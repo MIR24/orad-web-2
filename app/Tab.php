@@ -24,12 +24,12 @@ class Tab extends Model implements SearchableInterface
      *
      * @var array
      */
-    protected $fillable = ['name', 'message', 'position'];
+    protected $fillable = ['name', 'message'];
 
     /**
      * Searchable columns.
      *
      * @var array
      */
-    protected $searchable = ['name'];
+    protected $searchable = ['jsClass'];
 }
