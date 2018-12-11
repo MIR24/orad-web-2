@@ -22,8 +22,8 @@ class HelpRedacting extends BaseMultiTabChild {
         .join('');
     }
 
-    makeBlock (index, name, message, error) {console.log(this.checkPermissionsField('message'), this.checkPermissions('update'));
-        var message = new Textarea(index, 'message', message, this.checkPermissionsField('message')),
+    makeBlock (index, name, message, error) {
+        var message = new Textarea(index, 'message', message, this.checkPermissionsField('message', index)),
             controlButtons = '',
             headTemplate = '';
 

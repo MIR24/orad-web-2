@@ -42,8 +42,9 @@ class BaseTab {
         return this.premissions[action];
     }
 
-    checkPermissionsField (action) {
+    checkPermissionsField (action, index) {
         if (this.edit.state === true &&
+            (!index || this.edit.modelId === index) &&
             this.checkPermissions('update_' + action) === true) {
             return true;
         }
