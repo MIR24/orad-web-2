@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Tab;
+use Backpack\Base\app\Models\BackpackUser as User;
 
 class UpdateTabs extends Migration
 {
@@ -90,6 +91,11 @@ class UpdateTabs extends Migration
                 'name' => 'Управление'
             ]
         ]);
+
+        foreach (User::all() as $user) {
+            $user->givePermissionTo('see_tabs');
+        }
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }
 
     /**
@@ -105,6 +111,9 @@ class UpdateTabs extends Migration
             $table->dropColumn('jsClass');
             $table->integer('position')->nullble()->unique();
         });
-        
+        foreach (User::all() as $user) {
+            $user->revokePermissionTo('see_tabs');
+        }
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }
 }
