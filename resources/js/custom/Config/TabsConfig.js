@@ -330,6 +330,7 @@ const TabsConfig = {
                         "fieldNames": [
                             "city",
                             "timeshift",
+                            "icon",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
