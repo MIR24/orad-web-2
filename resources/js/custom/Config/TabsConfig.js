@@ -414,6 +414,7 @@ const TabsConfig = {
                     "subheader": null,
                     "age": null,
                     "mode": 0,
+                    "img_path": null,
                 },
                 'premissions': {
                     'update': [
@@ -425,7 +426,7 @@ const TabsConfig = {
                         "subheader",
                         "age",
                         "mode",
-                        "img",
+                        "img_path",
                     ],
                 },
                 "validation": {
@@ -439,6 +440,7 @@ const TabsConfig = {
                             "subheader",
                             "age",
                             "mode",
+                            "img_path",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },

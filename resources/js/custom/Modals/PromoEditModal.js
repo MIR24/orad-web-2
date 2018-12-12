@@ -18,7 +18,7 @@ class PromoEditModal extends BaseModalEdit {
                 underTitle = new Input(this.modelId, 'subheader', this.model.subheader, this.additions.premissions.subheader, 'Подзаголовок'),
                 ageRestriction = new Input(this.modelId, 'age', this.model.age, this.additions.premissions.age, '0', 'number'),
                 mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.model.mode, this.additions.premissions.mode, this.constructor.name),
-                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, !this.additions.premissions.img),
+                imageDrop = new DropZoneCustom(this.modelId, 'img_path', this.model.img_path, this.constructor.name, this.additions.premissions.img_path),
                 error = {};
         } else {
             var mirId = new Input(this.modelId, 'mir_id', this.validationModel.errorModel.mir_id, this.additions.premissions.mir_id, 'ID МИР'),
@@ -29,7 +29,7 @@ class PromoEditModal extends BaseModalEdit {
                 underTitle = new Input(this.modelId, 'subheader', this.validationModel.errorModel.subheader, this.additions.premissions.subheader, 'Подзаголовок'),
                 ageRestriction = new Input(this.modelId, 'age', this.validationModel.errorModel.age, this.additions.premissions.age, '0', 'number'),
                 mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.validationModel.mode, this.additions.premissions.mode, this.constructor.name),
-                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, !this.additions.premissions.img),
+                imageDrop = new DropZoneCustom(this.modelId, 'img_path', this.validationModel.img_path, this.constructor.name, this.additions.premissions.img_path),
                 error = this.validationModel.errorValidation;
         }
 
@@ -56,7 +56,7 @@ class PromoEditModal extends BaseModalEdit {
         this.addAdditionlClassesJQ(this.modelId, mode);
         this.addAdditionlClassesJQ(this.modelId, imageDrop);
 
-        return `${this.getRow('Файл промо', imageDrop.getTemplate(), error.img)}
+        return `${this.getRow('Файл промо', imageDrop.getTemplate(), error.img_path)}
             ${this.getRow('ID МИР', mirId.getTemplate(), error.mir_id)}
             ${this.getRow('ID МИРHD', mirHdId.getTemplate(), error.mirhd_id)}
             ${this.getRow('Категория', category.getTemplate(), error.category)}
