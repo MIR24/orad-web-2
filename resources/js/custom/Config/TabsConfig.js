@@ -509,7 +509,6 @@ const TabsConfig = {
                         "fieldNames": [
                             "external_id",
                             "name",
-                            "path",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },

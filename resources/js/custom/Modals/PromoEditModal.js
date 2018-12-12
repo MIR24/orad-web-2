@@ -18,7 +18,7 @@ class PromoEditModal extends BaseModalEdit {
                 underTitle = new Input(this.modelId, 'subheader', this.model.subheader, this.additions.premissions.subheader, 'Подзаголовок'),
                 ageRestriction = new Input(this.modelId, 'age', this.model.age, this.additions.premissions.age, '0', 'number'),
                 mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.model.mode, this.additions.premissions.mode, this.constructor.name),
-                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, this.additions.premissions.img),
+                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, !this.additions.premissions.img),
                 error = {};
         } else {
             var mirId = new Input(this.modelId, 'mir_id', this.validationModel.errorModel.mir_id, this.additions.premissions.mir_id, 'ID МИР'),
@@ -29,7 +29,7 @@ class PromoEditModal extends BaseModalEdit {
                 underTitle = new Input(this.modelId, 'subheader', this.validationModel.errorModel.subheader, this.additions.premissions.subheader, 'Подзаголовок'),
                 ageRestriction = new Input(this.modelId, 'age', this.validationModel.errorModel.age, this.additions.premissions.age, '0', 'number'),
                 mode = new Select2Custom (this.modelId, 'mode', this.additions.mode, this.validationModel.mode, this.additions.premissions.mode, this.constructor.name),
-                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, this.additions.premissions.img),
+                imageDrop = new DropZoneCustom(this.modelId, 'img', false, this.constructor.name, !this.additions.premissions.img),
                 error = this.validationModel.errorValidation;
         }
 
