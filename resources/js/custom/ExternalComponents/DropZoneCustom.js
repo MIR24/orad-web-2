@@ -7,7 +7,6 @@ class DropZoneCustom extends BaseExternalComponent {
         super(id, type, false, disabled);
         this.value = value && value !== undefined && value !== null ? value : null;
         this.config = Object.assign({}, DropZoneConfig[configType], DropZoneConfig.default);
-        console.log(1);
         this.options = Object.assign(this.options, {
             function: 'dropzone',
             options: {
@@ -53,7 +52,7 @@ class DropZoneCustom extends BaseExternalComponent {
                 removedfile: function (file) {
                     $(this.options.custom.id).children().last().children().first().children().first().removeAttr('style');
                     file.previewElement.remove();
-                    this.options.custom.updateEditState('');
+                    this.options.custom.updateEditState(null);
                 },
                 maxfilesexceeded: function (file) {
                     toastr.error(toastrMessages.error.maxNumFiles)

@@ -330,7 +330,6 @@ const TabsConfig = {
                         "fieldNames": [
                             "city",
                             "timeshift",
-                            "icon",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
@@ -583,13 +582,14 @@ const TabsConfig = {
                     "delete": "/api/weathertypes/",
                 },
                 "defaultEditState": {
-                    "name": null,
-                    "icon": 'test',
+                    "type": null,
+                    "icon": null,
                 },
                 "validation": {
                     "notNull": {
                         "fieldNames": [
                             "type",
+                            "icon",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },

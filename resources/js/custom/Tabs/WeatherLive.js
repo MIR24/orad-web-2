@@ -98,7 +98,7 @@ class WeatherLive extends BaseTab {
         this.addListeners(status.getListeners());
         this.addAdditionlClassesJQ(index, selectWeather);
 
-        if (!this.edit.state && this.checkPermissions('delete')) {
+        if (!this.edit.state && this.checkPermissions('delete') || index === 'new') {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

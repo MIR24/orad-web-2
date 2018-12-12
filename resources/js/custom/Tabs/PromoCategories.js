@@ -74,7 +74,7 @@ class PromoCategories extends BaseMultiTabChild {
 
         this.addListeners(text.getListeners());
 
-        if (!this.edit.state && this.checkPermissions('delete')) {
+        if (!this.edit.state && this.checkPermissions('delete') || index === 'new') {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

@@ -84,7 +84,7 @@ class TimeShift extends BaseTab {
         this.addListeners(cityName.getListeners());
         this.addListeners(timeshift.getListeners());
 
-        if (!this.edit.state && this.checkPermissions('delete')) {
+        if (!this.edit.state && this.checkPermissions('delete') || index === 'new') {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
