@@ -15,19 +15,18 @@ class ImageRepository
      */
     public function create(array $attributes = [])
     {
-        if (empty($attributes['image'])) {
+        if (empty($attributes['file'])) {
             throw new FileNotFoundException("No file provided");
         }
 
-        $name = $attributes['image']->hashName();
+        $name = $attributes['file']->hashName();
 
-        if (!empty($attributes['name'])) {
-            $name = $attributes['name'].'.'.$attributes['image']->extension();
+        if (!empty($attributes['file']->name)) {
+            $name = $attributes['name']->name;
         }
 
-        $path = $attributes['image']->storeAs('public', $name);
-        $url = config('app.url').Storage::url($path);
+        Storage::disk('public_images')->put($name, file_get_contents($attributes['file']));
 
-        return ['url' => $url];
+        return ['url' => Storage::disk('public_images')->url($name)];
     }
 }

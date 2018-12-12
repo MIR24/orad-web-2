@@ -84,9 +84,13 @@ class PhotoUpload extends BaseTab {
                 <div class="m-portlet__body">
                     <div class="row pb-2">
                         <div class="col">
-                            <div class="container p-0">
-                                <img width="250" src="${testImg}">
-                            </div>
+                            ${ this.models[index].path ? `<div class="container p-0">
+                                <img width="250" src="${this.models[index].path}" alt="Фото не существует" >
+                            </div>` : `<div class="col my-auto text-center">
+                                <i class="flaticon-cancel w-100" style="font-size: 2.2em;"></i>
+                                <br>
+                                Фото не выбрано
+                            </div>` }
                         </div>
                         <div class="col mt-2 mr-4">
                             <div class="row border-bottom mb-3">

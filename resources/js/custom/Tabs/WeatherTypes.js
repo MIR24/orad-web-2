@@ -63,14 +63,22 @@ class WeatherTypes extends BaseMultiTabChild {
             }
            return this.makeBlock(key, this.models[key].type, this.models[key].icon, {});
         })
-        .join('')
-        .concat('</tbody></table></div>')
-        .concat(controlButtons);
+        .join('');
+
+        if (this.validation.hasOwnProperty('new')) {
+            var tempModel = this.getValidatedObject('new');
+            this.template = this.template.concat(
+                this.makeBlock('new', tempModel.errorModel.type, tempModel.errorModel.icon, tempModel.errorValidation)
+            );
+        }
+
+        this.template = this.template.concat('</tbody></table></div>')
+            .concat(controlButtons);
     }
 
     makeBlock(index, type, icon, error) {
         var type = new Input(index, 'type', type, this.checkPermissionsField('type'), 'Название'),
-            iconDrop = new DropZoneCustom(index, 'icon', false, this.constructor.name, this.checkPermissionsField('icon')),
+            iconDrop = new DropZoneCustom(index, 'icon', icon, this.constructor.name, this.checkPermissionsField('icon')),
             controlButtons = '';
 
         type.init();
@@ -79,7 +87,7 @@ class WeatherTypes extends BaseMultiTabChild {
         this.addListeners(type.getListeners());
         this.addAdditionlClassesJQ(index, iconDrop);
 
-        if (!this.edit.state && this.checkPermissions('delete')) {
+        if (!this.edit.state && this.checkPermissions('delete') || index === 'new') {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());
@@ -88,7 +96,7 @@ class WeatherTypes extends BaseMultiTabChild {
 
         return `<tr id="${index}">
             ${this.getRow(type.getTemplate(), error.type)}
-            ${this.getRow(iconDrop.getTemplate(), error.value)}
+            ${this.getRow(iconDrop.getTemplate(), error.icon)}
             ${controlButtons}
         </tr>`;
     }

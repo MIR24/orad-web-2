@@ -86,7 +86,7 @@ class Countdown extends BaseTab {
         this.addListeners(dateTime.getListeners());
         this.mergeAdditionlClassesJQ(dateTime.getAdditionlClassesJQ());
 
-        if (!this.edit.state && this.checkPermissions('delete')) {
+        if (!this.edit.state && this.checkPermissions('delete') || index === 'new') {
             var rmBtn = new DeleteButton(index);
             rmBtn.init();
             this.addListeners(rmBtn.getListeners());

@@ -5,13 +5,8 @@ import DropZoneConfig from "../Config/DropZoneConfig.js";
 class DropZoneCustom extends BaseExternalComponent {
     constructor (id, type, value, configType, disabled) {
         super(id, type, false, disabled);
-        this.config = DropZoneConfig[configType];
-        // TO DO
-        this.img = {
-            id: 1,
-            url: '/svg/403.svg',
-            name: 'test',
-        };
+        this.value = value && value !== undefined && value !== null ? value : null;
+        this.config = Object.assign({}, DropZoneConfig[configType], DropZoneConfig.default);
         this.options = Object.assign(this.options, {
             function: 'dropzone',
             options: {
@@ -22,30 +17,42 @@ class DropZoneCustom extends BaseExternalComponent {
                 maxFiles: 1,
                 addRemoveLinks: true,
                 dictRemoveFile: 'Удалить',
+                acceptedFiles: 'image/*',
                 custom: {
-                    img: this.img,
+                    id: '#' + this.id,
+                    img: this.value ? {
+                        id: 1,
+                        url: this.value,
+                        name: 'mockFile',
+                    } : null,
+                    modelId: this.modelId,
+                    valueName: this.valueName,
+                    updateEditState: function (path) {
+                        if (currentActive.tab.currentTabClassVar) {
+                            currentActive.tab.currentTabClassVar.updateEditState(this.modelId, this.valueName, path);
+                        } else {
+                            currentActive.tab.updateEditState(this.modelId, this.valueName, path);
+                        }
+                    }
                 },
                 init: function () {
-                    var mockFile = {
-                        name: this.options.customImgUrl,
-                        size: false,
-                    };
-
                     if (this.options.custom.img) {
-                        mockFile = new File ([''], this.options.custom.img.url);
+                        var mockFile = new File ([''], this.options.custom.img.url);
                         mockFile.accepted = true;
                         this.files.push(mockFile)
                         this.emit("addedfile", mockFile);
                         this.emit("thumbnail", mockFile, this.options.custom.img.url);
                         this.emit("complete", mockFile);
+                        $(this.options.custom.id).children().last().children().first().children().first().css('zoom', 0.2);
                     }
                 },
-                // TO DO
-                /*complete: function (file) {
-                    console.log(this, file, currentActive);
-                },*/
+                success: function (file, response) {
+                    this.options.custom.updateEditState(response.data.url);
+                },
                 removedfile: function (file) {
+                    $(this.options.custom.id).children().last().children().first().children().first().removeAttr('style');
                     file.previewElement.remove();
+                    this.options.custom.updateEditState(null);
                 },
                 maxfilesexceeded: function (file) {
                     toastr.error(toastrMessages.error.maxNumFiles)
@@ -57,7 +64,7 @@ class DropZoneCustom extends BaseExternalComponent {
 
     makeTemplate () {
         if (!this.disabled) {
-            this.template = `<img src="${this.img.url}" class="img-thumbnail">`;
+            this.template = `<img src="${this.value}" class="img-thumbnail" alt="Фото не существует">`;
         } else {
             this.template = `<div id="${this.id}" class="m-dropzone dropzone dz-clickable">
                 <div class="m-dropzone__msg dz-message needsclick">

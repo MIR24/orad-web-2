@@ -1,12 +1,9 @@
 const DropZoneConfig = {
-    'PromoEditModal': {
-        'url': '/test/uploadImg',
+    'default': {
+        'url': '/api/images',
     },
-    'PhotoUploadEdit': {
-        'url': '/test/uploadImg',
-    },
-    'WeatherTypes': {
-        'url': '/test/uploadImg',
-    },
+    'PromoEditModal': {},
+    'PhotoUploadEdit': {},
+    'WeatherTypes': {},
 }
 export default DropZoneConfig

@@ -414,6 +414,7 @@ const TabsConfig = {
                     "subheader": null,
                     "age": null,
                     "mode": 0,
+                    "img_path": null,
                 },
                 'premissions': {
                     'update': [
@@ -425,7 +426,7 @@ const TabsConfig = {
                         "subheader",
                         "age",
                         "mode",
-                        "img",
+                        "img_path",
                     ],
                 },
                 "validation": {
@@ -439,6 +440,7 @@ const TabsConfig = {
                             "subheader",
                             "age",
                             "mode",
+                            "img_path",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
@@ -509,7 +511,6 @@ const TabsConfig = {
                         "fieldNames": [
                             "external_id",
                             "name",
-                            "path",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
@@ -583,13 +584,14 @@ const TabsConfig = {
                     "delete": "/api/weathertypes/",
                 },
                 "defaultEditState": {
-                    "name": null,
-                    "icon": 'test',
+                    "type": null,
+                    "icon": null,
                 },
                 "validation": {
                     "notNull": {
                         "fieldNames": [
                             "type",
+                            "icon",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },

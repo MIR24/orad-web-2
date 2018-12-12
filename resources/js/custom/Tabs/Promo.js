@@ -6,9 +6,6 @@ import DeleteButton from "../Components/DeleteButton.js";
 import Pagination from "../Groups/Pagination.js";
 import SearchInline from "../Groups/SearchInline.js";
 
-// TO DO
-const testImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gull_portrait_ca_usa.jpg/300px-Gull_portrait_ca_usa.jpg';
-
 class Promo extends BaseTab {
     constructor () {
         super();
@@ -98,8 +95,14 @@ class Promo extends BaseTab {
                     <div class="row pb-2">
                         <div class="col">
                             <div class="container p-0">
-                                <img width="250" src="${testImg}">
-                                <h4 class="position-absolute ml-4 mt-1 fixed-top text-light">${this.models[index].age ? this.models[index].age + '+' : '-'}</h4>
+                                ${ this.models[index].img_path ? `<div class="container p-0">
+                                    <img width="250" src="${this.models[index].img_path}" alt="Фото не существует" >
+                                    <h4 class="position-absolute ml-4 mt-1 fixed-top text-light">${this.models[index].age ? this.models[index].age + '+' : '-'}</h4>
+                                </div>` : `<div class="col my-auto text-center">
+                                    <i class="flaticon-cancel w-100" style="font-size: 2.2em;"></i>
+                                    <br>
+                                    Фото не выбрано
+                                </div>` }
                             </div>
                         </div>
                         <div class="col mt-2 mr-4">

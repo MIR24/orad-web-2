@@ -25,7 +25,11 @@ class ImageController extends Controller
         $this->repository = $repository;
 
         $this->middleware(['log_everything']);
-        $this->middleware(['permission:create_images'])->only(['store']);
+        $this->middleware([
+            'permission:update_img_path_promos',
+            'permission:update_icon_weathertypes',
+            'permission:update_path_nowfurtherlaters'
+        ])->only(['store']);
     }
 
     /**
@@ -37,8 +41,7 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'image' => 'required|image',
-            'name' => 'string|max:255',
+            'file' => 'required|image',
         ]);
 
         return new CommonResource($this->repository->create($validatedData));
