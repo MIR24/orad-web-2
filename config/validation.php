@@ -33,19 +33,17 @@ return [
         'prefix' => 'data.',
         'fields' => [
             'text' => 'required|string|max:255',
-            'strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.config('validation.hotnews.string-length').',}/mu',
+            'strings' => 'nullable|string|regex:{%strings.alowed_symbols%}|not_regex:/.{{%strings.length.hotnews%},}/mu',
             'orbits' => 'array',
         ],
-        'string-length' => 91 // Must be 1 more than the database
     ],
 
     'newsbars' => [
         'prefix' => 'data.',
         'fields' => [
             'text' => 'required|string|max:255',
-            'strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.config('validation.newsbars.string-length').',}/mu',
+            'strings' => 'nullable|string|regex:{%strings.alowed_symbols%}|not_regex:/.{{%strings.length.newsbars%},}/mu',
         ],
-        'string-length' => 91 // Must be 1 more than the database
     ],
 
     'nowfurtherlaters' => [
@@ -124,18 +122,16 @@ return [
         'prefix' => 'data.',
         'fields' => [
             'text' => 'required|string|max:255',
-            'strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.config('validation.tickers.string-length').',}/mu',
+            'strings' => 'nullable|string|regex:{%strings.alowed_symbols%}|not_regex:/.{{%strings.length.tickers%},}/mu',
         ],
-        'string-length' => 91 // Must be 1 more than the database
     ],
 
     'tops' => [
         'prefix' => 'data.',
         'fields' => [
             'text' => 'required|string|max:255',
-            'strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.config('validation.tops.string-length').',}/mu',
+            'strings' => 'nullable|string|regex:{%strings.alowed_symbols%}|not_regex:/.{{%strings.length.SINGLE_TOP_LENGTH%},}/mu',
         ],
-        'string-length' => 91 // Must be 1 more than the database
     ],
 
     'users' => [

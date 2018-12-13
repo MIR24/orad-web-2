@@ -155,14 +155,23 @@ abstract class BaseController extends Controller
             $config['prefix'] .= '*.';
         }
 
+        if (isset($config['fields']['strings'])) {
+            $config['fields']['strings'] = preg_replace_callback(
+                "/{%.*?%}/",
+                function ($m) {
+                    if (!empty($m[0])) {
+                        return config(trim($m[0], "{%}"));
+                    }
+                },
+                $config['fields']['strings']
+            );
+        }
+
         $validationRules = $withId ? [$config['prefix'].'id' => 'required|integer'] : [];
 
         if ($user->can('update_'.$this->resource)) {
             foreach ($config['fields'] as $field => $rule) {
                 $validationRules[$config['prefix'].$field] = $rule;
-            }
-            if ($withId) {
-                $validationRules[$config['prefix'].'id'] = 'required|integer';
             }
         } else {
             foreach ($config['fields'] as $field => $rule) {
