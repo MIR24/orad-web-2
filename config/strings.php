@@ -22,6 +22,6 @@ return [
     |
     */
 
-    'alowed_symbols' => env('STRINGS_ALOWED_SYMBOLS', '/^[a-zA-Zа-яА-Я0-9._,!?:;\'"+\-*=%^#№&\\<>$\s]+$/i'),
+    'alowed_symbols' => env('STRINGS_ALOWED_SYMBOLS', '/^[a-zA-Zа-яёА-ЯЁ0-9._,!?:;\'"+\-*=%^#№&\\<>«»$\s]+$/iu'),
 
 ];

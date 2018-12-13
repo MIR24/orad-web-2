@@ -36,7 +36,7 @@ if (! function_exists('load_strings')) {
     }
 }
 
-if (! function_exists('get_settings')) {
+if (! function_exists('get_settings_hash')) {
     /**
      * Get app settings from cache or database.
      *
@@ -52,7 +52,7 @@ if (! function_exists('get_settings')) {
     }
 }
 
-if (! function_exists('forget_settings')) {
+if (! function_exists('forget_settings_hash')) {
     /**
      * Get app settings from cache or database.
      *
