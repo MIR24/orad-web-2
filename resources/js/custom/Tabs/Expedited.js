@@ -17,16 +17,16 @@ class Expedited extends BaseTab {
         var template = Object.keys(this.models).map(key => {
             if (this.edit.hasOwnProperty(key)) {
                 var tempModel = this.getValidatedObject(key);
-                return this.makeBlock(key, tempModel.errorModel.text, tempModel.errorModel.strings, tempModel.errorValidation);
+                return this.makeBlock(key, tempModel.errorModel.text, tempModel.errorModel.strings, tempModel.errorModel.orbits, tempModel.errorValidation);
             }
-            return this.makeBlock(key, this.models[key].text, this.models[key].strings, {});
+            return this.makeBlock(key, this.models[key].text, this.models[key].strings, this.models[key].orbits, {});
         })
         .join('');
 
         if (this.validation.hasOwnProperty('new')) {
             var tempModel = this.getValidatedObject('new');
             template = template.concat(
-                this.makeBlock('new', tempModel.errorModel.text, tempModel.errorModel.strings, tempModel.errorValidation)
+                this.makeBlock('new', tempModel.errorModel.text, tempModel.errorModel.strings, tempModel.errorModel.orbits, tempModel.errorValidation)
             );
         }
 
@@ -40,10 +40,10 @@ class Expedited extends BaseTab {
         this.template = this.getBaseContainerFullWidth(template);
     }
 
-    makeBlock (index, title, text, error) {
+    makeBlock (index, title, text, orbits, error) {
         var title = new Input(index, 'text', title, this.checkPermissionsField('text', index), 'Заголовок'),
             textarea = new TextEditor(index, 'strings', text, this.config.textMaxCharsPerLine, this.checkPermissionsField('strings', index)),
-            checkboxes = new ExpeditedCheckbox(index, 'orbits', this.additions.orbits, this.checkPermissionsField('orbits', index)),
+            checkboxes = new ExpeditedCheckbox(index, 'orbits', this.additions.orbits, orbits, this.checkPermissionsField('orbits', index)),
             controlButtons = '';
 
         title.init();
@@ -126,7 +126,7 @@ class Expedited extends BaseTab {
             'modelId': 'new',
             'state': true,
         };
-        return this.makeBlock('new', '', '', {});
+        return this.makeBlock('new', '', '', [], {});
     }
 
     modelChange (modelId, valueName, newValue) {
