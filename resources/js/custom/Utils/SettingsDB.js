@@ -29,6 +29,10 @@ const SettingsDB = {
                 toastr.error(toastrMessages.error.noData);
             });
         }
+        return new Promise((resolve) => {
+            TabsConfig.init();
+            resolve();
+        });
     }
 }
 export default SettingsDB
