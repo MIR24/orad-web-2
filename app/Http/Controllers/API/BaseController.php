@@ -149,19 +149,20 @@ abstract class BaseController extends Controller
         }
 
         $user = $request->user();
-        $validationRules = $withId ? ['data.id' => 'required|integer'] : [];
         $config = config('validation.'.$this->resource);
 
         if ($multiple) {
             $config['prefix'] .= '*.';
         }
 
+        $validationRules = $withId ? [$config['prefix'].'id' => 'required|integer'] : [];
+
         if ($user->can('update_'.$this->resource)) {
             foreach ($config['fields'] as $field => $rule) {
                 $validationRules[$config['prefix'].$field] = $rule;
             }
             if ($withId) {
-                $validationRules['data.id'] = 'required|integer';
+                $validationRules[$config['prefix'].'id'] = 'required|integer';
             }
         } else {
             foreach ($config['fields'] as $field => $rule) {
