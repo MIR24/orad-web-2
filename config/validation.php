@@ -6,7 +6,7 @@ return [
         'prefix' => 'data.',
         'fields' => [
             'city' => 'required|string|max:255',
-            'timeshift' => 'required|integer',
+            'timeshift' => 'required|numeric',
         ],
     ],
 
