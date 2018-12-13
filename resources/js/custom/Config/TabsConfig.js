@@ -335,7 +335,7 @@ const TabsConfig = {
                     },
                     "regexSuccess": {
                         "timeshift": {
-                            "regex": /^\d{0,10}$/,
+                            "regex": /^[+-]?\d{0,10}$/,
                             "flags": "g",
                             "errorMsg": validationMessages.noMoreThanInt + 10,
                         },
