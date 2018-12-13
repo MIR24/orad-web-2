@@ -97,6 +97,7 @@ return [
             'header' => 'required|string|max:255',
             'subheader' => 'required|string|max:255',
             'mode' => 'required|integer',
+            'img_path' => 'required|url',
         ],
     ],
 
