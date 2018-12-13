@@ -43,7 +43,7 @@ class AddImgPathPromo extends Migration
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         $role = Role::where(['guard_name' => 'web', 'name' => 'Promos-editor'])->first();
-        
+
         if (!empty($role)) {
             $role->revokePermissionTo('update_img_path_promos');
         }
