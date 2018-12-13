@@ -31,6 +31,16 @@ abstract class BaseController extends Controller
         $this->repository = $repository;
         $this->resource = $resource;
 
+        $this->registerActionPermissions();
+    }
+
+    /**
+     * Register actions access permissions.
+     *
+     * @return void
+     */
+    protected function registerActionPermissions()
+    {
         $this->middleware(['log_everything']);
         $this->middleware(['permission:see_'.$this->resource]);
         $this->middleware(['permission:create_'.$this->resource])->only(['store', 'storeMultiple']);
