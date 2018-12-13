@@ -2,15 +2,23 @@ import BaseComponentGroup from "../BaseClasses/BaseComponentGroup.js";
 import Checkbox from "../Components/Checkbox.js";
 
 class ExpeditedCheckbox extends BaseComponentGroup {
-    constructor (id, valueName, value, disabled) {
+    constructor (id, valueName, value, selected, disabled) {
         super(id, valueName, value, disabled);
         this.checkboxesIds = [];
+        this.selected = selected;
     }
 
     makeTemplate () {
         var checkboxAll = new Checkbox(this.id + '-all', 'all', false, this.disabled, 'Выбрать все'),
             checkboxesTemplate = Object.keys(this.value).map(key => {
-                var checkbox = new Checkbox(this.id + '-' + key, key, this.value[key].checked, this.disabled, this.value[key].name);
+                var isChecked = false;
+                for (var orbitIntex in this.selected) {
+                    if (this.selected[orbitIntex].id === this.value[key].id) {
+                        isChecked = true;
+                        break;
+                    }
+                }
+                var checkbox = new Checkbox(this.id + '-' + key, key, isChecked, this.disabled, this.value[key].name);
 
                 this.checkboxesIds.push('#' + checkbox.id);
 
