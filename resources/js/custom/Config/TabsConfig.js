@@ -171,13 +171,6 @@ const TabsConfig = {
                             "errorMsg": validationMessages.noMoreThan + 5,
                         },
                     },
-                    "regexSuccess": {
-                        "value": {
-                            "regex": /^[\+\-]?\d{0,4}$|^[\+\-]?\d{0,4}\.[\d]{0,4}?$/,
-                            "flags": "g",
-                            "errorMsg": validationMessages.noMoreThanInt + 4,
-                        },
-                    },
                 },
                 "extraBlocks": [
                     "info-show-help-model",
