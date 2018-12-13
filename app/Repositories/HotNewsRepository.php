@@ -135,8 +135,8 @@ class HotNewsRepository extends RepositoryWithStrings
                 $newRelated[] = $value;
                 continue;
             }
-            if (is_array($value) && is_int($value['id'])) {
-                $newRelated[] = $value['id'];
+            if (is_array($value) && is_numeric($value['id'])) {
+                $newRelated[] = (int) $value['id'];
             }
         }
 
