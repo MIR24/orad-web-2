@@ -34,6 +34,7 @@ return [
         'fields' => [
             'text' => 'required|string|max:255',
             'strings' => 'required|string|regex:'.config('strings.alowed_symbols').'|not_regex:/.{'.config('validation.hotnews.string-length').',}/mu',
+            'orbits' => 'array',
         ],
         'string-length' => 91 // Must be 1 more than the database
     ],

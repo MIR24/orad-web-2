@@ -45,6 +45,6 @@ class HotNewsCategory extends Model implements CategoryWithStringsInterface
      */
     public function orbits()
     {
-        return $this->belongsToMany('App\Orbit', 'HotNews_Orbit', 'HotNewsCategoriy_id', 'Orbit_id');
+        return $this->belongsToMany('App\Orbit', 'HotNewsCategories_Orbit', 'HotNewsCategoriy_id', 'Orbit_id');
     }
 }
