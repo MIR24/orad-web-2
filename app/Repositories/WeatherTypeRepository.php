@@ -24,10 +24,10 @@ class WeatherTypeRepository extends Repository
      */
     public function delete($ids)
     {
-        $model = $this->model->find($ids);
+        $model = $this->model->findOrFail($ids);
 
-        if (!empty($model) && (!empty($model->weatherForecastLiners) || !empty($model->weatherForecasts))) {
-            return ['model' => 0, 'message' => 'Иконка используется'];
+        if ($model->weatherForecastLiners()->exists() || $model->weatherForecasts()->exists()) {
+            abort(422, 'Иконка используется');
         }
 
         return ['model' => $this->model->destroy($ids)];
