@@ -14,10 +14,10 @@ class AddEmptyBlockButton extends BaseButton {
     handle (initClass, event) {
         if (this.addToId) {
             $('#' + this.addToId).append(initClass.getEmptyBlock());
-            $(event.target).prop('disabled', true);
+            $(event.target).hide();
         } else {
             $(event.target).before(initClass.getEmptyBlock())
-            .prop('disabled', true);
+            .hide();
         }
         initClass.initListeners();
         initClass.initAdditionlClassesJQ();

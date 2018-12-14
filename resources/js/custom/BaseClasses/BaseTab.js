@@ -210,7 +210,7 @@ class BaseTab {
                 delete this.edit[modelId];
                 delete this.validation[modelId];
             }
-            $('#' + this.addEmptyBlockButtonId).prop('disabled', false);
+            $('#' + this.addEmptyBlockButtonId).show();
         };
         this.utilityBlocksInfo['confirmation-delete-model'].open();
     }
