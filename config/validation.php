@@ -115,6 +115,7 @@ return [
         'fields' => [
             'name' => 'required|string|max:255',
             'message' => 'required|string|max:255',
+            'position' => 'integer',
         ],
     ],
 

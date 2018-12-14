@@ -21,6 +21,19 @@ class TabController extends BaseController
     }
 
     /**
+     * Register actions access permissions.
+     *
+     * @return void
+     */
+    protected function registerActionPermissions()
+    {
+        $this->middleware(['log_everything']);
+        $this->middleware(['permission:create_'.$this->resource])->only(['store', 'storeMultiple']);
+        $this->middleware(['permission:update_'.$this->resource])->only(['update', 'patchMultiple']);
+        $this->middleware(['permission:delete_'.$this->resource])->only(['destroy']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param  \Illuminate\Http\Request  $request
