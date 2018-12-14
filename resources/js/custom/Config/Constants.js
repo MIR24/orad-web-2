@@ -42,6 +42,7 @@ export const toastrMessages = {
         'errorAuth': 'Ошибка авторизации',
         'maxNumFiles': 'Превышено максимальное количество изображений',
         'charNotAllowed': 'Недопустимый символ: ',
+        'noPremissions': 'Недостаточно прав',
     },
     'warning': {
         'nothingToSave': 'Изменения не произведены',

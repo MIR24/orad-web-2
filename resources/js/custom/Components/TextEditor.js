@@ -40,7 +40,7 @@ class TextEditor extends BaseComponent {
 
         Object.keys(frequency).filter(function(element) {
             if (frequency[element] > 1 && element.length >= 2) {
-                text = text.replace(new RegExp(`(^|[^>a-zA-Zа-яА-ЯёЁ]|)(${element})(|[^<a-zA-Zа-яА-ЯёЁ]|$)`, 'g'), '$1<mark>$2</mark>$3');
+                text = text.replace(new RegExp(`(^|[^>a-zA-Zа-яА-ЯёЁ])(${element})([^<a-zA-Zа-яА-ЯёЁ]|$)`, 'g'), '$1<mark>$2</mark>$3');
             }
         });
         return text;
