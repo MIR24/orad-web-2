@@ -493,7 +493,7 @@ const TabsConfig = {
                 "defaultEditState": {
                     "external_id": null,
                     "name": null,
-                    "path": 'test',
+                    "path": null,
                 },
                 'premissions': {
                     'update': [
