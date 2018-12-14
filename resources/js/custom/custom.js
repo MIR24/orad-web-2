@@ -11,6 +11,7 @@ import Countdown from "./Tabs/Countdown.js";
 import Promo from "./Tabs/Promo.js";
 import PhotoUpload from "./Tabs/PhotoUpload.js";
 import AdminControl from "./MultiTabs/AdminControl.js";
+import { toastrMessages } from "./Config/Constants.js"
 
 window.addEventListener('DOMContentLoaded', () => {
     var arrayOfInitPromises = [
@@ -18,36 +19,44 @@ window.addEventListener('DOMContentLoaded', () => {
         ];
 
     $.when.apply(null, arrayOfInitPromises).done(() => {
-        var tabCounter = 0;
-        Array.from(document.querySelectorAll('a[id^=TabSwitch]')).forEach(tab => {
-            const formatters = {
-                  'Tops': Tops,
-                  'Newsbar': Newsbar,
-                  'Expedited': Expedited,
-                  'CurrencyValues': CurrencyValues,
-                  'WeatherLive': WeatherLive,
-                  'WeatherLiveLiner': WeatherLiveLiner,
-                  'TimeShift': TimeShift,
-                  'Countdown': Countdown,
-                  'Promo': Promo,
-                  'PhotoUpload': PhotoUpload,
-                  'AdminControl': AdminControl,
-            };
+        var tabCounter = 0,
+            tabsSelect = document.querySelectorAll('a[id^=TabSwitch]');
 
-            if (tabCounter === 0) {
-                tab.parentElement.className += ' m-menu__item--hover';
-                currentActive.init(new formatters[tab.attributes['data-tab-name'].value]());
-            }
+        if (tabsSelect.length) {
+            Array.from(tabsSelect).forEach(tab => {
+                const formatters = {
+                      'Tops': Tops,
+                      'Newsbar': Newsbar,
+                      'Expedited': Expedited,
+                      'CurrencyValues': CurrencyValues,
+                      'WeatherLive': WeatherLive,
+                      'WeatherLiveLiner': WeatherLiveLiner,
+                      'TimeShift': TimeShift,
+                      'Countdown': Countdown,
+                      'Promo': Promo,
+                      'PhotoUpload': PhotoUpload,
+                      'AdminControl': AdminControl,
+                };
 
-            tab.addEventListener('click', function(event) {
-                currentActive.init(new formatters[this.attributes['data-tab-name'].value]());
+                if (tabCounter === 0) {
+                    tab.parentElement.className += ' m-menu__item--hover';
+                    currentActive.init(new formatters[tab.attributes['data-tab-name'].value]());
+                }
+
+                tab.addEventListener('click', function(event) {
+                    currentActive.init(new formatters[this.attributes['data-tab-name'].value]());
+                });
+                tabCounter++;
             });
-            tabCounter++;
-        });
 
-        $('#show-help-btn').click(function(event) {
-            currentActive.tab.showHelp();
-        });
+            $('#show-help-btn').click(function(event) {
+                currentActive.tab.showHelp();
+            });
+        } else {
+            $('#show-help-btn').hide();
+            toastr.error(toastrMessages.error.noPremissions);
+            mApp.unblockPage();
+        }
     });
 });
 
