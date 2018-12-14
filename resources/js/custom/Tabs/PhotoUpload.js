@@ -17,7 +17,7 @@ class PhotoUpload extends BaseTab {
     makeTemplate () {
         var template = '',
             controlButtons = '',
-            pagination = new Pagination(this.constructor.name, this.config.pagination),
+            pagination = new Pagination(this.constructor.name, this.pagination),
             searchInline = new SearchInline(this.constructor.name, this.searchOptions);
 
         pagination.init();

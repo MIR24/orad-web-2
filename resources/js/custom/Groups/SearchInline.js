@@ -9,7 +9,7 @@ class SearchInline extends BaseComponentGroup {
 
     makeTemplate () {
         var searchBtn = new SimpleButton(this.id, 'search-inline', 'btn'),
-            searchInput = new Input(this.id, 'input', this.value.q, true, 'Поиск...', null, 'keypress');
+            searchInput = new Input(this.id, 'input', this.value.q, true, 'Поиск...', null, 'keypress change');
 
         searchBtn.init();
         searchInput.init();

@@ -23,6 +23,7 @@ class BaseTab {
         this.utilityBlocksInfo = {};
         this.validation = {};
         this.searchOptions = {};
+        this.pagination = null;
         this.premissions = {
             isLoggedIn: User.isLoggedIn,
             allUpdateFieldPremissions: {},
@@ -257,11 +258,11 @@ class BaseTab {
     }
 
     setData (response) {
-        if (this.config.hasOwnProperty('pagination')) {
-            if (response.length != this.config.pagination.params.limit) {
-                this.config.pagination.hasMore = false;
+        if (!jQuery.isEmptyObject(this.pagination)) {
+            if (response.length != this.pagination.params.limit) {
+                this.pagination.hasMore = false;
             } else {
-                this.config.pagination.hasMore = true;
+                this.pagination.hasMore = true;
             }
         }
         this.models = response;
@@ -342,15 +343,15 @@ class BaseTab {
 
     getMergedSearchOptions (offset, limit) {
         if (offset !== undefined && limit !== undefined) {
-            this.config.pagination.params.offset = offset;
-            this.config.pagination.params.limit = limit;
+            this.pagination.params.offset = offset;
+            this.pagination.params.limit = limit;
             return Object.assign({}, {
                 'offset': offset,
                 'limit': limit,
             }, this.searchOptions);
         } else {
-            this.config.pagination.params.offset = 0;
-            return Object.assign({}, this.config.pagination.params, this.searchOptions)
+            this.pagination.params.offset = 0;
+            return Object.assign({}, this.pagination.params, this.searchOptions)
         }
     }
 
@@ -366,7 +367,7 @@ class BaseTab {
 
     searchModels (query) {
         if (query) {
-            this.config.pagination.params.offset = 0;
+            this.pagination.params.offset = 0;
             this.searchOptions = {
                 'q': query,
             };

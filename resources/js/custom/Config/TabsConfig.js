@@ -644,6 +644,9 @@ const TabsConfig = {
             currentActive.tab.currentTabClassVar.config = Object.assign({}, this.values[currentActive.tab.currentTabClassVar.constructor.name], this.values.default);
         } else {
             currentActive.tab.config = Object.assign({}, this.values[currentActive.tab.constructor.name], this.values.default);
+            if (this.values[currentActive.tab.constructor.name].hasOwnProperty('pagination') && currentActive.tab.pagination === null) {
+                currentActive.tab.pagination = Object.assign({}, this.values[currentActive.tab.constructor.name].pagination);
+            }
         }
     },
     values: {}
