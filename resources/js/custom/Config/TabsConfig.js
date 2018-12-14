@@ -566,7 +566,7 @@ const TabsConfig = {
                     "notNull": {
                         "fieldNames": [
                             "name",
-                            "text",
+                            "message",
                         ],
                         'errorMsg': validationMessages.requiredField,
                     },
