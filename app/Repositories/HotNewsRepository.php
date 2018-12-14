@@ -76,6 +76,8 @@ class HotNewsRepository extends RepositoryWithStrings
 
         if (isset($attributes['orbits'])) {
             $model->orbits()->sync($this->convertManyToMany($attributes['orbits']));
+        } else {
+            $model->orbits()->detach();
         }
 
         return $this->findOrFail($model->id);
@@ -115,6 +117,8 @@ class HotNewsRepository extends RepositoryWithStrings
 
         if (isset($attributes['orbits'])) {
             $model->orbits()->sync($this->convertManyToMany($attributes['orbits']));
+        } else {
+            $model->orbits()->detach();
         }
 
         return $this->findOrFail($model->id);

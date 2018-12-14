@@ -128,6 +128,9 @@ const TabsConfig = {
                     "orbits": orbitsUrlBase,
                     "help": '/api/tabs?q=Expedited',
                 },
+                "setReleatedAdditions": [
+                    "orbits",
+                ],
                 "extraBlocks": [
                     "info-show-help-model",
                     "confirmation-delete-model",

@@ -225,20 +225,21 @@ class BaseTab {
     enterEditing (modelId) {
         if (this.config.extraBlocks.includes('confirmation-edit-next-model') && this.edit.state) {
             this.utilityBlocksInfo['confirmation-edit-next-model'].continue = () => {
-                this.edit = {
-                    'modelId': modelId,
-                    'state': true,
-                }
-                this.rerender();
+                this.enterEditingSetState(modelId);
             };
             this.utilityBlocksInfo['confirmation-edit-next-model'].open();
         } else {
-            this.edit = {
-                'modelId': modelId,
-                'state': true,
-            }
-            this.rerender();
+            this.enterEditingSetState(modelId);
         }
+    }
+
+    enterEditingSetState (modelId) {
+        this.edit = {
+            'modelId': modelId,
+            'state': true,
+        }
+        this.edit[modelId] = Object.assign({}, this.edit[modelId], this.getReleatedAdditions(modelId));
+        this.rerender();
     }
 
     cancelEditingModal () {
@@ -264,6 +265,24 @@ class BaseTab {
             }
         }
         this.models = response;
+    }
+
+    getReleatedAdditions (modelId) {
+        var result = {};
+        for (var index in this.config.setReleatedAdditions) {
+            var type = this.config.setReleatedAdditions[index],
+                typeArray = [];
+            for (var modelTypeIndex in this.models[modelId][type]) {
+                for (var additionsTypeIndex in this.additions[type]) {
+                    if (this.models[modelId][type][modelTypeIndex].id === this.additions[type][additionsTypeIndex].id) {
+                        typeArray[additionsTypeIndex] = this.additions[type][additionsTypeIndex];
+                        break;
+                    }
+                }
+            }
+            result[type] = Object.assign({}, typeArray);
+        }
+        return result;
     }
 
     makeTemplate (response) {}
@@ -494,7 +513,7 @@ class BaseTab {
 
     getValidatedObject (modelId) {
         var errorModel = this.getMergedEditStateModel(modelId),
-            errorValidation = this.validation[modelId];
+            errorValidation = this.validation[modelId] ? this.validation[modelId] : {};
 
         delete this.validation[modelId];
 
