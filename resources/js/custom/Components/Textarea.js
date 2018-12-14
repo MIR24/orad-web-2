@@ -10,7 +10,7 @@ class Textarea extends BaseComponent {
     makeTemplate () {
         this.template = `<textarea
             ${this.disabledString}
-            class="form-control m-input m-input--air"
+            class="form-control m-input"
             id="${this.id}"
             rows="${this.value ? this.value.split(/\r\n|\r|\n/).length + 1 : 3}"
             placeholder="${this.placeholder}"
