@@ -27,8 +27,48 @@ label {
     font-size: $font-size-base;
 }
 
-.textarea-vertical-line {
+.bg-disabled-custom {
+    background-color: #f4f5f8;
+}
+
+.texteditor-font {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.texteditor {
+    @extend .texteditor-font;
+
+    position: relative !important;
+    background: none transparent !important;
+}
+
+.texteditor-vertical-line {
     position: absolute;
     border-left: 1.2px solid red;
     height: 100%;
+}
+
+.texteditor-backgorund-highlite {
+    @extend .texteditor-font;
+
+    position: absolute !important;
+    top: 0 !important;
+    right: -99px !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    padding-right: 99px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    pointer-events: none;
+    padding-top: 14px;
+    padding-left: 14px;
+    white-space: pre-wrap;
+    line-height: 21.150px;
+    color: transparent !important;
+}
+
+.texteditor-backgorund-highlite > mark {
+    padding: 0;
+    background-color: yellow;
+    color: inherit;
 }

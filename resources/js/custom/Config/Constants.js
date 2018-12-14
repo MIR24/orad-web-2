@@ -41,7 +41,7 @@ export const toastrMessages = {
         'delete': 'Ошибка удаления',
         'errorAuth': 'Ошибка авторизации',
         'maxNumFiles': 'Превышено максимальное количество изображений',
-        'charNotAllowed': 'Непозволение символ: ',
+        'charNotAllowed': 'Недопустимый символ: ',
     },
     'warning': {
         'nothingToSave': 'Изменения не произведены',
@@ -62,4 +62,7 @@ export const settingsDBUrlBase = '/api/settings';
 export const settingsSeePremission = 'see_settings';
 export const weatherTypesUrlBase = '/api/weathertypes';
 export const orbitsUrlBase = '/api/orbits';
-export const editTextLineAllowedChars = /[^a-zA-Zа-яА-ЯёЁ0-9\.\,\!\?\:\;\_\`\'\"\+\-\*\=\%\^\№\~\#\&\(\)\[\]\<\>\«\»\$\s]/;
+export const textEditorConst = {
+    editTextLineAllowedCharsPattern: /[^a-zA-Zа-яА-ЯёЁ0-9\.\,\!\?\:\;\_\`\'\"\+\-\*\=\%\^\№\~\#\&\(\)\[\]\<\>\«\»\$\s]/,
+    editTextLineAllowedCharsFlag: 'g',
+}
