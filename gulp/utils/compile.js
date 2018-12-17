@@ -87,17 +87,17 @@ gulp.task('build-bundle', function (cb) {
 		}
 	});
 
-	gulp.start('copy-vendor-to-public-custom');
-
 	cb();
 });
 
 
-gulp.task('copy-vendor-to-public-custom', () => {
+gulp.task('copy-vendor-to-public-custom', (cb) => {
 	for (var one in vendorToPublicCustom) {
 	    gulp.src('./vendor'+ vendorToPublicCustom[one].vendor +'/**/*')
 	        .pipe(gulp.dest('./public/vendor'+  vendorToPublicCustom[one].public));
 	}
+
+	cb();
 });
 
 gulp.task('bundle-custom-js', (cb) => {
@@ -118,10 +118,6 @@ gulp.task('bundle-custom-js', (cb) => {
 	cb();
 });
 
-gulp.task('rm-manifest', () => {
-	return del(['rev-manifest.json']);
-})
-
 var tasks = ['clean'];
 if ((/true/i).test(build.config.compile.rtl.enabled)) {
 	tasks.push('rtl');
@@ -130,7 +126,7 @@ if ((/true/i).test(build.config.compile.rtl.enabled)) {
 // entry point
 gulp.task('default', tasks, function (cb) {
 	// clean first and then start bundling
-	return sequence('rm-manifest', ['build-bundle'], 'bundle-custom-js', cb);
+	return sequence(['build-bundle'],'bundle-custom-js', 'copy-vendor-to-public-custom', cb);
 });
 
 // html formatter
