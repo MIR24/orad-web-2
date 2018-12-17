@@ -102,6 +102,7 @@ class BaseTab {
                     }
                     toastr.success(toastrMessages.success.save);
                 }, function (error) {
+                    mApp.unblockPage();
                     if (error.responseJSON.message) {
                         toastr.error(error.responseJSON.message);
                     } else {
@@ -126,6 +127,7 @@ class BaseTab {
                         this.models[modelId] = response.data[0];
                         toastr.success(toastrMessages.success.update);
                     }, function (error) {
+                        mApp.unblockPage();
                         if (error.responseJSON.message) {
                             toastr.error(error.responseJSON.message);
                         } else {
@@ -155,6 +157,7 @@ class BaseTab {
                         this.models = Object.assign(this.models, {[response.data[0].id]: response.data[0]});
                         toastr.success(toastrMessages.success.save);
                     }, function (error) {
+                        mApp.unblockPage();
                         if (error.responseJSON.message) {
                             toastr.error(error.responseJSON.message);
                         } else {
@@ -179,6 +182,7 @@ class BaseTab {
                     }
                     toastr.success(toastrMessages.success.update);
                 }, function (error) {
+                    mApp.unblockPage();
                     if (error.responseJSON.message) {
                         toastr.error(error.responseJSON.message);
                     } else {
