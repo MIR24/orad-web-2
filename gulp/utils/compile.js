@@ -13,6 +13,8 @@ var babel = require('gulp-babel');
 var rollup = require('rollup-stream');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
+var rev = require('gulp-rev');
+var del = require('del');
 var vendorToPublicCustom = [
 	{
 		vendor: '/almasaeed2010/adminlte',
@@ -98,6 +100,28 @@ gulp.task('copy-vendor-to-public-custom', () => {
 	}
 });
 
+gulp.task('bundle-custom-js', (cb) => {
+	rollup({
+		input: 'resources/js/custom/custom.js',
+		format: 'cjs'
+	})
+	.pipe(source('custom.js'))
+	.pipe(buffer())
+	.pipe(rev())
+	.pipe(babel())
+	.pipe(gulp.dest('public/assets/custom'))
+	.pipe(rev.manifest({
+		merge: true
+	}))
+	.pipe(gulp.dest('./'));
+
+	cb();
+});
+
+gulp.task('rm-manifest', () => {
+	return del(['rev-manifest.json']);
+})
+
 var tasks = ['clean'];
 if ((/true/i).test(build.config.compile.rtl.enabled)) {
 	tasks.push('rtl');
@@ -105,17 +129,8 @@ if ((/true/i).test(build.config.compile.rtl.enabled)) {
 
 // entry point
 gulp.task('default', tasks, function (cb) {
-	rollup({
-		input: 'resources/js/custom/custom.js',
-		format: 'cjs'
-	})
-    .pipe(source('custom.js'))
-    .pipe(buffer())
-    .pipe(babel())
-    .pipe(gulp.dest('public/assets/custom'))
-
 	// clean first and then start bundling
-	return sequence(['build-bundle'], cb);
+	return sequence('rm-manifest', ['build-bundle'], 'bundle-custom-js', cb);
 });
 
 // html formatter

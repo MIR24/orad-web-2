@@ -9,7 +9,16 @@ if (! function_exists('auto_asset')) {
      */
     function auto_asset($path)
     {
-        return asset($path, config('app.secure'));
+        $revManifestDecoded = json_decode(File::get(base_path('rev-manifest.json')));
+        $urlExploded = explode('/', $path);
+        $fileName = array_pop($urlExploded);
+
+        if (isset($revManifestDecoded->{$fileName})) {
+            array_push($urlExploded, $revManifestDecoded->{$fileName});
+            return asset(implode('/', $urlExploded), config('app.secure'));
+        } else {
+            return asset($path, config('app.secure'));
+        }
     }
 }
 
@@ -61,5 +70,17 @@ if (! function_exists('forget_settings_hash')) {
     function forget_settings_hash()
     {
         return Cache::forget('app_settings');
+    }
+}
+
+if (! function_exists('get_git_version')) {
+    /**
+     * Getting application git branch version.
+     *
+     * @return string
+     */
+    function get_git_version()
+    {
+        return trim(exec('git log --pretty="%h" -n1 HEAD'));
     }
 }
