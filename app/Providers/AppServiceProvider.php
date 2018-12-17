@@ -7,6 +7,8 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Config;
 use App\Setting;
+use Backpack\PermissionManager\app\Http\Requests\RoleCrudRequest as BackpackRoleCrudRequest;
+use App\Http\Requests\RoleCrudRequest;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
+        $this->app->extend(BackpackRoleCrudRequest::class, function () {
+            return new RoleCrudRequest();
+        });
     }
 
     /**
