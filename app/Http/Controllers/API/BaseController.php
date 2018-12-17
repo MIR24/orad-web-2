@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Common as CommonResource;
 use App\Contracts\Repository;
+use Validator;
+use \Illuminate\Validation\ValidationException;
 
 abstract class BaseController extends Controller
 {
@@ -141,6 +143,8 @@ abstract class BaseController extends Controller
      * @param  bool $withId
      * @param  bool $multiple
      * @return array
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function validateResource(Request $request, bool $withId = false, bool $multiple = false): array
     {
@@ -181,6 +185,18 @@ abstract class BaseController extends Controller
             }
         }
 
-        return $request->validate($validationRules);
+        $validator = Validator::make($request->all(), $validationRules);
+
+        if ($validator->fails()) {
+            throw new ValidationException(
+                $validator,
+                new CommonResource([
+                    'message' => 'The given data was invalid.',
+                    'errors' => $validator->errors()->messages(),
+                ], 422)
+            );
+        }
+
+        return $validator->getData();
     }
 }
