@@ -102,7 +102,11 @@ class BaseTab {
                     }
                     toastr.success(toastrMessages.success.save);
                 }, function (error) {
-                    toastr.error(toastrMessages.error.save);
+                    if (error.responseJSON.message) {
+                        toastr.error(error.responseJSON.message);
+                    } else {
+                        toastr.error(toastrMessages.error.save);
+                    }
                 }).then(() => {
                     this.rerender();
                 });
@@ -122,7 +126,11 @@ class BaseTab {
                         this.models[modelId] = response.data[0];
                         toastr.success(toastrMessages.success.update);
                     }, function (error) {
-                        toastr.error(toastrMessages.error.update);
+                        if (error.responseJSON.message) {
+                            toastr.error(error.responseJSON.message);
+                        } else {
+                            toastr.error(toastrMessages.error.update);
+                        }
                     }).then(() => {
                         this.rerender();
                     });
@@ -147,7 +155,11 @@ class BaseTab {
                         this.models = Object.assign(this.models, {[response.data[0].id]: response.data[0]});
                         toastr.success(toastrMessages.success.save);
                     }, function (error) {
-                        toastr.error(toastrMessages.error.save);
+                        if (error.responseJSON.message) {
+                            toastr.error(error.responseJSON.message);
+                        } else {
+                            toastr.error(toastrMessages.error.save);
+                        }
                     })
                 );
             }
@@ -167,7 +179,11 @@ class BaseTab {
                     }
                     toastr.success(toastrMessages.success.update);
                 }, function (error) {
-                    toastr.error(toastrMessages.error.update);
+                    if (error.responseJSON.message) {
+                        toastr.error(error.responseJSON.message);
+                    } else {
+                        toastr.error(toastrMessages.error.update);
+                    }
                 })
             );
         }
