@@ -189,6 +189,11 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <!-- end::Scroll Top -->
 
+        <!-- start:Git Version -->
+        <div class="git-version">Версия {{ get_git_version() }}</div>
+        <!-- end:Git Version -->
+
+
         <!--begin::Base Scripts -->
         <script src="{{ auto_asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
         <script src="{{ auto_asset('assets/demo/demo8/base/scripts.bundle.js') }}" type="text/javascript"></script>

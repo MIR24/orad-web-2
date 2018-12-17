@@ -72,3 +72,15 @@ if (! function_exists('forget_settings_hash')) {
         return Cache::forget('app_settings');
     }
 }
+
+if (! function_exists('get_git_version')) {
+    /**
+     * Getting application git branch version.
+     *
+     * @return string
+     */
+    function get_git_version()
+    {
+        return trim(exec('git log --pretty="%h" -n1 HEAD'));
+    }
+}
