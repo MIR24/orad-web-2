@@ -203,7 +203,12 @@ class BaseTab {
                     this.rerender();
                     toastr.success(toastrMessages.success.delete);
                 }, function (error) {
-                    toastr.error(toastrMessages.error.delete);
+                    mApp.unblockPage();
+                    if (error.responseJSON.message) {
+                        toastr.error(error.responseJSON.message);
+                    } else {
+                        toastr.error(toastrMessages.error.delete);
+                    }
                 });
             } else {
                 $('#' + modelId).remove();
