@@ -208,17 +208,17 @@ $m--typography-colors: (
     light: (
         // regular text color
         regular: (
-            lighten5: lighten(#575962, 30%), // access to this color value calling get-color function as get-color(light, regular, -----) in SASS code
-            lighten4: lighten(#575962, 25%), // access to this color value calling get-color function as get-color(light, regular, ----) in SASS code
-            lighten3: lighten(#575962, 20%), // access to this color value calling get-color function as get-color(light, regular, ---) in SASS code
-            lighten2: lighten(#575962, 15%), // access to this color value calling get-color function as get-color(light, regular, --) in SASS code
-            lighten1: lighten(#575962, 10%), // access to this color value calling get-color function as get-color(light, regular, -) in SASS code
-            base:     #575962,               // access to this color value calling get-color function as get-color(light, regular) in SASS code
-            darken1:  darken(#575962, 10%),  // access to this color value calling get-color function as get-color(light, regular, +) in SASS code
-            darken2:  darken(#575962, 15%),  // access to this color value calling get-color function as get-color(light, regular, ++) in SASS code
-            darken3:  darken(#575962, 20%),  // access to this color value calling get-color function as get-color(light, regular, +++) in SASS code
-            darken4:  darken(#575962, 25%),  // access to this color value calling get-color function as get-color(light, regular, ++++) in SASS code
-            darken5:  darken(#575962, 30%)   // access to this color value calling get-color function as get-color(light, regular, +++++) in SASS code 
+            lighten5: lighten(#3e3a59, 30%), // access to this color value calling get-color function as get-color(light, regular, -----) in SASS code
+            lighten4: lighten(#3e3a59, 25%), // access to this color value calling get-color function as get-color(light, regular, ----) in SASS code
+            lighten3: lighten(#3e3a59, 20%), // access to this color value calling get-color function as get-color(light, regular, ---) in SASS code
+            lighten2: lighten(#3e3a59, 15%), // access to this color value calling get-color function as get-color(light, regular, --) in SASS code
+            lighten1: lighten(#3e3a59, 10%), // access to this color value calling get-color function as get-color(light, regular, -) in SASS code
+            base:     #3e3a59,               // access to this color value calling get-color function as get-color(light, regular) in SASS code
+            darken1:  darken(#3e3a59, 10%),  // access to this color value calling get-color function as get-color(light, regular, +) in SASS code
+            darken2:  darken(#3e3a59, 15%),  // access to this color value calling get-color function as get-color(light, regular, ++) in SASS code
+            darken3:  darken(#3e3a59, 20%),  // access to this color value calling get-color function as get-color(light, regular, +++) in SASS code
+            darken4:  darken(#3e3a59, 25%),  // access to this color value calling get-color function as get-color(light, regular, ++++) in SASS code
+            darken5:  darken(#3e3a59, 30%)   // access to this color value calling get-color function as get-color(light, regular, +++++) in SASS code
         ),
 
         // link color

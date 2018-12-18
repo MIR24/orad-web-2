@@ -1,5 +1,6 @@
 import BaseComponent from "../BaseClasses/BaseComponent.js";
 import { textEditorConst, toastrMessages } from "../Config/Constants.js";
+import Storage from "../Utils/Storage.js";
 
 class TextEditor extends BaseComponent {
     constructor (id, valueName, value, maxCharsPerLine, disabled, placeholder) {
@@ -29,6 +30,17 @@ class TextEditor extends BaseComponent {
         </div>`;
     }
 
+    getRandomColor() {
+        var letters = '0123456789ABCDEF',
+            color = '#';
+
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+
+        return color;
+    }
+
     highlightText (text) {
         var frequency = text.split(/\s+/g).reduce(function(previous, current) {
             if (!previous.hasOwnProperty(current)) {
@@ -38,9 +50,20 @@ class TextEditor extends BaseComponent {
             return previous;
         }, {});
 
-        Object.keys(frequency).filter(function(element) {
+        Object.keys(frequency).filter((element) => {
             if (frequency[element] > 1 && element.length >= 2) {
-                text = text.replace(new RegExp(`(^|[^>a-zA-Zа-яА-ЯёЁ])(${element})([^<a-zA-Zа-яА-ЯёЁ]|$)`, 'g'), '$1<mark>$2</mark>$3');
+                var color = '',
+                    storageType = 'color-' + element,
+                    storageColor = Storage.getIfExits(this.id, storageType);
+
+                if (storageColor) {
+                    color = storageColor;
+                } else {
+                    color = this.getRandomColor();
+                    Storage.put(this.id, {[storageType]: color});
+                }
+
+                text = text.replace(new RegExp(`(^|[^>a-zA-Zа-яА-ЯёЁ0-9])(${element})([^<a-zA-Zа-яА-ЯёЁ0-9]|$)`, 'g'), '$1<mark style="background-color:'+ color +'">$2</mark>$3');
             }
         });
         return text;

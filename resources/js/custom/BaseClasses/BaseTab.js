@@ -8,6 +8,7 @@ import ConformationModal from "../Modals/ConformationModal.js";
 import InfoModal from "../Modals/InfoModal.js";
 import User from "../Utils/User.js";
 import SettingsDB from "../Utils/SettingsDB";
+import Storage from "../Utils/Storage.js";
 
 class BaseTab {
     constructor () {
@@ -620,6 +621,7 @@ class BaseTab {
         SettingsDB.getSettings().then(() => {
             $.when.apply(null, this.getAdditions()).done(() => {
                 this.getModels().then((response) => {
+                    Storage.clear();
                     this.setData(response.data);
                     this.getUpdateFieldPremissions();
                     this.makeTemplate();
