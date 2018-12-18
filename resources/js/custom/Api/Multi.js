@@ -16,6 +16,7 @@ export function simpleAjaxPromise (method, url, data) {
                     resolve(data);
                 },
                 error: e => {
+                    SettingsDB.checkHash(e.responseJSON.meta.settings_hash);
                     reject(e);
                 },
             };

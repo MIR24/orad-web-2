@@ -90,7 +90,8 @@ class BaseTab {
             if (this.validation.hasOwnProperty('new')) {
                 this.rerender();
             } else {
-                this.createModels({0: this.edit.new})
+                var saveNewEdit = {0: this.edit.new};
+                this.createModels(saveNewEdit)
                 .then((response) => {
                     this.edit = {
                         'modelId': null,
@@ -102,9 +103,15 @@ class BaseTab {
                         this.models = Object.assign(this.models, {[response.data[0].id]: response.data[0]});
                     }
                     toastr.success(toastrMessages.success.save);
-                }, function (error) {
+                }, (error) => {
                     mApp.unblockPage();
-                    if (error.responseJSON.message) {
+                    if (error.responseJSON.hasOwnProperty('data') &&
+                        error.responseJSON.data.hasOwnProperty('errors') &&
+                        Object.values(error.responseJSON.data.errors)[0].length) {
+                        toastr.error(toastrMessages.error.save);
+                        Object.assign(this.edit, {[modelId]: saveNewEdit[0]});
+                        this.validationAssigne([modelId], 'strings', this.config.validation.regexFailed.strings.errorMsg);
+                    } else if (error.responseJSON.message) {
                         toastr.error(error.responseJSON.message);
                     } else {
                         toastr.error(toastrMessages.error.save);
@@ -127,9 +134,15 @@ class BaseTab {
                         };
                         this.models[modelId] = response.data[0];
                         toastr.success(toastrMessages.success.update);
-                    }, function (error) {
+                    }, (error) => {
                         mApp.unblockPage();
-                        if (error.responseJSON.message) {
+                        if (error.responseJSON.hasOwnProperty('data') &&
+                            error.responseJSON.data.hasOwnProperty('errors') &&
+                            Object.values(error.responseJSON.data.errors)[0].length) {
+                            toastr.error(toastrMessages.error.update);
+                            Object.assign(this.edit, {[modelId]: models[0]});
+                            this.validationAssigne(modelId, 'strings', this.config.validation.regexFailed.strings.errorMsg);
+                        } else if (error.responseJSON.message) {
                             toastr.error(error.responseJSON.message);
                         } else {
                             toastr.error(toastrMessages.error.update);
