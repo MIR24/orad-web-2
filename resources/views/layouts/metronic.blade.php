@@ -127,7 +127,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                 </div>
-                <div class="m-header__bottom" style="height:56px">
+                <div class="m-header">
                     <div class="m-container m-container--fluid m-container--full-height m-page__container">
                         <div class="m-stack m-stack--ver m-stack--desktop">
 
