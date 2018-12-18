@@ -210,7 +210,6 @@ class BaseTab {
 
     removeModel (modelId) {
         this.utilityBlocksInfo['confirmation-delete-model'].continue = () => {
-            console.log(modelId);
             if (this.models.hasOwnProperty(modelId)) {
                 this.deleteModel(this.models[modelId].id)
                 .then((response) => {
@@ -434,7 +433,6 @@ class BaseTab {
                 [type]: object
             };
         }
-        console.log(this.edit);
     }
 
     removeFromEditState (modelId, type, typeId) {
@@ -443,7 +441,6 @@ class BaseTab {
             this.edit[modelId][type].hasOwnProperty(typeId)) {
             delete this.edit[modelId][type][typeId];
         }
-        console.log(this.edit);
     }
 
     updateEditState (modelId, type, value) {
@@ -454,10 +451,9 @@ class BaseTab {
                 [type]: value
             };
         }
-        console.log(this.edit);
     }
 
-    validateEditState (modelId, model) {console.log(model);
+    validateEditState (modelId, model) {
         for (var fieldName in model) {
             for (var validationIndex in this.config.validation) {
                 if (this.config.validationCheckById) {

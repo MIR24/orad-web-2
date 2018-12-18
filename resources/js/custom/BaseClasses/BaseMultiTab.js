@@ -44,7 +44,7 @@ class BaseMultiTab {
         $(tabContentIdJQ).html(this.template);
     }
 
-    initActiveTab () {console.log(this);
+    initActiveTab () {
         this.currentTabClassVar = new this.tabsFormatter[this.currentActiveTabId].class(this.multiTabContentId);
         this.currentTabClassVar.init();
     }
