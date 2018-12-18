@@ -81,6 +81,6 @@ if (! function_exists('get_git_version')) {
      */
     function get_git_version()
     {
-        return trim(exec('git log --pretty="%h" -n1 HEAD'));
+        return trim(exec(config('app.gitVersionCommand')));
     }
 }
