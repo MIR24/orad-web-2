@@ -390,12 +390,7 @@ module.exports = {
 							gulp.src(bundle.src[type])
 								.pipe(concat(outputFile))
 								.pipe(_self.jsChannel()())
-								.pipe(rev())
-								.pipe(_self.outputChannel(bundle.bundle[type], outputFile)())
-								.pipe(rev.manifest({
-									merge: true
-								}))
-								.pipe(gulp.dest('./'));
+								.pipe(_self.outputChannel(bundle.bundle[type], outputFile)());
 						}
 						break;
 
@@ -434,7 +429,14 @@ module.exports = {
 						break;
 					case 'scripts':
 						if (bundle.output.hasOwnProperty(type)) {
-							gulp.src(bundle.src[type]).pipe(_self.jsChannel()()).pipe(_self.outputChannel(bundle.output[type])());
+							gulp.src(bundle.src[type])
+							.pipe(_self.jsChannel()())
+							.pipe(rev())
+							.pipe(_self.outputChannel(bundle.output[type])())
+							.pipe(rev.manifest({
+								merge: true
+							}))
+							.pipe(gulp.dest('./'));
 						}
 						break;
 					default:
