@@ -190,10 +190,10 @@ abstract class BaseController extends Controller
         if ($validator->fails()) {
             throw new ValidationException(
                 $validator,
-                new CommonResource([
+                (new CommonResource([
                     'message' => 'The given data was invalid.',
                     'errors' => $validator->errors()->messages(),
-                ], 422)
+                ]))->response()->setStatusCode(422)
             );
         }
 
