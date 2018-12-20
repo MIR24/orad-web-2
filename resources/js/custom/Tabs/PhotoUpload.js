@@ -6,9 +6,6 @@ import DeleteButton from "../Components/DeleteButton.js";
 import Pagination from "../Groups/Pagination.js";
 import SearchInline from "../Groups/SearchInline.js";
 
-// TO DO
-const testImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gull_portrait_ca_usa.jpg/300px-Gull_portrait_ca_usa.jpg';
-
 class PhotoUpload extends BaseTab {
     constructor () {
         super();

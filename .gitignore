@@ -5,6 +5,7 @@ npm-debug.log
 #Build
 /public/assets
 /public/vendor/adminlte
+package-lock.json
 
 #rev-manifest
 rev-manifest.json

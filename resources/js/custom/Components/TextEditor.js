@@ -63,7 +63,7 @@ class TextEditor extends BaseComponent {
                     Storage.put(this.id, {[storageType]: color});
                 }
 
-                text = text.replace(new RegExp(`(?<=^|\\s)(${element})(?=\\s|$)`, 'g'), `<mark style="background-color:${color}">$&</mark>`);
+                text = text.replace(new RegExp(`(^|\\s)(${element})(?=\\s|$)`, 'g'), `$1<mark style="background-color:${color}">$2</mark>`);
             }
         });
         return text;

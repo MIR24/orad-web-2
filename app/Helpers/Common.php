@@ -9,16 +9,18 @@ if (! function_exists('auto_asset')) {
      */
     function auto_asset($path)
     {
-        $revManifestDecoded = json_decode(File::get(base_path('rev-manifest.json')));
-        $urlExploded = explode('/', $path);
-        $fileName = array_pop($urlExploded);
+        $baseRevPath = base_path('rev-manifest.json');
+        if (file_exists($baseRevPath)) {
+            $revManifestDecoded = json_decode(File::get($baseRevPath));
+            $urlExploded = explode('/', $path);
+            $fileName = array_pop($urlExploded);
 
-        if (isset($revManifestDecoded->{$fileName})) {
-            array_push($urlExploded, $revManifestDecoded->{$fileName});
-            return asset(implode('/', $urlExploded), config('app.secure'));
-        } else {
-            return asset($path, config('app.secure'));
+            if (isset($revManifestDecoded->{$fileName})) {
+                array_push($urlExploded, $revManifestDecoded->{$fileName});
+                return asset(implode('/', $urlExploded), config('app.secure'));
+            }
         }
+        return asset($path, config('app.secure'));
     }
 }
 

@@ -127,6 +127,26 @@
                             "scripts": [
                                 "{$config.path.node_modules}/dropzone/dist/dropzone.js"
                             ]
+                        },
+                        "owl.carousel": {
+                            "styles": [
+                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.carousel.css",
+                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.theme.default.css"
+                            ],
+                            "scripts": [
+                                "{$config.path.node_modules}/owl.carousel/dist/owl.carousel.js"
+                            ],
+                            "images": [
+                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.video.play.png",
+                                "{$config.path.node_modules}/owl.carousel/dist/assets/ajax-loader.gif"
+                            ]
+                        },
+                        "jquery-validation": {
+                            "scripts": [
+                                "{$config.path.node_modules}/jquery-validation/dist/jquery.validate.js",
+                                "{$config.path.node_modules}/jquery-validation/dist/additional-methods.js",
+                                "{$config.path.src}/js/framework/components/plugins/forms/jquery-validation.init.js"
+                            ]
                         }
                     },
                     "optional": {
@@ -234,19 +254,6 @@
                                 "{$config.path.node_modules}/nouislider/distribute/nouislider.js"
                             ]
                         },
-                        "owl.carousel": {
-                            "styles": [
-                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.carousel.css",
-                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.theme.default.css"
-                            ],
-                            "scripts": [
-                                "{$config.path.node_modules}/owl.carousel/dist/owl.carousel.js"
-                            ],
-                            "images": [
-                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.video.play.png",
-                                "{$config.path.node_modules}/owl.carousel/dist/assets/ajax-loader.gif"
-                            ]
-                        },
                         "autosize": {
                             "scripts": [
                                 "{$config.path.node_modules}/autosize/dist/autosize.js"
@@ -288,13 +295,6 @@
                                 "{$config.path.node_modules}/markdown/lib/markdown.js",
                                 "{$config.path.node_modules}/bootstrap-markdown/js/bootstrap-markdown.js",
                                 "{$config.path.src}/js/framework/components/plugins/forms/bootstrap-markdown.init.js"
-                            ]
-                        },
-                        "jquery-validation": {
-                            "scripts": [
-                                "{$config.path.node_modules}/jquery-validation/dist/jquery.validate.js",
-                                "{$config.path.node_modules}/jquery-validation/dist/additional-methods.js",
-                                "{$config.path.src}/js/framework/components/plugins/forms/jquery-validation.init.js"
                             ]
                         },
                         "remarkable-bootstrap-notify": {

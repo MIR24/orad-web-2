@@ -35,9 +35,9 @@ class Select2Custom extends BaseExternalComponent {
         var options = '';
         for (var one in this.selectOptions) {
             if (this.selectOptions[one][this.config.id] == this.defaultVal) {
-                options = options.concat(`<option data-image="${this.config.icon}" value="${this.selectOptions[one][this.config.id]}" selected="selected">${this.selectOptions[one][this.config.text]}</option>`);
+                options = options.concat(`<option data-image="${this.selectOptions[one][this.config.icon]}" value="${this.selectOptions[one][this.config.id]}" selected="selected">${this.selectOptions[one][this.config.text]}</option>`);
             } else {
-                options = options.concat(`<option data-image="${this.config.icon}" value="${this.selectOptions[one][this.config.id]}">${this.selectOptions[one][this.config.text]}</option>`);
+                options = options.concat(`<option data-image="${this.selectOptions[one][this.config.icon]}" value="${this.selectOptions[one][this.config.id]}">${this.selectOptions[one][this.config.text]}</option>`);
             }
         }
         return options;
