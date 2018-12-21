@@ -1,3 +1,4 @@
+import "@babel/polyfill";
 import { currentActive } from "./Config/Constants";
 import User  from "./Utils/User.js";
 import Tops from "./Tabs/Tops.js";
@@ -14,6 +15,15 @@ import AdminControl from "./MultiTabs/AdminControl.js";
 import { toastrMessages } from "./Config/Constants.js"
 
 window.addEventListener('DOMContentLoaded', () => {
+    WebFont.load({
+        google: {
+            "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"]
+        },
+        active: function() {
+            sessionStorage.fonts = true;
+        }
+    });
+
     var arrayOfInitPromises = [
             User.getPremissions(),
         ];

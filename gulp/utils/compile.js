@@ -9,10 +9,6 @@ var glob = require('glob');
 var fs = require('fs');
 var pretty = require('pretty');
 var sass = require('gulp-sass');
-var babel = require('gulp-babel');
-var rollup = require('rollup-stream');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
 var rev = require('gulp-rev');
 var del = require('del');
 var vendorToPublicCustom = [
@@ -20,6 +16,32 @@ var vendorToPublicCustom = [
 		vendor: '/almasaeed2010/adminlte',
 		public: '/adminlte'
 	},
+];
+
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+const browserSync = require('browser-sync').create();
+const vinylNamed = require('vinyl-named');
+const gulpSourcemaps = require('gulp-sourcemaps');
+const gulpBabel = require('gulp-babel');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
+const path = require('path');
+
+
+// Supported Browsers
+const supportedBrowsers = [
+  'last 3 versions', // http://browserl.ist/?q=last+3+versions
+  'ie >= 10', // http://browserl.ist/?q=ie+%3E%3D+10
+  'edge >= 12', // http://browserl.ist/?q=edge+%3E%3D+12
+  'firefox >= 28', // http://browserl.ist/?q=firefox+%3E%3D+28
+  'chrome >= 21', // http://browserl.ist/?q=chrome+%3E%3D+21
+  'safari >= 6.1', // http://browserl.ist/?q=safari+%3E%3D+6.1
+  'opera >= 12.1', // http://browserl.ist/?q=opera+%3E%3D+12.1
+  'ios >= 7', // http://browserl.ist/?q=ios+%3E%3D+7
+  'android >= 4.4', // http://browserl.ist/?q=android+%3E%3D+4.4
+  'blackberry >= 10', // http://browserl.ist/?q=blackberry+%3E%3D+10
+  'operamobile >= 12.1', // http://browserl.ist/?q=operamobile+%3E%3D+12.1
+  'samsung >= 4', // http://browserl.ist/?q=samsung+%3E%3D+4
 ];
 
 // merge with default parameters
@@ -101,15 +123,36 @@ gulp.task('copy-vendor-to-public-custom', (cb) => {
 });
 
 gulp.task('bundle-custom-js', (cb) => {
-	rollup({
-		input: 'resources/js/custom/custom.js',
-		format: 'cjs'
-	})
-	.pipe(source('custom.js'))
-	.pipe(buffer())
+	gulp.src('resources/js/custom/custom.js')
+	.pipe(vinylNamed())
+	.pipe(webpackStream({
+		mode: 'development',
+		devtool: 'inline-cheap-source-map',
+		output: {
+			filename: '[name].js',
+		}
+	}, webpack))
 	.pipe(rev())
-	.pipe(babel())
+	.pipe(gulpSourcemaps.init({ loadMaps: true }))
+	.pipe(gulpBabel({
+		presets: [
+			[
+				'env', {
+					targets: {
+						browsers: supportedBrowsers
+					},
+					debug: false,
+					useBuiltIns: true,
+					include: [
+						"transform-es2015-arrow-functions",
+					],
+				}
+			]
+		],
+	}))
+	.pipe(gulpSourcemaps.write('./'))
 	.pipe(gulp.dest('public/assets/custom'))
+	.pipe(browserSync.stream())
 	.pipe(rev.manifest({
 		merge: true
 	}))
