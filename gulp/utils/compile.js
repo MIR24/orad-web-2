@@ -161,7 +161,7 @@ gulp.task('bundle-custom-js', (cb) => {
 	cb();
 });
 
-var tasks = ['clean'];
+var tasks = ['clean', 'bundle-custom-js'];
 if ((/true/i).test(build.config.compile.rtl.enabled)) {
 	tasks.push('rtl');
 }
@@ -169,7 +169,7 @@ if ((/true/i).test(build.config.compile.rtl.enabled)) {
 // entry point
 gulp.task('default', tasks, function (cb) {
 	// clean first and then start bundling
-	return sequence(['build-bundle', 'bundle-custom-js'], 'copy-vendor-to-public-custom', cb);
+	return sequence(['build-bundle'], 'copy-vendor-to-public-custom', cb);
 });
 
 // html formatter
