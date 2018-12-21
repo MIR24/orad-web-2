@@ -169,7 +169,7 @@ if ((/true/i).test(build.config.compile.rtl.enabled)) {
 // entry point
 gulp.task('default', tasks, function (cb) {
 	// clean first and then start bundling
-	return sequence(['build-bundle'],'bundle-custom-js', 'copy-vendor-to-public-custom', cb);
+	return sequence(['build-bundle', 'bundle-custom-js'], 'copy-vendor-to-public-custom', cb);
 });
 
 // html formatter
