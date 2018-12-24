@@ -28,10 +28,6 @@ class AppServiceProvider extends ServiceProvider
                 Config::set('strings.length.'.$setting->param, $setting->value+1);
             }
         }
-
-        $this->app->extend(BackpackRoleCrudRequest::class, function () {
-            return new RoleCrudRequest();
-        });
     }
 
     /**
