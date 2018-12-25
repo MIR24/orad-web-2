@@ -23,6 +23,6 @@ return [
     'password'              => 'Пароль',
     'password_confirmation' => 'Повторите пароль',
     'user_role_permission'  => 'Разрешения роли пользователя',
-    'user'                  => 'Пользователь',
+    'user'                  => 'Пользователя',
     'users'                 => 'Пользователи',
 ];
