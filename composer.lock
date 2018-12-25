@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cf04a73037b016d4c39d547843d41dcd",
-    "content-hash": "e9b2e9acf4e7a21a44f244fa75ac33d4",
+    "hash": "526e18c0a2c4cc1cd713beec8c23ec8b",
+    "content-hash": "0dd1593b43326272966e59fdb20d762e",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -192,11 +192,11 @@
         },
         {
             "name": "backpack/permissionmanager",
-            "version": "dev-fix-role-validation",
+            "version": "dev-fix-validation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MIR24/PermissionManager",
-                "reference": "ec05a80d69e234768716f69d7e150649ec79a4d7"
+                "reference": "0d4a15c24f58895bba37aa7208a0951e0e8ea14b"
             },
             "require": {
                 "backpack/crud": "^3.4.0",
@@ -266,7 +266,7 @@
                 "updivision",
                 "users roles admin"
             ],
-            "time": "2018-12-24 13:23:35"
+            "time": "2018-12-25 12:06:26"
         },
         {
             "name": "composer/installers",
@@ -5952,20 +5952,21 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "0df1908962e7a3071564e857d86874dad1ef204a"
+                "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/0df1908962e7a3071564e857d86874dad1ef204a",
-                "reference": "0df1908962e7a3071564e857d86874dad1ef204a",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/83e253c8e0be5b0257b881e1827274667c5c17a9",
+                "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3 || ^7.0"
+                "php": "^5.3.3 || ^7.0",
+                "symfony/polyfill-ctype": "^1.8"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.6",
@@ -5998,7 +5999,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2018-01-29 19:49:41"
+            "time": "2018-12-25 11:19:39"
         }
     ],
     "aliases": [],
