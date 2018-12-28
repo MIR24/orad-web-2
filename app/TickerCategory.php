@@ -5,8 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\CategoryWithStrings;
+use App\Contracts\CategoryWithStrings as CategoryWithStringsInterface;
 
-class TickerCategory extends Model
+class TickerCategory extends Model implements CategoryWithStringsInterface
 {
     use SoftDeletes;
     use CategoryWithStrings;

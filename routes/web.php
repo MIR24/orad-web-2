@@ -12,7 +12,26 @@
 */
 
 Route::get('/', function () {
-    return view('dummy'); // return view('welcome');
-});
+    if (Auth::check()) {
+        return view('dummy');
+    } else {
+        return view('auth.login');
+    }
+})->name('front');
+
+
+Route::get('/test/tops', 'TestController@getTops');
+Route::get('/test/newsbar', 'TestController@getNewsbar');
+Route::get('/test/expedited', 'TestController@getExpedited');
+Route::get('/test/currency', 'TestController@getCurrency');
+Route::get('/test/weatherlive', 'TestController@getWeather');
+Route::get('/test/timeshift', 'TestController@getTimeShift');
+Route::get('/test/countdown', 'TestController@getCountdown');
+Route::get('/test/promo', 'TestController@getPromo');
+Route::get('/test/icons', 'TestController@getIcons');
+Route::get('/test/configtextarea', 'TestController@getConfigTextArea');
+Route::get('/test/helpredacting', 'TestController@getHelpRedacting');
+Route::get('/test/photoUpload', 'TestController@getPhotoUpload');
+Route::post('/test/uploadImg', 'TestController@uploadImg');
 
 Auth::routes();

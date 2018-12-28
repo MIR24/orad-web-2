@@ -6,7 +6,7 @@ var func = require('./helpers');
 // task to clean and delete dist directory content
 var getPaths = function(outPaths) {
 	if (typeof outPaths === 'undefined') outPaths = [];
-	var paths = [];
+	var paths = ['./public/custom'];
 	var outputs = build.config.dist;
 	outputs.forEach(function(output) {
 		// has demo placeholder
@@ -29,6 +29,8 @@ var getPaths = function(outPaths) {
 		realpaths.push(path + '/*');
 		realpaths.push('!' + path + '/lib');
 	});
+
+	realpaths.unshift('rev-manifest.json');
 
 	return realpaths;
 };

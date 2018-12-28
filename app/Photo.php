@@ -5,15 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
-use App\Traits\CommonModel;
+use App\Traits\Searchable;
+use App\Contracts\Searchable as SearchableInterface;
 
-class Photo extends Model
+class Photo extends Model implements SearchableInterface
 {
     use SoftDeletes;
-    use CommonModel {
-        searchModels as traitSearchModels;
-        updateModel as traitUpdateModel;
-    }
+    use Searchable;
 
     /**
      * The attributes that should be mutated to dates.
@@ -44,46 +42,17 @@ class Photo extends Model
     protected $primaryKey = 'Id';
 
     /**
+     * Searchable columns.
+     *
+     * @var array
+     */
+    protected $searchable = ['Name', 'Title'];
+
+    /**
      * Get the category for the strings.
      */
     public function category()
     {
         return $this->belongsTo('App\PhotoCategory', 'Category_id', 'Id');
-    }
-
-    /**
-     * Search given columns for query.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  array  $columns
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public static function searchModels(Request $request, $columns = [])
-    {
-        $models = (new static)::traitSearchModels($request, $columns);
-
-        if (!empty($models)) {
-            $models->load('category');
-        }
-
-        return $models;
-    }
-
-    /**
-     * Update the model in the database.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public static function updateModel(Request $request, $id)
-    {
-        $model = (new static)::traitUpdateModel($request, $id);
-
-        if (!empty($model)) {
-            $model->load('category');
-        }
-
-        return $models;
     }
 }

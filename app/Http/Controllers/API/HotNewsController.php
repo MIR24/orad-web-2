@@ -4,17 +4,20 @@ namespace App\Http\Controllers\API;
 
 use App\Repositories\HotNewsRepository;
 use App\Http\Controllers\API\BaseController;
+use App\Http\Resources\Common as CommonResource;
+use Illuminate\Http\Request;
+use App\Setting;
 
 class HotNewsController extends BaseController
 {
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  HotNewsRepository  $repository
      * @return void
      */
     public function __construct(HotNewsRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository, 'hotnews');
     }
 }

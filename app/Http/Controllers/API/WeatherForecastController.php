@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Repositories\WeatherForecastRepository;
 use App\Http\Controllers\API\BaseController;
-use App\Http\Resources\Common as CommonCollectionResource;
+use App\Http\Resources\Common as CommonResource;
 use Illuminate\Http\Request;
 
 class WeatherForecastController extends BaseController
@@ -12,11 +12,11 @@ class WeatherForecastController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  WeatherForecastRepository  $repository
      * @return void
      */
     public function __construct(WeatherForecastRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository, 'weatherforecasts');
     }
 }

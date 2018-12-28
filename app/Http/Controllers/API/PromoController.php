@@ -12,12 +12,12 @@ class PromoController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  PromoRepository  $repository
      * @return void
      */
     public function __construct(PromoRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository, 'promos');
     }
 
     /**
@@ -30,8 +30,7 @@ class PromoController extends BaseController
     {
         return new CommonCollectionResource(
             $this->repository->search(
-                $request->input('data'),
-                config('search.promo.columns')
+                $request->query()
             )
         );
     }

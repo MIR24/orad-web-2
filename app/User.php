@@ -6,11 +6,15 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Backpack\CRUD\CrudTrait;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use CrudTrait;
+    use HasRoles;
 
     /**
      * The attributes that should be mutated to dates.
@@ -36,4 +40,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Guard, used to protect this model.
+     *
+     * @var string
+     */
+    protected $guard_name = 'web';
 }

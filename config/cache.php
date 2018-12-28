@@ -91,4 +91,15 @@ return [
         str_slug(env('APP_NAME', 'laravel'), '_').'_cache'
     ),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Default Cache TTL
+    |--------------------------------------------------------------------------
+    |
+    | Default cache time to live in minutes.
+    |
+    */
+
+    'default_ttl' => env('CACHE_DEFAULT_TTL', 1440),
+
 ];

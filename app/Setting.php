@@ -4,12 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Traits\CommonModel;
+use Illuminate\Support\Facades\Config;
 
 class Setting extends Model
 {
     use SoftDeletes;
-    use CommonModel;
 
     /**
      * The attributes that should be mutated to dates.
@@ -31,4 +30,21 @@ class Setting extends Model
      * @var string
      */
     protected $table = 'Settings';
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+        $func = function ($model) {
+            forget_settings_hash();
+            Config::set('strings.length.'.$model->param, $model->value+1);
+        };
+        static::saved($func);
+        static::deleted($func);
+        static::restored($func);
+    }
 }

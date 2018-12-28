@@ -2,6 +2,14 @@
 /node_modules
 npm-debug.log
 
+#Build
+/public/assets
+/public/vendor/adminlte
+package-lock.json
+
+#rev-manifest
+rev-manifest.json
+
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/
@@ -25,3 +33,4 @@ Homestead.json
 /.vagrant
 yarn-error.log
 .phpunit.result.cache
+/public/images

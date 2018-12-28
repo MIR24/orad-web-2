@@ -9,8 +9,8 @@
                 <div class="m-stack__item m-stack__item--fluid">
                     <div class="m-login__wrapper">
                         <div class="m-login__logo">
-                            <a href="#">
-                                <img src="{{ auto_asset('assets/app/media/img//logos/logo-2.png') }}">
+                            <a href="/">
+                                {{ config('app.name', 'Laravel') }}
                             </a>
                         </div>
                         <div class="m-login__signin">

@@ -14,6 +14,11 @@ class Common extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => parent::toArray($request),
+            'meta' => [
+                'settings_hash' => get_settings_hash(),
+            ],
+        ];
     }
 }

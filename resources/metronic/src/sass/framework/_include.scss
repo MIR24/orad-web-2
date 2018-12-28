@@ -9,3 +9,75 @@
 @import "components/base/include";
 @import "components/general/include";
 @import "components/plugins/include";
+
+body {
+    font-size: $font-size-base !important;
+    background-color: #404658;
+}
+
+label {
+    font-size: $font-size-base !important;
+}
+
+.select2 {
+    font-size: $font-size-base;
+}
+
+.select2-container {
+    font-size: $font-size-base;
+}
+
+.bg-disabled-custom {
+    background-color: #f4f5f8;
+}
+
+.texteditor-font {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.texteditor {
+    @extend .texteditor-font;
+
+    position: relative !important;
+    background: none transparent !important;
+}
+
+.texteditor-vertical-line {
+    position: absolute;
+    border-left: 1.2px solid red;
+    height: 100%;
+}
+
+.texteditor-backgorund-highlite {
+    @extend .texteditor-font;
+
+    position: absolute !important;
+    top: 0 !important;
+    right: -99px !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    padding-right: 99px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    pointer-events: none;
+    padding-top: 14px;
+    padding-left: 14px;
+    white-space: pre-wrap;
+    line-height: 21.150px;
+    color: transparent !important;
+}
+
+.texteditor-backgorund-highlite > mark {
+    padding: 0;
+    color: inherit;
+    opacity: 0.5;
+}
+
+.git-version {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 10px;
+    color: black;
+    background-color: #e4e4e5;
+}

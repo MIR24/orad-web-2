@@ -31,7 +31,7 @@ $m-config-menu-header: (
 
 					text: (
 						color: (
-							default: #795E9F,
+							default: #fff,
 							hover: lighten(#795E9F, 20%),
 							open: #382244,
 							active: $m-secondary-brand-color
@@ -44,7 +44,7 @@ $m-config-menu-header: (
 
 					icon: (
 						color: (
-							default: #795E9F,
+							default: #fff,
 							hover: lighten(#795E9F, 20%),
 							open: #888,
 							active: $m-secondary-brand-color

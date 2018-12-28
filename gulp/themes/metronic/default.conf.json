@@ -1,12 +1,11 @@
 {
     "config": {
         "demo": "demo8",
-        "debug": true,
+        "debug": false,
         "compile": {
             "rtl": {
                 "enabled": true,
                 "skip": [
-                    "select2",
                     "socicon",
                     "line-awesome",
                     "flaticon",
@@ -82,6 +81,72 @@
                             "scripts": [
                                 "{$config.path.node_modules}/wnumb/wNumb.js"
                             ]
+                        },
+                        "select2": {
+                            "styles": [
+                                "{$config.path.node_modules}/select2/dist/css/select2.css"
+                            ],
+                            "scripts": [
+                                "{$config.path.node_modules}/select2/dist/js/select2.full.js"
+                            ]
+                        },
+                        "bootstrap-datetime-picker": {
+                            "styles": [
+                                "{$config.path.node_modules}/bootstrap-datetimepicker-npm/build/css/bootstrap-datetimepicker.min.css"
+                            ],
+                            "scripts": [
+                                "{$config.path.node_modules}/bootstrap-datetimepicker-npm/build/js/bootstrap-datetimepicker.min.js"
+                            ]
+                        },
+                        "bootstrap-timepicker": {
+                            "styles": [
+                                "{$config.path.node_modules}/bootstrap-timepicker/css/bootstrap-timepicker.min.css"
+                            ],
+                            "scripts": [
+                                "{$config.path.node_modules}/bootstrap-timepicker/js/bootstrap-timepicker.min.js",
+                                "{$config.path.src}/js/framework/components/plugins/forms/bootstrap-timepicker.init.js"
+                            ]
+                        },
+                        "toastr": {
+                            "styles": [
+                                "{$config.path.node_modules}/toastr/build/toastr.css"
+                            ],
+                            "scripts": [
+                                "{$config.path.node_modules}/toastr/build/toastr.min.js"
+                            ]
+                        },
+                        "block-ui": {
+                            "scripts": [
+                                "{$config.path.node_modules}/block-ui/jquery.blockUI.js"
+                            ]
+                        },
+                        "dropzone": {
+                            "styles": [
+                                "{$config.path.node_modules}/dropzone/dist/dropzone.css"
+                            ],
+                            "scripts": [
+                                "{$config.path.node_modules}/dropzone/dist/dropzone.js"
+                            ]
+                        },
+                        "owl.carousel": {
+                            "styles": [
+                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.carousel.css",
+                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.theme.default.css"
+                            ],
+                            "scripts": [
+                                "{$config.path.node_modules}/owl.carousel/dist/owl.carousel.js"
+                            ],
+                            "images": [
+                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.video.play.png",
+                                "{$config.path.node_modules}/owl.carousel/dist/assets/ajax-loader.gif"
+                            ]
+                        },
+                        "jquery-validation": {
+                            "scripts": [
+                                "{$config.path.node_modules}/jquery-validation/dist/jquery.validate.js",
+                                "{$config.path.node_modules}/jquery-validation/dist/additional-methods.js",
+                                "{$config.path.src}/js/framework/components/plugins/forms/jquery-validation.init.js"
+                            ]
                         }
                     },
                     "optional": {
@@ -105,11 +170,6 @@
                             ],
                             "scripts": []
                         },
-                        "block-ui": {
-                            "scripts": [
-                                "{$config.path.node_modules}/block-ui/jquery.blockUI.js"
-                            ]
-                        },
                         "bootstrap-datepicker": {
                             "styles": [
                                 "{$config.path.node_modules}/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css"
@@ -117,14 +177,6 @@
                             "scripts": [
                                 "{$config.path.node_modules}/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
                                 "{$config.path.src}/js/framework/components/plugins/forms/bootstrap-datepicker.init.js"
-                            ]
-                        },
-                        "bootstrap-datetime-picker": {
-                            "styles": [
-                                "{$config.path.node_modules}/bootstrap-datetime-picker/css/bootstrap-datetimepicker.min.css"
-                            ],
-                            "scripts": [
-                                "{$config.path.node_modules}/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js"
                             ]
                         },
                         "bootstrap-timepicker": {
@@ -180,14 +232,6 @@
                                 "{$config.path.node_modules}/bootstrap-select/dist/js/bootstrap-select.js"
                             ]
                         },
-                        "select2": {
-                            "styles": [
-                                "{$config.path.node_modules}/select2/dist/css/select2.css"
-                            ],
-                            "scripts": [
-                                "{$config.path.node_modules}/select2/dist/js/select2.full.js"
-                            ]
-                        },
                         "typeahead.js": {
                             "scripts": [
                                 "{$config.path.node_modules}/typeahead.js/dist/typeahead.bundle.js",
@@ -208,19 +252,6 @@
                             ],
                             "scripts": [
                                 "{$config.path.node_modules}/nouislider/distribute/nouislider.js"
-                            ]
-                        },
-                        "owl.carousel": {
-                            "styles": [
-                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.carousel.css",
-                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.theme.default.css"
-                            ],
-                            "scripts": [
-                                "{$config.path.node_modules}/owl.carousel/dist/owl.carousel.js"
-                            ],
-                            "images": [
-                                "{$config.path.node_modules}/owl.carousel/dist/assets/owl.video.play.png",
-                                "{$config.path.node_modules}/owl.carousel/dist/assets/ajax-loader.gif"
                             ]
                         },
                         "autosize": {
@@ -245,14 +276,6 @@
                                 "{$config.path.node_modules}/ion-rangeslider/img/sprite-skin-flat.png"
                             ]
                         },
-                        "dropzone": {
-                            "styles": [
-                                "{$config.path.node_modules}/dropzone/dist/dropzone.css"
-                            ],
-                            "scripts": [
-                                "{$config.path.node_modules}/dropzone/dist/dropzone.js"
-                            ]
-                        },
                         "summernote": {
                             "styles": [
                                 "{$config.path.node_modules}/summernote/dist/summernote.css"
@@ -274,13 +297,6 @@
                                 "{$config.path.src}/js/framework/components/plugins/forms/bootstrap-markdown.init.js"
                             ]
                         },
-                        "jquery-validation": {
-                            "scripts": [
-                                "{$config.path.node_modules}/jquery-validation/dist/jquery.validate.js",
-                                "{$config.path.node_modules}/jquery-validation/dist/additional-methods.js",
-                                "{$config.path.src}/js/framework/components/plugins/forms/jquery-validation.init.js"
-                            ]
-                        },
                         "remarkable-bootstrap-notify": {
                             "scripts": [
                                 "{$config.path.node_modules}/bootstrap-notify/bootstrap-notify.min.js",
@@ -290,14 +306,6 @@
                         "animate.css": {
                             "styles": [
                                 "{$config.path.node_modules}/animate.css/animate.min.css"
-                            ]
-                        },
-                        "toastr": {
-                            "styles": [
-                                "{$config.path.node_modules}/toastr/build/toastr.css"
-                            ],
-                            "scripts": [
-                                "{$config.path.node_modules}/toastr/build/toastr.min.js"
                             ]
                         },
                         "jstree": {

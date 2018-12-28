@@ -4,12 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Traits\CommonModel;
 
 class WeatherType extends Model
 {
     use SoftDeletes;
-    use CommonModel;
 
     /**
      * The attributes that should be mutated to dates.
@@ -38,5 +36,13 @@ class WeatherType extends Model
     public function weatherForecasts()
     {
         return $this->hasMany('App\WeatherForecast', 'weather_type_id');
+    }
+
+    /**
+     * Get the forecasts for the weather type.
+     */
+    public function weatherForecastLiners()
+    {
+        return $this->hasMany('App\WeatherForecastLiner', 'weather_type_id');
     }
 }

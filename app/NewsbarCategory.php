@@ -5,8 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\CategoryWithStrings;
+use App\Contracts\CategoryWithStrings as CategoryWithStringsInterface;
 
-class NewsbarCategory extends Model
+class NewsbarCategory extends Model implements CategoryWithStringsInterface
 {
     use SoftDeletes;
     use CategoryWithStrings;

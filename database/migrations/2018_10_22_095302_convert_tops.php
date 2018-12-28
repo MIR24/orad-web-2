@@ -14,7 +14,8 @@ class ConvertTops extends Migration
     public function up()
     {
         Schema::table('Tops', function (Blueprint $table) {
-            $table->dropIndex('top_category_fk');
+            // need fix
+            //$table->dropIndex('top_category_fk');
             $table->nullableTimestamps();
             $table->softDeletes();
             $table->string('text', 511)->change();

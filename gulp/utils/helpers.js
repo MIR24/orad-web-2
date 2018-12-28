@@ -16,6 +16,7 @@ var fs = require('fs');
 var filter = require('gulp-filter');
 var autoprefixer = require('gulp-autoprefixer');
 var rtlcss = require('gulp-rtlcss');
+var rev = require('gulp-rev');
 
 // merge with default parameters
 var args = Object.assign({'prod': false}, gutil.env);
@@ -371,13 +372,25 @@ module.exports = {
 							}
 
 							// default css bundle
-							gulp.src(bundle.src[type]).pipe(_self.cssRewriter(bundle.bundle[type])()).pipe(concat(outputFile)).pipe(_self.cssChannel()()).pipe(_self.outputChannel(bundle.bundle[type], outputFile)());
+							gulp.src(bundle.src[type])
+								.pipe(_self.cssRewriter(bundle.bundle[type])())
+								.pipe(concat(outputFile))
+								.pipe(_self.cssChannel()())
+								.pipe(rev())
+								.pipe(_self.outputChannel(bundle.bundle[type], outputFile)())
+								.pipe(rev.manifest({
+									merge: true
+								}))
+								.pipe(gulp.dest('./'));
 						}
 						break;
 
 					case 'scripts':
 						if (bundle.bundle.hasOwnProperty(type)) {
-							gulp.src(bundle.src[type]).pipe(concat(outputFile)).pipe(_self.jsChannel()()).pipe(_self.outputChannel(bundle.bundle[type], outputFile)());
+							gulp.src(bundle.src[type])
+								.pipe(concat(outputFile))
+								.pipe(_self.jsChannel()())
+								.pipe(_self.outputChannel(bundle.bundle[type], outputFile)());
 						}
 						break;
 
@@ -416,7 +429,14 @@ module.exports = {
 						break;
 					case 'scripts':
 						if (bundle.output.hasOwnProperty(type)) {
-							gulp.src(bundle.src[type]).pipe(_self.jsChannel()()).pipe(_self.outputChannel(bundle.output[type])());
+							gulp.src(bundle.src[type])
+							.pipe(_self.jsChannel()())
+							.pipe(rev())
+							.pipe(_self.outputChannel(bundle.output[type])())
+							.pipe(rev.manifest({
+								merge: true
+							}))
+							.pipe(gulp.dest('./'));
 						}
 						break;
 					default:

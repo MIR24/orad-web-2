@@ -20,6 +20,11 @@ abstract class Repository implements RepositoryInterface
     protected $model;
 
     /**
+     * Builder property on class instances.
+     */
+    protected $builder;
+
+    /**
      * Constructor to bind model to repository.
      *
      * @param App $app
@@ -29,6 +34,7 @@ abstract class Repository implements RepositoryInterface
     {
         $this->app = $app;
         $this->makeModel();
+        $this->makeBuilder();
     }
 
     /**
@@ -54,14 +60,40 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
+     * @return Builder
+     * @throws RepositoryException
+     */
+    protected function makeBuilder()
+    {
+        if (!$this->model instanceof Model) {
+            throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+        }
+
+        return $this->builder = $this->model->query()->take(config('database.query.limit'));
+    }
+
+    /**
      * Get all of the models from the database.
      *
      * @param  array|mixed  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function all($columns = ['*'])
+    public function all(array $columns = ['*'])
     {
-        return $this->model->all($columns);
+        return $this->builder->get($columns);
+    }
+
+    /**
+     * Get multiple models from the database.
+     *
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function get(array $query, array $columns = ['*'])
+    {
+        $this->checkURLQuery($query);
+
+        return $this->builder->get($columns);
     }
 
     /**
@@ -72,7 +104,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function create(array $attributes = [])
     {
-        return $this->model->createWithStrings($attributes);
+        return $this->model->create($attributes);
     }
 
     /**
@@ -82,7 +114,7 @@ abstract class Repository implements RepositoryInterface
      * @param  int  $id
      * @return \Illuminate\Database\Eloquent\Model|$this
      */
-    public function update(array $attributes, $id)
+    public function update(array $attributes, int $id)
     {
         $model = $this->model->findOrFail($id);
 
@@ -92,14 +124,52 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
+     * Create multiple models and return the instances.
+     *
+     * @param  array  $models
+     * @return \Illuminate\Database\Eloquent\Model|$this
+     */
+    public function createMultiple(array $models = [])
+    {
+        $result = [];
+
+        foreach ($models as $attributes) {
+            $result[] = $this->create($attributes);
+        }
+
+        return collect($result);
+    }
+
+    /**
+     * Update or Create multiple models in the database.
+     *
+     * @param  array  $models
+     * @return \Illuminate\Database\Eloquent\Model|$this
+     */
+    public function patchMultiple(array $models)
+    {
+        $result = [];
+
+        foreach ($models as $attributes) {
+            if (!empty($attributes['id'])) {
+                $result[] = $this->update($attributes, $attributes['id']);
+            } else {
+                $result[] = $this->create($attributes);
+            }
+        }
+
+        return collect($result);
+    }
+
+    /**
      * Destroy the models for the given IDs.
      *
      * @param  array|int  $ids
-     * @return int
+     * @return array
      */
     public function delete($ids)
     {
-        return $this->model->destroy($ids);
+        return ['model' => $this->model->destroy($ids)];
     }
 
     /**
@@ -111,7 +181,7 @@ abstract class Repository implements RepositoryInterface
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function findOrFail($id, $columns = ['*'])
+    public function findOrFail($id, array $columns = ['*'])
     {
         return $this->model->findOrFail($id, $columns);
     }
@@ -126,7 +196,7 @@ abstract class Repository implements RepositoryInterface
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function findOrFailWithRelations($id, $columns = ['*'], $relations = [])
+    public function findOrFailWithRelations($id, array $columns = ['*'], $relations = [])
     {
         return $this->model->with($relations)->findOrFail($id, $columns);
     }
@@ -134,21 +204,26 @@ abstract class Repository implements RepositoryInterface
     /**
      * Search for the models from the database.
      *
-     * @param  array  $columns
+     * @param  array  $query
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function search($query, $columns = [])
+    public function search(array $query, array $columns = [])
     {
-        $builder = $this->model->query();
+        $searchKey = config('url.keys.search');
+        $this->checkURLQuery($query);
 
-        if (!empty($query[config('search.query.name')])) {
+        if (empty($columns) && $this->model instanceof \App\Contracts\Searchable) {
+            $columns = $this->model->getSearchableColumns();
+        }
+
+        if (!empty($query[$searchKey])) {
             foreach ($columns as $column) {
-                $builder->orWhere($column, 'like', '%'.$query[config('search.query.name')].'%');
+                $this->builder->orWhere($column, 'like', '%'.$query[$searchKey].'%');
             }
         }
 
-        return $builder->get();
+        return $this->builder->get();
     }
 
     /**
@@ -159,29 +234,56 @@ abstract class Repository implements RepositoryInterface
      * @param  array|string  $relations
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function searchWithRelations($query, $columns = [], $relations = [])
+    public function searchWithRelations(array $query, array $columns = [], $relations = [])
     {
-        $builder = $this->model->query();
+        $searchKey = config('url.keys.search');
+        $this->builder->with($relations);
+        $this->checkURLQuery($query);
 
-        $builder->with($relations);
+        if (empty($columns) && $this->model instanceof \App\Contracts\Searchable) {
+            $columns = $this->model->getSearchableColumns();
+        }
 
-        if (!empty($query[config('search.query.name')])) {
+        if (!empty($query[$searchKey])) {
             foreach ($columns as $column) {
-                $builder->orWhere($column, 'like', '%'.$query[config('search.query.name')].'%');
+                $this->builder->orWhere($column, 'like', '%'.$query[$searchKey].'%');
             }
         }
 
-        return $builder->get();
+        return $this->builder->get();
     }
 
     /**
      * Set the relationships that should be eager loaded.
      *
-     * @param  mixed  $relations
-     * @return Illuminate\\Database\\Eloquent\\Builder
+     * @param  mixed $relations
+     * @return App\Repositories\Repository
      */
     public function with($relations)
     {
-        return $this->model->with($relations);
+        $this->builder->with($relations);
+
+        return $this;
+    }
+
+    /**
+     * Set the relationships that should be eager loaded.
+     *
+     * @param  array $query
+     * @return App\Repositories\Repository
+     */
+    public function checkURLQuery(array $query)
+    {
+        $limitKey = config('url.keys.limit');
+        if (!empty($query[$limitKey])) {
+            $this->builder->take($query[$limitKey]);
+        }
+
+        $offsetKey = config('url.keys.offset');
+        if (!empty($query[$offsetKey])) {
+            $this->builder->skip($query[$offsetKey]);
+        }
+
+        return $this;
     }
 }

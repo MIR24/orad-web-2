@@ -1,0 +1,105 @@
+const ButtonsConfig = {
+    "base": {
+        "text": "",
+        "cssClass": "",
+        "additions": "",
+    },
+    "add-empty-block": {
+        "text": "+ Добавить",
+        "cssClass": "btn-primary mr-1",
+    },
+    "save-model": {
+        "text": "Сохранить",
+        "cssClass": "btn-success",
+    },
+    "remove-model": {
+        "text": "Удалить",
+        "cssClass": "btn-danger",
+    },
+    "cancel-model-redacting": {
+        "text": "Отменить",
+        "cssClass": "btn-danger ml-2",
+    },
+    "enter-model-redacting": {
+        "text": "Редактировать",
+        "cssClass": "btn-primary mr-2",
+    },
+    "arrow-spinner": {
+        "firstKey": 1,
+        "options": {
+            0: {
+                "text": "-",
+                "cssClass": "btn-dark col-xl",
+                "newModelValue": 0,
+            },
+            1: {
+                "text": "↗",
+                "cssClass": "btn-success col-xl",
+                "newModelValue": 1,
+            },
+            2: {
+                "text": "↘",
+                "cssClass": "btn-danger col-xl",
+                "newModelValue": 2,
+            },
+            3: {
+                "text": "→",
+                "cssClass": "btn-secondary col-xl",
+                "newModelValue": 3,
+            }
+        },
+        "optionsSwitcher": {
+            0: 0,
+            1: 1,
+            2: 2,
+            3: 3,
+        },
+    },
+    'modal-enter-create': {
+        "text": "Создать",
+        "cssClass": "btn-primary",
+        "additions": 'data-toggle="modal"',
+    },
+    'modal-enter-edit': {
+        "text": "Редактировать",
+        "cssClass": "btn-primary",
+        "additions": 'data-toggle="modal"',
+    },
+    'modal-exit-edit': {
+        "text": "Отменить",
+        "cssClass": "btn-danger",
+    },
+    'modal-exit-edit-top': {
+        "text": '<span aria-hidden="true">×</span>',
+        "cssClass": "close",
+    },
+    'modal-save-edit': {
+        "text": "Сохранить",
+        "cssClass": "btn-success",
+    },
+    'pagination-forward': {
+        "text": "Вперед",
+        "cssClass": "btn-outline-primary m-btn--wide",
+    },
+    'pagination-back': {
+        "text": "Назад",
+        "cssClass": "btn-outline-primary m-btn--wide",
+    },
+    'confirmation-modal-ok': {
+        "text": "Да",
+        "cssClass": "btn-success m-btn--wide",
+    },
+    'confirmation-modal-no': {
+        "text": "Нет",
+        "cssClass": "btn-danger m-btn--wide",
+    },
+    'search-inline': {
+        "text": '<i class="la la-search"></i>',
+        "cssClass": "btn-primary",
+    },
+    'close': {
+        "text": 'Закрыть',
+        "cssClass": "btn-danger",
+    }
+}
+export default ButtonsConfig

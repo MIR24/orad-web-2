@@ -3,6 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Config;
+use App\Setting;
+use Backpack\PermissionManager\app\Http\Requests\RoleCrudRequest as BackpackRoleCrudRequest;
+use App\Http\Requests\RoleCrudRequest;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,9 +17,17 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(UrlGenerator $url)
     {
-        //
+        if (config('app.secure')) {
+            $url->formatScheme('https');
+        }
+
+        if (Schema::hasTable('Settings')) {
+            foreach (Setting::all() as $setting) {
+                Config::set('strings.length.'.$setting->param, $setting->value+1);
+            }
+        }
     }
 
     /**
@@ -23,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (config('app.secure')) {
+            $this->app['request']->server->set('HTTPS', true);
+        }
     }
 }

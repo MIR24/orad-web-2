@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Repositories\PhotoRepository;
 use App\Http\Controllers\API\BaseController;
-use App\Http\Resources\Common as CommonCollectionResource;
+use App\Http\Resources\Common as CommonResource;
 use Illuminate\Http\Request;
 
 class PhotoController extends BaseController
@@ -12,12 +12,12 @@ class PhotoController extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @param  UserRepository  $users
+     * @param  PhotoRepository  $repository
      * @return void
      */
     public function __construct(PhotoRepository $repository)
     {
-        $this->repository = $repository;
+        parent::__construct($repository, 'photos');
     }
 
     /**
@@ -28,10 +28,9 @@ class PhotoController extends BaseController
      */
     public function index(Request $request)
     {
-        return new CommonCollectionResource(
+        return new CommonResource(
             $this->repository->search(
-                $request->input('data'),
-                config('search.photo.columns')
+                $request->query()
             )
         );
     }

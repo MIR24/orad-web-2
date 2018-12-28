@@ -10,7 +10,7 @@ interface Repository
      * @param  array|mixed  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function all($columns = ['*']);
+    public function all(array $columns = ['*']);
 
     /**
      * Save a new model and return the instance.
@@ -27,7 +27,7 @@ interface Repository
      * @param  int  $id
      * @return \Illuminate\Database\Eloquent\Model|$this
      */
-    public function update(array $attributes, $id);
+    public function update(array $attributes, int $id);
 
     /**
      * Destroy the models for the given IDs.
@@ -46,7 +46,7 @@ interface Repository
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function findOrFail($id, $columns = ['*']);
+    public function findOrFail($id, array $columns = ['*']);
 
     /**
      * Search for the models from the database.
@@ -55,5 +55,5 @@ interface Repository
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function search($query, $columns = []);
+    public function search(array $query, array $columns = []);
 }
