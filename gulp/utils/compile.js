@@ -149,6 +149,7 @@ gulp.task('bundle-custom-js', (cb) => {
 				}
 			]
 		],
+		compact: true,
 	}))
 	.pipe(gulpSourcemaps.write('./'))
 	.pipe(gulp.dest('public/assets/custom'))
