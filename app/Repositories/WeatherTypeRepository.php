@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Repositories\Repository;
+use App\Http\Resources\Common as CommonResource;
 
 class WeatherTypeRepository extends Repository
 {
@@ -27,7 +28,11 @@ class WeatherTypeRepository extends Repository
         $model = $this->model->findOrFail($ids);
 
         if ($model->weatherForecastLiners()->exists() || $model->weatherForecasts()->exists()) {
-            abort(422, 'Иконка используется');
+            abort(
+                (new CommonResource(['message' => 'Иконка используется.']))
+                    ->response()
+                    ->setStatusCode(422)
+            );
         }
 
         return ['model' => $this->model->destroy($ids)];
