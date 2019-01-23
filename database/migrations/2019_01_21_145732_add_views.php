@@ -29,9 +29,9 @@ class AddViews extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW BreakingView');
-        DB::statement('DROP VIEW ExchangeView');
-        DB::statement('DROP VIEW PromoView');
-        DB::statement('DROP VIEW TopsView');
+        DB::statement('DROP VIEW IF EXISTS BreakingView');
+        DB::statement('DROP VIEW IF EXISTS ExchangeView');
+        DB::statement('DROP VIEW IF EXISTS PromoView');
+        DB::statement('DROP VIEW IF EXISTS TopsView');
     }
 }
