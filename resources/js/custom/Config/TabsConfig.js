@@ -192,7 +192,7 @@ const TabsConfig = {
                     "city": null,
                     "morning": null,
                     "evening": null,
-                    "weather_type_id": 0,
+                    "weather_type_id": 1,
                 },
                 "validation": {
                     "notNull": {
@@ -253,7 +253,7 @@ const TabsConfig = {
                     "morning": null,
                     "now": null,
                     "evening": null,
-                    "weather_type_id": 0,
+                    "weather_type_id": 1,
                 },
                 "validation": {
                     "notNull": {
